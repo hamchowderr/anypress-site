@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MockSite } from "@/components/SiteTypeDemo";
-import { Accent, CtaBand, PageHero } from "@/components/ui";
-import { SITE_TYPES, checkoutUrl } from "@/lib/site";
+import { Arrow, Check, SiteParts } from "@/components/Drawings";
+import { type Band, CtaBand, PageHero } from "@/components/ui";
+import { SITE_TYPES, type SiteTypeId, checkoutUrl } from "@/lib/site";
+
+// Each site type takes its colour from the ribbon, in the same order as the homepage steps.
+const BANDS: Record<SiteTypeId, Band> = {
+  website: "amber",
+  bookings: "orange",
+  store: "red",
+  community: "rose",
+  everything: "magenta",
+};
 
 export function generateStaticParams() {
   return SITE_TYPES.map((t) => ({ type: t.id }));
@@ -20,97 +29,98 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
   const t = SITE_TYPES.find((s) => s.id === type);
   if (!t) notFound();
   const others = SITE_TYPES.filter((s) => s.id !== t.id);
+  const band = BANDS[t.id];
 
   return (
     <>
-      <PageHero eyebrow={`${t.name} · from $${t.from}/mo`} title={t.headline} lead={t.pitch}>
-        <div className="mt-9 flex flex-wrap gap-3">
-          <a href={t.itemId ? checkoutUrl(t.itemId) : "/pricing"} className="btn btn-ribbon">
-            Start a {t.short.toLowerCase()} site
-          </a>
-          <Link href="/pricing" className="btn btn-ghost">
-            See pricing
-          </Link>
+      <PageHero band={band} title={t.headline} lead={t.pitch}>
+        <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+          {t.itemId ? (
+            <a href={checkoutUrl(t.itemId)} className={`btn text-lg ${band === "magenta" ? "btn-paper" : "btn-ink"}`}>
+              Start your {t.short.toLowerCase()} site
+            </a>
+          ) : (
+            <Link href="/contact" className={`btn text-lg ${band === "magenta" ? "btn-paper" : "btn-ink"}`}>
+              Ask us to set one up
+            </Link>
+          )}
+          <p className="text-lg">
+            <span className="font-display text-4xl font-black">${t.from}</span> a month to start
+          </p>
         </div>
       </PageHero>
 
-      <section className="band-paper py-24">
-        <div className="mx-auto grid max-w-7xl items-start gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_1.1fr]">
-          <div className="rounded-2xl border border-paper-line bg-white shadow-[0_30px_80px_-30px_rgba(22,20,27,0.35)] lg:sticky lg:top-28">
-            <div className="flex items-center gap-2 border-b border-paper-line px-4 py-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-              <span className="ml-3 truncate rounded-md bg-paper px-3 py-1 font-mono text-xs text-on-paper-muted">
-                {t.demoHost}
-              </span>
-            </div>
-            <div className="bg-paper p-5 sm:rounded-b-2xl">
-              <MockSite type={t} />
-            </div>
+      <section className="assembly-scope bg-paper">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:py-28">
+          <div className="rounded-3xl border-[2.5px] border-ink p-6 sm:p-10">
+            <SiteParts state="assemble" className="w-full" />
           </div>
           <div>
-            <p className="eyebrow">What you get</p>
-            <h2 className="font-display mt-4 text-4xl leading-tight font-extrabold sm:text-5xl">
-              Installed, set up, <Accent tone="rust">ready.</Accent>
-            </h2>
-            <ul className="mt-10 space-y-8">
-              {t.features.map((f, i) => (
-                <li key={f.title} className="grid grid-cols-[3rem_1fr] gap-4">
-                  <span className="font-display text-ribbon text-4xl leading-none font-extrabold">{i + 1}</span>
-                  <div>
-                    <h3 className="font-display text-2xl font-bold">{f.title}</h3>
-                    <p className="mt-2 leading-7 text-on-paper-muted">{f.body}</p>
-                  </div>
-                </li>
+            <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black">What it does for you.</h2>
+            <dl className="mt-10 space-y-8">
+              {t.features.map((f) => (
+                <div key={f.title}>
+                  <dt className="text-xl font-bold">{f.title}</dt>
+                  <dd className="mt-1 text-lg leading-8 text-ink-soft">{f.body}</dd>
+                </div>
               ))}
-            </ul>
-            <div className="mt-12 rounded-3xl border border-paper-line bg-white p-6">
-              <p className="eyebrow">Comes with</p>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {t.tools.map((tool) => (
-                  <li key={tool} className="rounded-full border border-paper-line px-3 py-1 text-sm">
-                    {tool}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-5 text-sm leading-6 text-on-paper-muted">
-                Plus what every AnyPress site gets: its own WordPress and database, SSL, nightly backups, a free
-                .anypress.site address, your own domain and email from it.
-              </p>
-            </div>
+            </dl>
           </div>
         </div>
       </section>
 
-      <section className="grain relative py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <p className="eyebrow">Made for</p>
-          <ul className="mt-6 flex flex-wrap gap-3">
-            {t.idealFor.map((who) => (
-              <li
-                key={who}
-                className="font-display rounded-full border border-ink-line px-5 py-3 text-xl font-bold sm:text-2xl"
-              >
-                {who}
+      <section className="border-t-[2.5px] border-ink bg-paper-2">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
+          <div>
+            <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] font-black">In the box.</h2>
+            <ul className="mt-8 max-w-lg space-y-2 text-lg">
+              {[...t.inBox, "The padlock, nightly copies and your own web address"].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                      <Check className="mt-0.5 h-6 w-6 shrink-0" />
+                      {item}
+                    </li>
+              ))}
+            </ul>
+            <p className="mt-6 text-ink-soft">
+              Know WordPress? The tools are listed by name on{" "}
+              <Link href="/included" className="font-bold text-ink underline">
+                what&apos;s included
+              </Link>
+              .
+            </p>
+          </div>
+          <div>
+            <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] font-black">Made for.</h2>
+            <ul className="mt-8 flex flex-wrap gap-2">
+              {t.idealFor.map((x) => (
+                <li key={x} className="rounded-full border-[2.5px] border-ink bg-paper px-4 py-1.5 text-lg font-bold">
+                  {x}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t-[2.5px] border-ink bg-paper">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+          <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] font-black">Building something else?</h2>
+          <ul className="mt-8 border-t-[2.5px] border-ink">
+            {others.map((o) => (
+              <li key={o.id} className="border-b-[2.5px] border-ink">
+                <Link href={`/sites/${o.id}`} className="group flex items-center justify-between gap-6 py-5">
+                  <span>
+                    <span className="block text-xl font-bold group-hover:underline">{o.name}</span>
+                    <span className="block text-lg text-ink-soft">{o.pitch}</span>
+                  </span>
+                  <span className="flex items-center gap-4">
+                    <span className="hidden text-lg sm:inline">${o.from} a month</span>
+                    <Arrow className="h-7 w-7 transition-transform duration-200 group-hover:translate-x-1" />
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>
-
-          <p className="eyebrow mt-20">Building something else?</p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {others.map((o) => (
-              <Link
-                key={o.id}
-                href={`/sites/${o.id}`}
-                className="group rounded-3xl border border-ink-line bg-ink-2 p-6 transition-colors hover:border-orange/60"
-              >
-                <h3 className="font-display text-2xl font-bold">{o.name}</h3>
-                <p className="mt-2 text-sm text-on-ink-muted">from ${o.from}/mo</p>
-                <span className="mt-6 inline-block text-orange transition-transform group-hover:translate-x-1">→</span>
-              </Link>
-            ))}
-          </div>
         </div>
       </section>
 

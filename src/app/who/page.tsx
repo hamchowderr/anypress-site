@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Accent, CtaBand, PageHero } from "@/components/ui";
+import { CtaBand, PageHero } from "@/components/ui";
 import { AUDIENCE_GROUPS, SITE_TYPES } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -12,69 +12,54 @@ export default function Who() {
   return (
     <>
       <PageHero
-        eyebrow="Who it's for"
-        title={
-          <>
-            Built for <Accent>any</Accent> business that runs on a website.
-          </>
-        }
-        lead="AnyPress isn't for one kind of customer. It's WordPress, set up for the job, for whoever needs that job done."
+        band="rose"
+        title="Made for every kind of business."
+        lead="AnyPress isn't for one kind of customer. It's a website, set up for the job you need done."
       >
-        <nav className="mt-10 flex flex-wrap gap-2">
+        <nav className="mt-10 flex flex-wrap gap-2" aria-label="Jump to a group">
           {AUDIENCE_GROUPS.map((g) => (
-            <a
-              key={g.id}
-              href={`#${g.id}`}
-              className="rounded-full border border-ink-line px-4 py-2 text-sm text-on-ink-muted transition-colors hover:border-on-ink-muted hover:text-on-ink"
-            >
+            <a key={g.id} href={`#${g.id}`} className="rounded-full border-[2.5px] border-ink bg-paper px-4 py-1.5 font-bold hover:bg-ink hover:text-paper">
               {g.name}
             </a>
           ))}
         </nav>
       </PageHero>
 
-      <section className="band-paper py-12 sm:py-20">
-        <div className="mx-auto max-w-7xl space-y-4 px-4 sm:px-6">
-          {AUDIENCE_GROUPS.map((g, i) => (
+      <section className="bg-paper">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
+          {AUDIENCE_GROUPS.map((g) => (
             <article
               key={g.id}
               id={g.id}
-              className="grid scroll-mt-24 gap-8 rounded-[2rem] border border-paper-line bg-white p-8 sm:p-10 lg:grid-cols-[auto_1fr_1fr] lg:items-center"
+              className="grid scroll-mt-24 gap-6 border-b-[2.5px] border-ink py-12 first:border-t-[2.5px] lg:grid-cols-[1fr_1fr] lg:gap-14"
             >
-              <span className="font-display text-ribbon text-7xl leading-none font-extrabold">
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <div>
-                <p className="eyebrow">{g.name}</p>
-                <h2 className="font-display mt-3 text-3xl leading-tight font-extrabold sm:text-4xl">{g.line}</h2>
+                <h2 className="font-display text-[clamp(2rem,3.6vw,3rem)] leading-[1] font-black text-balance">{g.name}</h2>
+                <p className="mt-4 text-2xl font-bold">{g.line}</p>
               </div>
               <div>
-                <p className="leading-7 text-on-paper-muted">{g.body}</p>
-                <p className="mt-5 flex flex-wrap items-center gap-2 text-sm">
-                  <span className="text-on-paper-muted">Start with</span>
+                <p className="text-xl leading-8">{g.body}</p>
+                <div className="mt-6 flex flex-wrap items-center gap-2">
+                  <span className="text-lg text-ink-soft">Good place to start:</span>
                   {g.fits.map((id) => {
                     const t = SITE_TYPES.find((s) => s.id === id)!;
                     return (
-                      <Link
-                        key={id}
-                        href={`/sites/${id}`}
-                        className="rounded-full border border-paper-line px-3 py-1 font-medium transition-colors hover:border-[#d9481f] hover:text-[#d9481f]"
-                      >
+                      <Link key={id} href={`/sites/${id}`} className="rounded-full border-[2.5px] border-ink px-3 py-1 font-bold hover:bg-ink hover:text-paper">
                         {t.name}
                       </Link>
                     );
                   })}
-                  {g.id === "agencies" && (
-                    <Link href="/agencies" className="font-medium text-[#d9481f] underline-offset-4 hover:underline">
-                      Agency details →
-                    </Link>
-                  )}
-                  {g.id === "saas" && (
-                    <Link href="/developers" className="font-medium text-[#d9481f] underline-offset-4 hover:underline">
-                      Developer details →
-                    </Link>
-                  )}
-                </p>
+                </div>
+                {g.id === "agencies" && (
+                  <Link href="/agencies" className="mt-5 inline-block text-lg font-bold underline">
+                    How it works for agencies
+                  </Link>
+                )}
+                {g.id === "saas" && (
+                  <Link href="/developers" className="mt-5 inline-block text-lg font-bold underline">
+                    Details for your developers
+                  </Link>
+                )}
               </div>
             </article>
           ))}

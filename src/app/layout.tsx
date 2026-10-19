@@ -1,44 +1,34 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Anybody, Atkinson_Hyperlegible_Next } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Headlines and step numbers: a heavy grotesque that widens, like the numbers in an assembly booklet.
+const anybody = Anybody({
+  variable: "--font-anybody",
   subsets: ["latin"],
+  axes: ["wdth"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Body text: built for easy reading.
+const atkinson = Atkinson_Hyperlegible_Next({
+  variable: "--font-atkinson",
   subsets: ["latin"],
-});
-
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  subsets: ["latin"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  fallback: ["system-ui", "sans-serif"],
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://anypress.io"),
-  title: { default: "AnyPress: any website, on its own WordPress", template: "%s · AnyPress" },
+  title: { default: "AnyPress: pick a website, we'll put it together", template: "%s · AnyPress" },
   description:
-    "Websites, online stores, bookings, communities and courses, each on its own WordPress with the tools already set up. Your domain, your email, nightly backups, and no cut of your sales.",
+    "AnyPress is WordPress, set up and looked after for you. Pick a website, a shop, bookings or a members' area, and we hand it over ready to use. No cut of your sales.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} ${instrumentSerif.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${anybody.variable} ${atkinson.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
         <SiteHeader />
         <main className="flex-1">{children}</main>

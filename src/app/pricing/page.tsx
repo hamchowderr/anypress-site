@@ -1,132 +1,96 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Accent, CtaBand, PageHero } from "@/components/ui";
+import { BoxIcon, Check } from "@/components/Drawings";
+import { CtaBand, PageHero } from "@/components/ui";
 import { SITE_TYPES, checkoutUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Pricing",
-  description: "One monthly price per site, by what you're building. No cut of your sales.",
+  title: "Prices",
+  description: "One monthly price per site, set by what you're building. No cut of your sales.",
 };
 
-const EVERY_PLAN = [
-  "Its own WordPress and database",
-  "Free .anypress.site address",
-  "Connect your own domain",
-  "Email from your own domain",
-  "SSL certificate, renewed for you",
-  "Nightly backups and restore",
-  "One-click sign-in to WordPress",
+const EVERY_SITE = [
+  "Your own private website, not shared with anyone",
+  "A free web address to start with",
+  "Use your own web address when you're ready",
+  "Email that sends from your own address",
+  "The padlock in the address bar, renewed for you",
+  "A copy of your site saved every night",
+  "Your site's editor, one click from your account",
   "No cut of your sales",
 ];
 
 const PRICING_FAQ = [
   [
-    "Why does a store cost more than a website?",
-    "Stores, bookings and communities run heavier tools and send more email, and their pages can't be cached the way a blog's can. The price follows what the site needs.",
+    "Why does a shop cost more than a website?",
+    "Shops, bookings and members' areas do more work and send more email, so they need more from the computers they run on. The price follows what the site needs.",
   ],
   [
-    "Can I change my site type later?",
-    "Talk to us. Every site type is the same WordPress underneath, so moving up means adding tools, not starting over.",
+    "Can I change to a different box later?",
+    "Yes, talk to us. Every site is built the same way underneath, so moving up means adding to your site, not starting over.",
   ],
-  [
-    "Are there transaction fees?",
-    "Not from us. Stripe charges its normal card fee on payments; AnyPress adds nothing on top.",
-  ],
-  [
-    "How do I cancel?",
-    "From your account on the AnyPress shop, any time.",
-  ],
+  ["Do you charge a fee on sales?", "No. The card company charges its normal fee on payments, and we add nothing on top."],
+  ["How do I cancel?", "From your account, any time."],
 ];
 
 export default function Pricing() {
   return (
     <>
       <PageHero
-        eyebrow="Pricing"
-        title={
-          <>
-            Pay for what you build. <Accent>Not</Accent> for what you sell.
-          </>
-        }
-        lead="One monthly price per site, set by the kind of site it is. Every plan is a complete WordPress with the tools for that job installed."
+        band="orange"
+        title="Pay for what you build, not for what you sell."
+        lead="One monthly price per site, set by the kind of site it is. These are starting prices, for the starting size."
       />
 
-      <section className="band-paper py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-            {SITE_TYPES.map((t) => {
-              const dark = t.id === "everything";
-              return (
-                <article
-                  key={t.id}
-                  className={`relative flex flex-col rounded-3xl border p-6 ${
-                    dark ? "border-transparent bg-ink text-on-ink lg:-my-4 lg:py-10" : "border-paper-line bg-white"
-                  }`}
-                >
-                  {dark && (
-                    <span className="bg-ribbon absolute -top-3 left-6 rounded-full px-3 py-1 text-xs font-bold text-ink">
-                      Every tool
-                    </span>
-                  )}
-                  <h2 className="font-display text-2xl font-bold">{t.name}</h2>
-                  <p className="mt-5">
-                    <span className="text-sm opacity-60">from</span>{" "}
-                    <span className="font-display text-5xl font-extrabold">${t.from}</span>
-                    <span className="text-sm opacity-60">/mo</span>
+      <section className="bg-paper">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+          <ol className="border-t-[2.5px] border-ink">
+            {SITE_TYPES.map((t) => (
+              <li key={t.id} className="grid gap-6 border-b-[2.5px] border-ink py-8 md:grid-cols-[1.2fr_1.4fr_auto] md:items-center md:gap-10">
+                <div className="flex items-start gap-4">
+                  <BoxIcon className="h-12 w-12 shrink-0" />
+                  <div>
+                    <h2 className="font-display text-2xl font-extrabold">{t.name}</h2>
+                    <p className="mt-1 text-lg text-ink-soft">{t.pitch}</p>
+                  </div>
+                </div>
+                <ul className="space-y-1.5 text-lg">
+                  {t.inBox.map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <Check className="mt-0.5 h-6 w-6 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-center gap-5 md:flex-col md:items-end">
+                  <p>
+                    <span className="font-display text-5xl font-black">${t.from}</span>
+                    <span className="text-ink-soft"> a month</span>
                   </p>
-                  <p className={`mt-4 text-sm leading-6 ${dark ? "text-on-ink-muted" : "text-on-paper-muted"}`}>
-                    {t.pitch}
-                  </p>
-                  <ul className="mt-6 flex-1 space-y-2 text-sm">
-                    {t.tools.map((tool) => (
-                      <li key={tool} className="flex gap-2">
-                        <span aria-hidden className="text-orange">
-                          ✓
-                        </span>
-                        {tool}
-                      </li>
-                    ))}
-                  </ul>
                   {t.itemId ? (
-                    <a href={checkoutUrl(t.itemId)} className="btn btn-ribbon mt-8 w-full">
+                    <a href={checkoutUrl(t.itemId)} className="btn btn-ink">
                       Start now
                     </a>
                   ) : (
-                    <span
-                      className={`mt-8 rounded-full border px-4 py-3 text-center text-sm ${
-                        dark ? "border-ink-line text-on-ink-muted" : "border-paper-line text-on-paper-muted"
-                      }`}
-                    >
-                      Opening soon
-                    </span>
+                    <Link href="/contact" className="btn btn-paper">
+                      Ask us to set one up
+                    </Link>
                   )}
-                  <Link href={`/sites/${t.id}`} className="mt-3 text-center text-sm underline-offset-4 hover:underline">
-                    What&apos;s included
-                  </Link>
-                </article>
-              );
-            })}
-          </div>
-          <p className="mt-10 text-center text-sm text-on-paper-muted">
-            Starting prices for one site. Bigger sizes for busier sites are on the way.
-          </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-6 text-ink-soft">Bigger sizes for busier sites are on the way.</p>
         </div>
       </section>
 
-      <section className="grain relative py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2">
-          <div>
-            <p className="eyebrow">In every plan</p>
-            <h2 className="font-display mt-4 text-5xl leading-[0.95] font-extrabold">
-              The boring parts, <span className="text-ribbon">handled.</span>
-            </h2>
-          </div>
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {EVERY_PLAN.map((x) => (
-              <li key={x} className="flex items-center gap-3 rounded-2xl border border-ink-line bg-ink-2 px-4 py-4">
-                <span className="bg-ribbon flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold text-ink">
-                  ✓
-                </span>
+      <section className="border-t-[2.5px] border-ink bg-amber">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
+          <h2 className="font-display text-[clamp(2.4rem,5vw,4rem)] leading-[0.95] font-black text-balance">In every box, whatever you pick.</h2>
+          <ul className="space-y-3">
+            {EVERY_SITE.map((x) => (
+              <li key={x} className="flex items-start gap-3 text-lg font-bold">
+                <Check className="mt-0.5 h-6 w-6 shrink-0" />
                 {x}
               </li>
             ))}
@@ -134,28 +98,28 @@ export default function Pricing() {
         </div>
       </section>
 
-      <section className="band-paper py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_1.6fr]">
-          <h2 className="font-display text-5xl leading-[0.95] font-extrabold">
-            Pricing <Accent tone="rust">questions.</Accent>
-          </h2>
-          <div className="divide-y divide-paper-line border-y border-paper-line">
+      <section className="border-t-[2.5px] border-ink bg-paper">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.6fr]">
+          <h2 className="font-display text-[clamp(2.4rem,5vw,4rem)] leading-[0.95] font-black">Price questions.</h2>
+          <div className="border-t-[2.5px] border-ink">
             {PRICING_FAQ.map(([q, a]) => (
-              <details key={q} className="group py-5">
-                <summary className="font-display flex cursor-pointer list-none items-center justify-between gap-6 text-xl font-bold [&::-webkit-details-marker]:hidden">
+              <details key={q} className="group border-b-[2.5px] border-ink py-5">
+                <summary className="flex cursor-pointer items-center justify-between gap-6 text-xl font-bold">
                   {q}
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-paper-line text-lg transition-transform group-open:rotate-45">
-                    +
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-[2.5px] border-ink transition-transform duration-200 group-open:rotate-45">
+                    <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                      <path d="M8 2v12M2 8h12" />
+                    </svg>
                   </span>
                 </summary>
-                <p className="mt-3 max-w-2xl leading-7 text-on-paper-muted">{a}</p>
+                <p className="mt-3 max-w-2xl text-lg leading-8 text-ink-soft">{a}</p>
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      <CtaBand title="Not sure which one?" body="Tell us what you're building and we'll point you to the right site type." href="/contact" label="Ask us" />
+      <CtaBand title="Not sure which one?" body="Tell us what you're building and we'll point you to the right box." href="/contact" label="Ask us" />
     </>
   );
 }

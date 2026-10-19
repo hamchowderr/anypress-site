@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Accent, CtaBand, PageHero } from "@/components/ui";
+import Link from "next/link";
+import { CtaBand, PageHero } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Developers",
@@ -45,72 +46,69 @@ export default function Developers() {
   return (
     <>
       <PageHero
-        eyebrow="Developers & SaaS teams"
-        title={
-          <>
-            WordPress sites, <Accent>on demand.</Accent>
-          </>
-        }
+        band="ink"
+        title="Websites, created by your code."
         lead="Everything AnyPress does is an API call. Give each of your customers a WordPress site from inside your own product."
       >
         <div className="mt-9 flex flex-wrap gap-3">
-          <a href={API_REPO} className="btn btn-ribbon">
+          <a href={API_REPO} className="btn btn-paper">
             Read the API docs
           </a>
-          <a href="/contact" className="btn btn-ghost">
+          <Link href="/contact" className="btn border-paper text-paper">
             Get API access
-          </a>
+          </Link>
         </div>
       </PageHero>
 
-      <section className="band-paper py-24">
-        <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3">
-          {BLOCKS.map((b) => (
-            <article key={b.title} className="flex flex-col rounded-3xl border border-paper-line bg-white p-7">
-              <span className="self-start rounded-md bg-paper-2 px-2 py-1 font-mono text-xs text-on-paper-muted">
-                {b.tag}
-              </span>
-              <h2 className="font-display mt-6 text-2xl font-bold">{b.title}</h2>
-              <p className="mt-2 leading-7 text-on-paper-muted">{b.body}</p>
-            </article>
-          ))}
+      <section className="bg-paper">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+          <ul className="grid border-t-[2.5px] border-ink md:grid-cols-2 md:gap-x-14">
+            {BLOCKS.map((b) => (
+              <li key={b.title} className="border-b-[2.5px] border-ink py-8">
+                <div className="flex flex-wrap items-baseline justify-between gap-3">
+                  <h2 className="font-display text-2xl font-extrabold">{b.title}</h2>
+                  <code className="rounded-md bg-paper-2 px-2 py-1 font-mono text-sm">{b.tag}</code>
+                </div>
+                <p className="mt-2 text-lg leading-8 text-ink-soft">{b.body}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section className="grain relative py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+      <section className="border-t-[2.5px] border-ink bg-orange">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
           <div>
-            <p className="eyebrow">Three calls to a live site</p>
-            <h2 className="font-display mt-4 text-5xl leading-[0.95] font-extrabold">
-              Ask. Wait for the webhook. <span className="text-ribbon">Hand over the keys.</span>
-            </h2>
-            <ol className="mt-8 space-y-4 text-on-ink-muted">
-              <li>
-                <span className="font-mono text-orange">1.</span> Create the site with your own id for it.
+            <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black">Three calls to a live site.</h2>
+            <ol className="mt-8 space-y-4 text-xl leading-8">
+              <li className="flex gap-4">
+                <span className="font-display-wide text-3xl font-black">1</span> Create the site, with your own id for it.
               </li>
-              <li>
-                <span className="font-mono text-orange">2.</span> Get <code className="text-on-ink">tenant.ready</code>{" "}
-                with its address.
+              <li className="flex gap-4">
+                <span className="font-display-wide text-3xl font-black">2</span>
+                <span>
+                  Get <code className="font-mono font-bold">tenant.ready</code> with its address.
+                </span>
               </li>
-              <li>
-                <span className="font-mono text-orange">3.</span> Send your customer to their new site, with the
+              <li className="flex gap-4">
+                <span className="font-display-wide text-3xl font-black">3</span> Send your customer to their new site, with the
                 WordPress login you created for them.
               </li>
             </ol>
           </div>
-          <div className="overflow-hidden rounded-2xl border border-ink-line bg-[#0a090d] shadow-2xl">
-            <div className="border-b border-ink-line px-4 py-2.5 font-mono text-xs text-on-ink-muted">signup.ts · waas-provisioning-sdk</div>
-            <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-6">
+          <div className="overflow-hidden rounded-2xl border-[2.5px] border-ink bg-ink text-paper">
+            <div className="border-b-2 border-paper/20 px-4 py-2.5 font-mono text-sm text-paper/70">signup.ts</div>
+            <pre className="overflow-x-auto p-5 font-mono text-[14px] leading-6">
               <code>
-                <span className="text-rose">await</span> waas.tenants.<span className="text-amber">create</span>({"{"}
+                <span className="text-amber">await</span> waas.tenants.create({"{"}
                 {"\n"}
-                {"  "}name: <span className="text-[#7ee787]">&quot;Kettle &amp; Crumb&quot;</span>,{"\n"}
+                {"  "}name: <span className="text-amber">&quot;Kettle &amp; Crumb&quot;</span>,{"\n"}
                 {"  "}externalId: customer.id,{"\n"}
                 {"  "}wordPressUserEmail: customer.email,{"\n"}
                 {"}"});{"\n\n"}
-                <span className="text-on-ink-muted">{"// later, in your webhook handler"}</span>
+                <span className="text-paper/60">{"// later, in your webhook handler"}</span>
                 {"\n"}
-                <span className="text-rose">if</span> (event.type === <span className="text-[#7ee787]">&quot;tenant.ready&quot;</span>) {"{"}
+                <span className="text-amber">if</span> (event.type === <span className="text-amber">&quot;tenant.ready&quot;</span>) {"{"}
                 {"\n"}
                 {"  "}notify(customer, event.data.tenant.domainName);{"\n"}
                 {"}"}

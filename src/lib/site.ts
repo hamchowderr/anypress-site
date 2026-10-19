@@ -21,10 +21,12 @@ export interface SiteType {
   short: string;
   // Starting monthly price for the smallest size (owner chose these 2026-10-19).
   from: number;
+  // One plain line: what this site is for.
   pitch: string;
+  // What's in the box, in plain words (a parts list). The tool names live in `tools`.
+  inBox: string[];
+  // The actual tools by name, shown only on the deeper "What's included" page.
   tools: string[];
-  // Example address shown in the demo browser.
-  demoHost: string;
   // Longer copy for the site type's own page.
   headline: string;
   features: { title: string; body: string }[];
@@ -39,15 +41,15 @@ export const SITE_TYPES: SiteType[] = [
     name: "Website & blog",
     short: "Website",
     from: 12,
-    pitch: "A fast business site or blog with SEO, contact forms and a newsletter list from day one.",
-    tools: ["WordPress", "Rank Math SEO", "Fluent Forms", "FluentCRM newsletter"],
-    demoHost: "northside-notes.anypress.site",
+    pitch: "Tell people who you are and help them find you.",
+    inBox: ["Your website or blog", "Help getting found on Google", "Contact and sign-up forms", "A newsletter list"],
+    tools: ["WordPress", "Rank Math SEO", "Fluent Forms", "FluentCRM"],
     headline: "A website that brings people to you.",
     features: [
-      { title: "Search-ready from day one", body: "Rank Math is set up with a working sitemap, so search engines find your pages without you touching a setting." },
-      { title: "Forms that go somewhere", body: "Contact and quote forms send to your inbox and add people to your list." },
-      { title: "A newsletter list built in", body: "FluentCRM collects subscribers on your own site. Send updates without paying per contact to a mailing app." },
-      { title: "The editor you know", body: "Write and lay out pages in the WordPress block editor, with any theme you like." },
+      { title: "Found on Google", body: "Your pages are set up so search engines can find them, without you touching a setting." },
+      { title: "Forms that reach you", body: "Contact and quote forms land in your inbox, and add people to your list." },
+      { title: "Your own newsletter list", body: "Collect email addresses on your own site and send updates, without paying a mailing app per contact." },
+      { title: "Easy to edit", body: "Write and lay out pages in WordPress, opened with one click from your account." },
     ],
     idealFor: ["Local businesses", "Blogs and publications", "Portfolios", "Chambers and associations", "Niche content sites"],
     itemId: process.env.NEXT_PUBLIC_ITEM_WEBSITE || undefined,
@@ -57,15 +59,15 @@ export const SITE_TYPES: SiteType[] = [
     name: "Bookings",
     short: "Bookings",
     from: 19,
-    pitch: "Let clients pick a time, pay up front and get reminders, without a separate booking app.",
-    tools: ["WordPress", "FluentBooking", "Fluent Forms", "FluentCRM reminders"],
-    demoHost: "studio-ilana.anypress.site",
+    pitch: "Let clients pick a time and pay when they book.",
+    inBox: ["Your website", "An online booking calendar", "Payment when they book", "Reminder emails"],
+    tools: ["WordPress", "FluentBooking", "Fluent Forms", "FluentCRM"],
     headline: "Get booked and paid while you work.",
     features: [
-      { title: "Your calendar, online", body: "FluentBooking shows the times you're free. Clients pick a slot without an email back-and-forth." },
-      { title: "Paid up front", body: "Take payment when they book, so no-shows don't cost you." },
-      { title: "Reminders that send themselves", body: "Confirmation and reminder emails go out from your own address." },
-      { title: "Every client remembered", body: "Each booking adds the client to your CRM, ready for follow-ups and offers." },
+      { title: "Your calendar, online", body: "Clients see the times you're free and pick one. No more emailing back and forth." },
+      { title: "Paid up front", body: "Take payment when they book, so a no-show doesn't cost you." },
+      { title: "Reminders send themselves", body: "Confirmation and reminder emails go out from your own address." },
+      { title: "Every client remembered", body: "Each booking keeps the client's details, ready for follow-ups and offers." },
     ],
     idealFor: ["Coaches and consultants", "Studios and classes", "Salons and therapists", "Event hosts", "Franchise locations"],
     itemId: process.env.NEXT_PUBLIC_ITEM_BOOKINGS || undefined,
@@ -75,15 +77,15 @@ export const SITE_TYPES: SiteType[] = [
     name: "Online store",
     short: "Store",
     from: 29,
-    pitch: "Sell products, downloads and subscriptions with Stripe checkout, and keep every dollar of your sales.",
-    tools: ["WordPress", "FluentCart + Stripe", "FluentCRM", "FluentAffiliate", "Rank Math SEO"],
-    demoHost: "kettle-and-crumb.anypress.site",
+    pitch: "Sell products, downloads and subscriptions, and keep every sale.",
+    inBox: ["Your shop", "Card payments", "Your customer list and emails", "A way for others to earn by sending you sales"],
+    tools: ["WordPress", "FluentCart with Stripe", "FluentCRM", "FluentAffiliate", "Rank Math SEO"],
     headline: "Sell anything, and keep every sale.",
     features: [
-      { title: "Checkout that converts", body: "FluentCart handles products, downloads, subscriptions and coupons, with Stripe built in." },
-      { title: "No cut of your sales", body: "One monthly price for the site. Stripe's card fee is the only one on an order." },
-      { title: "Customers in your CRM", body: "Buyers land in FluentCRM with lists and tags ready, and a newsletter checkbox at checkout." },
-      { title: "Affiliates, ready when you are", body: "FluentAffiliate is connected to your store, so partners can earn for the sales they send." },
+      { title: "Take card payments", body: "Sell products, downloads, subscriptions and gift codes, with card payments built in." },
+      { title: "No cut of your sales", body: "One monthly price for the site. The card company's fee is the only one on an order." },
+      { title: "Know your customers", body: "Every buyer lands in your customer list, ready for emails, offers and a newsletter." },
+      { title: "Partners who sell for you", body: "Let others earn money for sending you sales, when you're ready." },
     ],
     idealFor: ["Product brands", "Subscription boxes", "Digital downloads", "Supplements and wellness", "Niche online shops"],
     itemId: process.env.NEXT_PUBLIC_ITEM_STORE || undefined,
@@ -93,15 +95,15 @@ export const SITE_TYPES: SiteType[] = [
     name: "Community & courses",
     short: "Community",
     from: 39,
-    pitch: "A members' space with courses, discussions and paid access, on a site you own.",
-    tools: ["WordPress", "FluentCommunity", "FluentCart memberships", "FluentCRM"],
-    demoHost: "the-fold-academy.anypress.site",
+    pitch: "A members' area with courses, discussions and paid access.",
+    inBox: ["Your website", "A members' area with discussions", "Online courses", "Paid memberships"],
+    tools: ["WordPress", "FluentCommunity", "FluentCart", "FluentCRM"],
     headline: "Your members, your courses, your site.",
     features: [
-      { title: "A space of your own", body: "FluentCommunity gives members a feed, groups and profiles on your domain, not someone else's app." },
-      { title: "Courses built in", body: "Lessons, modules and progress tracking in the same place your members already talk." },
-      { title: "Paid access", body: "Sell memberships and courses with FluentCart, one-off or as a subscription." },
-      { title: "Keep in touch", body: "Every member is in your CRM, so welcome emails and announcements are easy." },
+      { title: "A space of your own", body: "Members get a feed, groups and profiles on your web address, not someone else's app." },
+      { title: "Courses built in", body: "Lessons and progress tracking, in the same place your members already talk." },
+      { title: "Paid access", body: "Sell memberships and courses, as a one-off or every month." },
+      { title: "Keep in touch", body: "Welcome emails and announcements reach every member." },
     ],
     idealFor: ["Course creators", "Coaches with programs", "Associations and chambers", "Membership clubs", "Educators"],
     itemId: process.env.NEXT_PUBLIC_ITEM_COMMUNITY || undefined,
@@ -111,34 +113,25 @@ export const SITE_TYPES: SiteType[] = [
     name: "Everything",
     short: "Everything",
     from: 79,
-    pitch: "Store, bookings, community, courses, CRM and support desk, all on one site that grows with you.",
-    tools: ["WordPress", "FluentCart", "FluentBooking", "FluentCommunity", "FluentCRM", "Fluent Support"],
-    demoHost: "riverside-chamber.anypress.site",
+    pitch: "Shop, bookings, members, courses and a help desk on one site.",
+    inBox: ["Everything in the other four", "A help desk for customer questions", "One list of every customer", "Room to grow"],
+    tools: ["WordPress", "FluentCart", "FluentBooking", "FluentCommunity", "FluentCRM", "Fluent Support", "Fluent Forms", "Rank Math SEO"],
     headline: "One site that runs the whole operation.",
     features: [
-      { title: "Every tool, one login", body: "Store, bookings, community, courses, CRM and a support desk, all on one WordPress." },
-      { title: "One customer record", body: "A buyer who books a call and joins your community is one contact, not three." },
-      { title: "A help desk on your site", body: "Fluent Support gives customers a portal and gives you a shared inbox." },
-      { title: "Grows with you", body: "Start selling, add a membership later, open bookings next month. It's already installed." },
+      { title: "Every tool, one place", body: "Shop, bookings, members, courses and a help desk, all on one site with one login." },
+      { title: "One record per customer", body: "Someone who buys, books a call and joins your community is one customer, not three." },
+      { title: "Answer questions in one place", body: "Customers get a help page, and you get one inbox for every question." },
+      { title: "Grows with you", body: "Start selling, add memberships later, open bookings next month. It's already there." },
     ],
     idealFor: ["Chambers and associations", "Franchises and multi-location brands", "Education businesses", "Agencies' biggest clients", "Anyone outgrowing five apps"],
     itemId: process.env.NEXT_PUBLIC_ITEM_EVERYTHING || undefined,
   },
 ];
 
-// Who AnyPress is for. No group comes first.
-export const AUDIENCES = [
-  "Online shops",
-  "Course creators",
-  "Chambers & associations",
-  "Franchises",
-  "Agencies",
-  "SaaS teams",
-  "High-risk merchants",
-  "Niche site builders",
-  "Coaches & studios",
-  "Communities",
-];
+/** Where a site type's "start" button goes: checkout when it's on sale, otherwise its own page. */
+export function startUrl(t: SiteType): string {
+  return t.itemId ? checkoutUrl(t.itemId) : `/sites/${t.id}`;
+}
 
 export interface AudienceGroup {
   id: string;
@@ -154,28 +147,28 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
   {
     id: "shops",
     name: "Online shops & niche sellers",
-    line: "Launch a store in minutes, not weekends.",
-    body: "Start one shop or ten. Each runs on its own WordPress with checkout, SEO and email ready, so a new niche is a new site, not a new project.",
+    line: "Open a shop without losing your weekends.",
+    body: "Start one shop or ten. Each comes ready to take payments, get found on Google and email your customers, so a new idea is a new site, not a new project.",
     fits: ["store", "website"],
   },
   {
     id: "regulated",
     name: "Supplements, CBD & other regulated products",
-    line: "A store no platform can switch off on a whim.",
-    body: "Your site is your own WordPress, connected to your own payment account. No marketplace rules deciding overnight that your products aren't welcome.",
+    line: "A store on your own website, with your own payments.",
+    body: "Your store is your own website, connected to your own payment account, instead of a listing on someone else's marketplace.",
     fits: ["store", "everything"],
   },
   {
     id: "educators",
     name: "Course creators & educators",
     line: "Courses and community without the platform tax.",
-    body: "Sell programs, run cohorts and host discussions on your own domain, with one monthly price and no cut of what you earn.",
+    body: "Sell programs, run classes and host discussions on your own web address, for one monthly price and no cut of what you earn.",
     fits: ["community", "everything"],
   },
   {
     id: "associations",
     name: "Chambers & associations",
-    line: "Members, events and a directory in one place.",
+    line: "Members, events and dues in one place.",
     body: "Collect dues, sell event tickets and give members a place to connect. Renewals and reminders send themselves.",
     fits: ["everything", "community", "bookings"],
   },
@@ -183,21 +176,21 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     id: "franchises",
     name: "Franchises & multi-location brands",
     line: "A site for every location, all built the same way.",
-    body: "Every location gets its own site from the same starting point, with its own bookings and domain, while the brand stays consistent.",
+    body: "Every location gets its own site from the same starting point, with its own bookings and web address, while the brand stays the same everywhere.",
     fits: ["bookings", "website", "store"],
   },
   {
     id: "agencies",
     name: "Agencies & freelancers",
     line: "Sell websites as a monthly service.",
-    body: "Sell AnyPress sites under your own brand, from your own WordPress shop, at your own prices. We run the servers.",
+    body: "Sell websites under your own name, at your own prices. We build and look after every one.",
     fits: ["website", "store", "everything"],
   },
   {
     id: "saas",
     name: "SaaS & software teams",
-    line: "WordPress sites, created by your code.",
-    body: "Give every customer a WordPress site from inside your product. One API call creates it; a webhook tells you when it's ready.",
+    line: "A website for every customer, from inside your app.",
+    body: "Give each of your customers their own site, created automatically from your product. Your developers will find everything they need on our developer page.",
     fits: ["website", "store", "everything"],
   },
 ];

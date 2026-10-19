@@ -40,7 +40,7 @@ export function Logo() {
   return (
     <span className="flex items-center gap-2">
       <LogoMark className="h-8 w-8" />
-      <span className="font-display text-xl font-bold">AnyPress</span>
+      <span className="font-display text-xl font-extrabold">AnyPress</span>
     </span>
   );
 }

@@ -1,245 +1,195 @@
 @import "tailwindcss";
 
 /*
- * AnyPress colours come from the folded-ribbon logo: warm amber through red to magenta, on a
- * near-black "ink". Pages alternate ink bands with warm "paper" bands, like the two sides of
- * the folded ribbon.
+ * AnyPress reads like an assembly booklet. Pages are white manual paper with ink line drawings,
+ * and each step of the story is a full-bleed page in one colour of the ribbon logo, running
+ * amber, orange, red, rose, magenta.
  */
 :root {
-  --ink: #0e0d12;
-  --ink-2: #17151d;
-  --ink-3: #211e29;
-  --ink-line: #2c2935;
-  --on-ink: #f5f1ea;
-  --on-ink-muted: #a7a0b2;
-
-  --paper: #faf6f0;
-  --paper-2: #f2ebe1;
-  --paper-line: #e3d9cb;
-  --on-paper: #16141b;
-  --on-paper-muted: #645d6e;
+  --ink: #17131c;
+  --ink-soft: #3d3545;
+  --paper: #ffffff;
+  --paper-2: #f4f2f6;
+  --rule: #17131c;
+  --hair: #d9d4de;
 
   --amber: #ffb338;
   --orange: #ff7a2a;
   --red: #f2413a;
   --rose: #ee2f5e;
   --magenta: #d21fa4;
-
-  --ribbon: linear-gradient(100deg, var(--amber) 0%, var(--orange) 28%, var(--red) 52%, var(--rose) 74%, var(--magenta) 100%);
-
-  /* Generic names, used by components that sit on the page background (ink). */
-  --bg: var(--ink);
-  --fg: var(--on-ink);
-  --muted: var(--on-ink-muted);
-  --line: var(--ink-line);
-  --panel: var(--ink-2);
-  --accent: var(--orange);
-  --on-accent: var(--ink);
 }
 
 @theme inline {
   --color-ink: var(--ink);
-  --color-ink-2: var(--ink-2);
-  --color-ink-3: var(--ink-3);
-  --color-ink-line: var(--ink-line);
-  --color-on-ink: var(--on-ink);
-  --color-on-ink-muted: var(--on-ink-muted);
+  --color-ink-soft: var(--ink-soft);
   --color-paper: var(--paper);
   --color-paper-2: var(--paper-2);
-  --color-paper-line: var(--paper-line);
-  --color-on-paper: var(--on-paper);
-  --color-on-paper-muted: var(--on-paper-muted);
+  --color-hair: var(--hair);
   --color-amber: var(--amber);
   --color-orange: var(--orange);
   --color-red: var(--red);
   --color-rose: var(--rose);
   --color-magenta: var(--magenta);
 
-  --color-bg: var(--bg);
-  --color-fg: var(--fg);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
-  --color-panel: var(--panel);
-  --color-accent: var(--accent);
-  --color-on-accent: var(--on-accent);
-
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-bricolage);
-  --font-serif: var(--font-instrument-serif);
+  --font-sans: var(--font-atkinson);
+  --font-display: var(--font-anybody);
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--bg);
-  color: var(--fg);
-}
-
-::selection {
-  background: var(--orange);
+  background: var(--paper);
   color: var(--ink);
 }
 
-/* Type */
+::selection {
+  background: var(--amber);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+a {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 2px;
+}
+
+/* The expanded heavy grotesque used for headlines and step numbers. */
 .font-display {
-  font-family: var(--font-display);
-  font-optical-sizing: auto;
-  letter-spacing: -0.035em;
+  font-family: var(--font-anybody);
+  font-stretch: 118%;
+  letter-spacing: -0.02em;
 }
 
-.text-ribbon {
-  background: var(--ribbon);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.font-display-wide {
+  font-family: var(--font-anybody);
+  font-stretch: 140%;
+  letter-spacing: -0.03em;
 }
 
-.bg-ribbon {
-  background-image: var(--ribbon);
-}
-
-/* A paper band: flips the generic colours so shared components read correctly on it. */
-.band-paper {
-  --bg: var(--paper);
-  --fg: var(--on-paper);
-  --muted: var(--on-paper-muted);
-  --line: var(--paper-line);
-  --panel: var(--paper-2);
-  --accent: #d9481f;
-  background: var(--paper);
-  color: var(--on-paper);
-}
-
-/* Film grain over ink bands, so large dark areas don't look flat. */
-.grain {
-  position: relative;
-  isolation: isolate;
-}
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.07;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Faint grid lines, like a cutting mat. */
-.grid-lines {
-  background-image:
-    linear-gradient(to right, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px);
-  background-size: 56px 56px;
-}
-
-/* Buttons */
+/* Box-sticker buttons: thick ink outline, solid fill. */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 999px;
-  padding: 0.75rem 1.4rem;
-  font-weight: 600;
-  font-size: 0.95rem;
+  border: 2.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 0.8rem 1.4rem;
+  font-weight: 700;
+  line-height: 1.1;
   transition:
-    transform 0.15s ease,
-    box-shadow 0.2s ease,
-    background-color 0.2s ease;
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 180ms;
 }
+
 .btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -8px rgb(23 19 28 / 0.45);
 }
-.btn-ribbon {
-  background-image: var(--ribbon);
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn-ink {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn-paper {
+  background: var(--paper);
   color: var(--ink);
-  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--rose) 70%, transparent);
-}
-.btn-ribbon:hover {
-  box-shadow: 0 14px 36px -10px color-mix(in srgb, var(--rose) 90%, transparent);
-}
-.btn-ghost {
-  border: 1px solid var(--line);
-  color: var(--fg);
-}
-.btn-ghost:hover {
-  background: color-mix(in srgb, var(--fg) 6%, transparent);
 }
 
-/* Small mono label used above headings. */
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
+/* "Your part" / "Our part" tabs on each step. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem 0.3rem 0.4rem;
+  font-weight: 700;
+  font-size: 0.95rem;
 }
 
-/* Motion */
-@keyframes marquee {
+/* Line drawings: one stroke weight everywhere. */
+.drawing {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.drawing .fill-paper {
+  fill: var(--paper);
+}
+
+.drawing .fill-ink {
+  fill: var(--ink);
+}
+
+.drawing text {
+  stroke: none;
+  fill: var(--ink);
+  font-family: var(--font-atkinson);
+}
+
+/*
+ * The signature move: the parts of a website slide together as its step scrolls into view.
+ * Parts are drawn assembled; the offsets only exist inside the animation, so browsers without
+ * scroll-driven animations (or with reduced motion) show the finished site.
+ */
+.part {
+  transform-box: view-box;
+}
+
+/* In the hero the parts sit closer, so they stay beside the headline. */
+.drawing-loose .part {
+  translate: calc(var(--dx, 0) * 0.55) calc(var(--dy, 0) * 0.55);
+  rotate: var(--r, 0deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .drawing-assemble .part {
+      animation: assemble linear both;
+      animation-timeline: --assembly;
+      animation-range: entry 35% cover 55%;
+    }
+    .assembly-scope {
+      view-timeline-name: --assembly;
+    }
+  }
+}
+
+@keyframes assemble {
   from {
-    transform: translateX(0);
+    translate: var(--dx, 0) var(--dy, 0);
+    rotate: var(--r, 0deg);
   }
   to {
-    transform: translateX(-50%);
+    translate: 0 0;
+    rotate: 0deg;
   }
-}
-.animate-marquee {
-  animation: marquee 40s linear infinite;
 }
 
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.animate-rise {
-  animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+details > summary {
+  list-style: none;
 }
 
-@keyframes glow-drift {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(3%, -4%) scale(1.06);
-  }
-}
-.animate-glow {
-  animation: glow-drift 14s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.35;
-  }
-}
-.animate-pulse-dot {
-  animation: pulse-dot 1.6s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .animate-marquee,
-  .animate-rise,
-  .animate-glow,
-  .animate-pulse-dot {
-    animation: none;
-  }
+details > summary::-webkit-details-marker {
+  display: none;
 }

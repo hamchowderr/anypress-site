@@ -3,48 +3,46 @@ import { Logo } from "@/components/Logo";
 import { ACCOUNT_URL } from "@/lib/site";
 
 const NAV = [
-  { href: "/#site-types", label: "Site types" },
+  { href: "/#how", label: "How it works" },
+  { href: "/#pick", label: "Sites & prices" },
   { href: "/who", label: "Who it's for" },
-  { href: "/#features", label: "Features" },
-  { href: "/developers", label: "Developers" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/about", label: "About" },
 ];
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-ink-line/70 bg-ink/80 text-on-ink backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b-[2.5px] border-ink bg-paper">
       <nav className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-3 sm:px-6">
-        <Link href="/" aria-label="AnyPress home">
+        <Link href="/" aria-label="AnyPress home" className="rounded-md">
           <Logo />
         </Link>
-        <div className="hidden flex-1 items-center justify-center gap-7 text-sm text-on-ink-muted lg:flex">
+        <div className="hidden flex-1 items-center justify-center gap-8 font-bold lg:flex">
           {NAV.map((n) => (
-            <Link key={n.href} href={n.href} className="transition-colors hover:text-on-ink">
+            <Link key={n.href} href={n.href} className="hover:underline">
               {n.label}
             </Link>
           ))}
         </div>
-        <div className="ml-auto flex items-center gap-3 text-sm lg:ml-0">
-          <a href={ACCOUNT_URL} className="hidden text-on-ink-muted hover:text-on-ink sm:inline">
+        <div className="ml-auto flex items-center gap-4 lg:ml-0">
+          <a href={ACCOUNT_URL} className="hidden font-bold hover:underline sm:inline">
             Sign in
           </a>
-          <Link href="/pricing" className="btn btn-ribbon !px-4 !py-2 text-sm">
-            Get started
+          <Link href="/#pick" className="btn btn-ink !gap-0 !px-4 !py-2 whitespace-nowrap">
+            Start<span className="hidden sm:inline">&nbsp;your site</span>
           </Link>
-          <details className="group relative lg:hidden">
-            <summary
-              aria-label="Menu"
-              className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full border border-ink-line [&::-webkit-details-marker]:hidden"
-            >
-              <span className="block h-px w-4 bg-on-ink shadow-[0_5px_0_var(--on-ink),0_-5px_0_var(--on-ink)]" />
+          <details className="relative lg:hidden">
+            <summary aria-label="Menu" className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border-[2.5px] border-ink">
+              <svg viewBox="0 0 20 20" className="h-5 w-5" aria-hidden fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <path d="M3 6h14M3 10h14M3 14h14" />
+              </svg>
             </summary>
-            <div className="absolute right-0 mt-3 w-56 rounded-2xl border border-ink-line bg-ink-2 p-2 shadow-2xl">
+            <div className="absolute right-0 mt-3 w-60 rounded-2xl border-[2.5px] border-ink bg-paper p-2 shadow-[0_18px_40px_-16px_rgb(23_19_28/0.5)]">
               {NAV.map((n) => (
-                <Link key={n.href} href={n.href} className="block rounded-xl px-3 py-2 hover:bg-ink-3">
+                <Link key={n.href} href={n.href} className="block rounded-xl px-3 py-2.5 font-bold hover:bg-paper-2">
                   {n.label}
                 </Link>
               ))}
-              <a href={ACCOUNT_URL} className="block rounded-xl px-3 py-2 hover:bg-ink-3">
+              <a href={ACCOUNT_URL} className="block rounded-xl px-3 py-2.5 font-bold hover:bg-paper-2">
                 Sign in
               </a>
             </div>

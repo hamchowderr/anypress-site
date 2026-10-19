@@ -1,47 +1,65 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { LogoMark } from "@/components/Logo";
+import { YouIcon } from "@/components/Drawings";
 
-/** The ink hero at the top of every inner page. */
+export type Band = "amber" | "orange" | "red" | "rose" | "magenta" | "ink" | "paper";
+
+// Text colour that stays readable on each band (magenta and ink take white text).
+export const BAND: Record<Band, string> = {
+  amber: "bg-amber text-ink",
+  orange: "bg-orange text-ink",
+  red: "bg-red text-ink",
+  rose: "bg-rose text-ink",
+  magenta: "bg-magenta text-paper",
+  ink: "bg-ink text-paper",
+  paper: "bg-paper text-ink",
+};
+
+/** The coloured title page at the top of every inner page. */
 export function PageHero({
-  eyebrow,
+  band = "amber",
   title,
   lead,
   children,
 }: {
-  eyebrow: string;
+  band?: Band;
   title: ReactNode;
   lead?: ReactNode;
   children?: ReactNode;
 }) {
   return (
-    <section className="grain relative overflow-hidden">
-      <div className="grid-lines absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
-      <div className="animate-glow bg-ribbon absolute -top-48 right-[-15%] h-[460px] w-[560px] rounded-full opacity-20 blur-[120px]" />
-      <div className="relative mx-auto max-w-7xl px-4 pt-16 pb-16 sm:px-6 lg:pt-24 lg:pb-20">
-        <p className="eyebrow">{eyebrow}</p>
-        <h1 className="font-display mt-5 max-w-4xl text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.95] font-extrabold">
-          {title}
-        </h1>
-        {lead && <p className="mt-6 max-w-2xl text-lg leading-8 text-on-ink-muted">{lead}</p>}
+    <section className={`${BAND[band]} border-b-[2.5px] border-ink`}>
+      <div className="mx-auto max-w-7xl px-4 pt-16 pb-16 sm:px-6 lg:pt-24 lg:pb-20">
+        <h1 className="font-display max-w-4xl text-[clamp(2.6rem,6.5vw,5.25rem)] leading-[0.95] font-black text-balance">{title}</h1>
+        {lead && <p className="mt-6 max-w-2xl text-xl leading-8">{lead}</p>}
         {children}
       </div>
     </section>
   );
 }
 
-/** An italic serif word in a heading. */
-export function Accent({ children, tone = "ribbon" }: { children: ReactNode; tone?: "ribbon" | "rust" | "muted" }) {
-  const color = tone === "ribbon" ? "text-ribbon pr-1" : tone === "rust" ? "text-[#d9481f]" : "text-on-ink-muted";
-  return <span className={`font-serif font-normal tracking-normal italic ${color}`}>{children}</span>;
+/** "Your part" or "Our part": who does each step. */
+export function StepTag({ who }: { who: "you" | "us" }) {
+  return who === "you" ? (
+    <span className="tag">
+      <YouIcon className="h-6 w-6" />
+      Your part
+    </span>
+  ) : (
+    <span className="tag bg-ink text-paper">
+      <LogoMark className="h-6 w-6" />
+      Our part
+    </span>
+  );
 }
 
-/** The closing call to action used at the bottom of pages. */
+/** The closing call to action at the bottom of pages. */
 export function CtaBand({
-  title = "Your site is a few clicks away.",
-  body = "Pick a site type, choose a name, and we'll have WordPress running with your tools installed.",
-  href = "/pricing",
-  label = "Get started",
+  title = "That's the whole manual.",
+  body = "Pick the kind of site you need, and we'll do the rest.",
+  href = "/#pick",
+  label = "Start your site",
 }: {
   title?: string;
   body?: string;
@@ -49,21 +67,19 @@ export function CtaBand({
   label?: string;
 }) {
   return (
-    <section className="grain relative overflow-hidden py-28 text-center">
-      <div className="bg-ribbon absolute inset-x-0 top-1/2 h-40 -translate-y-1/2 -skew-y-3 opacity-90" />
-      <div className="relative mx-auto max-w-3xl px-4">
-        <div className="rounded-[2rem] border border-ink-line bg-ink px-6 py-14 shadow-2xl sm:px-12">
-          <LogoMark className="mx-auto h-14 w-14" />
-          <h2 className="font-display mt-6 text-5xl leading-[0.95] font-extrabold sm:text-6xl">{title}</h2>
-          <p className="mx-auto mt-5 max-w-md text-on-ink-muted">{body}</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href={href} className="btn btn-ribbon">
-              {label}
-            </Link>
-            <Link href="/contact" className="btn btn-ghost">
-              Talk to us
-            </Link>
-          </div>
+    <section className="border-t-[2.5px] border-ink bg-amber">
+      <div className="mx-auto flex max-w-7xl flex-col items-start gap-8 px-4 py-20 sm:px-6 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <h2 className="font-display text-[clamp(2.4rem,5.5vw,4.5rem)] leading-[0.95] font-black text-balance">{title}</h2>
+          <p className="mt-4 max-w-xl text-xl">{body}</p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <Link href={href} className="btn btn-ink text-lg">
+            {label}
+          </Link>
+          <Link href="/contact" className="btn btn-paper text-lg">
+            Ask us a question
+          </Link>
         </div>
       </div>
     </section>

@@ -1,73 +1,91 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Accent, CtaBand, PageHero } from "@/components/ui";
+import { Arrow } from "@/components/Drawings";
+import { CtaBand, PageHero } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "AnyPress is built by Otaku Solutions, in the open, under the GPL.",
+  description: "Why AnyPress exists, what we believe, and the open source code behind it.",
 };
 
 const BELIEFS = [
-  ["You should own your site.", "It's WordPress, with your data in your own database. If you ever leave, it comes with you."],
-  ["Your sales are yours.", "We charge for the site, not a percentage of what you sell on it."],
-  ["Every site deserves its own room.", "No shared installs. One site's traffic spike or security problem stays its own."],
-  ["Build it in the open.", "The platform is open source, so anyone can check how it works, or run it themselves."],
+  ["Building a website shouldn't be hard.", "WordPress can do almost anything. Getting there shouldn't take a weekend of hunting for parts."],
+  ["Your site is yours.", "It runs on WordPress, with your content in your own private website. If you ever leave, it comes with you."],
+  ["Your sales are yours.", "We charge for the site, not a share of what you sell on it."],
+  ["Build it in the open.", "Everything behind AnyPress is open source, so anyone can check how it works."],
+];
+
+const CODE = [
+  ["The engine", "Builds, saves and runs every site", "https://github.com/hamchowderr/waas-provisioning-api"],
+  ["The WordPress plugins", "The shop that sells sites, and the helper inside each one", "https://github.com/hamchowderr/waas-plugins"],
+  ["The partner dashboard", "Where partners see and manage their sites", "https://github.com/hamchowderr/waas-dashboard"],
 ];
 
 export default function About() {
   return (
     <>
       <PageHero
-        eyebrow="About AnyPress"
-        title={
-          <>
-            WordPress is the most flexible way to run a business online. We make it <Accent>easy.</Accent>
-          </>
-        }
-        lead="AnyPress is built by Otaku Solutions. We sold WordPress sites on a platform that shut down, so we rebuilt the whole thing ourselves, and this time we built it in the open."
+        band="magenta"
+        title="WordPress can do anything. We make it easy."
+        lead="AnyPress is built by Otaku Solutions. We sold websites on a platform that shut down, so we rebuilt it ourselves, and this time we built it in the open."
       />
 
-      <section className="band-paper py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <p className="eyebrow">What we believe</p>
-          <div className="mt-10 grid gap-x-12 gap-y-14 md:grid-cols-2">
-            {BELIEFS.map(([title, body], i) => (
-              <div key={title} className="grid grid-cols-[3.5rem_1fr] gap-4">
-                <span className="font-display text-ribbon text-5xl leading-none font-extrabold">{i + 1}</span>
-                <div>
-                  <h2 className="font-display text-3xl leading-tight font-bold">{title}</h2>
-                  <p className="mt-3 leading-7 text-on-paper-muted">{body}</p>
-                </div>
-              </div>
-            ))}
+      <section className="bg-paper">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:py-28">
+          <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black text-balance">
+            WordPress felt like a giant flea market.
+          </h2>
+          <div className="space-y-5 text-xl leading-8">
+            <p>
+              There are thousands of add-ons, and nobody tells you which ones fit together. Then there&apos;s hosting, the padlock,
+              backups and email to sort out before you sell a single thing.
+            </p>
+            <p>
+              So we picked the parts, fitted them together, and made the whole thing something you order instead of something you
+              build. Pick the kind of site you need, and it arrives ready.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="grain relative py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center">
-          <h2 className="font-display text-5xl leading-[0.95] font-extrabold">
-            Open source, <span className="text-ribbon">top to bottom.</span>
-          </h2>
-          <div className="space-y-3">
-            {[
-              ["Provisioning API", "Builds, backs up and runs every site", "https://github.com/hamchowderr/waas-provisioning-api"],
-              ["WordPress plugins", "The shop that sells sites, and the plugin inside each one", "https://github.com/hamchowderr/waas-plugins"],
-              ["Dashboard", "Where partners see and manage their sites", "https://github.com/hamchowderr/waas-dashboard"],
-            ].map(([name, what, href]) => (
-              <Link
-                key={name}
-                href={href}
-                className="group flex items-center justify-between rounded-2xl border border-ink-line bg-ink-2 px-5 py-4 transition-colors hover:border-orange/60"
-              >
-                <span>
-                  <span className="font-display block text-xl font-bold">{name}</span>
-                  <span className="text-sm text-on-ink-muted">{what}</span>
-                </span>
-                <span className="text-orange transition-transform group-hover:translate-x-1">→</span>
-              </Link>
+      <section className="border-t-[2.5px] border-ink bg-amber">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28">
+          <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black">What we believe.</h2>
+          <ol className="mt-12 grid gap-x-14 gap-y-12 md:grid-cols-2">
+            {BELIEFS.map(([title, body], i) => (
+              <li key={title} className="grid grid-cols-[4rem_1fr] gap-4">
+                <span className="font-display-wide text-6xl leading-none font-black">{i + 1}</span>
+                <div>
+                  <h3 className="font-display text-2xl leading-tight font-extrabold">{title}</h3>
+                  <p className="mt-2 text-lg leading-8">{body}</p>
+                </div>
+              </li>
             ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="border-t-[2.5px] border-ink bg-paper">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
+          <div>
+            <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] font-black">The code is open.</h2>
+            <p className="mt-5 max-w-md text-lg leading-8 text-ink-soft">
+              All of it is public under the GPL license. You don&apos;t need any of this to use AnyPress, but it&apos;s there if you
+              want to look.
+            </p>
           </div>
+          <ul className="border-t-[2.5px] border-ink">
+            {CODE.map(([name, what, href]) => (
+              <li key={name} className="border-b-[2.5px] border-ink">
+                <a href={href} className="group flex items-center justify-between gap-6 py-5">
+                  <span>
+                    <span className="block text-xl font-bold group-hover:underline">{name}</span>
+                    <span className="block text-lg text-ink-soft">{what}</span>
+                  </span>
+                  <Arrow className="h-7 w-7 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

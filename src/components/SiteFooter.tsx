@@ -1,17 +1,17 @@
 import Link from "next/link";
-import { Logo } from "@/components/Logo";
+import { LogoMark } from "@/components/Logo";
 import { ACCOUNT_URL, SITE_TYPES } from "@/lib/site";
 
 const COLUMNS = [
   {
-    title: "Build",
+    title: "Sites",
     links: SITE_TYPES.map((t) => ({ href: `/sites/${t.id}`, label: t.name })),
   },
   {
     title: "AnyPress",
     links: [
-      { href: "/#features", label: "Features" },
-      { href: "/pricing", label: "Pricing" },
+      { href: "/#how", label: "How it works" },
+      { href: "/pricing", label: "Prices" },
       { href: "/who", label: "Who it's for" },
       { href: "/agencies", label: "For agencies" },
       { href: "/about", label: "About" },
@@ -19,16 +19,15 @@ const COLUMNS = [
     ],
   },
   {
-    title: "Developers",
+    title: "The details",
     links: [
-      { href: "/developers", label: "API & webhooks" },
-      { href: "https://github.com/hamchowderr/waas-provisioning-api", label: "Provisioning API" },
-      { href: "https://github.com/hamchowderr/waas-plugins", label: "WordPress plugins" },
-      { href: "https://github.com/hamchowderr/waas-dashboard", label: "Dashboard" },
+      { href: "/included", label: "What's included" },
+      { href: "/developers", label: "For developers" },
+      { href: "https://github.com/hamchowderr/waas-plugins", label: "Open source code" },
     ],
   },
   {
-    title: "Account",
+    title: "Your account",
     links: [
       { href: ACCOUNT_URL, label: "Sign in" },
       { href: "https://app.anypress.io", label: "Partner dashboard" },
@@ -38,22 +37,23 @@ const COLUMNS = [
 
 export function SiteFooter() {
   return (
-    <footer className="grain relative mt-auto overflow-hidden border-t border-ink-line bg-ink text-on-ink">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-10 sm:px-6 lg:grid-cols-[1.2fr_2fr]">
-        <div>
-          <Logo />
-          <p className="mt-4 max-w-xs text-sm leading-6 text-on-ink-muted">
-            Any website, on its own WordPress, with the tools already set up. Open source under the GPL.
-          </p>
+    <footer className="mt-auto bg-ink text-paper">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-12 sm:px-6 lg:grid-cols-[1fr_2fr]">
+        <div className="flex items-start gap-4">
+          <LogoMark className="h-16 w-16 shrink-0" />
+          <div>
+            <p className="font-display text-3xl font-extrabold">AnyPress</p>
+            <p className="mt-2 max-w-xs text-paper/75">WordPress, set up and looked after for you.</p>
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {COLUMNS.map((c) => (
             <div key={c.title}>
-              <p className="eyebrow">{c.title}</p>
-              <ul className="mt-4 space-y-2.5 text-sm">
+              <p className="font-bold">{c.title}</p>
+              <ul className="mt-4 space-y-2.5">
                 {c.links.map((l) => (
                   <li key={l.label}>
-                    <Link href={l.href} className="text-on-ink-muted transition-colors hover:text-on-ink">
+                    <Link href={l.href} className="text-paper/75 hover:text-paper hover:underline">
                       {l.label}
                     </Link>
                   </li>
@@ -63,17 +63,14 @@ export function SiteFooter() {
           ))}
         </div>
       </div>
-      <p
-        aria-hidden
-        className="font-display text-ribbon pointer-events-none px-2 pb-[0.06em] text-center text-[20vw] leading-[0.95] font-extrabold select-none"
-      >
-        AnyPress
-      </p>
-      <div className="relative border-t border-ink-line bg-ink">
-        <p className="mx-auto max-w-7xl px-4 py-5 text-xs text-on-ink-muted sm:px-6">
-          © AnyPress, by Otaku Solutions.
-        </p>
+      <div className="flex h-3" aria-hidden>
+        <span className="flex-1 bg-amber" />
+        <span className="flex-1 bg-orange" />
+        <span className="flex-1 bg-red" />
+        <span className="flex-1 bg-rose" />
+        <span className="flex-1 bg-magenta" />
       </div>
+      <p className="mx-auto max-w-7xl px-4 py-5 text-sm text-paper/70 sm:px-6">© AnyPress, by Otaku Solutions.</p>
     </footer>
   );
 }
