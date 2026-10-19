@@ -38,12 +38,20 @@ const COLUMNS = [
 export function SiteFooter() {
   return (
     <footer className="mt-auto bg-ink text-paper">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-12 sm:px-6 lg:grid-cols-[1fr_2fr]">
+      <div className="flex h-3" aria-hidden>
+        <span className="flex-1 bg-amber" />
+        <span className="flex-1 bg-orange" />
+        <span className="flex-1 bg-red" />
+        <span className="flex-1 bg-rose" />
+        <span className="flex-1 bg-magenta" />
+      </div>
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_2fr]">
         <div className="flex items-start gap-4">
           <LogoMark className="h-16 w-16 shrink-0" />
           <div>
             <p className="font-display text-3xl font-extrabold">AnyPress</p>
             <p className="mt-2 max-w-xs text-paper/75">WordPress, set up and looked after for you.</p>
+            <p className="mt-6 text-sm text-paper/60">© AnyPress, by Otaku Solutions.</p>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
@@ -63,14 +71,6 @@ export function SiteFooter() {
           ))}
         </div>
       </div>
-      <div className="flex h-3" aria-hidden>
-        <span className="flex-1 bg-amber" />
-        <span className="flex-1 bg-orange" />
-        <span className="flex-1 bg-red" />
-        <span className="flex-1 bg-rose" />
-        <span className="flex-1 bg-magenta" />
-      </div>
-      <p className="mx-auto max-w-7xl px-4 py-5 text-sm text-paper/70 sm:px-6">© AnyPress, by Otaku Solutions.</p>
     </footer>
   );
 }
