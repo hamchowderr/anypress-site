@@ -40,6 +40,8 @@ Bands run amber, orange, red, rose, magenta, ink, in that order, on the homepage
 
 One signature move: `SiteParts state="assemble"` inside an `.assembly-scope` section slides the website's parts together as it scrolls into view (CSS scroll-driven animation). The drawing is assembled by default, so browsers without support and visitors with reduced motion see the finished site. Hovers are small lifts with an exponential ease-out.
 
+Lottie line animations (`src/components/Motion.tsx`, files in `public/lottie/`) draw themselves in once when they scroll into view: homepage steps 3 to 6, About, Agencies and Prices. They're built from code, in the same 480x380 frame, 2.5px ink stroke and white/ink fills as the static drawings, by `node scripts/lottie/build.mjs`. The static drawing shows until the animation loads; reduced motion shows the last frame.
+
 ## Words
 
 Plain words on the homepage, site pages, prices and who-it's-for. Tool names, DNS, SSL, API and the like only on `/included` and `/developers`. See PRODUCT.md.

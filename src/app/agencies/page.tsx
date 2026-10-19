@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Motion } from "@/components/Motion";
 import { CtaBand, PageHero } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -50,7 +51,12 @@ export default function Agencies() {
 
       <section className="bg-paper">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28">
-          <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black">How it works.</h2>
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black">How it works.</h2>
+            <div className="rounded-3xl border-[2.5px] border-ink bg-paper p-6 text-ink sm:p-10">
+              <Motion name="one-to-many" label="One website template copied into three client sites, each checked" />
+            </div>
+          </div>
           <ol className="mt-12 grid border-t-[2.5px] border-ink md:grid-cols-4">
             {FLOW.map(([title, sub], i) => (
               <li key={title} className="border-b-[2.5px] border-ink py-8 md:border-r-[2.5px] md:px-6 md:first:pl-0 md:last:border-r-0">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Arrow } from "@/components/Drawings";
+import { Motion } from "@/components/Motion";
 import { CtaBand, PageHero } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -30,19 +31,24 @@ export default function About() {
       />
 
       <section className="bg-paper">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:py-28">
-          <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black text-balance">
-            WordPress felt like a giant flea market.
-          </h2>
-          <div className="space-y-5 text-xl leading-8">
-            <p>
-              There are thousands of add-ons, and nobody tells you which ones fit together. Then there&apos;s hosting, the padlock,
-              backups and email to sort out before you sell a single thing.
-            </p>
-            <p>
-              So we picked the parts, fitted them together, and made the whole thing something you order instead of something you
-              build. Pick the kind of site you need, and it arrives ready.
-            </p>
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:py-28">
+          <div>
+            <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black text-balance">
+              WordPress felt like a giant flea market.
+            </h2>
+            <div className="mt-8 space-y-5 text-xl leading-8">
+              <p>
+                There are thousands of add-ons, and nobody tells you which ones fit together. Then there&apos;s hosting, the padlock,
+                backups and email to sort out before you sell a single thing.
+              </p>
+              <p>
+                So we picked the parts, fitted them together, and made the whole thing something you order instead of something you
+                build. Pick the kind of site you need, and it arrives ready.
+              </p>
+            </div>
+          </div>
+          <div className="rounded-3xl border-[2.5px] border-ink bg-paper p-6 text-ink sm:p-10">
+            <Motion name="parts-into-box" label="Loose website parts dropping into one box, which gets a check mark" />
           </div>
         </div>
       </section>

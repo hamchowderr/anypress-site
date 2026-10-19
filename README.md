@@ -16,6 +16,8 @@ npm run dev
 
 Open http://localhost:3000.
 
+The line animations in `public/lottie/` are made from code. After changing `scripts/lottie/`, rebuild them with `node scripts/lottie/build.mjs`.
+
 ## Settings
 
 All optional. Copy `.env.example` to `.env.local` to set them locally.

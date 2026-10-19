@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BoxIcon, Check } from "@/components/Drawings";
+import { Motion } from "@/components/Motion";
 import { CtaBand, PageHero } from "@/components/ui";
 import { SITE_TYPES, checkoutUrl } from "@/lib/site";
 
@@ -85,16 +86,21 @@ export default function Pricing() {
       </section>
 
       <section className="border-t-[2.5px] border-ink bg-amber">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
-          <h2 className="font-display text-[clamp(2.4rem,5vw,4rem)] leading-[0.95] font-black text-balance">In every box, whatever you pick.</h2>
-          <ul className="space-y-3">
-            {EVERY_SITE.map((x) => (
-              <li key={x} className="flex items-start gap-3 text-lg font-bold">
-                <Check className="mt-0.5 h-6 w-6 shrink-0" />
-                {x}
-              </li>
-            ))}
-          </ul>
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
+          <div>
+            <h2 className="font-display text-[clamp(2.4rem,5vw,4rem)] leading-[0.95] font-black text-balance">In every box, whatever you pick.</h2>
+            <ul className="mt-8 space-y-3">
+              {EVERY_SITE.map((x) => (
+                <li key={x} className="flex items-start gap-3 text-lg font-bold">
+                  <Check className="mt-0.5 h-6 w-6 shrink-0" />
+                  {x}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-3xl border-[2.5px] border-ink bg-paper p-6 text-ink sm:p-10">
+            <Motion name="box-opens" label="A box opening with a finished website rising out of it" />
+          </div>
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Arrow, BoxIcon, Check, GrowWithYou, KeepItRunning, MakeItYours, OpenTheDoors, SiteParts } from "@/components/Drawings";
+import { Motion } from "@/components/Motion";
 import { BAND, type Band, CtaBand, StepTag } from "@/components/ui";
 import { AUDIENCE_GROUPS, SITE_TYPES, startUrl } from "@/lib/site";
 
@@ -26,7 +27,11 @@ export default function Home() {
         title="Make it yours."
         body="Add your products, classes or posts. Your site's editor opens with one click from your account, and you can switch to your own domain, like yourbrand.com, whenever you're ready."
         facts={["Open your editor with one click", "Use your own domain", "Change anything, any time"]}
-        drawing={<MakeItYours className="w-full" />}
+        drawing={
+          <Motion name="make-it-yours" label="A website with your own domain, being edited">
+            <MakeItYours className="w-full" />
+          </Motion>
+        }
         flip
       />
       <Step
@@ -36,7 +41,11 @@ export default function Home() {
         title="Open the doors."
         body="Take orders, bookings and sign-ups. We don't take a cut of your sales, so every dollar you make is yours. The card company's normal fee is the only one on an order."
         facts={["One monthly price for the site", "No cut of your sales, ever", "Payments go straight to your own account"]}
-        drawing={<OpenTheDoors className="w-full" />}
+        drawing={
+          <Motion name="open-the-doors" label="An example order receipt showing an AnyPress fee of $0.00">
+            <OpenTheDoors className="w-full" />
+          </Motion>
+        }
       />
       <Step
         n={5}
@@ -45,7 +54,11 @@ export default function Home() {
         title="We keep it running."
         body="We look after your site and save a copy of it every night, so you can get back to work. It's your own private website, not shared with anyone, and it stays yours."
         facts={["A copy saved every night", "Kept safe and looked after", "Your own website, never shared"]}
-        drawing={<KeepItRunning className="w-full" />}
+        drawing={
+          <Motion name="keep-it-running" label="A moon over a stack of nightly copies of your site, locked with a padlock">
+            <KeepItRunning className="w-full" />
+          </Motion>
+        }
         flip
       />
       <Step
@@ -55,7 +68,11 @@ export default function Home() {
         title="We grow with you."
         body="Want to add a shop, bookings or a members' area later? Tell us and we'll add it to the same site, so you never start over."
         facts={["Start small, add more later", "Same site, same domain", "Nothing to move or rebuild"]}
-        drawing={<GrowWithYou className="w-full" />}
+        drawing={
+          <Motion name="grow-with-you" label="A small box growing into a bigger box with more parts added">
+            <GrowWithYou className="w-full" />
+          </Motion>
+        }
       />
       <PartsList />
       <WhoItsFor />
