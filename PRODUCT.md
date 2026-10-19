@@ -41,7 +41,7 @@ Building a website shouldn't be hard. Other platforms make it harder than it nee
 ## Brand Commitments
 
 - Name: AnyPress. Logo: the folded-ribbon "A" (warm amber to red to magenta gradient), SVGs in /mnt/project-files/waas/brand/AnyPress Ribbon/.
-- Voice: plain, friendly language a non-technical person understands on first read. Outcomes before features. Technical words (database, SSL, DNS, CRM, API, plugin names) only on deeper pages (owner, 2026-10-19).
+- Voice: plain, friendly language a non-technical person understands on first read. Outcomes before features. Technical words (database, SSL, DNS, CRM, API, plugin names) only on deeper pages (owner, 2026-10-19). Exception: say "domain", never "web address" (owner, 2026-10-19).
 - Never write "WPCS" or refer to the old platform by that name.
 - Not agency-only in any copy.
 
