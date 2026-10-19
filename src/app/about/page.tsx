@@ -26,7 +26,7 @@ export default function About() {
       <PageHero
         band="magenta"
         title="WordPress can do anything. We make it easy."
-        lead="AnyPress is built by Otaku Solutions. We sold websites on a platform that shut down, so we rebuilt it ourselves, and this time we built it in the open."
+        lead="AnyPress is built by Otaku Solutions. We take the hard parts of WordPress off your plate, so you can get on with your business."
       />
 
       <section className="bg-paper">

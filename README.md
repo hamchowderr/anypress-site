@@ -25,7 +25,7 @@ All optional. Copy `.env.example` to `.env.local` to set them locally.
 | `NEXT_PUBLIC_SHOP_URL` | The WordPress shop that runs checkout and accounts | `https://shop.anypress.io` |
 | `NEXT_PUBLIC_ACCOUNT_PATH` | The account page on the shop | `/account/` |
 | `NEXT_PUBLIC_ITEM_WEBSITE`, `_BOOKINGS`, `_STORE`, `_COMMUNITY`, `_EVERYTHING` | The FluentCart variation id each site type's button checks out. Unset shows "Opening soon". | unset |
-| `NEXT_PUBLIC_CONTACT_EMAIL` | Address shown on the contact page | unset |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | Address shown on the contact page | support@anypress.io |
 
 Site types, prices and the customer groups live in `src/lib/site.ts`.
 
