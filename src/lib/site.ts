@@ -100,7 +100,7 @@ export const SITE_TYPES: SiteType[] = [
     tools: ["WordPress", "FluentCommunity", "FluentCart", "FluentCRM"],
     headline: "Your members, your courses, your site.",
     features: [
-      { title: "A space of your own", body: "Members get a feed, groups and profiles on your web address, not someone else's app." },
+      { title: "A space of your own", body: "Members get a feed, groups and profiles on your domain, not someone else's app." },
       { title: "Courses built in", body: "Lessons and progress tracking, in the same place your members already talk." },
       { title: "Paid access", body: "Sell memberships and courses, as a one-off or every month." },
       { title: "Keep in touch", body: "Welcome emails and announcements reach every member." },
@@ -162,7 +162,7 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     id: "educators",
     name: "Course creators & educators",
     line: "Courses and community without the platform tax.",
-    body: "Sell programs, run classes and host discussions on your own web address, for one monthly price and no cut of what you earn.",
+    body: "Sell programs, run classes and host discussions on your own domain, for one monthly price and no cut of what you earn.",
     fits: ["community", "everything"],
   },
   {
@@ -176,7 +176,7 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     id: "franchises",
     name: "Franchises & multi-location brands",
     line: "A site for every location, all built the same way.",
-    body: "Every location gets its own site from the same starting point, with its own bookings and web address, while the brand stays the same everywhere.",
+    body: "Every location gets its own site from the same starting point, with its own bookings and domain, while the brand stays the same everywhere.",
     fits: ["bookings", "website", "store"],
   },
   {

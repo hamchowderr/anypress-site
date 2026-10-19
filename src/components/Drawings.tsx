@@ -85,7 +85,7 @@ export function SiteParts({ state, address = "yourname.com", className = "" }: {
 /** Step 3: your own address, your own words. */
 export function MakeItYours({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 480 380" className={`drawing ${className}`} role="img" aria-label="A website with your own web address, being edited">
+    <svg viewBox="0 0 480 380" className={`drawing ${className}`} role="img" aria-label="A website with your own domain, being edited">
       <rect x="40" y="30" width="400" height="300" rx="14" className="fill-paper" />
       <path d="M40 70 H440" />
       <circle cx="62" cy="50" r="4" />

@@ -17,7 +17,7 @@ const FLOW = [
 const POINTS = [
   {
     title: "Your name, your shop",
-    body: "Clients buy from your own WordPress shop, on your web address, through your own payment account. AnyPress stays in the background.",
+    body: "Clients buy from your own WordPress shop, on your own domain, through your own payment account. AnyPress stays in the background.",
   },
   {
     title: "Set it up once",
@@ -25,7 +25,7 @@ const POINTS = [
   },
   {
     title: "Clients look after themselves",
-    body: "From their account on your shop, clients open their site's editor, connect their own web address and set up email.",
+    body: "From their account on your shop, clients open their site's editor, connect their own domain and set up email.",
   },
   {
     title: "Never locked in",

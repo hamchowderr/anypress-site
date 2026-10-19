@@ -74,7 +74,7 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
           <div>
             <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] font-black">In the box.</h2>
             <ul className="mt-8 max-w-lg space-y-2 text-lg">
-              {[...t.inBox, "The padlock, nightly copies and your own web address"].map((item) => (
+              {[...t.inBox, "The padlock, nightly copies and your own domain"].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                       <Check className="mt-0.5 h-6 w-6 shrink-0" />
                       {item}

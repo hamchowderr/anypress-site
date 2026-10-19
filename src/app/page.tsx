@@ -15,7 +15,7 @@ export default function Home() {
         who="us"
         title="We put it together."
         body="We build your site on WordPress, the system behind a huge share of the web. Everything you picked arrives set up and working, so there's nothing to install or connect."
-        facts={["Payments, bookings or courses, ready to use", "Email that sends from your own address", "The padlock in the address bar", "A free web address to start with"]}
+        facts={["Payments, bookings or courses, ready to use", "Email that sends from your own address", "The padlock in the address bar", "A free domain to start with"]}
         drawing={<SiteParts state="assemble" className="w-full" />}
         assemble
       />
@@ -24,8 +24,8 @@ export default function Home() {
         band="red"
         who="you"
         title="Make it yours."
-        body="Add your products, classes or posts. Your site's editor opens with one click from your account, and you can switch to your own web address, like yourbrand.com, whenever you're ready."
-        facts={["Open your editor with one click", "Use your own web address", "Change anything, any time"]}
+        body="Add your products, classes or posts. Your site's editor opens with one click from your account, and you can switch to your own domain, like yourbrand.com, whenever you're ready."
+        facts={["Open your editor with one click", "Use your own domain", "Change anything, any time"]}
         drawing={<MakeItYours className="w-full" />}
         flip
       />
@@ -54,7 +54,7 @@ export default function Home() {
         who="us"
         title="We grow with you."
         body="Want to add a shop, bookings or a members' area later? Tell us and we'll add it to the same site, so you never start over."
-        facts={["Start small, add more later", "Same site, same web address", "Nothing to move or rebuild"]}
+        facts={["Start small, add more later", "Same site, same domain", "Nothing to move or rebuild"]}
         drawing={<GrowWithYou className="w-full" />}
       />
       <PartsList />
@@ -80,7 +80,7 @@ function Hero() {
             </h1>
             <p className="mt-6 max-w-xl text-xl leading-8">
               AnyPress is WordPress, set up and looked after for you. Choose what you&apos;re building, and it arrives ready to use, with
-              payments, email and a free web address already in place.
+              payments, email and a free domain already in place.
             </p>
           </div>
           <div className="hidden px-6 pb-2 lg:block">
@@ -198,7 +198,7 @@ function PartsList() {
         <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
           <h2 className="font-display text-[clamp(2.4rem,5vw,4.25rem)] leading-[0.95] font-black">What&apos;s in each box.</h2>
           <p className="text-xl leading-8">
-            Every site comes with the padlock, a nightly copy, email from your own address and a free web address. Pick the box that
+            Every site comes with the padlock, a nightly copy, email from your own address and a free domain. Pick the box that
             fits what you&apos;re building.
           </p>
         </div>
@@ -288,8 +288,8 @@ const FAQ: [string, ReactNode][] = [
     "No. You pay one monthly price for the site. The card company charges its normal fee on payments, and we add nothing on top.",
   ],
   [
-    "Can I use my own web address?",
-    "Yes. Every site starts with a free web address. When you're ready, connect your own, like yourbrand.com. With many domain companies it takes one click.",
+    "Can I use my own domain?",
+    "Yes. Every site starts with a free domain. When you're ready, connect your own, like yourbrand.com. With many domain companies it takes one click.",
   ],
   [
     "Is the site really mine?",

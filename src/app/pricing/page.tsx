@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 const EVERY_SITE = [
   "Your own private website, not shared with anyone",
-  "A free web address to start with",
-  "Use your own web address when you're ready",
+  "A free domain to start with",
+  "Use your own domain when you're ready",
   "Email that sends from your own address",
   "The padlock in the address bar, renewed for you",
   "A copy of your site saved every night",
