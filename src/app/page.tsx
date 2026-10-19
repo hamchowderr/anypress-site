@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LogoMark } from "@/components/Logo";
 import { SiteTypeDemo } from "@/components/SiteTypeDemo";
+import { CtaBand } from "@/components/ui";
 import { AUDIENCES, SITE_TYPES } from "@/lib/site";
 
 export default function Home() {
@@ -15,7 +16,7 @@ export default function Home() {
       <Compare />
       <Developers />
       <Faq />
-      <FinalCta />
+      <CtaBand />
     </>
   );
 }
@@ -271,7 +272,8 @@ function SiteTypes() {
         </div>
         <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           {SITE_TYPES.map((t, i) => (
-            <article
+            <Link
+              href={`/sites/${t.id}`}
               key={t.id}
               className={`group relative flex flex-col overflow-hidden rounded-3xl border p-6 transition-transform hover:-translate-y-1 ${
                 t.id === "everything"
@@ -301,8 +303,9 @@ function SiteTypes() {
                 <span className="text-xs opacity-60">from</span>{" "}
                 <span className="font-display text-3xl font-extrabold">${t.from}</span>
                 <span className="text-xs opacity-60">/mo</span>
+                <span className="float-right mt-2 transition-transform group-hover:translate-x-1">→</span>
               </p>
-            </article>
+            </Link>
           ))}
         </div>
       </div>
@@ -415,12 +418,9 @@ function Developers() {
               </li>
             ))}
           </ul>
-          <a
-            href="https://github.com/hamchowderr/waas-provisioning-api"
-            className="btn btn-ghost mt-9"
-          >
-            Read the API docs
-          </a>
+          <Link href="/developers" className="btn btn-ghost mt-9">
+            More for developers
+          </Link>
         </div>
         <div className="overflow-hidden rounded-2xl border border-ink-line bg-[#0a090d] shadow-2xl">
           <div className="flex items-center justify-between border-b border-ink-line px-4 py-2.5 font-mono text-xs text-on-ink-muted">
@@ -501,33 +501,6 @@ function Faq() {
               <p className="mt-3 max-w-2xl leading-7 text-on-paper-muted">{a}</p>
             </details>
           ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FinalCta() {
-  return (
-    <section className="grain relative overflow-hidden py-28 text-center">
-      <div className="bg-ribbon absolute inset-x-0 top-1/2 h-40 -translate-y-1/2 -skew-y-3 opacity-90" />
-      <div className="relative mx-auto max-w-3xl px-4">
-        <div className="rounded-[2rem] border border-ink-line bg-ink px-6 py-14 shadow-2xl sm:px-12">
-          <LogoMark className="mx-auto h-14 w-14" />
-          <h2 className="font-display mt-6 text-5xl leading-[0.95] font-extrabold sm:text-6xl">
-            Your site is a few clicks away.
-          </h2>
-          <p className="mx-auto mt-5 max-w-md text-on-ink-muted">
-            Pick a site type, choose a name, and we&apos;ll have WordPress running with your tools installed.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/pricing" className="btn btn-ribbon">
-              Get started
-            </Link>
-            <Link href="#faq" className="btn btn-ghost">
-              Ask a question
-            </Link>
-          </div>
         </div>
       </div>
     </section>

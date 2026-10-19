@@ -111,7 +111,7 @@ function BuildLog({ type }: { type: SiteType }) {
 }
 
 /** Tiny drawn-with-boxes versions of each kind of site. */
-function MockSite({ type }: { type: SiteType }) {
+export function MockSite({ type }: { type: SiteType }) {
   switch (type.id) {
     case "website":
       return (

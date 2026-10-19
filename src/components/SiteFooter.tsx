@@ -5,22 +5,23 @@ import { ACCOUNT_URL, SITE_TYPES } from "@/lib/site";
 const COLUMNS = [
   {
     title: "Build",
-    links: SITE_TYPES.map((t) => ({ href: "/#site-types", label: t.name })),
+    links: SITE_TYPES.map((t) => ({ href: `/sites/${t.id}`, label: t.name })),
   },
   {
     title: "AnyPress",
     links: [
       { href: "/#features", label: "Features" },
       { href: "/pricing", label: "Pricing" },
-      { href: "/#who", label: "Who it's for" },
+      { href: "/who", label: "Who it's for" },
       { href: "/agencies", label: "For agencies" },
-      { href: "/#faq", label: "Questions" },
+      { href: "/about", label: "About" },
+      { href: "/contact", label: "Contact" },
     ],
   },
   {
     title: "Developers",
     links: [
-      { href: "/#developers", label: "API & webhooks" },
+      { href: "/developers", label: "API & webhooks" },
       { href: "https://github.com/hamchowderr/waas-provisioning-api", label: "Provisioning API" },
       { href: "https://github.com/hamchowderr/waas-plugins", label: "WordPress plugins" },
       { href: "https://github.com/hamchowderr/waas-dashboard", label: "Dashboard" },
@@ -64,7 +65,7 @@ export function SiteFooter() {
       </div>
       <p
         aria-hidden
-        className="font-display text-ribbon pointer-events-none -mb-[0.22em] text-center text-[22vw] leading-none font-extrabold select-none"
+        className="font-display text-ribbon pointer-events-none px-2 pb-[0.06em] text-center text-[20vw] leading-[0.95] font-extrabold select-none"
       >
         AnyPress
       </p>
