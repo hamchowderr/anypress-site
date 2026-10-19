@@ -1,28 +1,60 @@
 @import "tailwindcss";
 
+/*
+ * AnyPress colours come from the folded-ribbon logo: warm amber through red to magenta, on a
+ * near-black "ink". Pages alternate ink bands with warm "paper" bands, like the two sides of
+ * the folded ribbon.
+ */
 :root {
-  --bg: #ffffff;
-  --fg: #14161a;
-  --muted: #5b6270;
-  --line: #e4e6eb;
-  --panel: #f6f7f9;
-  --accent: #4338ca;
-  --on-accent: #ffffff;
-}
+  --ink: #0e0d12;
+  --ink-2: #17151d;
+  --ink-3: #211e29;
+  --ink-line: #2c2935;
+  --on-ink: #f5f1ea;
+  --on-ink-muted: #a7a0b2;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0d0f13;
-    --fg: #e9ebef;
-    --muted: #9aa1ad;
-    --line: #262a33;
-    --panel: #151820;
-    --accent: #818cf8;
-    --on-accent: #0d0f13;
-  }
+  --paper: #faf6f0;
+  --paper-2: #f2ebe1;
+  --paper-line: #e3d9cb;
+  --on-paper: #16141b;
+  --on-paper-muted: #645d6e;
+
+  --amber: #ffb338;
+  --orange: #ff7a2a;
+  --red: #f2413a;
+  --rose: #ee2f5e;
+  --magenta: #d21fa4;
+
+  --ribbon: linear-gradient(100deg, var(--amber) 0%, var(--orange) 28%, var(--red) 52%, var(--rose) 74%, var(--magenta) 100%);
+
+  /* Generic names, used by components that sit on the page background (ink). */
+  --bg: var(--ink);
+  --fg: var(--on-ink);
+  --muted: var(--on-ink-muted);
+  --line: var(--ink-line);
+  --panel: var(--ink-2);
+  --accent: var(--orange);
+  --on-accent: var(--ink);
 }
 
 @theme inline {
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-line: var(--ink-line);
+  --color-on-ink: var(--on-ink);
+  --color-on-ink-muted: var(--on-ink-muted);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-line: var(--paper-line);
+  --color-on-paper: var(--on-paper);
+  --color-on-paper-muted: var(--on-paper-muted);
+  --color-amber: var(--amber);
+  --color-orange: var(--orange);
+  --color-red: var(--red);
+  --color-rose: var(--rose);
+  --color-magenta: var(--magenta);
+
   --color-bg: var(--bg);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
@@ -30,11 +62,184 @@
   --color-panel: var(--panel);
   --color-accent: var(--accent);
   --color-on-accent: var(--on-accent);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-bricolage);
+  --font-serif: var(--font-instrument-serif);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--bg);
   color: var(--fg);
+}
+
+::selection {
+  background: var(--orange);
+  color: var(--ink);
+}
+
+/* Type */
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.035em;
+}
+
+.text-ribbon {
+  background: var(--ribbon);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-ribbon {
+  background-image: var(--ribbon);
+}
+
+/* A paper band: flips the generic colours so shared components read correctly on it. */
+.band-paper {
+  --bg: var(--paper);
+  --fg: var(--on-paper);
+  --muted: var(--on-paper-muted);
+  --line: var(--paper-line);
+  --panel: var(--paper-2);
+  --accent: #d9481f;
+  background: var(--paper);
+  color: var(--on-paper);
+}
+
+/* Film grain over ink bands, so large dark areas don't look flat. */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Faint grid lines, like a cutting mat. */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--fg) 6%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.75rem 1.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn-ribbon {
+  background-image: var(--ribbon);
+  color: var(--ink);
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--rose) 70%, transparent);
+}
+.btn-ribbon:hover {
+  box-shadow: 0 14px 36px -10px color-mix(in srgb, var(--rose) 90%, transparent);
+}
+.btn-ghost {
+  border: 1px solid var(--line);
+  color: var(--fg);
+}
+.btn-ghost:hover {
+  background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+
+/* Small mono label used above headings. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Motion */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-rise {
+  animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes glow-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(3%, -4%) scale(1.06);
+  }
+}
+.animate-glow {
+  animation: glow-drift 14s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee,
+  .animate-rise,
+  .animate-glow,
+  .animate-pulse-dot {
+    animation: none;
+  }
 }
