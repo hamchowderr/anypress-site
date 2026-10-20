@@ -36,6 +36,12 @@ const COLUMNS = [
   },
 ];
 
+const LEGAL = [
+  { href: "/terms", label: "Terms" },
+  { href: "/privacy", label: "Privacy" },
+  { href: "/refund-policy", label: "Refunds" },
+];
+
 export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-line bg-paper-2">
@@ -67,6 +73,13 @@ export function SiteFooter() {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-sm text-ink-soft sm:px-6">
           <p>© AnyPress, by Otaku Solutions.</p>
+          <nav aria-label="Legal" className="flex flex-wrap gap-x-5 gap-y-2">
+            {LEGAL.map((l) => (
+              <Link key={l.href} href={l.href} className="hover:text-ink">
+                {l.label}
+              </Link>
+            ))}
+          </nav>
           <div className="ribbon h-1 w-24 rounded-full" aria-hidden />
         </div>
       </div>
