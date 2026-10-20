@@ -21,23 +21,23 @@ export default function Included() {
   return (
     <>
       <PageHero
-        band="paper"
+        eyebrow="What's included"
         title="What's included, by name."
         lead="For people who know WordPress: the tools that come set up in each site. If these names mean nothing to you, that's fine. You don't need to know them."
       />
 
-      <section className="border-t-[2.5px] border-ink bg-paper-2">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-          <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] font-black">By site.</h2>
-          <ul className="mt-10 border-t-[2.5px] border-ink">
+      <section className="border-y border-line bg-paper-2">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <h2 className="font-display text-[clamp(1.9rem,3.6vw,2.75rem)] leading-[1.08] font-semibold">By site.</h2>
+          <ul className="mt-10 border-t border-line">
             {SITE_TYPES.map((t) => (
-              <li key={t.id} className="grid gap-4 border-b-[2.5px] border-ink py-7 md:grid-cols-[1fr_2fr] md:gap-10">
-                <Link href={`/sites/${t.id}`} className="text-xl font-bold hover:underline">
+              <li key={t.id} className="grid gap-4 border-b border-line py-7 md:grid-cols-[1fr_2fr] md:gap-10">
+                <Link href={`/sites/${t.id}`} className="font-semibold hover:underline">
                   {t.name}
                 </Link>
                 <ul className="flex flex-wrap gap-2">
                   {t.tools.map((tool) => (
-                    <li key={tool} className="rounded-full border-[2.5px] border-ink bg-paper px-3 py-1 font-bold">
+                    <li key={tool} className="rounded-full border border-line bg-panel px-3 py-1 text-[15px]">
                       {tool}
                     </li>
                   ))}
@@ -48,20 +48,20 @@ export default function Included() {
         </div>
       </section>
 
-      <section className="border-t-[2.5px] border-ink bg-paper">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-          <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] font-black">On every site.</h2>
-          <dl className="mt-10 grid border-t-[2.5px] border-ink md:grid-cols-2 md:gap-x-14">
+      <section className="">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <h2 className="font-display text-[clamp(1.9rem,3.6vw,2.75rem)] leading-[1.08] font-semibold">On every site.</h2>
+          <dl className="mt-10 grid border-t border-line md:grid-cols-2 md:gap-x-14">
             {EVERY_SITE.map(([title, body]) => (
-              <div key={title} className="border-b-[2.5px] border-ink py-6">
-                <dt className="text-xl font-bold">{title}</dt>
-                <dd className="mt-1 text-lg leading-8 text-ink-soft">{body}</dd>
+              <div key={title} className="border-b border-line py-6">
+                <dt className="font-semibold">{title}</dt>
+                <dd className="mt-1 leading-7 text-ink-soft">{body}</dd>
               </div>
             ))}
           </dl>
-          <p className="mt-8 text-lg text-ink-soft">
+          <p className="mt-8 text-ink-soft">
             Building on top of AnyPress? See the{" "}
-            <Link href="/developers" className="font-bold text-ink underline">
+            <Link href="/developers" className="font-semibold text-ink underline">
               developer page
             </Link>
             .

@@ -10,19 +10,20 @@ const COLUMNS = [
   {
     title: "AnyPress",
     links: [
-      { href: "/#how", label: "How it works" },
+      { href: "/#examples", label: "Examples" },
       { href: "/pricing", label: "Prices" },
       { href: "/who", label: "Who it's for" },
-      { href: "/agencies", label: "For agencies" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
     ],
   },
   {
-    title: "The details",
+    title: "Sell & build",
     links: [
-      { href: "/included", label: "What's included" },
+      { href: "/agencies", label: "For agencies" },
+      { href: "/sell", label: "Apply to sell websites" },
       { href: "/developers", label: "For developers" },
+      { href: "/included", label: "What's included" },
       { href: "https://github.com/hamchowderr/waas-plugins", label: "Open source code" },
     ],
   },
@@ -37,31 +38,23 @@ const COLUMNS = [
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto bg-ink text-paper">
-      <div className="flex h-3" aria-hidden>
-        <span className="flex-1 bg-amber" />
-        <span className="flex-1 bg-orange" />
-        <span className="flex-1 bg-red" />
-        <span className="flex-1 bg-rose" />
-        <span className="flex-1 bg-magenta" />
-      </div>
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_2fr]">
-        <div className="flex items-start gap-4">
-          <LogoMark className="h-16 w-16 shrink-0" />
-          <div>
-            <p className="font-display text-3xl font-extrabold">AnyPress</p>
-            <p className="mt-2 max-w-xs text-paper/75">WordPress, set up and looked after for you.</p>
-            <p className="mt-6 text-sm text-paper/60">© AnyPress, by Otaku Solutions.</p>
+    <footer className="mt-auto border-t border-line bg-paper-2">
+      <div className="mx-auto grid max-w-6xl gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1fr_2.2fr]">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <LogoMark className="h-9 w-9" />
+            <span className="font-display text-xl font-semibold">AnyPress</span>
           </div>
+          <p className="mt-3 max-w-xs text-ink-soft">WordPress, set up and looked after for you.</p>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {COLUMNS.map((c) => (
             <div key={c.title}>
-              <p className="font-bold">{c.title}</p>
-              <ul className="mt-4 space-y-2.5">
+              <p className="text-sm font-semibold">{c.title}</p>
+              <ul className="mt-4 space-y-2.5 text-[15px]">
                 {c.links.map((l) => (
                   <li key={l.label}>
-                    <Link href={l.href} className="text-paper/75 hover:text-paper hover:underline">
+                    <Link href={l.href} className="text-ink-soft hover:text-ink">
                       {l.label}
                     </Link>
                   </li>
@@ -69,6 +62,12 @@ export function SiteFooter() {
               </ul>
             </div>
           ))}
+        </div>
+      </div>
+      <div className="border-t border-line">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-sm text-ink-soft sm:px-6">
+          <p>© AnyPress, by Otaku Solutions.</p>
+          <div className="ribbon h-1 w-24 rounded-full" aria-hidden />
         </div>
       </div>
     </footer>

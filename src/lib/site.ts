@@ -33,6 +33,19 @@ export interface SiteType {
   idealFor: string[];
   // The FluentCart variation id on the shop. Unset means it isn't on sale yet.
   itemId?: string;
+  // A made-up business we built on this kind of site, with real content, to show what it looks like.
+  example: Example;
+}
+
+export interface Example {
+  name: string;
+  what: string;
+  // A live AnyPress site anyone can open.
+  url: string;
+  // Screenshots in public/examples/: <shot>-desk.webp (1200 wide) and <shot>-phone.webp (390 wide, 2x).
+  shot: string;
+  // What a visitor can try on it.
+  tryIt: string[];
 }
 
 export const SITE_TYPES: SiteType[] = [
@@ -53,6 +66,13 @@ export const SITE_TYPES: SiteType[] = [
     ],
     idealFor: ["Local businesses", "Blogs and publications", "Portfolios", "Chambers and associations", "Niche content sites"],
     itemId: process.env.NEXT_PUBLIC_ITEM_WEBSITE || undefined,
+    example: {
+      name: "Juniper Street Bakery",
+      what: "A neighbourhood bakery with its menu, opening hours and a newsletter.",
+      url: "https://t-1edb454e.stores.anypress.site/",
+      shot: "website",
+      tryIt: ["Read the menu", "Find the opening hours", "Join the newsletter"],
+    },
   },
   {
     id: "bookings",
@@ -71,6 +91,13 @@ export const SITE_TYPES: SiteType[] = [
     ],
     idealFor: ["Coaches and consultants", "Studios and classes", "Salons and therapists", "Event hosts", "Franchise locations"],
     itemId: process.env.NEXT_PUBLIC_ITEM_BOOKINGS || undefined,
+    example: {
+      name: "Still Water Yoga",
+      what: "A yoga studio where students pick a class and book a spot.",
+      url: "https://t-9687c2a7.stores.anypress.site/",
+      shot: "bookings",
+      tryIt: ["See the class schedule", "Book a class", "Pick a private session"],
+    },
   },
   {
     id: "store",
@@ -89,6 +116,13 @@ export const SITE_TYPES: SiteType[] = [
     ],
     idealFor: ["Product brands", "Subscription boxes", "Digital downloads", "Supplements and wellness", "Niche online shops"],
     itemId: process.env.NEXT_PUBLIC_ITEM_STORE || undefined,
+    example: {
+      name: "Fern & Clay Ceramics",
+      what: "A pottery studio selling handmade mugs, bowls and vases.",
+      url: "https://t-34df1b8c.stores.anypress.site/",
+      shot: "store",
+      tryIt: ["Browse the shop", "Open a product", "Add it to the cart"],
+    },
   },
   {
     id: "community",
@@ -107,6 +141,13 @@ export const SITE_TYPES: SiteType[] = [
     ],
     idealFor: ["Course creators", "Coaches with programs", "Associations and chambers", "Membership clubs", "Educators"],
     itemId: process.env.NEXT_PUBLIC_ITEM_COMMUNITY || undefined,
+    example: {
+      name: "Brightside Guitar School",
+      what: "Online guitar courses with a members' practice room.",
+      url: "https://t-de81a042.stores.anypress.site/",
+      shot: "courses",
+      tryIt: ["See the courses", "Open the members' area", "Read the practice room"],
+    },
   },
   {
     id: "everything",
@@ -125,6 +166,13 @@ export const SITE_TYPES: SiteType[] = [
     ],
     idealFor: ["Chambers and associations", "Franchises and multi-location brands", "Education businesses", "Agencies' biggest clients", "Anyone outgrowing five apps"],
     itemId: process.env.NEXT_PUBLIC_ITEM_EVERYTHING || undefined,
+    example: {
+      name: "Riverbend Business Alliance",
+      what: "A local business group with memberships, events and a members' forum.",
+      url: "https://t-d6478888.stores.anypress.site/",
+      shot: "everything",
+      tryIt: ["Compare memberships", "See upcoming events", "Visit the members' forum"],
+    },
   },
 ];
 
@@ -193,4 +241,21 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     body: "Give each of your customers their own site, created automatically from your product. Your developers will find everything they need on our developer page.",
     fits: ["website", "store", "everything"],
   },
+];
+
+export interface Size {
+  name: string;
+  // Price multiple of the Small size (owner chose 2026-10-19).
+  times: number;
+  cpu: string;
+  memory: string;
+  storage: string;
+  emails: string;
+  goodFor: string;
+}
+
+export const SIZES: Size[] = [
+  { name: "Small", times: 1, cpu: "1 CPU", memory: "512 MB", storage: "5 GB", emails: "5,000", goodFor: "Most new sites" },
+  { name: "Medium", times: 2, cpu: "2 CPUs", memory: "512 MB", storage: "10 GB", emails: "20,000", goodFor: "Busier sites" },
+  { name: "Large", times: 4, cpu: "4 CPUs", memory: "768 MB", storage: "25 GB", emails: "50,000", goodFor: "Big shops and communities" },
 ];

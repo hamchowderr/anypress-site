@@ -27,7 +27,7 @@ const BLOCKS = [
   },
   {
     title: "MCP connector",
-    body: "Let Claude, ChatGPT or any MCP client create and manage sites, with OAuth sign-in or your API key.",
+    body: "Let Claude, ChatGPT or any MCP client create and manage sites, with a simple sign-in and per-area permissions.",
     tag: "/mcp",
   },
   {
@@ -46,58 +46,58 @@ export default function Developers() {
   return (
     <>
       <PageHero
-        band="ink"
+        eyebrow="For developers"
         title="Websites, created by your code."
         lead="Everything AnyPress does is an API call. Give each of your customers a WordPress site from inside your own product."
       >
         <div className="mt-9 flex flex-wrap gap-3">
-          <a href={API_REPO} className="btn btn-paper">
+          <a href={API_REPO} className="btn btn-ink">
             Read the API docs
           </a>
-          <Link href="/contact" className="btn border-paper text-paper">
+          <Link href="/contact" className="btn btn-paper">
             Get API access
           </Link>
         </div>
       </PageHero>
 
-      <section className="bg-paper">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-          <ul className="grid border-t-[2.5px] border-ink md:grid-cols-2 md:gap-x-14">
+      <section className="">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <ul className="grid border-t border-line md:grid-cols-2 md:gap-x-14">
             {BLOCKS.map((b) => (
-              <li key={b.title} className="border-b-[2.5px] border-ink py-8">
+              <li key={b.title} className="border-b border-line py-8">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <h2 className="font-display text-2xl font-extrabold">{b.title}</h2>
+                  <h2 className="font-display text-xl font-semibold">{b.title}</h2>
                   <code className="rounded-md bg-paper-2 px-2 py-1 font-mono text-sm">{b.tag}</code>
                 </div>
-                <p className="mt-2 text-lg leading-8 text-ink-soft">{b.body}</p>
+                <p className="mt-2 leading-7 text-ink-soft">{b.body}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className="border-t-[2.5px] border-ink bg-orange">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
+      <section className="border-y border-line bg-paper-2">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
           <div>
-            <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black">Three calls to a live site.</h2>
-            <ol className="mt-8 space-y-4 text-xl leading-8">
+            <h2 className="font-display text-[clamp(1.9rem,3.6vw,2.75rem)] leading-[1.08] font-semibold">Three calls to a live site.</h2>
+            <ol className="mt-8 space-y-4 text-lg leading-8 text-ink-soft">
               <li className="flex gap-4">
-                <span className="font-display-wide text-3xl font-black">1</span> Create the site, with your own id for it.
+                <span className="font-display text-xl font-semibold text-accent">1</span> Create the site, with your own id for it.
               </li>
               <li className="flex gap-4">
-                <span className="font-display-wide text-3xl font-black">2</span>
+                <span className="font-display text-xl font-semibold text-accent">2</span>
                 <span>
-                  Get <code className="font-mono font-bold">tenant.ready</code> with its address.
+                  Get <code className="font-mono font-semibold">tenant.ready</code> with its address.
                 </span>
               </li>
               <li className="flex gap-4">
-                <span className="font-display-wide text-3xl font-black">3</span> Send your customer to their new site, with the
+                <span className="font-display text-xl font-semibold text-accent">3</span> Send your customer to their new site, with the
                 WordPress login you created for them.
               </li>
             </ol>
           </div>
-          <div className="overflow-hidden rounded-2xl border-[2.5px] border-ink bg-ink text-paper">
-            <div className="border-b-2 border-paper/20 px-4 py-2.5 font-mono text-sm text-paper/70">signup.ts</div>
+          <div className="overflow-hidden rounded-2xl border border-line bg-ink text-white">
+            <div className="border-b border-white/15 px-4 py-2.5 font-mono text-sm text-white/60">signup.ts</div>
             <pre className="overflow-x-auto p-5 font-mono text-[14px] leading-6">
               <code>
                 <span className="text-amber">await</span> waas.tenants.create({"{"}
@@ -106,7 +106,7 @@ export default function Developers() {
                 {"  "}externalId: customer.id,{"\n"}
                 {"  "}wordPressUserEmail: customer.email,{"\n"}
                 {"}"});{"\n\n"}
-                <span className="text-paper/60">{"// later, in your webhook handler"}</span>
+                <span className="text-white/50">{"// later, in your webhook handler"}</span>
                 {"\n"}
                 <span className="text-amber">if</span> (event.type === <span className="text-amber">&quot;tenant.ready&quot;</span>) {"{"}
                 {"\n"}

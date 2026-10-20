@@ -18,41 +18,41 @@ const TOPICS = [
 export default function Contact() {
   return (
     <>
-      <PageHero band="orange" title="Ask us anything." lead="Questions about AnyPress, selling sites to your clients, or creating sites from your own app? Send us a note.">
+      <PageHero eyebrow="Contact" title="Ask us anything." lead="Questions about AnyPress, selling sites to your clients, or creating sites from your own app? Send us a note.">
         <div className="mt-9 flex flex-wrap gap-3">
           {CONTACT_EMAIL && (
-            <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn-ink text-lg">
+            <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn-ink">
               {CONTACT_EMAIL}
             </a>
           )}
-          <a href={ACCOUNT_URL} className="btn btn-paper text-lg">
+          <a href={ACCOUNT_URL} className="btn btn-paper">
             Already a customer? Sign in
           </a>
         </div>
       </PageHero>
 
-      <section className="bg-paper">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-          <ul className="grid border-t-[2.5px] border-ink md:grid-cols-2 md:gap-x-14">
+      <section className="">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <ul className="grid border-t border-line md:grid-cols-2 md:gap-x-14">
             {TOPICS.map(([title, body]) => (
-              <li key={title} className="border-b-[2.5px] border-ink py-7">
+              <li key={title} className="border-b border-line py-7">
                 {CONTACT_EMAIL ? (
                   <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`AnyPress: ${title}`)}`} className="group block">
-                    <span className="block text-xl font-bold group-hover:underline">{title}</span>
-                    <span className="mt-1 block text-lg text-ink-soft">{body}</span>
+                    <span className="block font-semibold group-hover:underline">{title}</span>
+                    <span className="mt-1 block text-ink-soft">{body}</span>
                   </a>
                 ) : (
                   <>
-                    <span className="block text-xl font-bold">{title}</span>
-                    <span className="mt-1 block text-lg text-ink-soft">{body}</span>
+                    <span className="block font-semibold">{title}</span>
+                    <span className="mt-1 block text-ink-soft">{body}</span>
                   </>
                 )}
               </li>
             ))}
           </ul>
-          <p className="mt-8 text-lg text-ink-soft">
+          <p className="mt-8 text-ink-soft">
             Looking for a quick answer? Try the{" "}
-            <Link href="/#faq" className="font-bold text-ink underline">
+            <Link href="/#faq" className="font-semibold text-ink underline">
               questions on the homepage
             </Link>
             .

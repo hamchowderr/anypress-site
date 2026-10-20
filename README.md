@@ -21,7 +21,7 @@ npm run dev
 
 Open http://localhost:3000.
 
-The line animations in `public/lottie/` are made from code. After changing `scripts/lottie/`, rebuild them with `node scripts/lottie/build.mjs`.
+The example-site screenshots in `public/examples/` come from real AnyPress sites built for five made-up businesses. Each is `<name>-desk.webp` (1200 wide) and `<name>-phone.webp` (390 wide at 2x).
 
 ## Settings
 

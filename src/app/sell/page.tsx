@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHero } from "@/components/ui";
 import { ApplicationForm } from "./ApplicationForm";
 
 export const metadata: Metadata = {
@@ -14,27 +15,29 @@ const STEPS = [
 
 export default function Sell() {
   return (
-    <section className="mx-auto max-w-5xl px-4 py-16">
-      <h1 className="text-3xl font-semibold tracking-tight">Sell websites with AnyPress</h1>
-      <p className="mt-3 max-w-2xl text-muted">
-        Sell websites to your clients under your own name. We host every site, keep it backed up and up to date, and
-        you pay per site with lower prices as you grow.
-      </p>
+    <>
+      <PageHero
+        eyebrow="For agencies and freelancers"
+        title="Sell websites with AnyPress."
+        lead="Sell websites to your clients under your own name. We host every site, keep it backed up and up to date, and you pay per site with lower prices as you grow."
+      />
 
-      <ol className="mt-10 grid gap-8 sm:grid-cols-3">
-        {STEPS.map((s, i) => (
-          <li key={s.title}>
-            <p className="text-sm text-muted">Step {i + 1}</p>
-            <h2 className="mt-1 font-semibold">{s.title}</h2>
-            <p className="mt-2 text-sm leading-6 text-muted">{s.body}</p>
-          </li>
-        ))}
-      </ol>
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <ol className="grid gap-8 sm:grid-cols-3">
+          {STEPS.map((s, i) => (
+            <li key={s.title} className="border-t border-line pt-6">
+              <p className="font-display text-sm font-semibold text-accent">Step {i + 1}</p>
+              <h2 className="font-display mt-2 text-xl font-semibold">{s.title}</h2>
+              <p className="mt-1.5 leading-7 text-ink-soft">{s.body}</p>
+            </li>
+          ))}
+        </ol>
 
-      <div className="mt-12 rounded-lg border border-line bg-panel p-6 sm:p-8">
-        <h2 className="text-xl font-semibold">Your application</h2>
-        <ApplicationForm storeDomain={process.env.NEXT_PUBLIC_STORE_DOMAIN || "anypress.site"} />
-      </div>
-    </section>
+        <div className="card mt-12 p-6 sm:p-10">
+          <h2 className="font-display text-2xl font-semibold">Your application</h2>
+          <ApplicationForm storeDomain={process.env.NEXT_PUBLIC_STORE_DOMAIN || "anypress.site"} />
+        </div>
+      </section>
+    </>
   );
 }

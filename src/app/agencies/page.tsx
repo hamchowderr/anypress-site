@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Motion } from "@/components/Motion";
-import { CtaBand, PageHero } from "@/components/ui";
+import { CtaBand, PageHero, SectionHead } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "For agencies",
@@ -38,51 +37,54 @@ export default function Agencies() {
   return (
     <>
       <PageHero
-        band="red"
+        eyebrow="For agencies and freelancers"
         title="Sell websites as a monthly service."
         lead="Offer your clients websites for a monthly fee, under your own name, from your own shop. We build and look after every one."
       >
-        <div className="mt-9">
-          <Link href="/contact" className="btn btn-ink text-lg">
-            Talk to us about an agency account
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/sell" className="btn btn-ink">
+            Apply to sell websites
+          </Link>
+          <Link href="/#examples" className="btn btn-paper">
+            See example sites
           </Link>
         </div>
       </PageHero>
 
-      <section className="bg-paper">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black">How it works.</h2>
-            <div className="rounded-3xl border-[2.5px] border-ink bg-paper p-6 text-ink sm:p-10">
-              <Motion name="one-to-many" label="One website template copied into three client sites, each checked" />
-            </div>
-          </div>
-          <ol className="mt-12 grid border-t-[2.5px] border-ink md:grid-cols-4">
+      <section>
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <SectionHead title="How it works." />
+          <ol className="mt-10 grid gap-8 md:grid-cols-4">
             {FLOW.map(([title, sub], i) => (
-              <li key={title} className="border-b-[2.5px] border-ink py-8 md:border-r-[2.5px] md:px-6 md:first:pl-0 md:last:border-r-0">
-                <span className="font-display-wide block text-7xl leading-none font-black">{i + 1}</span>
-                <p className="mt-5 text-2xl font-bold">{title}</p>
-                <p className="mt-1 text-lg text-ink-soft">{sub}</p>
+              <li key={title} className="border-t border-line pt-6">
+                <span className="font-display text-sm font-semibold text-accent">Step {i + 1}</span>
+                <p className="font-display mt-2 text-xl font-semibold">{title}</p>
+                <p className="mt-1 leading-7 text-ink-soft">{sub}</p>
               </li>
             ))}
           </ol>
-
-          <div className="mt-20 grid gap-x-14 gap-y-10 sm:grid-cols-2">
-            {POINTS.map((p) => (
-              <div key={p.title}>
-                <h3 className="font-display text-2xl font-extrabold">{p.title}</h3>
-                <p className="mt-2 text-lg leading-8 text-ink-soft">{p.body}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
+      <section className="border-y border-line bg-paper-2">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {POINTS.map((p) => (
+              <li key={p.title} className="card p-6">
+                <h3 className="font-display text-xl font-semibold">{p.title}</h3>
+                <p className="mt-2 leading-7 text-ink-soft">{p.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <div className="h-20" aria-hidden />
       <CtaBand
         title="Ready to sell websites?"
-        body="We set up agency accounts by hand while we're getting started. Tell us about your clients."
-        href="/contact"
-        label="Get in touch"
+        body="Tell us about your business and who you build for. We read every application and email you back."
+        href="/sell"
+        label="Apply to sell websites"
       />
     </>
   );

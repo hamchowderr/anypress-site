@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Arrow } from "@/components/Drawings";
-import { Motion } from "@/components/Motion";
-import { CtaBand, PageHero } from "@/components/ui";
+import { Arrow } from "@/components/Icons";
+import { CtaBand, PageHero, SectionHead } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Why AnyPress exists, what we believe, and the open source code behind it.",
+  description: "What AnyPress is, what we believe, and the open source code behind it.",
 };
 
 const BELIEFS = [
@@ -25,69 +24,57 @@ export default function About() {
   return (
     <>
       <PageHero
-        band="magenta"
+        eyebrow="About"
         title="WordPress can do anything. We make it easy."
         lead="AnyPress is built by Otaku Solutions. We take the hard parts of WordPress off your plate, so you can get on with your business."
       />
 
-      <section className="bg-paper">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:py-28">
-          <div>
-            <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black text-balance">
-              WordPress felt like a giant flea market.
-            </h2>
-            <div className="mt-8 space-y-5 text-xl leading-8">
-              <p>
-                There are thousands of add-ons, and nobody tells you which ones fit together. Then there&apos;s hosting, the padlock,
-                backups and email to sort out before you sell a single thing.
-              </p>
-              <p>
-                So we picked the parts, fitted them together, and made the whole thing something you order instead of something you
-                build. Pick the kind of site you need, and it arrives ready.
-              </p>
-            </div>
-          </div>
-          <div className="rounded-3xl border-[2.5px] border-ink bg-paper p-6 text-ink sm:p-10">
-            <Motion name="parts-into-box" label="Loose website parts dropping into one box, which gets a check mark" />
+      <section>
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2">
+          <SectionHead title="WordPress can feel like a giant flea market." />
+          <div className="space-y-5 text-lg leading-8 text-ink-soft">
+            <p>
+              There are thousands of add-ons, and nobody tells you which ones fit together. Then there&apos;s hosting, the padlock,
+              backups and email to sort out before you sell a single thing.
+            </p>
+            <p>
+              So we picked the parts, fitted them together, and made the whole thing something you order instead of something you
+              build. Pick the kind of site you need, and it arrives ready.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="border-t-[2.5px] border-ink bg-amber">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28">
-          <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black">What we believe.</h2>
-          <ol className="mt-12 grid gap-x-14 gap-y-12 md:grid-cols-2">
+      <section className="border-y border-line bg-paper-2">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <SectionHead title="What we believe." />
+          <ol className="mt-10 grid gap-4 md:grid-cols-2">
             {BELIEFS.map(([title, body], i) => (
-              <li key={title} className="grid grid-cols-[4rem_1fr] gap-4">
-                <span className="font-display-wide text-6xl leading-none font-black">{i + 1}</span>
-                <div>
-                  <h3 className="font-display text-2xl leading-tight font-extrabold">{title}</h3>
-                  <p className="mt-2 text-lg leading-8">{body}</p>
-                </div>
+              <li key={title} className="card p-6">
+                <span className="font-display text-sm font-semibold text-accent">{i + 1}</span>
+                <h3 className="font-display mt-1 text-xl font-semibold">{title}</h3>
+                <p className="mt-2 leading-7 text-ink-soft">{body}</p>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      <section className="border-t-[2.5px] border-ink bg-paper">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
-          <div>
-            <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] font-black">The code is open.</h2>
-            <p className="mt-5 max-w-md text-lg leading-8 text-ink-soft">
-              All of it is public under the GPL license. You don&apos;t need any of this to use AnyPress, but it&apos;s there if you
-              want to look.
-            </p>
-          </div>
-          <ul className="border-t-[2.5px] border-ink">
+      <section>
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2">
+          <SectionHead
+            title="The code is open."
+            lead="All of it is public under the GPL license. You don't need any of this to use AnyPress, but it's there if you want to look."
+          />
+          <ul className="border-t border-line">
             {CODE.map(([name, what, href]) => (
-              <li key={name} className="border-b-[2.5px] border-ink">
+              <li key={name} className="border-b border-line">
                 <a href={href} className="group flex items-center justify-between gap-6 py-5">
                   <span>
-                    <span className="block text-xl font-bold group-hover:underline">{name}</span>
-                    <span className="block text-lg text-ink-soft">{what}</span>
+                    <span className="block font-semibold">{name}</span>
+                    <span className="mt-0.5 block text-ink-soft">{what}</span>
                   </span>
-                  <Arrow className="h-7 w-7 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+                  <Arrow className="h-5 w-5 shrink-0 text-ink-soft transition-transform duration-200 group-hover:translate-x-1" />
                 </a>
               </li>
             ))}

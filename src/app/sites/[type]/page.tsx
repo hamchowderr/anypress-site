@@ -1,18 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Arrow, Check, SiteParts } from "@/components/Drawings";
-import { type Band, CtaBand, PageHero } from "@/components/ui";
-import { SITE_TYPES, type SiteTypeId, checkoutUrl } from "@/lib/site";
-
-// Each site type takes its colour from the ribbon, in the same order as the homepage steps.
-const BANDS: Record<SiteTypeId, Band> = {
-  website: "amber",
-  bookings: "orange",
-  store: "red",
-  community: "rose",
-  everything: "magenta",
-};
+import { Arrow, Check } from "@/components/Icons";
+import { BrowserShot, PhoneShot } from "@/components/Shots";
+import { CtaBand, SectionHead } from "@/components/ui";
+import { SITE_TYPES, checkoutUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return SITE_TYPES.map((t) => ({ type: t.id }));
@@ -29,71 +21,83 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
   const t = SITE_TYPES.find((s) => s.id === type);
   if (!t) notFound();
   const others = SITE_TYPES.filter((s) => s.id !== t.id);
-  const band = BANDS[t.id];
+  const ex = t.example;
 
   return (
     <>
-      <PageHero band={band} title={t.headline} lead={t.pitch}>
-        <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
-          {t.itemId ? (
-            <a href={checkoutUrl(t.itemId)} className={`btn text-lg ${band === "magenta" ? "btn-paper" : "btn-ink"}`}>
-              Start your {t.short.toLowerCase()} site
-            </a>
-          ) : (
-            <Link href="/contact" className={`btn text-lg ${band === "magenta" ? "btn-paper" : "btn-ink"}`}>
-              Ask us to set one up
-            </Link>
-          )}
-          <p className="text-lg">
-            <span className="font-display text-4xl font-black">${t.from}</span> a month to start
-          </p>
-        </div>
-      </PageHero>
-
-      <section className="assembly-scope bg-paper">
-        <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:py-28">
-          <div className="rounded-3xl border-[2.5px] border-ink p-6 sm:p-10">
-            <SiteParts state="assemble" className="w-full" />
-          </div>
+      <section className="overflow-hidden border-b border-line">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1fr_1.35fr] lg:pt-20">
           <div>
-            <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.5rem)] leading-[0.98] font-black">What it does for you.</h2>
-            <dl className="mt-10 space-y-8">
-              {t.features.map((f) => (
-                <div key={f.title}>
-                  <dt className="text-xl font-bold">{f.title}</dt>
-                  <dd className="mt-1 text-lg leading-8 text-ink-soft">{f.body}</dd>
-                </div>
-              ))}
-            </dl>
+            <p className="eyebrow">{t.name}</p>
+            <h1 className="font-display mt-3 text-[clamp(2.3rem,4.6vw,3.6rem)] leading-[1.04] font-semibold text-balance">{t.headline}</h1>
+            <p className="mt-5 text-lg leading-8 text-ink-soft">{t.pitch}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              {t.itemId ? (
+                <a href={checkoutUrl(t.itemId)} className="btn btn-ink">
+                  Start your {t.short.toLowerCase()} site
+                </a>
+              ) : (
+                <Link href="/contact" className="btn btn-ink">
+                  Ask us to set one up
+                </Link>
+              )}
+              <a href={ex.url} target="_blank" rel="noopener" className="btn btn-paper">
+                Open the example <Arrow className="h-4 w-4" />
+              </a>
+            </div>
+            <p className="mt-5 text-ink-soft">
+              From <span className="font-semibold text-ink">${t.from} a month</span>. No cut of your sales.
+            </p>
+          </div>
+          <div className="relative pb-8 lg:pr-12">
+            <BrowserShot example={ex} />
+            <PhoneShot example={ex} className="absolute right-0 -bottom-2 w-[24%] max-w-[160px]" />
+            <p className="mt-6 max-w-[70%] text-sm text-ink-soft">
+              {ex.name} is a made-up business. {ex.what}
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="border-t-[2.5px] border-ink bg-paper-2">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
+      <section>
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <SectionHead title="What it does for you." />
+          <dl className="mt-10 grid gap-4 sm:grid-cols-2">
+            {t.features.map((f) => (
+              <div key={f.title} className="card p-6">
+                <dt className="font-semibold">{f.title}</dt>
+                <dd className="mt-1.5 leading-7 text-ink-soft">{f.body}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="border-y border-line bg-paper-2">
+        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
           <div>
-            <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] font-black">In the box.</h2>
-            <ul className="mt-8 max-w-lg space-y-2 text-lg">
+            <h2 className="font-display text-2xl font-semibold">What you get</h2>
+            <ul className="mt-6 space-y-2.5">
               {[...t.inBox, "The padlock, nightly copies and your own domain"].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                      <Check className="mt-0.5 h-6 w-6 shrink-0" />
-                      {item}
-                    </li>
+                <li key={item} className="flex items-start gap-2.5">
+                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+                  {item}
+                </li>
               ))}
             </ul>
             <p className="mt-6 text-ink-soft">
               Know WordPress? The tools are listed by name on{" "}
-              <Link href="/included" className="font-bold text-ink underline">
+              <Link href="/included" className="font-semibold text-ink underline">
                 what&apos;s included
               </Link>
               .
             </p>
           </div>
           <div>
-            <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] font-black">Made for.</h2>
-            <ul className="mt-8 flex flex-wrap gap-2">
+            <h2 className="font-display text-2xl font-semibold">Made for</h2>
+            <ul className="mt-6 flex flex-wrap gap-2">
               {t.idealFor.map((x) => (
-                <li key={x} className="rounded-full border-[2.5px] border-ink bg-paper px-4 py-1.5 text-lg font-bold">
+                <li key={x} className="rounded-full border border-line bg-panel px-4 py-1.5">
                   {x}
                 </li>
               ))}
@@ -102,20 +106,20 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
         </div>
       </section>
 
-      <section className="border-t-[2.5px] border-ink bg-paper">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-          <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.98] font-black">Building something else?</h2>
-          <ul className="mt-8 border-t-[2.5px] border-ink">
+      <section>
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <SectionHead title="Building something else?" />
+          <ul className="mt-8 grid gap-x-10 md:grid-cols-2">
             {others.map((o) => (
-              <li key={o.id} className="border-b-[2.5px] border-ink">
+              <li key={o.id} className="border-b border-line">
                 <Link href={`/sites/${o.id}`} className="group flex items-center justify-between gap-6 py-5">
                   <span>
-                    <span className="block text-xl font-bold group-hover:underline">{o.name}</span>
-                    <span className="block text-lg text-ink-soft">{o.pitch}</span>
+                    <span className="block font-semibold">{o.name}</span>
+                    <span className="mt-0.5 block text-ink-soft">{o.pitch}</span>
                   </span>
-                  <span className="flex items-center gap-4">
-                    <span className="hidden text-lg sm:inline">${o.from} a month</span>
-                    <Arrow className="h-7 w-7 transition-transform duration-200 group-hover:translate-x-1" />
+                  <span className="flex shrink-0 items-center gap-4 text-ink-soft">
+                    <span className="hidden sm:inline">${o.from} a month</span>
+                    <Arrow className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                   </span>
                 </Link>
               </li>
