@@ -48,7 +48,38 @@ export default function Pricing() {
 
       <section>
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <div className="card overflow-x-auto">
+          {/* Phones get one card per kind of site; wider screens get the table. */}
+          <ul className="grid gap-4 md:hidden">
+            {SITE_TYPES.map((t) => (
+              <li key={t.id} className="card p-5">
+                <Link href={`/sites/${t.id}`} className="font-semibold hover:underline">
+                  {t.name}
+                </Link>
+                <p className="mt-0.5 text-sm text-ink-soft">{t.pitch}</p>
+                <dl className="mt-4 grid grid-cols-3 gap-2 text-center">
+                  {SIZES.map((s) => (
+                    <div key={s.name} className="rounded-xl bg-paper-2 px-2 py-3">
+                      <dt className="text-xs text-ink-soft">{s.name}</dt>
+                      <dd className="mt-1">
+                        <span className="font-display text-xl font-semibold">${t.from * s.times}</span>
+                        <span className="text-xs text-ink-soft">/mo</span>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+                {t.itemId ? (
+                  <a href={checkoutUrl(t.itemId)} className="btn btn-ink mt-4 w-full !py-2.5 text-sm">
+                    Start
+                  </a>
+                ) : (
+                  <Link href="/contact" className="btn btn-paper mt-4 w-full !py-2.5 text-sm">
+                    Ask us
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+          <div className="card relative overflow-x-auto max-md:hidden">
             <table className="w-full min-w-[640px] text-left">
               <caption className="sr-only">Monthly price for each kind of site and size</caption>
               <thead>
