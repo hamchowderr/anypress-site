@@ -5,6 +5,9 @@ export const SHOP_URL = (process.env.NEXT_PUBLIC_SHOP_URL || "https://shop.anypr
 // FluentCart's customer account page on the shop.
 export const ACCOUNT_URL = `${SHOP_URL}${process.env.NEXT_PUBLIC_ACCOUNT_PATH || "/account/"}`;
 
+// FluentAffiliate's sign-up form and affiliate dashboard on the shop.
+export const AFFILIATE_URL = `${SHOP_URL}/affiliates/`;
+
 export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "support@anypress.io";
 
 /** FluentCart's instant checkout link for one plan. */

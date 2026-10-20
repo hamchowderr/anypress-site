@@ -22,6 +22,7 @@ const COLUMNS = [
     links: [
       { href: "/agencies", label: "For agencies" },
       { href: "/sell", label: "Apply to sell websites" },
+      { href: "/affiliates", label: "Affiliate program" },
       { href: "/developers", label: "For developers" },
       { href: "/included", label: "What's included" },
       { href: "https://github.com/hamchowderr/waas-plugins", label: "Open source code" },
