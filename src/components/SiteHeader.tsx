@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { accountSignInEnabled } from "@/lib/account";
 import { ACCOUNT_URL } from "@/lib/site";
 
 const NAV = [
@@ -10,6 +11,7 @@ const NAV = [
 ];
 
 export function SiteHeader() {
+  const signIn = accountSignInEnabled() ? "/account" : ACCOUNT_URL;
   return (
     <header className="sticky top-0 z-50 border-b-[2.5px] border-ink bg-paper">
       <nav className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-3 sm:px-6">
@@ -24,7 +26,7 @@ export function SiteHeader() {
           ))}
         </div>
         <div className="ml-auto flex items-center gap-4 lg:ml-0">
-          <a href={ACCOUNT_URL} className="hidden font-bold hover:underline sm:inline">
+          <a href={signIn} className="hidden font-bold hover:underline sm:inline">
             Sign in
           </a>
           <Link href="/#pick" className="btn btn-ink !gap-0 !px-4 !py-2 whitespace-nowrap">
@@ -42,7 +44,7 @@ export function SiteHeader() {
                   {n.label}
                 </Link>
               ))}
-              <a href={ACCOUNT_URL} className="block rounded-xl px-3 py-2.5 font-bold hover:bg-paper-2">
+              <a href={signIn} className="block rounded-xl px-3 py-2.5 font-bold hover:bg-paper-2">
                 Sign in
               </a>
             </div>
