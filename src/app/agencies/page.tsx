@@ -1,58 +1,91 @@
 import type { Metadata } from "next";
-import { CONTACT_EMAIL } from "@/lib/site";
+import Link from "next/link";
+import { CtaBand, PageHero, SectionHead } from "@/components/ui";
 
-export const metadata: Metadata = { title: "For agencies" };
+export const metadata: Metadata = {
+  title: "For agencies",
+  description: "Sell websites to your clients as a monthly service, under your own name, while we build and look after every one.",
+};
+
+const FLOW = [
+  ["Your client buys", "from your own shop, at your price."],
+  ["We build it", "from a site you've set up once as your starting point."],
+  ["They manage it", "from an account on your shop, under your name."],
+  ["You get paid", "every month, straight to your own account."],
+];
 
 const POINTS = [
   {
-    title: "Your brand, your shop",
-    body: "You run your own WordPress shop with the WaaS Host plugin. Clients buy from you, on your domain, through your payment account.",
+    title: "Your name, your shop",
+    body: "Clients buy from your own WordPress shop, on your own domain, through your own payment account. AnyPress stays in the background.",
   },
   {
-    title: "Your templates",
-    body: "Set up the sites you sell once, as templates. Every new client site starts as a copy, on its own WordPress install.",
+    title: "Set it up once",
+    body: "Build the sites you sell once. Every new client gets their own copy, as their own private website.",
   },
   {
-    title: "Your clients manage their own sites",
-    body: "Clients sign in on your shop to open their WordPress admin, connect a domain, set up email or change their plan.",
+    title: "Clients look after themselves",
+    body: "From their account on your shop, clients open their site's editor, connect their own domain and set up email.",
   },
   {
-    title: "Open source",
-    body: "The plugins, API and dashboard behind AnyPress are open source under the GPL, so you're never locked in.",
+    title: "Never locked in",
+    body: "Everything behind AnyPress is open source, so you can see how it works, and you're never stuck with us.",
   },
 ];
 
 export default function Agencies() {
   return (
-    <section className="mx-auto max-w-5xl px-4 py-16">
-      <h1 className="text-3xl font-semibold tracking-tight">AnyPress for agencies</h1>
-      <p className="mt-3 max-w-2xl text-muted">
-        Sell WordPress websites to your clients as a monthly service, without running servers yourself.
-      </p>
+    <>
+      <PageHero
+        eyebrow="For agencies and freelancers"
+        title="Sell websites as a monthly service."
+        lead="Offer your clients websites for a monthly fee, under your own name, from your own shop. We build and look after every one."
+      >
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/sell" className="btn btn-ink">
+            Apply to sell websites
+          </Link>
+          <Link href="/#examples" className="btn btn-paper">
+            See example sites
+          </Link>
+        </div>
+      </PageHero>
 
-      <div className="mt-10 grid gap-8 sm:grid-cols-2">
-        {POINTS.map((p) => (
-          <div key={p.title}>
-            <h2 className="font-semibold">{p.title}</h2>
-            <p className="mt-2 text-sm leading-6 text-muted">{p.body}</p>
-          </div>
-        ))}
-      </div>
+      <section>
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <SectionHead title="How it works." />
+          <ol className="mt-10 grid gap-8 md:grid-cols-4">
+            {FLOW.map(([title, sub], i) => (
+              <li key={title} className="border-t border-line pt-6">
+                <span className="font-display text-sm font-semibold text-accent">Step {i + 1}</span>
+                <p className="font-display mt-2 text-xl font-semibold">{title}</p>
+                <p className="mt-1 leading-7 text-ink-soft">{sub}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
-      <div id="contact" className="mt-12 rounded-lg border border-line bg-panel p-6">
-        <h2 className="font-semibold">Talk to us</h2>
-        <p className="mt-2 text-sm text-muted">Agency accounts are set up by hand while we&apos;re getting started.</p>
-        {CONTACT_EMAIL ? (
-          <a
-            href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("AnyPress for agencies")}`}
-            className="mt-4 inline-block rounded-md bg-accent px-4 py-2 font-medium text-on-accent hover:opacity-90"
-          >
-            Email us
-          </a>
-        ) : (
-          <p className="mt-4 text-sm text-muted">Contact details coming soon.</p>
-        )}
-      </div>
-    </section>
+      <section className="border-y border-line bg-paper-2">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {POINTS.map((p) => (
+              <li key={p.title} className="card p-6">
+                <h3 className="font-display text-xl font-semibold">{p.title}</h3>
+                <p className="mt-2 leading-7 text-ink-soft">{p.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <div className="h-20" aria-hidden />
+      <CtaBand
+        title="Ready to sell websites?"
+        body="Tell us about your business and who you build for. We read every application and email you back."
+        href="/sell"
+        label="Apply to sell websites"
+      />
+    </>
   );
 }

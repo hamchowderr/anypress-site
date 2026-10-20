@@ -1,6 +1,6 @@
 # AnyPress site
 
-The marketing site for [AnyPress](https://anypress.io): WordPress websites, hosted and ready.
+The marketing site for [AnyPress](https://anypress.io): any website, on its own WordPress, with the tools already set up.
 
 It's a headless front end built with Next.js. Checkout stays on the AnyPress WordPress shop
 (`shop.anypress.io`, running FluentCart and the WaaS Host plugin), so this site never handles
@@ -21,6 +21,8 @@ npm run dev
 
 Open http://localhost:3000.
 
+The example-site screenshots in `public/examples/` come from real AnyPress sites built for five made-up businesses. Each is `<name>-desk.webp` (1200 wide) and `<name>-phone.webp` (390 wide at 2x).
+
 ## Settings
 
 All optional. Copy `.env.example` to `.env.local` to set them locally.
@@ -29,14 +31,14 @@ All optional. Copy `.env.example` to `.env.local` to set them locally.
 |---|---|---|
 | `NEXT_PUBLIC_SHOP_URL` | The WordPress shop that runs checkout and accounts | `https://shop.anypress.io` |
 | `NEXT_PUBLIC_ACCOUNT_PATH` | The account page on the shop | `/account/` |
-| `NEXT_PUBLIC_PLAN_ITEM_ID` | The FluentCart variation id the plan's Buy button checks out. Unset shows "Coming soon". | unset |
-| `NEXT_PUBLIC_CONTACT_EMAIL` | Address for the agencies page's "Email us" button | unset |
+| `NEXT_PUBLIC_ITEM_WEBSITE`, `_BOOKINGS`, `_STORE`, `_COMMUNITY`, `_EVERYTHING` | The FluentCart variation id each site type's button checks out. Unset shows "Opening soon". | unset |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | Address shown on the contact page | support@anypress.io |
 | `ACCOUNT_CLIENT_ID` | This site's client id on the shop (`wp waas-host account-client add`) | unset: sign-in off |
 | `ACCOUNT_CLIENT_SECRET` | Its client secret. Server only; never `NEXT_PUBLIC_` | unset: sign-in off |
 | `SESSION_SECRET` | 32+ random characters that encrypt the session cookie (`openssl rand -base64 32`) | unset: sign-in off |
 | `SITE_URL` | This site's address; the callback `<SITE_URL>/api/auth/callback` must be registered on the shop | `https://anypress.io` |
 
-Plans live in `src/lib/site.ts`.
+Site types, prices and the customer groups live in `src/lib/site.ts`.
 
 ## License
 

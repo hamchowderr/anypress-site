@@ -1,29 +1,31 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Geist } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Headlines: a friendly grotesque, used at a calm weight.
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Body text.
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://anypress.io"),
-  title: { default: "AnyPress: WordPress websites, hosted and ready", template: "%s · AnyPress" },
+  title: { default: "AnyPress: websites that arrive ready to use", template: "%s · AnyPress" },
   description:
-    "AnyPress gives every website its own WordPress install, with a store template, nightly backups, your own domain and email. For businesses and the agencies that build for them.",
+    "AnyPress is WordPress, set up and looked after for you. Pick a website, bookings, a shop or a members' area, and it arrives ready to use. No cut of your sales.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${bricolage.variable} ${geist.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
         <SiteHeader />
         <main className="flex-1">{children}</main>
