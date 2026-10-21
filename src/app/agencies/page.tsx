@@ -33,6 +33,19 @@ const POINTS = [
   },
 ];
 
+const ACCOUNTS = [
+  {
+    title: "Seller",
+    line: "One shop, your name on it.",
+    body: "You sell from your own shop and pay us per website, with lower prices as you grow. Start with three sites. Most agencies and freelancers start here.",
+  },
+  {
+    title: "Reseller",
+    line: "Several brands, one bill.",
+    body: "For bigger partners. Run several shops under one login, and get one monthly bill at a wholesale price. Your developers can create sites for every brand through our API.",
+  },
+];
+
 export default function Agencies() {
   return (
     <>
@@ -79,7 +92,22 @@ export default function Agencies() {
         </div>
       </section>
 
-      <div className="h-20" aria-hidden />
+      <section>
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <SectionHead title="Two ways to sell." />
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+            {ACCOUNTS.map((a) => (
+              <li key={a.title} className="card p-6">
+                <h3 className="font-display text-xl font-semibold">{a.title}</h3>
+                <p className="mt-1 font-semibold text-accent">{a.line}</p>
+                <p className="mt-2 leading-7 text-ink-soft">{a.body}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 leading-7 text-ink-soft">One application covers both. Tell us how you work and we&apos;ll set up the right one.</p>
+        </div>
+      </section>
+
       <CtaBand
         title="Ready to sell websites?"
         body="Tell us about your business and who you build for. We read every application and email you back."

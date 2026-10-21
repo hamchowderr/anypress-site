@@ -20,7 +20,7 @@ const COLUMNS = [
   {
     title: "Sell & build",
     links: [
-      { href: "/agencies", label: "For agencies" },
+      { href: "/agencies", label: "Sell websites" },
       { href: "/sell", label: "Apply to sell websites" },
       { href: "/affiliates", label: "Affiliate program" },
       { href: "/developers", label: "For developers" },
