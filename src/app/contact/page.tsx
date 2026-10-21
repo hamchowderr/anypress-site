@@ -5,12 +5,12 @@ import { ACCOUNT_URL, CONTACT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Questions about AnyPress, agency accounts or creating sites from your own app.",
+  description: "Questions about AnyPress, seller and reseller accounts, or creating sites from your own app.",
 };
 
 const TOPICS = [
   ["Choosing a site", "Tell us what you're building and we'll point you to the right box."],
-  ["Selling sites to clients", "Agency accounts, under your own name."],
+  ["Selling sites to clients", "Seller and reseller accounts, under your own name."],
   ["Creating sites from your app", "Access for your developers."],
   ["Something else", "Bigger projects, partnerships, press."],
 ];

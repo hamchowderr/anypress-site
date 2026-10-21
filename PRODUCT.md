@@ -35,7 +35,7 @@ Building a website shouldn't be hard. Other platforms make it harder than it nee
 - Five site types with owner-chosen starting prices per month: Website $12, Bookings $19, Online store $29, Community & courses $39, Everything $79. Sizes beyond the starting size are not decided.
 - Every site: its own WordPress and database, SSL, nightly backups with restore, free .anypress.site address, connect your own domain (one click with supported DNS providers), email from your own domain, one-click sign-in to WordPress, no AnyPress fee on sales (Stripe's card fee applies).
 - Tools by type come from the Fluent suite (FluentCart, FluentCRM, FluentBooking, FluentCommunity, Fluent Forms, FluentAffiliate, Fluent Support) plus Rank Math. Name them only on deeper pages.
-- Agencies can resell under their own brand; developers can create sites through an API (deeper pages only).
+- Anyone can sell websites under their own name: as a seller (one shop, pays per site) or a reseller (several shops, one wholesale bill). Agencies are one of the groups who do this; developers can create sites through an API (deeper pages only).
 - Not offered / not to claim: page caching or speed claims, automatic core updates, 24/7 support, uptime guarantees, migration help, AI content tools, templates library.
 
 ## Brand Commitments
