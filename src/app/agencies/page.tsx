@@ -38,11 +38,18 @@ const ACCOUNTS = [
     title: "Seller",
     line: "One shop, your name on it.",
     body: "You sell from your own shop and pay us per website, with lower prices as you grow. Start with three sites. Most agencies and freelancers start here.",
+    examples: ["A freelance designer selling sites to local clients", "A chamber of commerce selling sites to its members"],
   },
   {
     title: "Reseller",
     line: "Several brands, one bill.",
     body: "For bigger partners. Run several shops under one login, and get one monthly bill at a wholesale price. Your developers can create sites for every brand through our API.",
+    examples: [
+      "An agency with a brand for bakeries and another for salons",
+      "A franchise office with a shop for each region",
+      "A software company giving each customer a site, plus a brand for partners",
+      "A web host with a budget brand and a premium brand",
+    ],
   },
 ];
 
@@ -101,10 +108,16 @@ export default function Agencies() {
                 <h3 className="font-display text-xl font-semibold">{a.title}</h3>
                 <p className="mt-1 font-semibold text-accent">{a.line}</p>
                 <p className="mt-2 leading-7 text-ink-soft">{a.body}</p>
+                <p className="mt-4 text-sm font-semibold">For example</p>
+                <ul className="mt-1 list-disc space-y-1 pl-5 text-ink-soft">
+                  {a.examples.map((e) => (
+                    <li key={e}>{e}</li>
+                  ))}
+                </ul>
               </li>
             ))}
           </ul>
-          <p className="mt-6 leading-7 text-ink-soft">One application covers both. Tell us how you work and we&apos;ll set up the right one.</p>
+          <p className="mt-6 leading-7 text-ink-soft">One business name? You&apos;re a seller. More than one? You&apos;re a reseller. One application covers both, and we&apos;ll set up the right one.</p>
         </div>
       </section>
 
