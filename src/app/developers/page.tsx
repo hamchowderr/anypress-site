@@ -37,7 +37,7 @@ const BLOCKS = [
   },
   {
     title: "Open source",
-    body: "The API, the WordPress plugins and the dashboard are public under the GPL. Read it, run it, improve it.",
+    body: "The API, the WordPress plugins and the dashboard are public under the GPL. Read it, improve it, or run it yourself with one installer.",
     tag: "GPL-3.0",
   },
 ];
