@@ -33,6 +33,7 @@ const COLUMNS = [
     title: "Your account",
     links: [
       { href: ACCOUNT_URL, label: "Sign in" },
+      { href: "/help", label: "Help" },
       { href: "https://app.anypress.io", label: "Partner dashboard" },
     ],
   },
