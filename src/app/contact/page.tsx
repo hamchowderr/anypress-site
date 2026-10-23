@@ -52,8 +52,8 @@ export default function Contact() {
           </ul>
           <p className="mt-8 text-ink-soft">
             Looking for a quick answer? Try the{" "}
-            <Link href="/#faq" className="font-semibold text-ink underline">
-              questions on the homepage
+            <Link href="/help" className="font-semibold text-ink underline">
+              help page
             </Link>
             .
           </p>
