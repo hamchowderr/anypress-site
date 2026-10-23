@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "@/components/Icons";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
-import { SITE_TYPES, SIZES, checkoutUrl } from "@/lib/site";
+import { SITE_TYPES, SIZES, planUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Prices",
@@ -56,26 +56,20 @@ export default function Pricing() {
                   {t.name}
                 </Link>
                 <p className="mt-0.5 text-sm text-ink-soft">{t.pitch}</p>
-                <dl className="mt-4 grid grid-cols-3 gap-2 text-center">
+                <div className="mt-4 grid grid-cols-3 gap-2 text-center">
                   {SIZES.map((s) => (
-                    <div key={s.name} className="rounded-xl bg-paper-2 px-2 py-3">
-                      <dt className="text-xs text-ink-soft">{s.name}</dt>
-                      <dd className="mt-1">
+                    <a key={s.name} href={planUrl(t, s.name)} className="rounded-xl bg-paper-2 px-2 py-3 hover:bg-line">
+                      <span className="block text-xs text-ink-soft">{s.name}</span>
+                      <span className="mt-1 block">
                         <span className="font-display text-xl font-semibold">${t.from * s.times}</span>
                         <span className="text-xs text-ink-soft">/mo</span>
-                      </dd>
-                    </div>
+                      </span>
+                    </a>
                   ))}
-                </dl>
-                {t.itemId ? (
-                  <a href={checkoutUrl(t.itemId)} className="btn btn-ink mt-4 w-full !py-2.5 text-sm">
-                    Start
-                  </a>
-                ) : (
-                  <Link href="/contact" className="btn btn-paper mt-4 w-full !py-2.5 text-sm">
-                    Ask us
-                  </Link>
-                )}
+                </div>
+                <a href={planUrl(t)} className="btn btn-ink mt-4 w-full !py-2.5 text-sm">
+                  Start
+                </a>
               </li>
             ))}
           </ul>
@@ -108,20 +102,16 @@ export default function Pricing() {
                     </th>
                     {SIZES.map((s) => (
                       <td key={s.name} className="px-6 py-5 whitespace-nowrap">
-                        <span className="font-display text-2xl font-semibold">${t.from * s.times}</span>
-                        <span className="text-sm text-ink-soft"> /mo</span>
+                        <a href={planUrl(t, s.name)} className="hover:underline" aria-label={`${t.name}, ${s.name}: $${t.from * s.times} a month`}>
+                          <span className="font-display text-2xl font-semibold">${t.from * s.times}</span>
+                          <span className="text-sm text-ink-soft"> /mo</span>
+                        </a>
                       </td>
                     ))}
                     <td className="px-6 py-5 text-right">
-                      {t.itemId ? (
-                        <a href={checkoutUrl(t.itemId)} className="btn btn-ink !px-4 !py-2 text-sm">
-                          Start
-                        </a>
-                      ) : (
-                        <Link href="/contact" className="btn btn-paper !px-4 !py-2 text-sm">
-                          Ask us
-                        </Link>
-                      )}
+                      <a href={planUrl(t)} className="btn btn-ink !px-4 !py-2 text-sm">
+                        Start
+                      </a>
                     </td>
                   </tr>
                 ))}
