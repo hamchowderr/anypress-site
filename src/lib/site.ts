@@ -10,10 +10,9 @@ export const AFFILIATE_URL = `${SHOP_URL}/affiliates/`;
 
 export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "support@anypress.io";
 
-/** FluentCart's instant checkout link for one plan. */
-export function checkoutUrl(itemId: string): string {
-  const params = new URLSearchParams({ "fluent-cart": "instant_checkout", item_id: itemId, quantity: "1" });
-  return `${SHOP_URL}/?${params}`;
+/** A plan's page on the shop, where people pick monthly or yearly and buy: /item/<shopSlug>-<size>/. */
+export function planUrl(t: SiteType, size = "Small"): string {
+  return `${SHOP_URL}/item/${t.shopSlug}-${size.toLowerCase()}/`;
 }
 
 export type SiteTypeId = "website" | "bookings" | "store" | "community" | "everything";
@@ -34,8 +33,8 @@ export interface SiteType {
   headline: string;
   features: { title: string; body: string }[];
   idealFor: string[];
-  // The FluentCart variation id on the shop. Unset means it isn't on sale yet.
-  itemId?: string;
+  // The start of this site type's plan pages on the shop (website-small, website-medium, …).
+  shopSlug: string;
   // A made-up business we built on this kind of site, with real content, to show what it looks like.
   example: Example;
 }
@@ -68,7 +67,7 @@ export const SITE_TYPES: SiteType[] = [
       { title: "Easy to edit", body: "Write and lay out pages in WordPress, opened with one click from your account." },
     ],
     idealFor: ["Local businesses", "Blogs and publications", "Portfolios", "Chambers and associations", "Niche content sites"],
-    itemId: process.env.NEXT_PUBLIC_ITEM_WEBSITE || undefined,
+    shopSlug: "website",
     example: {
       name: "Juniper Street Bakery",
       what: "A neighbourhood bakery with its menu, opening hours and a newsletter.",
@@ -93,7 +92,7 @@ export const SITE_TYPES: SiteType[] = [
       { title: "Every client remembered", body: "Each booking keeps the client's details, ready for follow-ups and offers." },
     ],
     idealFor: ["Coaches and consultants", "Studios and classes", "Salons and therapists", "Event hosts", "Franchise locations"],
-    itemId: process.env.NEXT_PUBLIC_ITEM_BOOKINGS || undefined,
+    shopSlug: "bookings",
     example: {
       name: "Still Water Yoga",
       what: "A yoga studio where students pick a class and book a spot.",
@@ -118,7 +117,7 @@ export const SITE_TYPES: SiteType[] = [
       { title: "Partners who sell for you", body: "Let others earn money for sending you sales, when you're ready." },
     ],
     idealFor: ["Product brands", "Subscription boxes", "Digital downloads", "Supplements and wellness", "Niche online shops"],
-    itemId: process.env.NEXT_PUBLIC_ITEM_STORE || undefined,
+    shopSlug: "online-store",
     example: {
       name: "Fern & Clay Ceramics",
       what: "A pottery studio selling handmade mugs, bowls and vases.",
@@ -143,7 +142,7 @@ export const SITE_TYPES: SiteType[] = [
       { title: "Keep in touch", body: "Welcome emails and announcements reach every member." },
     ],
     idealFor: ["Course creators", "Coaches with programs", "Associations and chambers", "Membership clubs", "Educators"],
-    itemId: process.env.NEXT_PUBLIC_ITEM_COMMUNITY || undefined,
+    shopSlug: "community",
     example: {
       name: "Brightside Guitar School",
       what: "Online guitar courses with a members' practice room.",
@@ -168,7 +167,7 @@ export const SITE_TYPES: SiteType[] = [
       { title: "Grows with you", body: "Start selling, add memberships later, open bookings next month. It's already there." },
     ],
     idealFor: ["Chambers and associations", "Franchises and multi-location brands", "Education businesses", "Agencies' biggest clients", "Anyone outgrowing five apps"],
-    itemId: process.env.NEXT_PUBLIC_ITEM_EVERYTHING || undefined,
+    shopSlug: "everything",
     example: {
       name: "Riverbend Business Alliance",
       what: "A local business group with memberships, events and a members' forum.",
@@ -179,9 +178,9 @@ export const SITE_TYPES: SiteType[] = [
   },
 ];
 
-/** Where a site type's "start" button goes: checkout when it's on sale, otherwise its own page. */
+/** Where a site type's "start" button goes: its Small plan on the shop. */
 export function startUrl(t: SiteType): string {
-  return t.itemId ? checkoutUrl(t.itemId) : `/sites/${t.id}`;
+  return planUrl(t);
 }
 
 export interface AudienceGroup {

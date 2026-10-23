@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Arrow, Check } from "@/components/Icons";
 import { BrowserShot, PhoneShot } from "@/components/Shots";
 import { CtaBand, SectionHead } from "@/components/ui";
-import { SITE_TYPES, checkoutUrl } from "@/lib/site";
+import { SITE_TYPES, startUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return SITE_TYPES.map((t) => ({ type: t.id }));
@@ -32,15 +32,9 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
             <h1 className="font-display mt-3 text-[clamp(2.3rem,4.6vw,3.6rem)] leading-[1.04] font-semibold text-balance">{t.headline}</h1>
             <p className="mt-5 text-lg leading-8 text-ink-soft">{t.pitch}</p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              {t.itemId ? (
-                <a href={checkoutUrl(t.itemId)} className="btn btn-ink">
-                  Start your {t.short.toLowerCase()} site
-                </a>
-              ) : (
-                <Link href="/contact" className="btn btn-ink">
-                  Ask us to set one up
-                </Link>
-              )}
+              <a href={startUrl(t)} className="btn btn-ink">
+                Start your {t.short.toLowerCase()} site
+              </a>
               <a href={ex.url} target="_blank" rel="noopener" className="btn btn-paper">
                 Open the example <Arrow className="h-4 w-4" />
               </a>
