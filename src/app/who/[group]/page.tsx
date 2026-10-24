@@ -3,141 +3,156 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { notFound } from "next/navigation";
 import { Drawing } from "@/components/Drawing";
-import { BrowserShot } from "@/components/Shots";
-import { CtaBand, PageHero, SectionHead } from "@/components/ui";
+import { LeadForm } from "@/components/LeadForm";
+import { BrowserShot, PhoneShot } from "@/components/Shots";
+import { Tick } from "@/components/Tick";
+import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { GROUP_STORIES } from "@/lib/groups";
-import { AUDIENCE_GROUPS, SITE_TYPES } from "@/lib/site";
+import { AUDIENCE_GROUPS, SITE_TYPES, startUrl } from "@/lib/site";
+
+const groupFor = (id: string) => AUDIENCE_GROUPS.find((g) => g.id === id && g.page);
 
 export function generateStaticParams() {
-  return AUDIENCE_GROUPS.map((g) => ({ group: g.id }));
+  return AUDIENCE_GROUPS.filter((g) => g.page).map((g) => ({ group: g.id }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/who/[group]">): Promise<Metadata> {
-  const { group } = await params;
-  const g = AUDIENCE_GROUPS.find((x) => x.id === group);
-  return g ? { title: g.name, description: `${g.line} ${g.body}` } : {};
+  const g = groupFor((await params).group);
+  return g?.page ? { title: g.name, description: g.page.lead } : {};
 }
 
-// Where the technical groups go next, instead of a site type.
-const NEXT_STEPS: Record<string, { href: string; label: string; body: string }[]> = {
-  agencies: [
-    { href: "/agencies", label: "How selling works", body: "Your shop, your prices, and what we do for each site." },
-    { href: "/resellers", label: "Become a reseller", body: "Several brands under one login and one monthly bill." },
-    { href: "/sell", label: "Apply to sell websites", body: "Tell us about your business. We read every application." },
-  ],
-  saas: [
-    { href: "/developers", label: "For developers", body: "The API, keys and examples your team needs." },
-    { href: "/resellers", label: "Become a reseller", body: "One monthly bill and partner keys for each of your brands." },
-    { href: "/self-host", label: "Run it yourself", body: "Everything is open source, if you'd rather host it." },
-  ],
-};
-
 export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
-  const { group } = await params;
-  const g = AUDIENCE_GROUPS.find((x) => x.id === group);
-  if (!g) notFound();
+  const g = groupFor((await params).group);
+  if (!g?.page) notFound();
+  const page = g.page;
   const story = GROUP_STORIES[g.id];
+  const main = SITE_TYPES.find((t) => t.id === page.example)!;
+  const ex = main.example;
   const fits = g.fits.map((id) => SITE_TYPES.find((t) => t.id === id)!);
-  const ex = fits[0].example;
-  const next = NEXT_STEPS[g.id];
 
   return (
     <>
-      <PageHero side={g.side} drawing={g.drawing} eyebrow={g.name.toLowerCase()} title={g.line} lead={g.body}>
+      <PageHero side={g.side} drawing={g.drawing} eyebrow={g.name.toLowerCase()} title={page.title} lead={page.lead}>
         <div className="ctas mt-8">
-          {next ? (
-            <Link href={next[0].href} className="btn btn-ink">
-              {next[0].label} →
-            </Link>
-          ) : (
-            <Link href={`/sites/${fits[0].id}`} className="btn btn-ink">
-              See the {fits[0].name.toLowerCase()} site →
-            </Link>
-          )}
-          <Link href="/who" className="btn btn-paper">
-            Other groups
-          </Link>
+          <a href={startUrl(main)} className="btn btn-ink">
+            Start your {main.short.toLowerCase()} site →
+          </a>
+          <a href="#guide" className="btn btn-paper">
+            Get the free guide
+          </a>
         </div>
+        <ul className="checks">
+          <li>
+            <Tick />
+            From ${main.from} a month
+          </li>
+          <li>
+            <Tick />
+            No cut of your sales
+          </li>
+          <li>
+            <Tick />
+            30-day money-back
+          </li>
+        </ul>
       </PageHero>
 
-      <section className="sec soft">
-        <div className="in">
-          <SectionHead eyebrow="sound familiar?" title="What usually gets in the way." />
-          <ul className="mx-auto grid max-w-[1000px] gap-4 md:grid-cols-3">
-            {story.problems.map((p) => (
-              <li key={p.title} className="card p-6">
-                <h3 className="text-lg font-extrabold">{p.title}</h3>
-                <p className="mt-2 text-ink-soft">{p.body}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="sec in">
-        <SectionHead eyebrow="what we do about it" title="Here's how AnyPress helps." />
-        <div className="yours !grid-cols-1 md:!grid-cols-3">
-          {story.answers.map((a) => (
-            <div key={a.title}>
-              <Drawing name={a.drawing} />
-              <h3>{a.title}</h3>
-              <p>{a.body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {next ? (
+      {story && (
         <section className="sec soft">
           <div className="in">
-            <SectionHead eyebrow="where to next" title="Pick your next step." />
-            <ul className="cards">
-              {next.map((n) => (
-                <li key={n.href} className="!basis-[280px] text-left">
-                  <Link href={n.href} className="card-link">
-                    <h3>{n.label} →</h3>
-                    <p>{n.body}</p>
-                  </Link>
+            <SectionHead eyebrow="sound familiar?" title="What usually gets in the way." />
+            <ul className="mx-auto grid max-w-[1000px] gap-4 md:grid-cols-3">
+              {story.problems.map((p) => (
+                <li key={p.title} className="card p-6">
+                  <h3 className="text-lg font-extrabold">{p.title}</h3>
+                  <p className="mt-2 text-ink-soft">{p.body}</p>
                 </li>
               ))}
             </ul>
           </div>
         </section>
-      ) : (
-        <section className="sec soft">
-          <div className="in">
-            <SectionHead eyebrow="good place to start" title="The sites that usually fit." lead="Prices are monthly, for the Small size." />
-            <div className="types fit" style={{ "--n": fits.length } as CSSProperties}>
-              {fits.map((t) => (
-                <Link key={t.id} className="type" href={`/sites/${t.id}`}>
-                  <Drawing name={t.drawing} />
-                  <h3>{t.name}</h3>
-                  <p>{t.pitch}</p>
-                  <div className="price">
-                    ${t.from} <small>/ month</small>
-                  </div>
-                  <span className="go">See what&apos;s inside →</span>
-                </Link>
-              ))}
-            </div>
-            <div className="mx-auto mt-20 max-w-[820px] -rotate-[0.6deg]">
-              <BrowserShot example={ex} />
-            </div>
-            <p className="mt-6 text-center text-ink-soft">
-              {ex.name} is a made-up business on a real AnyPress {fits[0].name.toLowerCase()} site.{" "}
-              <a href={ex.url} target="_blank" rel="noopener" className="font-bold text-ink underline">
-                Open it ↗
-              </a>
-            </p>
-          </div>
-        </section>
       )}
 
-      {next ? (
-        <CtaBand eyebrow="ready?" title="Let's talk about what you sell." body="Apply in a few minutes. We read every application and email you back." href="/sell" label="Apply to sell websites" drawings={["sell", "shops", "software"]} />
-      ) : (
-        <CtaBand drawings={fits.map((t) => t.drawing).slice(0, 3)} />
-      )}
+      <section className="sec in">
+        <SectionHead eyebrow="what we do about it" title="What it does for you." />
+        <div className="yours !grid-cols-1 md:!grid-cols-3">
+          {page.benefits.map((b, i) => (
+            <div key={b.title}>
+              {story && <Drawing name={story.drawings[i]} />}
+              <h3>{b.title}</h3>
+              <p>{b.body}</p>
+            </div>
+          ))}
+        </div>
+        <ul className="checks mt-10">
+          {["We set it up and keep it up to date", "A copy saved every night", "Your own domain, and the site stays yours"].map((x) => (
+            <li key={x}>
+              <Tick />
+              {x}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="sec soft">
+        <div className="in">
+          <SectionHead eyebrow="see one" title={`A real ${main.name.toLowerCase()} site.`} lead={`${ex.name} is a made-up business. ${ex.what}`} />
+          <div className="relative mx-auto max-w-[880px] -rotate-[0.6deg] pr-10 pb-8 sm:pr-14">
+            <BrowserShot example={ex} />
+            <PhoneShot example={ex} className="absolute right-0 bottom-0 w-[22%] max-w-[150px]" />
+          </div>
+          <div className="ctas">
+            <a href={ex.url} target="_blank" rel="noopener" className="btn btn-paper">
+              Open the example ↗
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="sec in">
+        <SectionHead eyebrow="good place to start" title="Plans that fit." lead="Prices are monthly, for the Small size." />
+        <div className="types fit" style={{ "--n": fits.length } as CSSProperties}>
+          {fits.map((t) => (
+            <Link key={t.id} className="type" href={`/sites/${t.id}`}>
+              <Drawing name={t.drawing} />
+              <h3>{t.name}</h3>
+              <p>{t.pitch}</p>
+              <div className="price">
+                ${t.from} <small>/ month</small>
+              </div>
+              <span className="go">See what&apos;s inside →</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="sec soft">
+        <div className="in">
+          <SectionHead drawing="question" title="Questions" />
+          <Questions items={page.questions} firstOpen />
+        </div>
+      </section>
+
+      <section id="guide" className="sec in scroll-mt-24">
+        <div className="guide-band">
+          <div>
+            <Drawing name="scroll" />
+            <span className="eyebrow">free guide</span>
+            <h2>{page.guide}</h2>
+            <p>Read it now, no sign-up needed.</p>
+            <Link href={`/guides/${g.id}`} className="btn btn-ink mt-5">
+              Read the guide →
+            </Link>
+          </div>
+          <div>
+            <h3>Want tips like this by email?</h3>
+            <p>A few short emails for {g.name.toLowerCase()}, then the occasional update.</p>
+            <LeadForm group={g.id} cta="Send me tips" />
+          </div>
+        </div>
+      </section>
+
+      <CtaBand drawings={fits.map((t) => t.drawing).slice(0, 3)} />
     </>
   );
 }

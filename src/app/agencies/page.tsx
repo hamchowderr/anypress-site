@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LeadForm } from "@/components/LeadForm";
 import { CtaBand, PageHero, SectionHead } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -123,6 +124,24 @@ export default function Agencies() {
               More about resellers
             </Link>
           </p>
+        </div>
+      </section>
+
+      <section className="border-t border-line bg-paper-2">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.3fr]">
+          <div>
+            <h2 className="font-display text-[clamp(1.6rem,2.6vw,2.1rem)] leading-[1.1] font-semibold text-balance">Not ready yet?</h2>
+            <p className="mt-4 text-lg leading-8 text-ink-soft">
+              Read our free guide,{" "}
+              <Link href="/guides/agencies" className="font-semibold text-ink underline">
+                the agency profit calculator
+              </Link>
+              , or get a few short emails with tips.
+            </p>
+          </div>
+          <div>
+            <LeadForm group="agencies" interest="Seller" cta="Send me tips" />
+          </div>
         </div>
       </section>
 

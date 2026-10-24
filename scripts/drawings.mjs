@@ -398,6 +398,18 @@ parts.sizes = () => { const d = mk();
   return d.svg('0 0 176 140', 'Small, medium and large boxes'); };
 
 
+// Churches & ministries: a little church with a steeple and a heart over the door
+parts.church = () => { const d = mk();
+  d.rect(40, 70, 96, 70);
+  d.poly([[32, 74], [88, 34], [144, 74]], T.c4);
+  d.rect(74, 6, 28, 40, T.paper); d.poly([[70, 8], [88, -14], [106, 8]].map(([x, y]) => [x, y + 14]), T.c2);
+  d.line(88, 16, 88, 30, { strokeWidth: 2.6 }); d.line(82, 22, 94, 22, { strokeWidth: 2.6 });
+  d.path('M74 140 L74 108 Q88 92 102 108 L102 140', T.c1);
+  d.rect(50, 88, 16, 20, T.paper, { strokeWidth: 1.6 }); d.rect(110, 88, 16, 20, T.paper, { strokeWidth: 1.6 });
+  d.path('M150 54 c-6 -10 -20 -4 -12 8 l12 12 l12 -12 c8 -12 -6 -18 -12 -8 z', T.c2);
+  d.line(18, 142, 166, 142);
+  return d.svg('0 0 176 150', 'A small church with a steeple'); };
+
 const result = {};
 for (const [k, f] of Object.entries(parts)) result[k] = f();
 

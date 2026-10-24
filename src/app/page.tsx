@@ -5,7 +5,7 @@ import { Showcase } from "@/components/Showcase";
 import { CompareTable } from "@/components/CompareTable";
 import { Tick } from "@/components/Tick";
 import { CtaBand, Questions, SectionHead } from "@/components/ui";
-import { AUDIENCE_GROUPS, SITE_TYPES } from "@/lib/site";
+import { AUDIENCE_GROUPS, SITE_TYPES, groupUrl } from "@/lib/site";
 
 // The approved round 3 homepage (2026-10-24): every section centered, a drawing for every idea.
 export default function Home() {
@@ -269,7 +269,7 @@ function WhoItsFor() {
       <ul className="cards">
         {AUDIENCE_GROUPS.map((g) => (
           <li key={g.id} className="!basis-[250px]">
-            <Link href={`/who/${g.id}`} className="card-link">
+            <Link href={groupUrl(g)} className="card-link">
               <Drawing name={g.drawing} className="!w-[120px]" />
               <span className="text-[17px] font-bold">{g.name}</span>
             </Link>

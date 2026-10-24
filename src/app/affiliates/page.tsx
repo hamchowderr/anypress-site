@@ -53,6 +53,9 @@ export default function Affiliates() {
           <Link href={AFFILIATE_URL} className="btn btn-paper">
             Affiliate sign in
           </Link>
+          <Link href="/affiliates/kit" className="btn btn-paper">
+            Affiliate kit
+          </Link>
         </div>
       </PageHero>
 

@@ -1717,3 +1717,49 @@ mark {
     }
   }
 }
+
+@layer components {
+  /* ---------- free guide + email sign-up ---------- */
+  .guide-band {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 28px;
+    max-width: 1040px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .guide-band > div {
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    border-radius: 20px;
+    padding: 28px;
+  }
+  .guide-band > div:first-child {
+    box-shadow: 8px 8px 0 var(--honey);
+    text-align: center;
+  }
+  .guide-band .ob {
+    width: 110px;
+    margin: 0 auto 4px;
+  }
+  .guide-band h2 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-top: 4px;
+  }
+  .guide-band h3 {
+    font-size: 21px;
+    font-weight: 800;
+  }
+  .guide-band p {
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+  @media (max-width: 860px) {
+    .guide-band {
+      grid-template-columns: 1fr;
+    }
+  }
+}

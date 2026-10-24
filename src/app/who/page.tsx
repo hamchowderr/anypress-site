@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Drawing } from "@/components/Drawing";
 import { CtaBand, PageHero, SectionHead } from "@/components/ui";
-import { AUDIENCE_GROUPS } from "@/lib/site";
+import { AUDIENCE_GROUPS, groupUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Who it's for",
@@ -56,7 +56,7 @@ export default function Who() {
           <ul className="cards">
             {OWNERS.map((g) => (
               <li key={g.id} className="!basis-[260px]">
-                <Link href={`/who/${g.id}`} className="card-link">
+                <Link href={groupUrl(g)} className="card-link">
                   <Drawing name={g.drawing} className="!w-[120px]" />
                   <h3>{g.name}</h3>
                   <p>{g.line}</p>
@@ -72,7 +72,7 @@ export default function Who() {
         <ul className="cards">
           {TECHNICAL.map((g) => (
             <li key={g.id} className="!basis-[260px]">
-              <Link href={`/who/${g.id}`} className="card-link">
+              <Link href={groupUrl(g)} className="card-link">
                 <Drawing name={g.drawing} className="!w-[120px]" />
                 <h3>{g.name}</h3>
                 <p>{g.line}</p>

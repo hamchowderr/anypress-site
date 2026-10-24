@@ -43,6 +43,7 @@ export const DRAWINGS = {
   note: [176, 150, "e6dbf5ac"],
   scroll: [176, 150, "a01d9f66"],
   sizes: [176, 140, "6a87ae53"],
+  church: [176, 150, "716abbe7"],
   hero: [640, 400, "f63bfffe"],
 } as const;
 
