@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CtaBand, PageHero } from "@/components/ui";
-import { AUDIENCE_GROUPS, SITE_TYPES } from "@/lib/site";
+import { AUDIENCE_GROUPS, SITE_TYPES, groupUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Who it's for",
-  description: "Shops, educators, chambers, franchises, agencies, software teams and regulated sellers all build on AnyPress.",
+  description: "Shops, educators, chambers, churches, franchises, agencies, software teams and regulated sellers all build on AnyPress.",
 };
 
 export default function Who() {
@@ -50,16 +50,9 @@ export default function Who() {
                     );
                   })}
                 </div>
-                {g.id === "agencies" && (
-                  <Link href="/agencies" className="mt-5 inline-block text-lg font-semibold underline">
-                    How it works for agencies
-                  </Link>
-                )}
-                {g.id === "saas" && (
-                  <Link href="/developers" className="mt-5 inline-block text-lg font-semibold underline">
-                    Details for your developers
-                  </Link>
-                )}
+                <Link href={groupUrl(g)} className="mt-5 inline-block text-lg font-semibold underline">
+                  {g.href ? `How it works for ${g.name.toLowerCase()}` : `More for ${g.name.toLowerCase()}`}
+                </Link>
               </div>
             </article>
           ))}

@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { apply, type ApplyState } from "./actions";
+import { SOURCES } from "@/lib/sources";
 import { EXPECTED_SITES } from "./options";
 
 const input =
@@ -61,6 +62,18 @@ export function ApplicationForm({ storeDomain }: { storeDomain: string }) {
           {EXPECTED_SITES.map((n) => (
             <option key={n} value={n}>
               {n}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <label className="block text-sm font-medium">
+        How did you hear about us? <span className="font-normal text-muted">(optional)</span>
+        <select name="source" defaultValue="" className={input}>
+          <option value="">Choose one</option>
+          {SOURCES.map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
             </option>
           ))}
         </select>
