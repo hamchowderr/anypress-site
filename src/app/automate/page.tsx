@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 const API = "https://api.anypress.io";
 const API_DOCS = `${API}/docs`;
 const API_REPO = "https://github.com/hamchowderr/waas-provisioning-api";
+const DOCS = "https://shop.anypress.io/docs-category/automation/";
 
 /** A dark code panel with a file name on top. Children are the code, already highlighted. */
 function Code({ file, children }: { file: string; children: ReactNode }) {
@@ -185,9 +186,9 @@ export default function Automate() {
           <a href="#recipes" className="btn btn-ink">
             See the recipes →
           </a>
-          <Link href="/sell" className="btn btn-paper">
-            Apply to sell
-          </Link>
+          <a href={DOCS} className="btn btn-paper">
+            Step-by-step docs
+          </a>
         </div>
       </PageHero>
 
@@ -291,7 +292,12 @@ export default function Automate() {
         <SectionHead
           eyebrow="recipes"
           title="Copy these flows."
-          lead="Each one is a trigger and one call to AnyPress. They use n8n, Make and Zapier, but any tool that can send a web request works the same way."
+          lead={
+            <>
+              Each one is a trigger and one call to AnyPress. They use n8n, Make and Zapier, but any tool that can send a web request works the same way. Full
+              step-by-step guides are in <a href={DOCS}>the docs</a>.
+            </>
+          }
           id="h-recipes"
         />
         <div className="recipes">
