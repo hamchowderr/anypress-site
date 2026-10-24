@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
 /*
- * Calm and product-first: warm white pages, soft panels and thin lines, so the example sites
- * do the talking. The ribbon colours from the logo are the accent, used sparingly.
+ * The sketchbook look: plain white pages, near-black ink, hand-drawn objects that draw themselves,
+ * and the ribbon colours from the logo as the only colour. Section styles live in sketch.css.
  */
 :root {
-  --ink: #1d1b21;
-  --ink-soft: #5d5864;
-  --paper: #fcfbf9;
-  --paper-2: #f4f1ec;
+  --ink: #141414;
+  --ink-soft: #5f5a55;
+  --paper: #ffffff;
+  --paper-2: #faf8f5;
   --panel: #ffffff;
-  --line: #e7e2da;
-  --hair: #efebe5;
+  --line: #e9e4de;
+  --hair: #f1ede8;
+  --honey: #ffc75a;
 
   --amber: #ffb338;
   --orange: #ff7a2a;
@@ -37,6 +38,7 @@
   --color-red: var(--red);
   --color-rose: var(--rose);
   --color-magenta: var(--magenta);
+  --color-honey: var(--honey);
   --color-accent: var(--accent);
   --color-on-accent: var(--on-accent);
 
@@ -45,8 +47,9 @@
   --color-fg: var(--ink);
   --color-muted: var(--ink-soft);
 
-  --font-sans: var(--font-geist);
-  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-hanken);
+  --font-display: var(--font-hanken);
+  --font-hand: var(--font-caveat);
 }
 
 html {
@@ -57,6 +60,8 @@ html {
 body {
   background: var(--paper);
   color: var(--ink);
+  font-size: 17px;
+  line-height: 1.6;
 }
 
 ::selection {
@@ -65,7 +70,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 3px solid var(--orange);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -76,7 +81,8 @@ a {
 }
 
 .font-display {
-  font-family: var(--font-bricolage);
+  font-family: var(--font-hanken);
+  font-weight: 800;
   letter-spacing: -0.025em;
 }
 
@@ -92,25 +98,28 @@ a {
   color: transparent;
 }
 
+/* Components sit in their own layer, so Tailwind utilities on the same element still win. */
+@layer components {
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  padding: 0.75rem 1.35rem;
-  font-weight: 600;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  padding: 0.8rem 1.35rem;
+  font-weight: 700;
   line-height: 1.1;
+  white-space: nowrap;
+  text-decoration: none;
   transition:
-    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 180ms;
+    transform 150ms,
+    box-shadow 150ms,
+    background-color 150ms;
 }
 
 .btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px -10px rgb(29 27 33 / 0.35);
+  transform: translateY(-2px);
 }
 
 .btn:active {
@@ -124,26 +133,45 @@ a {
 }
 
 .btn-ink:hover {
-  background: #000;
+  box-shadow: 0 6px 0 0 var(--amber);
 }
 
 .btn-paper {
   background: var(--panel);
   color: var(--ink);
-  border-color: var(--line);
+  border-color: var(--ink);
+}
+
+.btn-paper:hover {
+  background: var(--paper-2);
+}
+
+.btn-honey {
+  background: var(--honey);
+  color: var(--ink);
+}
+
+.btn-honey:hover {
+  box-shadow: 0 6px 0 0 #fff;
 }
 
 .card {
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 1.25rem;
+  border-radius: 16px;
 }
 
+/* A short handwritten label above a heading. */
 .eyebrow {
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--accent);
+  display: inline-block;
+  font-family: var(--font-caveat);
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--rose);
+  transform: rotate(-2deg);
+}
 }
 
 /* A browser window around a screenshot. On hover, the page inside scrolls slowly to the bottom. */

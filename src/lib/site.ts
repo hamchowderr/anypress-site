@@ -15,6 +15,8 @@ export function planUrl(t: SiteType, size = "Small"): string {
   return `${SHOP_URL}/item/${t.shopSlug}-${size.toLowerCase()}/`;
 }
 
+import type { DrawingName } from "@/components/drawings.generated";
+
 export type SiteTypeId = "website" | "bookings" | "store" | "community" | "everything";
 
 export interface SiteType {
@@ -37,6 +39,8 @@ export interface SiteType {
   shopSlug: string;
   // A made-up business we built on this kind of site, with real content, to show what it looks like.
   example: Example;
+  // The hand-drawn object that stands for this kind of site.
+  drawing: DrawingName;
 }
 
 export interface Example {
@@ -68,6 +72,7 @@ export const SITE_TYPES: SiteType[] = [
     ],
     idealFor: ["Local businesses", "Blogs and publications", "Portfolios", "Chambers and associations", "Niche content sites"],
     shopSlug: "website",
+    drawing: "website",
     example: {
       name: "Juniper Street Bakery",
       what: "A neighbourhood bakery with its menu, opening hours and a newsletter.",
@@ -93,6 +98,7 @@ export const SITE_TYPES: SiteType[] = [
     ],
     idealFor: ["Coaches and consultants", "Studios and classes", "Salons and therapists", "Event hosts", "Franchise locations"],
     shopSlug: "bookings",
+    drawing: "bookings",
     example: {
       name: "Still Water Yoga",
       what: "A yoga studio where students pick a class and book a spot.",
@@ -118,6 +124,7 @@ export const SITE_TYPES: SiteType[] = [
     ],
     idealFor: ["Product brands", "Subscription boxes", "Digital downloads", "Supplements and wellness", "Niche online shops"],
     shopSlug: "online-store",
+    drawing: "store",
     example: {
       name: "Fern & Clay Ceramics",
       what: "A pottery studio selling handmade mugs, bowls and vases.",
@@ -143,6 +150,7 @@ export const SITE_TYPES: SiteType[] = [
     ],
     idealFor: ["Course creators", "Coaches with programs", "Associations and chambers", "Membership clubs", "Educators"],
     shopSlug: "community",
+    drawing: "courses",
     example: {
       name: "Brightside Guitar School",
       what: "Online guitar courses with a members' practice room.",
@@ -168,6 +176,7 @@ export const SITE_TYPES: SiteType[] = [
     ],
     idealFor: ["Chambers and associations", "Franchises and multi-location brands", "Education businesses", "Agencies' biggest clients", "Anyone outgrowing five apps"],
     shopSlug: "everything",
+    drawing: "everything",
     example: {
       name: "Riverbend Business Alliance",
       what: "A local business group with memberships, events and a members' forum.",
@@ -190,6 +199,9 @@ export interface AudienceGroup {
   body: string;
   // The site types that usually fit this group.
   fits: SiteTypeId[];
+  // Which side of AnyPress this group usually buys from: a site for themselves, or the technical side.
+  side: "owners" | "technical";
+  drawing: DrawingName;
 }
 
 // The groups AnyPress is built for, in no particular order of importance.
@@ -200,6 +212,8 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     line: "Open a shop without losing your weekends.",
     body: "Start one shop or ten. Each comes ready to take payments, get found on Google and email your customers, so a new idea is a new site, not a new project.",
     fits: ["store", "website"],
+    side: "owners",
+    drawing: "makers",
   },
   {
     id: "regulated",
@@ -207,6 +221,8 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     line: "A store on your own website, with your own payments.",
     body: "Your store is your own website, connected to your own payment account, instead of a listing on someone else's marketplace.",
     fits: ["store", "everything"],
+    side: "owners",
+    drawing: "health",
   },
   {
     id: "educators",
@@ -214,6 +230,8 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     line: "Courses and community without the platform tax.",
     body: "Sell programs, run classes and host discussions on your own domain, for one monthly price and no cut of what you earn.",
     fits: ["community", "everything"],
+    side: "owners",
+    drawing: "teach",
   },
   {
     id: "associations",
@@ -221,6 +239,8 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     line: "Members, events and dues in one place.",
     body: "Collect dues, sell event tickets and give members a place to connect. Renewals and reminders send themselves.",
     fits: ["everything", "community", "bookings"],
+    side: "owners",
+    drawing: "clubs",
   },
   {
     id: "franchises",
@@ -228,6 +248,8 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     line: "A site for every location, all built the same way.",
     body: "Every location gets its own site from the same starting point, with its own bookings and domain, while the brand stays the same everywhere.",
     fits: ["bookings", "website", "store"],
+    side: "owners",
+    drawing: "places",
   },
   {
     id: "agencies",
@@ -235,6 +257,8 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     line: "Sell websites as a monthly service.",
     body: "Sell websites under your own name, at your own prices. We build and look after every one.",
     fits: ["website", "store", "everything"],
+    side: "technical",
+    drawing: "agency",
   },
   {
     id: "saas",
@@ -242,6 +266,8 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     line: "A website for every customer, from inside your app.",
     body: "Give each of your customers their own site, created automatically from your product. Your developers will find everything they need on our developer page.",
     fits: ["website", "store", "everything"],
+    side: "technical",
+    drawing: "software",
   },
 ];
 

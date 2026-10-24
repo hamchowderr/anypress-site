@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Arrow, Check } from "@/components/Icons";
 import { BrowserShot, PhoneShot } from "@/components/Shots";
-import { CtaBand, SectionHead } from "@/components/ui";
+import { Tick } from "@/components/Tick";
+import { CtaBand, PageHero, SectionHead } from "@/components/ui";
 import { SITE_TYPES, startUrl } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -25,33 +26,37 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
 
   return (
     <>
-      <section className="overflow-hidden border-b border-line">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1fr_1.35fr] lg:pt-20">
-          <div>
-            <p className="eyebrow">{t.name}</p>
-            <h1 className="font-display mt-3 text-[clamp(2.3rem,4.6vw,3.6rem)] leading-[1.04] font-semibold text-balance">{t.headline}</h1>
-            <p className="mt-5 text-lg leading-8 text-ink-soft">{t.pitch}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a href={startUrl(t)} className="btn btn-ink">
-                Start your {t.short.toLowerCase()} site
-              </a>
-              <a href={ex.url} target="_blank" rel="noopener" className="btn btn-paper">
-                Open the example <Arrow className="h-4 w-4" />
-              </a>
-            </div>
-            <p className="mt-5 text-ink-soft">
-              From <span className="font-semibold text-ink">${t.from} a month</span>. No cut of your sales.
-            </p>
-          </div>
-          <div className="relative pb-8 lg:pr-12">
-            <BrowserShot example={ex} />
-            <PhoneShot example={ex} className="absolute right-0 -bottom-2 w-[24%] max-w-[160px]" />
-            <p className="mt-6 max-w-[70%] text-sm text-ink-soft">
-              {ex.name} is a made-up business. {ex.what}
-            </p>
-          </div>
+      <PageHero drawing={t.drawing} side="owners" eyebrow={t.name.toLowerCase()} title={t.headline} lead={t.pitch}>
+        <div className="ctas mt-8">
+          <a href={startUrl(t)} className="btn btn-ink">
+            Start your {t.short.toLowerCase()} site →
+          </a>
+          <a href={ex.url} target="_blank" rel="noopener" className="btn btn-paper">
+            Open the example <Arrow className="h-4 w-4" />
+          </a>
         </div>
-      </section>
+        <ul className="checks">
+          <li>
+            <Tick />
+            From ${t.from} a month
+          </li>
+          <li>
+            <Tick />
+            No cut of your sales
+          </li>
+          <li>
+            <Tick />
+            30-day money-back
+          </li>
+        </ul>
+        <div className="relative mx-auto mt-14 max-w-[900px] -rotate-[0.6deg] pr-10 pb-8 text-left sm:pr-14">
+          <BrowserShot example={ex} />
+          <PhoneShot example={ex} className="absolute right-0 bottom-0 w-[22%] max-w-[150px]" />
+        </div>
+        <p className="mt-4 text-sm text-ink-soft">
+          {ex.name} is a made-up business. {ex.what}
+        </p>
+      </PageHero>
 
       <section>
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">

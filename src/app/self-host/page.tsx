@@ -44,7 +44,7 @@ function Code({ title, children }: { title: string; children: string }) {
 export default function SelfHost() {
   return (
     <>
-      <PageHero
+      <PageHero drawing="server" side="technical"
         eyebrow="Open source"
         title="Run AnyPress on your own server."
         lead="Everything behind AnyPress is public under the GPL. One installer sets up the whole platform on a fresh server, so you can sell websites under your own brand."
@@ -77,6 +77,7 @@ export default function SelfHost() {
         <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
           <div>
             <SectionHead
+              left
               title="From your computer."
               lead="Give the installer an API token from Hostinger, Hetzner or DigitalOcean. It makes the server, and AnyPress installs itself on it. You never log in to the server."
             />
@@ -94,7 +95,7 @@ export default function SelfHost() {
       <section>
         <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
           <div>
-            <SectionHead title="On a server you already have." lead="Log in as root on a fresh Ubuntu server and run the installer there." />
+            <SectionHead left title="On a server you already have." lead="Log in as root on a fresh Ubuntu server and run the installer there." />
           </div>
           <Code title="your server">
             {`curl -fsSLO ${RAW}/anypress-install.sh\ncurl -fsSL ${RAW}/anypress.env.example -o /root/anypress.env\nnano /root/anypress.env\n\nsudo bash anypress-install.sh`}

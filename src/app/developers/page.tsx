@@ -45,7 +45,7 @@ const BLOCKS = [
 export default function Developers() {
   return (
     <>
-      <PageHero
+      <PageHero drawing="software" side="technical"
         eyebrow="For developers"
         title="Websites, created by your code."
         lead="Everything AnyPress does is an API call. Give each of your customers a WordPress site from inside your own product."

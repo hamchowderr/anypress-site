@@ -103,7 +103,7 @@ const SECTIONS: { title: string; items: [string, ReactNode][] }[] = [
 export default function Help() {
   return (
     <>
-      <PageHero
+      <PageHero drawing="lifebuoy"
         eyebrow="Help"
         title="How can we help?"
         lead="Quick answers to the things people ask most. If yours isn't here, email us and a person will get back to you."

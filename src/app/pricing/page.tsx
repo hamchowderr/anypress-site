@@ -40,7 +40,7 @@ const PRICING_FAQ: [string, string][] = [
 export default function Pricing() {
   return (
     <>
-      <PageHero
+      <PageHero drawing="piggy" side="owners"
         eyebrow="Prices"
         title="Pay for what you build, not for what you sell."
         lead="One monthly price per site. The kind of site sets the tools it gets, and the size sets how much room it has."
@@ -152,7 +152,7 @@ export default function Pricing() {
 
       <section>
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2">
-          <SectionHead title="On every site, whatever you pick." />
+          <SectionHead left title="On every site, whatever you pick." />
           <ul className="space-y-3">
             {EVERY_SITE.map((x) => (
               <li key={x} className="flex items-start gap-2.5">
@@ -166,7 +166,7 @@ export default function Pricing() {
 
       <section className="border-t border-line">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.7fr]">
-          <SectionHead title="Price questions" />
+          <SectionHead left title="Price questions" />
           <Questions items={PRICING_FAQ} />
         </div>
       </section>

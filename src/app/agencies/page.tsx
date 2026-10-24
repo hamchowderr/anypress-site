@@ -56,7 +56,7 @@ const ACCOUNTS = [
 export default function Agencies() {
   return (
     <>
-      <PageHero
+      <PageHero drawing="agency" side="technical"
         eyebrow="For agencies and freelancers"
         title="Sell websites as a monthly service."
         lead="Offer your clients websites for a monthly fee, under your own name, from your own shop. We build and look after every one."
@@ -117,7 +117,12 @@ export default function Agencies() {
               </li>
             ))}
           </ul>
-          <p className="mt-6 leading-7 text-ink-soft">One business name? You&apos;re a seller. More than one? You&apos;re a reseller. One application covers both, and we&apos;ll set up the right one.</p>
+          <p className="mt-6 text-center leading-7 text-ink-soft">
+            One business name? You&apos;re a seller. More than one? You&apos;re a reseller. One application covers both, and we&apos;ll set up the right one.{" "}
+            <Link href="/resellers" className="font-bold text-ink underline">
+              More about resellers
+            </Link>
+          </p>
         </div>
       </section>
 

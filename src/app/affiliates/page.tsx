@@ -41,7 +41,7 @@ const FINE_PRINT: [string, string][] = [
 export default function Affiliates() {
   return (
     <>
-      <PageHero
+      <PageHero drawing="coins"
         eyebrow="Affiliate program"
         title={`Recommend AnyPress. Earn ${RATE}.`}
         lead={`Share AnyPress with the people you build for, write for or teach. You earn ${RATE} of every new customer's first payment, on every plan.`}

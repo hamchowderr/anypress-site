@@ -4,14 +4,14 @@ import type { Example } from "@/lib/site";
 export function BrowserShot({ example, className = "" }: { example: Example; className?: string }) {
   const host = new URL(example.url).host;
   return (
-    <div className={`shot-scroll overflow-hidden rounded-2xl border border-line bg-panel shadow-[0_30px_60px_-30px_rgb(29_27_33/0.35)] ${className}`}>
-      <div className="flex items-center gap-3 border-b border-line bg-paper-2 px-4 py-2.5">
+    <div className={`shot-scroll overflow-hidden rounded-[14px] border-[1.5px] border-ink bg-panel shadow-[10px_10px_0_var(--honey)] ${className}`}>
+      <div className="flex items-center gap-3 border-b-[1.5px] border-ink bg-paper-2 px-3 py-2">
         <span className="flex gap-1.5" aria-hidden>
-          <span className="h-2.5 w-2.5 rounded-full bg-[#e9e4dc]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#e9e4dc]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#e9e4dc]" />
+          <span className="h-2.5 w-2.5 rounded-full border-[1.5px] border-ink" />
+          <span className="h-2.5 w-2.5 rounded-full border-[1.5px] border-ink" />
+          <span className="h-2.5 w-2.5 rounded-full border-[1.5px] border-ink" />
         </span>
-        <span className="flex-1 truncate rounded-md bg-panel px-3 py-1 text-center text-xs text-ink-soft">{host}</span>
+        <span className="flex-1 truncate rounded-md border border-line bg-panel px-3 py-0.5 text-center text-xs text-ink-soft">{host}</span>
       </div>
       <div
         role="img"
@@ -26,7 +26,7 @@ export function BrowserShot({ example, className = "" }: { example: Example; cla
 /** The same example site on a phone. */
 export function PhoneShot({ example, className = "" }: { example: Example; className?: string }) {
   return (
-    <div className={`rounded-[2rem] border border-line bg-ink p-1.5 shadow-[0_30px_60px_-24px_rgb(29_27_33/0.45)] ${className}`}>
+    <div className={`rounded-[2rem] border-[1.5px] border-ink bg-ink p-1.5 shadow-[6px_6px_0_var(--rose)] ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={`/examples/${example.shot}-phone.webp`}
