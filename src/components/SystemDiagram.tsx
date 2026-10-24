@@ -17,7 +17,7 @@ const TILES: [DrawingName, string, string][] = [
 
 const CARE: [DrawingName, string][] = [
   ["backup", "A copy saved every night"],
-  ["tools", "Updates done for you"],
+  ["tools", "Security fixes applied for you"],
   ["lock", "Kept safe, walled off from the others"],
   ["email", "Email from each site's own address"],
   ["domain", "Domains and the padlock"],
@@ -127,7 +127,7 @@ export function SystemDiagram({
       </div>
       <figcaption className="sr-only">
         Orders from one storefront go to AnyPress, which builds each one as its own website from a starting site, then keeps
-        every site backed up, updated and safe.
+        every site backed up, patched and safe.
       </figcaption>
     </figure>
   );

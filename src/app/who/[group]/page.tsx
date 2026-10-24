@@ -85,7 +85,7 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
           ))}
         </div>
         <ul className="checks mt-10">
-          {["We set it up and keep it up to date", "A copy saved every night", "Your own domain, and the site stays yours"].map((x) => (
+          {["We set it up and apply security fixes", "A copy saved every night", "Your own domain, and the site stays yours"].map((x) => (
             <li key={x}>
               <Tick />
               {x}

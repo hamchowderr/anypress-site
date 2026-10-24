@@ -93,8 +93,8 @@ const SECTIONS: { title: string; items: [string, ReactNode][] }[] = [
         "Yes. We save a copy of every site each night and keep daily and weekly copies. If something goes wrong, email us and we'll bring it back.",
       ],
       [
-        "Who keeps WordPress up to date?",
-        "We do. WordPress, its plugins and the server are kept up to date for you, so you can get on with your business.",
+        "Who looks after security fixes?",
+        "We do. Security fixes for WordPress, its plugins and the server are applied for you, so you can get on with your business.",
       ],
     ],
   },

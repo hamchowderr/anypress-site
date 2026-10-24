@@ -416,6 +416,15 @@ export const SIZES: Size[] = [
   { name: "Large", times: 4, cpu: "4 CPUs", memory: "768 MB", storage: "25 GB", emails: "50,000", goodFor: "Big shops and communities" },
 ];
 
+// Resellers pay this much off the list price of every live site, on one monthly bill (resellers.wholesale_percent
+// in the API, 40 by default). It replaces the volume discount.
+export const WHOLESALE_PERCENT = 40;
+
+/** A site's price for a reseller, in dollars, from its list price. */
+export function wholesalePrice(list: number): number {
+  return Math.round(list * (100 - WHOLESALE_PERCENT)) / 100;
+}
+
 // Volume discount: the more live sites one customer has, the more every site saves (the shop's VolumeDiscount tiers,
 // in waas-plugins). Existing sites move to the new tier from their next renewal.
 export const VOLUME_TIERS = [

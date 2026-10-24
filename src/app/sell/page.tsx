@@ -19,7 +19,7 @@ export default function Sell() {
       <PageHero drawing="sell" side="technical"
         eyebrow="For sellers and resellers"
         title="Sell websites with AnyPress."
-        lead="Sell websites to your clients under your own name. We host every site, keep it backed up and up to date, and you pay per site with lower prices as you grow."
+        lead="Sell websites to your clients under your own name. We host every site, keep it backed up and apply security fixes, and you pay per site with lower prices as you grow."
       />
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">

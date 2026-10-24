@@ -130,7 +130,7 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
             ))}
           </ul>
           <p className="mt-6 text-center text-ink-soft">
-            Plus on every site: a copy saved every night, updates done for you, the padlock and your own domain.{" "}
+            Plus on every site: a copy saved every night, security fixes applied for you, the padlock and your own domain.{" "}
             <Link href="/included" className="font-bold text-ink underline">
               The tools by name
             </Link>

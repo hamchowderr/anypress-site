@@ -6,7 +6,7 @@ import { EarningsCalculator } from "@/components/EarningsCalculator";
 import { LeadForm } from "@/components/LeadForm";
 import { SystemDiagram } from "@/components/SystemDiagram";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
-import { VOLUME_TIERS } from "@/lib/site";
+import { VOLUME_TIERS, WHOLESALE_PERCENT } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Sell websites",
@@ -31,7 +31,7 @@ const YOU: [string, string][] = [
 
 const US: [string, string][] = [
   ["Building every site", "Each order becomes its own WordPress with its own database, in minutes."],
-  ["Keeping them running", "Updates, the padlock, and every site kept walled off from the others."],
+  ["Keeping them running", "Security fixes, the padlock, and every site kept walled off from the others."],
   ["Nightly copies", "Every site is saved each night, and we test restoring them every day."],
   ["Email that arrives", "Each site sends from its own address, with sending set up for you."],
   ["Moving sites in", "Bring your existing client sites over with a one-time code from your dashboard."],
@@ -196,14 +196,14 @@ export default function Agencies() {
           <div className="pick tech">
             <Drawing name="shops" />
             <h3>Reseller</h3>
-            <p>Several storefronts under one login, one monthly wholesale bill, and partner keys so your developers can create sites with code.</p>
+            <p>Several storefronts under one login, {WHOLESALE_PERCENT}% off every site on one monthly bill, and partner keys so your developers can create sites with code.</p>
             <ul>
               <li>Agencies with several brands</li>
               <li>Franchise offices</li>
               <li>Software companies</li>
             </ul>
-            <Link href="/resellers" className="go">
-              About resellers →
+            <Link href="/resellers#wholesale" className="go">
+              See wholesale prices →
             </Link>
           </div>
         </div>

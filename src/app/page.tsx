@@ -2,27 +2,24 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { Showcase } from "@/components/Showcase";
-import { SystemDiagram } from "@/components/SystemDiagram";
 import { CompareTable } from "@/components/CompareTable";
 import { Tick } from "@/components/Tick";
 import { CtaBand, Questions, SectionHead } from "@/components/ui";
-import { AUDIENCE_GROUPS, SITE_TYPES, groupUrl } from "@/lib/site";
+import { AUDIENCE_GROUPS, SITE_TYPES, WHOLESALE_PERCENT, groupUrl } from "@/lib/site";
 
 // The approved round 3 homepage (2026-10-24): every section centered, a drawing for every idea.
 export default function Home() {
   return (
     <>
       <Hero />
+      <Examples />
       <Included />
       <Pieces />
       <Sites />
-      <Examples />
       <HowItWorks />
-      <System />
       <WhoItsFor />
-      <SellBand />
-      <Promises />
       <Prices />
+      <SellBand />
       <section className="sec soft" aria-labelledby="h-faq">
         <div className="in">
           <SectionHead drawing="question" title="Questions people ask" id="h-faq" />
@@ -254,29 +251,16 @@ function HowItWorks() {
             </ul>
           </div>
         </div>
+        <p className="mt-10 text-center">
+          <Link href="/how-it-works" className="inline-block py-1 font-bold underline underline-offset-4">
+            See how it all works, step by step →
+          </Link>
+        </p>
       </div>
     </section>
   );
 }
 
-function System() {
-  return (
-    <section className="sec in" aria-labelledby="h-system">
-      <SectionHead
-        eyebrow="the system behind it"
-        title="One storefront. Every order becomes its own website."
-        lead="Whether you buy from our shop or from someone who sells AnyPress sites, the same thing happens: each order is built as a separate site, then looked after every day."
-        id="h-system"
-      />
-      <SystemDiagram storefront="A storefront" storefrontSub="Ours at shop.anypress.io, or your own if you sell websites." template="the starting site" />
-      <p className="mt-10 text-center">
-        <Link href="/how-it-works" className="inline-block py-1 font-bold underline underline-offset-4">
-          See how it all works, step by step →
-        </Link>
-      </p>
-    </section>
-  );
-}
 
 function WhoItsFor() {
   return (
@@ -320,7 +304,7 @@ function SellBand() {
               <b>Seller:</b> one free shop, pay per site, save up to 30% as you grow.
             </li>
             <li>
-              <b>Reseller:</b> several shops and one monthly wholesale bill.
+              <b>Reseller:</b> several shops, {WHOLESALE_PERCENT}% off every site, one monthly bill.
             </li>
           </ul>
           <div className="flex flex-wrap gap-3">
@@ -337,31 +321,7 @@ function SellBand() {
   );
 }
 
-const PROMISES: [DrawingName, string, string][] = [
-  ["piggy", "No cut of your sales", "You pay your plan. Your sales are yours, minus the card fee."],
-  ["nametag", "Your name on it", "Use your own domain and your own email address."],
-  ["box", "Take it with you", "It's real WordPress, so you're never locked in."],
-  ["thirty", "30 days to decide", "Not for you? Get your money back within 30 days."],
-];
 
-function Promises() {
-  return (
-    <section className="sec soft" aria-labelledby="h-yours">
-      <div className="in">
-        <SectionHead eyebrow="our promise" title="It stays yours." id="h-yours" />
-        <div className="yours">
-          {PROMISES.map(([d, title, body]) => (
-            <div key={title}>
-              <Drawing name={d} />
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Prices() {
   return (
