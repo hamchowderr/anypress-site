@@ -22,6 +22,8 @@
 
   /* Readable on white for small text and links. */
   --accent: #c8264d;
+  /* Ticks in the AnyPress column and savings lines. */
+  --tick-green: #17703d;
   --on-accent: #ffffff;
 }
 

@@ -75,7 +75,9 @@ export function SiteFooter() {
         </div>
         <div className="foot-legal">
           <span>© AnyPress, by Otaku Solutions.</span>
-          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+          <a href={`mailto:${CONTACT_EMAIL}`} className="inline-block py-1">
+            {CONTACT_EMAIL}
+          </a>
         </div>
       </div>
     </footer>

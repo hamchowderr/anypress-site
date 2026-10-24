@@ -31,7 +31,7 @@ const YOU: [string, string][] = [
 
 const US: [string, string][] = [
   ["Building every site", "Each order becomes its own WordPress with its own database, in minutes."],
-  ["Keeping them running", "Updates, the padlock, and watching every site around the clock."],
+  ["Keeping them running", "Updates, the padlock, and every site kept walled off from the others."],
   ["Nightly copies", "Every site is saved each night, and we test restoring them every day."],
   ["Email that arrives", "Each site sends from its own address, with sending set up for you."],
   ["Moving sites in", "Bring your existing client sites over with a one-time code from your dashboard."],
@@ -39,7 +39,7 @@ const US: [string, string][] = [
 
 const QUESTIONS: [string, ReactNode][] = [
   ["Do my clients see AnyPress?", "No. They buy from your storefront, get emails from your name and manage their site from an account on your shop."],
-  ["How many sites do I need to start?", "Seller accounts start at three sites, which is also where the first volume saving kicks in."],
+  ["How many sites do I need to start?", "There's no minimum. Start with one site. From your third live site, every site you sell saves 10%."],
   [
     "Can I bring sites I already host?",
     <>

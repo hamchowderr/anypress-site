@@ -109,7 +109,7 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
         </div>
       </section>
 
-      <section className="sec in">
+      <section id="plans" className="sec in scroll-mt-20">
         <SectionHead eyebrow="good place to start" title="Plans that fit." lead="Prices are monthly, for the Small size." />
         <div className="types fit" style={{ "--n": fits.length } as CSSProperties}>
           {fits.map((t) => (
@@ -152,7 +152,11 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
         </div>
       </section>
 
-      <CtaBand drawings={fits.map((t) => t.drawing).slice(0, 3)} />
+      <CtaBand
+        href={fits.length === 1 ? startUrl(fits[0]) : "#plans"}
+        label={fits.length === 1 ? `Start your ${fits[0].short.toLowerCase()} site` : "Pick your plan"}
+        drawings={fits.map((t) => t.drawing).slice(0, 3)}
+      />
     </>
   );
 }

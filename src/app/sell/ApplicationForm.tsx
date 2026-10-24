@@ -10,7 +10,7 @@ const input =
 
 export function ApplicationForm({ storeDomain }: { storeDomain: string }) {
   const [state, action, pending] = useActionState<ApplyState, FormData>(apply, { status: "idle" });
-  const [hasSite, setHasSite] = useState<"yes" | "no">("yes");
+  const [hasSite, setHasSite] = useState<"yes" | "no" | "">("");
 
   if (state.status === "sent") {
     return (
@@ -83,7 +83,7 @@ export function ApplicationForm({ storeDomain }: { storeDomain: string }) {
         <legend className="font-medium">Do you already have a WordPress site to sell from?</legend>
         <div className="mt-2 flex flex-wrap gap-6">
           <label className="flex items-center gap-2">
-            <input type="radio" name="has_site" value="yes" checked={hasSite === "yes"} onChange={() => setHasSite("yes")} />
+            <input type="radio" name="has_site" value="yes" required checked={hasSite === "yes"} onChange={() => setHasSite("yes")} />
             Yes, I&apos;ll add our plugin to it
           </label>
           <label className="flex items-center gap-2">
@@ -122,14 +122,14 @@ export function ApplicationForm({ storeDomain }: { storeDomain: string }) {
 
       <div className="sm:col-span-2">
         {state.status === "error" && (
-          <p className="mb-3 text-sm text-red-600 dark:text-red-400" role="alert">
+          <p className="mb-3 text-sm text-red-700" role="alert">
             {state.message}
           </p>
         )}
         <button
           type="submit"
           disabled={pending}
-          className="rounded-md bg-accent px-4 py-2 font-medium text-on-accent hover:opacity-90 disabled:opacity-60"
+          className="btn btn-ink disabled:opacity-60"
         >
           {pending ? "Sending…" : "Send application"}
         </button>

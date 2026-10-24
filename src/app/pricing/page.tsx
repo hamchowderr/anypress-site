@@ -146,7 +146,6 @@ export default function Pricing() {
                 <dl className="mt-5 divide-y divide-line border-t border-line text-[15px]">
                   {[
                     ["Computing power", s.cpu],
-                    ["Memory", s.memory],
                     ["Storage", s.storage],
                     ["Emails a month", s.emails],
                     ["Price", s.times === 1 ? "The starting price" : `${s.times}× the starting price`],
