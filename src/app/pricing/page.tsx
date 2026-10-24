@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "@/components/Icons";
+import { PriceCalculator } from "@/components/PriceCalculator";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { SITE_TYPES, SIZES, planUrl } from "@/lib/site";
 
@@ -122,7 +123,19 @@ export default function Pricing() {
         </div>
       </section>
 
-      <section className="border-y border-line bg-paper-2">
+      <section id="calculator" className="sec soft scroll-mt-20" aria-labelledby="h-calc">
+        <div className="in">
+          <SectionHead
+            eyebrow="work it out"
+            title="What will it cost?"
+            lead="Pick what you're building, the size and how many sites. Three or more sites save 10 to 30% on every one."
+            id="h-calc"
+          />
+          <PriceCalculator />
+        </div>
+      </section>
+
+      <section className="border-b border-line">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <SectionHead title="What each size includes." lead="Every kind of site comes in the same three sizes." />
           <ul className="mt-10 grid gap-4 md:grid-cols-3">

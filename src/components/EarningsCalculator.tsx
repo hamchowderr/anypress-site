@@ -23,7 +23,8 @@ export function EarningsCalculator() {
   const s = SIZES.find((x) => x.name === size)!;
   const ours = t.from * s.times * (1 - volumePercent(clients) / 100);
   const min = Math.ceil(t.from * s.times);
-  const income = charge * clients;
+  const price = Math.max(charge, min);
+  const income = price * clients;
   const cost = ours * clients;
   const keep = income - cost;
 
@@ -65,14 +66,14 @@ export function EarningsCalculator() {
         </fieldset>
         <fieldset>
           <legend>
-            4. What do you charge each client a month? <output className="calc-count">{money(charge)}</output>
+            4. What do you charge each client a month? <output className="calc-count">{money(price)}</output>
           </legend>
           <input
             type="range"
             min={min}
             max={Math.max(min * 6, 300)}
             step={1}
-            value={Math.max(charge, min)}
+            value={price}
             onChange={(e) => setCharge(Number(e.target.value))}
             aria-label="Your monthly price per client"
           />

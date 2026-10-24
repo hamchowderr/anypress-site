@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { Showcase } from "@/components/Showcase";
+import { SystemDiagram } from "@/components/SystemDiagram";
 import { CompareTable } from "@/components/CompareTable";
 import { Tick } from "@/components/Tick";
 import { CtaBand, Questions, SectionHead } from "@/components/ui";
@@ -17,6 +18,7 @@ export default function Home() {
       <Sites />
       <Examples />
       <HowItWorks />
+      <System />
       <WhoItsFor />
       <SellBand />
       <Promises />
@@ -253,6 +255,25 @@ function HowItWorks() {
           </div>
         </div>
       </div>
+    </section>
+  );
+}
+
+function System() {
+  return (
+    <section className="sec in" aria-labelledby="h-system">
+      <SectionHead
+        eyebrow="the system behind it"
+        title="One storefront. Every order becomes its own website."
+        lead="Whether you buy from our shop or from someone who sells AnyPress sites, the same thing happens: each order is built as a separate site, then looked after every day."
+        id="h-system"
+      />
+      <SystemDiagram storefront="A storefront" storefrontSub="Ours at shop.anypress.io, or your own if you sell websites." template="the starting site" />
+      <p className="mt-10 text-center">
+        <Link href="/how-it-works" className="font-bold underline underline-offset-4">
+          See how it all works, step by step →
+        </Link>
+      </p>
     </section>
   );
 }

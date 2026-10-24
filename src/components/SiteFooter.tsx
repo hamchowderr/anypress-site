@@ -8,6 +8,7 @@ const COLUMNS = [
     links: [
       ...SITE_TYPES.map((t) => ({ href: `/sites/${t.id}`, label: t.name })),
       { href: "/pricing", label: "Prices" },
+      { href: "/how-it-works", label: "How it works" },
       { href: "/move", label: "Move your site" },
       { href: "/compare", label: "Compare" },
     ],

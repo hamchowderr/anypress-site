@@ -5,6 +5,7 @@ import { ACCOUNT_URL } from "@/lib/site";
 
 const NAV = [
   { href: "/pricing", label: "Sites & prices" },
+  { href: "/how-it-works", label: "How it works" },
   { href: "/#examples", label: "Examples" },
   { href: "/who", label: "Who it's for" },
   { href: "/agencies", label: "Sell websites" },
