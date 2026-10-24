@@ -47,8 +47,8 @@ const ROUTES: {
   {
     drawing: "plug",
     title: "No-code tools",
-    body: "A form, a signed proposal or a payment somewhere else starts a flow in n8n, Make or Zapier, and the flow creates the site.",
-    href: "#recipes",
+    body: "A form, a signed proposal or a payment somewhere else starts a flow in n8n, Make or Zapier, and the AnyPress app in it creates the site.",
+    href: "#apps",
     who: "Teams without a developer",
   },
   {
@@ -138,10 +138,34 @@ const EVENTS: [string, string][] = [
   ["tenant.backup_completed", "A backup finished, nightly ones included."],
 ];
 
+const APPS: { drawing: DrawingName; tool: string; how: string; steps: string; trigger: string }[] = [
+  {
+    drawing: "plug",
+    tool: "n8n",
+    how: "Install the community node n8n-nodes-anypress, then add the AnyPress API credential.",
+    steps: "Create, Get, Suspend, Resume and Delete a site.",
+    trigger: "AnyPress Trigger",
+  },
+  {
+    drawing: "tools",
+    tool: "Make",
+    how: "Add the AnyPress app to a scenario and connect it with your key.",
+    steps: "Create, Get, Suspend, Resume and Delete a Site.",
+    trigger: "Watch Site Events",
+  },
+  {
+    drawing: "mailbox",
+    tool: "Zapier",
+    how: "Pick AnyPress as the app in a Zap and connect it with your key.",
+    steps: "Create, Find, Suspend, Resume and Delete Site.",
+    trigger: "Site Event",
+  },
+];
+
 const FAQ: [string, ReactNode][] = [
   [
     "Do I need a developer?",
-    "No. If your clients buy on your storefront, sites are already created for you. For anything else, n8n, Make and Zapier can make the one call it takes, and the recipes on this page show each step.",
+    "No. If your clients buy on your storefront, sites are already created for you. For anything else, add the AnyPress app in n8n, Make or Zapier and pick the step, or follow the recipes on this page in any other tool.",
   ],
   [
     "Where do I get an API key?",
@@ -183,8 +207,8 @@ export default function Automate() {
         lead="Nobody on your team should be building websites by hand. An order, a form or a step in your CRM creates the client's site, and tells you when it's ready."
       >
         <div className="ctas mt-8">
-          <a href="#recipes" className="btn btn-ink">
-            See the recipes →
+          <a href="#apps" className="btn btn-ink">
+            See the apps →
           </a>
           <a href={DOCS} className="btn btn-paper">
             Step-by-step docs
@@ -286,6 +310,34 @@ export default function Automate() {
             Made-up studio, real steps. The person who set it up still sees every site, its backups and its jobs at app.anypress.io.
           </p>
         </div>
+      </section>
+
+      <section className="sec in" aria-labelledby="h-apps" id="apps">
+        <SectionHead
+          eyebrow="the apps"
+          title="AnyPress in n8n, Make and Zapier."
+          lead="Add the AnyPress app to your tool and pick a step. There's no web request to write, and the trigger sets up its own webhook when you turn the flow on."
+          id="h-apps"
+        />
+        <ul className="cards big">
+          {APPS.map((a) => (
+            <li key={a.tool}>
+              <a href={DOCS} className="card-link">
+                <Drawing name={a.drawing} />
+                <h3>{a.tool}</h3>
+                <p>{a.how}</p>
+                <p>
+                  {a.steps} Trigger: <b>{a.trigger}</b>, when a site is ready, fails, is suspended and more.
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p className="compare-note">
+          Each app signs in with your API key and secret. With a partner key, pick the storefront on each step (in Make, add one connection per
+          storefront). The trigger checks each request with AnyPress before your flow sees it. Any other tool can make the same calls as web
+          requests: the recipes below show how.
+        </p>
       </section>
 
       <section className="sec in" aria-labelledby="h-recipes" id="recipes">
@@ -494,6 +546,7 @@ export default function Automate() {
                     team.
                   </li>
                 </ol>
+                <p className="tools">Using the AnyPress app in n8n, Make or Zapier? Its trigger does the first three steps for you.</p>
                 <p className="tools">
                   Every request is signed the Standard Webhooks way, so a code step can check the <code>webhook-signature</code> header too. Each
                   event can arrive more than once: use <code>webhook-id</code> to skip repeats.
