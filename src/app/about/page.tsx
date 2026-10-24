@@ -23,7 +23,7 @@ const CODE = [
 export default function About() {
   return (
     <>
-      <PageHero
+      <PageHero drawing="note"
         eyebrow="About"
         title="WordPress can do anything. We make it easy."
         lead="AnyPress is built by Otaku Solutions. We take the hard parts of WordPress off your plate, so you can get on with your business."
@@ -31,7 +31,7 @@ export default function About() {
 
       <section>
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2">
-          <SectionHead title="WordPress can feel like a giant flea market." />
+          <SectionHead left title="WordPress can feel like a giant flea market." />
           <div className="space-y-5 text-lg leading-8 text-ink-soft">
             <p>
               There are thousands of add-ons, and nobody tells you which ones fit together. Then there&apos;s hosting, the padlock,
@@ -63,6 +63,7 @@ export default function About() {
       <section>
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2">
           <SectionHead
+            left
             title="The code is open."
             lead="All of it is public under the GPL license. You don't need any of this to use AnyPress, but it's there if you want to look."
           />

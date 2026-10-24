@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { notFound } from "next/navigation";
-import { Arrow, Check } from "@/components/Icons";
+import { Drawing, type DrawingName } from "@/components/Drawing";
 import { BrowserShot, PhoneShot } from "@/components/Shots";
-import { CtaBand, SectionHead } from "@/components/ui";
-import { SITE_TYPES, startUrl } from "@/lib/site";
+import { Tick } from "@/components/Tick";
+import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
+import { SITE_DETAILS } from "@/lib/siteDetails";
+import { SITE_TYPES, SIZES, planUrl, startUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return SITE_TYPES.map((t) => ({ type: t.id }));
@@ -20,109 +23,218 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
   const { type } = await params;
   const t = SITE_TYPES.find((s) => s.id === type);
   if (!t) notFound();
+  const d = SITE_DETAILS[t.id];
   const others = SITE_TYPES.filter((s) => s.id !== t.id);
   const ex = t.example;
+  const kind = t.short.toLowerCase();
+
+  const steps: [DrawingName, string, string][] = [
+    ["pick", "Pick a size and pay", "Small, Medium or Large. Monthly or yearly."],
+    ["tools", `We build your ${kind} site`, "Ready in minutes, with every tool switched on."],
+    ["words", "Make it yours", `Add ${d.yourPart}.`],
+    ["open", "Open your doors", "Share your link. We keep it running from here."],
+  ];
 
   return (
     <>
-      <section className="overflow-hidden border-b border-line">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1fr_1.35fr] lg:pt-20">
-          <div>
-            <p className="eyebrow">{t.name}</p>
-            <h1 className="font-display mt-3 text-[clamp(2.3rem,4.6vw,3.6rem)] leading-[1.04] font-semibold text-balance">{t.headline}</h1>
-            <p className="mt-5 text-lg leading-8 text-ink-soft">{t.pitch}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a href={startUrl(t)} className="btn btn-ink">
-                Start your {t.short.toLowerCase()} site
-              </a>
-              <a href={ex.url} target="_blank" rel="noopener" className="btn btn-paper">
-                Open the example <Arrow className="h-4 w-4" />
-              </a>
-            </div>
-            <p className="mt-5 text-ink-soft">
-              From <span className="font-semibold text-ink">${t.from} a month</span>. No cut of your sales.
-            </p>
+      <section className="in type-hero" aria-labelledby="h-type">
+        <div className="type-hero-text">
+          <SidePill side="owners" />
+          <span className="eyebrow">{t.name.toLowerCase()}</span>
+          <h1 id="h-type">{t.headline}</h1>
+          <p className="lead">{t.pitch}</p>
+          <div className="ctas !justify-start">
+            <a href={startUrl(t)} className="btn btn-ink">
+              Start your {kind} site →
+            </a>
+            <a href="#sizes" className="btn btn-paper">
+              See prices
+            </a>
           </div>
-          <div className="relative pb-8 lg:pr-12">
-            <BrowserShot example={ex} />
-            <PhoneShot example={ex} className="absolute right-0 -bottom-2 w-[24%] max-w-[160px]" />
-            <p className="mt-6 max-w-[70%] text-sm text-ink-soft">
-              {ex.name} is a made-up business. {ex.what}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <SectionHead title="What it does for you." />
-          <dl className="mt-10 grid gap-4 sm:grid-cols-2">
-            {t.features.map((f) => (
-              <div key={f.title} className="card p-6">
-                <dt className="font-semibold">{f.title}</dt>
-                <dd className="mt-1.5 leading-7 text-ink-soft">{f.body}</dd>
-              </div>
+          <ul className="checks !justify-start">
+            <li>
+              <Tick />
+              From ${t.from} a month
+            </li>
+            <li>
+              <Tick />
+              No cut of your sales
+            </li>
+            <li>
+              <Tick />
+              30-day money-back
+            </li>
+          </ul>
+          <p className="made-for">
+            <b>Made for</b>
+            {t.idealFor.map((x) => (
+              <span key={x}>{x}</span>
             ))}
-          </dl>
+          </p>
         </div>
-      </section>
-
-      <section className="border-y border-line bg-paper-2">
-        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
-          <div>
-            <h2 className="font-display text-2xl font-semibold">What you get</h2>
-            <ul className="mt-6 space-y-2.5">
-              {[...t.inBox, "The padlock, nightly copies and your own domain"].map((item) => (
-                <li key={item} className="flex items-start gap-2.5">
-                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 text-ink-soft">
-              Know WordPress? The tools are listed by name on{" "}
-              <Link href="/included" className="font-semibold text-ink underline">
-                what&apos;s included
-              </Link>
-              .
-            </p>
-          </div>
-          <div>
-            <h2 className="font-display text-2xl font-semibold">Made for</h2>
-            <ul className="mt-6 flex flex-wrap gap-2">
-              {t.idealFor.map((x) => (
-                <li key={x} className="rounded-full border border-line bg-panel px-4 py-1.5">
-                  {x}
-                </li>
-              ))}
-            </ul>
+        <div className="type-hero-shot">
+          <Drawing name={t.drawing} className="peek" />
+          <div className="relative -rotate-[0.8deg] pr-8 pb-6 sm:pr-12">
+            <BrowserShot example={ex} />
+            <PhoneShot example={ex} className="absolute right-0 bottom-0 w-[22%] max-w-[130px]" />
           </div>
         </div>
       </section>
 
-      <section>
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <SectionHead title="Building something else?" />
-          <ul className="mt-8 grid gap-x-10 md:grid-cols-2">
-            {others.map((o) => (
-              <li key={o.id} className="border-b border-line">
-                <Link href={`/sites/${o.id}`} className="group flex items-center justify-between gap-6 py-5">
-                  <span>
-                    <span className="block font-semibold">{o.name}</span>
-                    <span className="mt-0.5 block text-ink-soft">{o.pitch}</span>
-                  </span>
-                  <span className="flex shrink-0 items-center gap-4 text-ink-soft">
-                    <span className="hidden sm:inline">${o.from} a month</span>
-                    <Arrow className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-                  </span>
-                </Link>
+      <section className="in try-strip" aria-label="Try the example site">
+        <div>
+          <span className="hand">try it yourself</span>
+          <b>{ex.name}</b>
+          <span className="text-ink-soft">is a made-up business on a real AnyPress {kind} site.</span>
+        </div>
+        <ul>
+          {ex.tryIt.map((x) => (
+            <li key={x}>
+              <Tick />
+              {x}
+            </li>
+          ))}
+        </ul>
+        <a href={ex.url} target="_blank" rel="noopener" className="btn btn-honey !py-2.5">
+          Open the example ↗
+        </a>
+      </section>
+
+      <section className="sec in" aria-labelledby="h-does">
+        <SectionHead eyebrow="what it does" title="What it does for you." id="h-does" />
+        <div className="yours">
+          {t.features.map((f, i) => (
+            <div key={f.title}>
+              <Drawing name={d.featureDrawings[i]} />
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="sec soft" aria-labelledby="h-can">
+        <div className="in">
+          <SectionHead
+            eyebrow="the full list"
+            title="Everything you can do with it."
+            lead="All of it is switched on when your site arrives. Nothing extra to buy."
+            id="h-can"
+          />
+          <ul className="can-list">
+            {d.can.map((x) => (
+              <li key={x}>
+                <Tick />
+                {x}
               </li>
             ))}
           </ul>
+          <p className="mt-6 text-center text-ink-soft">
+            Plus on every site: a copy saved every night, updates done for you, the padlock and your own domain.{" "}
+            <Link href="/included" className="font-bold text-ink underline">
+              The tools by name
+            </Link>
+          </p>
         </div>
       </section>
 
-      <CtaBand />
+      <section className="sec in" aria-labelledby="h-steps">
+        <SectionHead eyebrow="from order to open" title="What happens when you buy." id="h-steps" />
+        <ol className="flow">
+          {steps.map(([dr, title, sub], i) => (
+            <li key={title}>
+              <Drawing name={dr} />
+              <b>
+                {i + 1}. {title}
+              </b>
+              <span>{sub}</span>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-8 text-center">
+          <Link href="/how-it-works" className="font-bold underline underline-offset-4">
+            See the whole system behind it →
+          </Link>
+        </p>
+      </section>
+
+      <section id="sizes" className="sec soft scroll-mt-20" aria-labelledby="h-sizes">
+        <div className="in">
+          <SectionHead
+            eyebrow="pick a size"
+            title={`${t.name} prices.`}
+            lead="Same tools in every size. A bigger size gives your site more room, for when it gets busy."
+            id="h-sizes"
+          />
+          <ul className="size-cards">
+            {SIZES.map((s) => (
+              <li key={s.name} className={s.times === 1 ? "pick-me" : ""}>
+                {s.times === 1 && <span className="hand">most start here</span>}
+                <h3>{s.name}</h3>
+                <p className="good">{s.goodFor}</p>
+                <p className="amt">
+                  ${t.from * s.times}
+                  <small> / month</small>
+                </p>
+                <p className="yr">or ${(t.from * s.times * 10).toLocaleString("en-US")} a year, two months free</p>
+                <dl>
+                  {[
+                    ["Computing power", s.cpu],
+                    ["Memory", s.memory],
+                    ["Storage", s.storage],
+                    ["Emails a month", s.emails],
+                  ].map(([k, v]) => (
+                    <div key={k}>
+                      <dt>{k}</dt>
+                      <dd>{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <a href={planUrl(t, s.name)} className={`btn ${s.times === 1 ? "btn-ink" : "btn-paper"} w-full`}>
+                  Start with {s.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-center text-ink-soft">
+            Three or more sites? Every site saves 10 to 30%.{" "}
+            <Link href="/pricing#calculator" className="font-bold text-ink underline">
+              Work out your price
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      <section className="sec in" aria-labelledby="h-q">
+        <SectionHead drawing="question" eyebrow="good to know" title={`Questions about ${t.name.toLowerCase()} sites`} id="h-q" />
+        <Questions items={d.questions} firstOpen />
+      </section>
+
+      <section className="sec soft" aria-labelledby="h-other">
+        <div className="in">
+          <SectionHead eyebrow="or" title="Building something else?" id="h-other" />
+          <div className="types fit" style={{ "--n": others.length } as CSSProperties}>
+            {others.map((o) => (
+              <Link key={o.id} className="type" href={`/sites/${o.id}`}>
+                <Drawing name={o.drawing} />
+                <h3>{o.name}</h3>
+                <p>{o.pitch}</p>
+                <div className="price">
+                  ${o.from} <small>/ month</small>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CtaBand
+        title={`Ready for your ${kind} site?`}
+        body="It's ready to use the same day, and we look after it from there. Not for you? Get your money back within 30 days."
+        href={startUrl(t)}
+        label={`Start your ${kind} site`}
+        drawings={[t.drawing, "open", "thirty"]}
+      />
     </>
   );
 }

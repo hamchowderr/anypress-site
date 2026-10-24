@@ -1,47 +1,191 @@
-# Design
+---
+name: AnyPress
+description: Real WordPress, set up and looked after for you. The sketchbook look.
+colors:
+  ink: "#141414"
+  ink-soft: "#5f5a55"
+  paper: "#ffffff"
+  paper-2: "#faf8f5"
+  line: "#e9e4de"
+  hair: "#f1ede8"
+  honey: "#ffc75a"
+  amber: "#ffb338"
+  orange: "#ff7a2a"
+  red: "#f2413a"
+  rose: "#ee2f5e"
+  magenta: "#d21fa4"
+  accent: "#c8264d"
+  tick-green: "#17703d"
+typography:
+  display:
+    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontSize: "clamp(44px, 7.4vw, 92px)"
+    fontWeight: 800
+    lineHeight: 1
+    letterSpacing: "-0.03em"
+  headline:
+    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontSize: "clamp(32px, 4.2vw, 52px)"
+    fontWeight: 800
+    lineHeight: 1.05
+    letterSpacing: "-0.025em"
+  title:
+    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontSize: "21px"
+    fontWeight: 800
+    lineHeight: 1.2
+  body:
+    fontFamily: "Hanken Grotesk, system-ui, sans-serif"
+    fontSize: "17px"
+    fontWeight: 400
+    lineHeight: 1.6
+  hand:
+    fontFamily: "Caveat, cursive"
+    fontSize: "1.4rem"
+    fontWeight: 700
+    lineHeight: 1.1
+rounded:
+  button: "10px"
+  tile: "12px"
+  card: "16px"
+  panel: "18px"
+  pick: "20px"
+  pill: "999px"
+spacing:
+  gutter: "20px"
+  section: "96px"
+  container: "1180px"
+components:
+  button-ink:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+    rounded: "{rounded.button}"
+    padding: "0.8rem 1.35rem"
+  button-paper:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.button}"
+    padding: "0.8rem 1.35rem"
+  button-honey:
+    backgroundColor: "{colors.honey}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.button}"
+    padding: "0.8rem 1.35rem"
+  card:
+    backgroundColor: "{colors.paper}"
+    rounded: "{rounded.card}"
+  sketch-panel:
+    backgroundColor: "{colors.paper}"
+    rounded: "{rounded.panel}"
+  side-pill:
+    backgroundColor: "{colors.paper-2}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.pill}"
+---
 
-The anypress.io look: an assembly booklet. White manual paper, black line drawings, and each step of the story printed on a full-width page in one colour of the ribbon logo.
+# Design System: AnyPress
 
-## Colour
+## Overview
 
-| Token | Value | Use |
-|---|---|---|
-| `--ink` | `#17131c` | Text, rules, drawings, dark buttons, the last step |
-| `--ink-soft` | `#3d3545` | Secondary text, only on white, `paper-2` or amber |
-| `--paper` | `#ffffff` | Page ground, cards, light buttons |
-| `--paper-2` | `#f4f2f6` | Quiet sections (who it's for, "in the box") |
-| `--amber` | `#ffb338` | Step 1 / hero, closing call to action |
-| `--orange` | `#ff7a2a` | Step 2 |
-| `--red` | `#f2413a` | Step 3 |
-| `--rose` | `#ee2f5e` | Step 4 (ink text only, at 4.5:1; never muted text) |
-| `--magenta` | `#d21fa4` | Step 5 (white text) |
+**Creative North Star: "The Sketchbook"**
 
-Bands run amber, orange, red, rose, magenta, ink, in that order, on the homepage. Inner pages take one band for their title page (`PageHero band=`). No gradients on text or surfaces; the five colours appear side by side only in the footer stripe.
+anypress.io reads like a friendly sketchbook laid on a white desk. Pages are plain white with near-black ink. Every idea gets a hand-drawn object that matches exactly what the line talks about: a laptop for a website, a calendar for bookings, a shop bag for a store, a piggy bank for "no cut of your sales". The drawings draw themselves as they scroll into view. Handwritten notes in Caveat sit beside headings like margin scribbles.
 
-## Type
+Sections are centered and generous, but each one carries real content: tables, calculators, lists and example sites. The ribbon colours from the logo are the only colour, used in the drawings' hatching and as hard offset shadows behind the things that matter. The owner chose this look on 2026-10-24 (round 3), after rejecting the "assembly booklet", people-only illustrations and the calm card look.
 
-- Display: Anybody, black (900), widened (`.font-display` = 118% width; `.font-display-wide` = 140% for step numbers). Headlines end with a full stop.
-- Body: Atkinson Hyperlegible Next, 18 to 20px on marketing copy.
-- Monospace only for real code on the developers page.
+**Key Characteristics:**
+- White pages, ink text, and hand-drawn objects for every concept. Never stock photos or illustrated people.
+- A Caveat "eyebrow" note above most section headings.
+- Ink outlines with a solid offset shadow (honey or rose) on the one or two things per section that matter.
+- Motion that explains: drawings draw in, order dots travel along arrows, site tiles pop in one by one.
+- Two audiences, marked with a side pill: website owners ("For you") and the technical side ("Technical").
+
+## Colors
+
+One ink, one paper, and the logo's ribbon colours as the only colour.
+
+### Primary
+- **Ink** (#141414): text, outlines, dark buttons, the drawings' strokes, and the dark "we look after it" bands.
+- **Honey** (#ffc75a): the main offset shadow, the announcement bar, the honey button and the highlighter `mark`.
+
+### Secondary
+- **Rose** (#ee2f5e): the second offset shadow (technical-side and "engine" panels), slider accents and drawing hatching. Never small text on white.
+- **Accent** (#c8264d): small coloured text, links, step labels and badges. It's readable on white (5.5:1 with white text on it).
+
+### Tertiary
+- **Amber, orange, red, magenta** (#ffb338, #ff7a2a, #f2413a, #d21fa4): hatching inside the drawings and the volume-tier shadows only.
+- **Tick green** (#17703d): ticks in the "AnyPress" column of comparison tables and savings lines.
+
+### Neutral
+- **Paper** (#ffffff): page ground, cards and panels.
+- **Paper 2** (#faf8f5): alternating `.soft` sections.
+- **Ink soft** (#5f5a55): secondary text.
+- **Line** (#e9e4de) and **Hair** (#f1ede8): borders and dividers.
+
+### Named Rules
+**The Ribbon-Only Rule.** No colour comes from outside the logo's ribbon, except tick green for "yes".
+**The Readable Accent Rule.** Small coloured text uses Accent, never Rose or Orange.
+
+## Typography
+
+**Display Font:** Hanken Grotesk (with system-ui)
+**Hand Font:** Caveat (600, 700)
+
+**Character:** A sturdy, friendly grotesque for everything a visitor reads, and a quick handwriting for the notes in the margin.
+
+### Hierarchy
+- **Display** (800, clamp(44px, 7.4vw, 92px) on the homepage, clamp(40px, 6vw, 72px) on inner pages, 1.0): the h1. One `mark` highlight word at most.
+- **Headline** (800, clamp(32px, 4.2vw, 52px), 1.05): section h2s, centered and balanced.
+- **Title** (800, about 20 to 24px): card and step titles.
+- **Body** (400, 17px, 1.6): copy, with leads at 18 to 19px and a 46 to 52ch measure.
+- **Hand** (Caveat 700, about 1.4rem): eyebrows, margin notes, "most start here", the counters on the calculator sliders.
+
+### Named Rules
+**The Plain Words Rule.** Main pages use words a non-technical owner understands. Tool names and technical terms only appear on deeper pages: /included, /developers, /how-it-works "under the hood", and /compare.
+
+## Layout
+
+- Container `.in`: 1180px max with a 20px gutter. Sections `.sec` have 96px of vertical padding and alternate white and `.soft` (paper 2 with hairline borders).
+- Section heads are centered with a drawing, an eyebrow, the h2 and a lead. Use `.sec-head.left` only beside a column of content.
+- Grids: `.types` (5 across, then 3, then 1), `.yours` (4 across, then 2), `.cards` (flexible), `.calc` (inputs 1.4fr next to a sticky result 1fr), and `.sys-flow` (node, arrow, node, arrow, sites).
+- Breakpoints sit at about 1000, 860, 760, 640 and 480px. Everything stacks to one column by 760px, and arrows turn vertical on phones.
+- Pages may never scroll sideways at 390px.
+
+## Elevation & Depth
+
+The site is flat with one signature lift: a hard, unblurred offset shadow in a ribbon colour behind ink-outlined panels. There are no soft drop shadows.
+
+### Shadow Vocabulary
+- **Feature** (`box-shadow: 8px 8px 0 var(--honey)`): the panel that matters most in a section, such as the calculator result, the picked size or "your own flat".
+- **Technical** (`box-shadow: 8px 8px 0 var(--rose)`): technical-side and "engine" panels.
+- **Small** (`4px 4px 0` or `5px 5px 0`): pressed calculator buttons and the volume tiers.
+- **Button hover** (`0 6px 0 0 var(--amber)`): the ink button lifts 2px onto an amber base.
+
+### Named Rules
+**The One-Lift Rule.** At most one or two offset shadows per section. If everything lifts, nothing does.
+
+## Shapes
+
+- Ink outlines are 1.5px on panels, buttons and tiles. Quiet cards use a 1px Line border.
+- Radii run 10px (buttons), 12px (tiles), 16px (cards), 18px (panels), 20px (picker doors) and 999px (pills and chips).
+- Dashed borders mean "more to come" or "try it": the site grid, the "try it yourself" strip and order chips.
+- Hero sketch panels tilt slightly (about 0.5 to 0.8 degrees) to feel hand-placed.
 
 ## Components
 
-- Rules and outlines are 2.5px ink everywhere (`border-[2.5px] border-ink`).
-- `.btn` is a box sticker: 2.5px ink outline, 12px corners, lifts 2px with a soft shadow on hover. `.btn-ink` (filled) is the main action, `.btn-paper` the second.
-- `StepTag`: "Your part" (outline, person icon) or "Our part" (ink fill, ribbon mark).
-- Lists are rows divided by ink rules, not grids of cards. Parts lists use check icons.
-- No eyebrow labels above headings.
+- **Drawing** (`<Drawing name>`): rough.js objects from `scripts/drawings.mjs`, served from public/drawings and fetched on the client. They draw in on scroll; pass `still` for small icons. Add new drawings in the generator, never by hand.
+- **PageHero / SectionHead / Questions / CtaBand** (src/components/ui.tsx): the building blocks of every page.
+- **SystemDiagram**: one storefront, AnyPress builds, many separate sites, then "we look after every one". Used on the homepage, /agencies and /how-it-works.
+- **PriceCalculator / EarningsCalculator**: real buttons with `aria-pressed`, labelled range sliders, and a sticky result panel with the feature shadow.
+- **Buttons**: `.btn-ink` (main action), `.btn-paper` (second action) and `.btn-honey` (on dark bands). The focus ring is a 3px ink outline with a honey halo.
+- **Side pill**: "For you" (owners) or "Technical" at the top of a page.
 
-## Drawings
+## Do's and Don'ts
 
-`src/components/Drawings.tsx`: inline SVG, `.drawing` class, one 2.5px round stroke, white and ink fills only. Names and numbers inside drawings are made-up examples.
-
-## Motion
-
-One signature move: `SiteParts state="assemble"` inside an `.assembly-scope` section slides the website's parts together as it scrolls into view (CSS scroll-driven animation). The drawing is assembled by default, so browsers without support and visitors with reduced motion see the finished site. Hovers are small lifts with an exponential ease-out.
-
-Lottie line animations (`src/components/Motion.tsx`, files in `public/lottie/`) draw themselves in once when they scroll into view: homepage steps 3 to 6, About, Agencies and Prices. They're built from code, in the same 480x380 frame, 2.5px ink stroke and white/ink fills as the static drawings, by `node scripts/lottie/build.mjs`. The static drawing shows until the animation loads; reduced motion shows the last frame.
-
-## Words
-
-Plain words on the homepage, site pages, prices and who-it's-for. Tool names, DNS, SSL, API and the like only on `/included` and `/developers`. See PRODUCT.md.
+- **Do** give every concept a drawing that matches it literally.
+- **Do** keep the ribbon colours inside drawings and shadows.
+- **Do** honour reduced motion: everything shows finished and nothing is hidden.
+- **Don't** use gradient text, glassmorphism, stock photos, illustrated people or logo rows.
+- **Don't** invent testimonials, customer counts or ratings.
+- **Don't** type colours into components; use the tokens in globals.css.
+- **Don't** use Rose or Orange for small text.
