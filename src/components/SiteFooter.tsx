@@ -62,7 +62,7 @@ export function SiteFooter() {
           </div>
           {COLUMNS.map((c) => (
             <div key={c.title}>
-              <h4>{c.title}</h4>
+              <h2>{c.title}</h2>
               <ul>
                 {c.links.map((l) => (
                   <li key={l.label}>

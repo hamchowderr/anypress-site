@@ -176,7 +176,7 @@ mark {
   background: #fff;
 }
 .badge b {
-  background: var(--rose);
+  background: var(--accent);
   color: #fff;
   border-radius: 999px;
   padding: 2px 8px;
@@ -381,7 +381,7 @@ mark {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #1f8a4c;
+  color: #17703d;
 }
 .compare .yes svg {
   width: 18px;
@@ -787,7 +787,7 @@ mark {
   grid-template-columns: 1.4fr repeat(4, minmax(0, 1fr));
   gap: 28px;
 }
-.fcols h4 {
+.fcols h2 {
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -803,6 +803,8 @@ mark {
 }
 .fcols a {
   text-decoration: none;
+  display: inline-block;
+  padding: 3px 0;
 }
 .fcols a:hover {
   text-decoration: underline;
@@ -865,6 +867,7 @@ mark {
   width: 150px;
   margin: 0 auto 6px;
 }
+.pick h2,
 .pick h3 {
   font-size: 24px;
   font-weight: 800;
@@ -1174,7 +1177,7 @@ mark {
   }
   .calc-save {
     margin-top: 6px;
-    color: #1f8a4c;
+    color: #17703d;
     font-weight: 700;
   }
   .calc-next {

@@ -16,12 +16,12 @@ export function SiteHeader() {
   const signIn = accountSignInEnabled() ? "/account" : ACCOUNT_URL;
   return (
     <>
-      <div className="announce">
+      <aside className="announce" aria-label="Affiliate program">
         <div className="in">
           <span className="pill">Affiliates</span> Earn 30% of every first payment you send our way.{" "}
           <Link href="/affiliates">Join the program →</Link>
         </div>
-      </div>
+      </aside>
       <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-md">
         <nav className="in flex items-center gap-6 py-3.5" aria-label="Main">
           <Link href="/" aria-label="AnyPress home" className="rounded-md">

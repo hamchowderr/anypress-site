@@ -4,7 +4,7 @@ import { Tick } from "@/components/Tick";
 export function CompareTable({ head, rows }: { head: [string, string, string]; rows: [string, string, string][] }) {
   return (
     <div className="compare">
-      <div className="tablewrap">
+      <div className="tablewrap" tabIndex={0} role="region" aria-label={head.join(", ")}>
         <table>
           <thead>
             <tr>

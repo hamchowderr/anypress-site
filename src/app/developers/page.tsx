@@ -99,7 +99,7 @@ export default function Developers() {
           </div>
           <div className="overflow-hidden rounded-2xl border border-line bg-ink text-white">
             <div className="border-b border-white/15 px-4 py-2.5 font-mono text-sm text-white/60">signup.ts</div>
-            <pre className="overflow-x-auto p-5 font-mono text-[14px] leading-6">
+            <pre tabIndex={0} aria-label="Example request" className="overflow-x-auto p-5 font-mono text-[14px] leading-6">
               <code>
                 <span className="text-amber">await</span> waas.tenants.create({"{"}
                 {"\n"}

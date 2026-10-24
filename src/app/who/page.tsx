@@ -26,7 +26,7 @@ export default function Who() {
         <div className="picker">
           <Link href="#owners" className="pick">
             <Drawing name="everything" />
-            <h3>I want a website for my business</h3>
+            <h2>I want a website for my business</h2>
             <p>A shop, bookings, courses, a members&apos; area, or all of it. Set up for you, from $12 a month.</p>
             <ul>
               {OWNERS.map((g) => (
@@ -37,7 +37,7 @@ export default function Who() {
           </Link>
           <Link href="#technical" className="pick tech">
             <Drawing name="sell" />
-            <h3>I sell websites, or build them into my product</h3>
+            <h2>I sell websites, or build them into my product</h2>
             <p>Sell sites under your own name, run several brands, or create sites from your own code.</p>
             <ul>
               <li>Sellers</li>

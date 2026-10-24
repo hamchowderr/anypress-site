@@ -95,11 +95,13 @@ export default function Resellers() {
       <section className="sec in">
         <SectionHead eyebrow="two ways to sell" title="Seller or reseller?" />
         <div className="compare">
-          <div className="tablewrap">
+          <div className="tablewrap" tabIndex={0} role="region" aria-label="Seller and reseller compared">
             <table>
               <thead>
                 <tr>
-                  <th scope="col"> </th>
+                  <th scope="col">
+                    <span className="sr-only">What you get</span>
+                  </th>
                   <th scope="col">Seller</th>
                   <th scope="col">Reseller</th>
                 </tr>

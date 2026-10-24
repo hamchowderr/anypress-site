@@ -70,8 +70,9 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid var(--orange);
-  outline-offset: 3px;
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 7px var(--honey);
   border-radius: 6px;
 }
 
@@ -91,12 +92,6 @@ a {
   background: linear-gradient(90deg, var(--amber), var(--orange) 30%, var(--red) 55%, var(--rose) 75%, var(--magenta));
 }
 
-.ribbon-text {
-  background: linear-gradient(90deg, #f08a1c, var(--red) 45%, var(--rose) 70%, var(--magenta));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
 
 /* Components sit in their own layer, so Tailwind utilities on the same element still win. */
 @layer components {
@@ -262,4 +257,12 @@ details > summary::-webkit-details-marker {
 .legal th {
   background: var(--paper-2);
   color: var(--ink);
+}
+
+/* Radio buttons and checkboxes big enough to tap. */
+input[type="radio"],
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--ink);
 }
