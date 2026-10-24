@@ -138,27 +138,30 @@ const EVENTS: [string, string][] = [
   ["tenant.backup_completed", "A backup finished, nightly ones included."],
 ];
 
-const APPS: { drawing: DrawingName; tool: string; how: string; steps: string; trigger: string }[] = [
+const APPS: { drawing: DrawingName; tool: string; how: string; steps: string; trigger: string; doc: string }[] = [
   {
     drawing: "plug",
     tool: "n8n",
     how: "Install the community node n8n-nodes-anypress, then add the AnyPress API credential.",
     steps: "Create, Get, Suspend, Resume and Delete a site.",
     trigger: "AnyPress Trigger",
+    doc: "https://shop.anypress.io/docs/use-anypress-in-n8n/",
   },
   {
     drawing: "tools",
     tool: "Make",
-    how: "Add the AnyPress app to a scenario and connect it with your key.",
+    how: "Open our invite link to add the AnyPress app to Make, then connect it with your key.",
     steps: "Create, Get, Suspend, Resume and Delete a Site.",
     trigger: "Watch Site Events",
+    doc: "https://shop.anypress.io/docs/use-anypress-in-make/",
   },
   {
     drawing: "mailbox",
     tool: "Zapier",
-    how: "Pick AnyPress as the app in a Zap and connect it with your key.",
+    how: "Open our invite link to add AnyPress to Zapier, then pick it in a Zap and connect it with your key.",
     steps: "Create, Find, Suspend, Resume and Delete Site.",
     trigger: "Site Event",
+    doc: "https://shop.anypress.io/docs/use-anypress-in-zapier/",
   },
 ];
 
@@ -322,7 +325,7 @@ export default function Automate() {
         <ul className="cards big">
           {APPS.map((a) => (
             <li key={a.tool}>
-              <a href={DOCS} className="card-link">
+              <a href={a.doc} className="card-link">
                 <Drawing name={a.drawing} />
                 <h3>{a.tool}</h3>
                 <p>{a.how}</p>
