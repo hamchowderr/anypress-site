@@ -3,6 +3,8 @@
 // Sends the application form to the AnyPress API (POST /applications). Nothing is set up until the
 // platform admin approves it on the dashboard; the API emails the applicant either way.
 
+import { sendLead } from "@/lib/lead";
+
 const API_URL = (process.env.WAAS_API_URL || "https://api.anypress.io").replace(/\/$/, "");
 
 
@@ -38,7 +40,12 @@ export async function apply(_prev: ApplyState, form: FormData): Promise<ApplySta
   } catch {
     return { status: "error", message: "We couldn't send your application. Please try again in a minute." };
   }
-  if (res.ok) return { status: "sent", email: body.email };
+  if (res.ok) {
+    // Also into the shop's CRM as Seller: Interested, with where they heard about us. A failure here
+    // never fails the application.
+    await sendLead({ email: body.email, name: body.name, interest: "Seller", source: field(form, "source") }).catch(() => null);
+    return { status: "sent", email: body.email };
+  }
   if (res.status === 409) {
     return { status: "error", message: "We already have an application from this email address. We'll be in touch soon." };
   }

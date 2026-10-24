@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { Arrow, Check, LineIcon } from "@/components/Icons";
 import { Showcase } from "@/components/Showcase";
 import { CtaBand, Questions, SectionHead } from "@/components/ui";
-import { AUDIENCE_GROUPS, SITE_TYPES, startUrl } from "@/lib/site";
+import { AUDIENCE_GROUPS, SITE_TYPES, groupUrl, startUrl } from "@/lib/site";
 
 export default function Home() {
   return (
@@ -174,7 +174,7 @@ function WhoItsFor() {
         <ul className="mt-12 grid gap-x-10 md:grid-cols-2">
           {AUDIENCE_GROUPS.map((g) => (
             <li key={g.id} className="border-b border-line">
-              <Link href={`/who#${g.id}`} className="group flex items-center justify-between gap-6 py-5">
+              <Link href={groupUrl(g)} className="group flex items-center justify-between gap-6 py-5">
                 <span>
                   <span className="block font-semibold">{g.name}</span>
                   <span className="mt-0.5 block text-ink-soft">{g.line}</span>
