@@ -47,6 +47,13 @@ const QUESTIONS: [string, ReactNode][] = [
       comes across. <Link href="/move" className="underline">How moving works</Link>.
     </>,
   ],
+  [
+    "Do I have to build each client's site by hand?",
+    <>
+      No. A paid order on your storefront builds the site by itself. Clients who sign up somewhere else can get a site from a form, a payment or your CRM
+      through n8n, Make or Zapier. <Link href="/automate" className="underline">Create sites automatically</Link>.
+    </>,
+  ],
   ["Who supports my clients?", "You do the client-facing side, the way you do today. We support you, and we look after the sites themselves."],
   ["What does the storefront cost?", "Nothing. Your first storefront is included. You pay per site you sell."],
   [
