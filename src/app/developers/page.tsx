@@ -37,8 +37,8 @@ const BLOCKS: { title: string; body: string; tag: string; href?: string }[] = [
     tag: "domains",
   },
   {
-    title: "No-code recipes",
-    body: "Create sites from a form, a payment or a CRM step with n8n, Make or Zapier: one web request each, no code to write.",
+    title: "n8n, Make and Zapier apps",
+    body: "Create sites from a form, a payment or a CRM step with the AnyPress app for n8n, Make or Zapier: pick a step, no code to write.",
     tag: "/automate",
     href: "/automate",
   },
