@@ -47,8 +47,8 @@ const FAQ: [string, ReactNode][] = [
   [
     "Can my developers create sites automatically?",
     <>
-      Yes. Partner keys let your code create, change and remove sites for each brand. See the{" "}
-      <Link href="/developers">developer page</Link>.
+      Yes, with or without a developer. Partner keys let your code create, change and remove sites for each brand, and no-code tools like n8n, Make and
+      Zapier can do it from a form, a payment or your CRM. See <Link href="/automate">create sites automatically</Link>.
     </>,
   ],
 ];

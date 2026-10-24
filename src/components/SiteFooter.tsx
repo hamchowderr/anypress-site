@@ -20,6 +20,7 @@ const COLUMNS = [
       { href: "/resellers", label: "Become a reseller" },
       { href: "/sell", label: "Apply to sell" },
       { href: "/affiliates", label: "Affiliate program" },
+      { href: "/automate", label: "Create sites automatically" },
       { href: "/developers", label: "For developers" },
       { href: "/self-host", label: "Run it yourself" },
       { href: "https://github.com/hamchowderr/waas-plugins", label: "Open source code" },

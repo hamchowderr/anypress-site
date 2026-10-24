@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const API_REPO = "https://github.com/hamchowderr/waas-provisioning-api";
 
-const BLOCKS = [
+const BLOCKS: { title: string; body: string; tag: string; href?: string }[] = [
   {
     title: "REST API",
     body: "Create, suspend, resume, restore, back up and delete sites. Every change runs in the background and reports its status.",
@@ -37,6 +37,12 @@ const BLOCKS = [
     tag: "domains",
   },
   {
+    title: "No-code recipes",
+    body: "Create sites from a form, a payment or a CRM step with n8n, Make or Zapier: one web request each, no code to write.",
+    tag: "/automate",
+    href: "/automate",
+  },
+  {
     title: "Open source",
     body: "The API, the WordPress plugins and the dashboard are public under the GPL. Read it, improve it, or run it yourself with one installer.",
     tag: "GPL-3.0",
@@ -55,8 +61,8 @@ export default function Developers() {
           <a href={API_REPO} className="btn btn-ink">
             Read the API docs
           </a>
-          <Link href="/contact" className="btn btn-paper">
-            Get API access
+          <Link href="/automate" className="btn btn-paper">
+            No-code recipes
           </Link>
         </div>
       </PageHero>
@@ -68,7 +74,13 @@ export default function Developers() {
               <li key={b.title} className="border-b border-line py-8">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
                   <h2 className="font-display text-xl font-semibold">{b.title}</h2>
-                  <code className="rounded-md bg-paper-2 px-2 py-1 font-mono text-sm">{b.tag}</code>
+                  {b.href ? (
+                    <Link href={b.href} className="rounded-md bg-paper-2 px-2 py-1 font-mono text-sm underline">
+                      {b.tag}
+                    </Link>
+                  ) : (
+                    <code className="rounded-md bg-paper-2 px-2 py-1 font-mono text-sm">{b.tag}</code>
+                  )}
                 </div>
                 <p className="mt-2 leading-7 text-ink-soft">{b.body}</p>
               </li>

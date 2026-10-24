@@ -2018,3 +2018,139 @@ mark {
     width: 110px;
   }
 }
+@layer components {
+  /* ---------- automation recipes (/automate) ---------- */
+  .recipes {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .recipe {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 28px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 28px;
+    scroll-margin-top: 96px;
+  }
+  .recipe .tag {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .recipe h3 {
+    margin-top: 6px;
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .recipe > div > p {
+    margin-top: 8px;
+    color: var(--ink-soft);
+  }
+  .recipe ol {
+    margin-top: 14px;
+    display: grid;
+    gap: 8px;
+    counter-reset: rstep;
+  }
+  .recipe ol li {
+    position: relative;
+    padding-left: 34px;
+    line-height: 1.55;
+  }
+  .recipe ol li::before {
+    counter-increment: rstep;
+    content: counter(rstep);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    font-size: 13px;
+    font-weight: 800;
+    display: grid;
+    place-items: center;
+  }
+  .cards.big.four > li {
+    flex-basis: 230px;
+  }
+  .recipe > div {
+    min-width: 0;
+  }
+  .recipe li code,
+  .recipe .tools code,
+  .fields td code {
+    overflow-wrap: anywhere;
+  }
+  .recipe .tools {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .code {
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--ink);
+    color: #fff;
+    align-self: start;
+    min-width: 0;
+  }
+  .code .file {
+    border-bottom: 1px solid rgb(255 255 255 / 0.15);
+    padding: 10px 16px;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 13px;
+    color: rgb(255 255 255 / 0.6);
+  }
+  .code pre {
+    overflow-x: auto;
+    padding: 16px 18px;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+  .code .c {
+    color: rgb(255 255 255 / 0.5);
+  }
+  .code .s {
+    color: var(--amber);
+  }
+  .fields {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .fields th,
+  .fields td {
+    text-align: left;
+    vertical-align: top;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .fields th {
+    white-space: nowrap;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .fields td {
+    color: var(--ink-soft);
+  }
+  @media (max-width: 860px) {
+    .recipe {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 20px;
+    }
+  }
+}
