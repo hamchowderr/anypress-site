@@ -47,7 +47,7 @@ const STEPS: { drawing: DrawingName; title: string; when: string; body: string; 
     drawing: "backup",
     title: "We look after it from then on",
     when: "every day",
-    body: "A copy is saved every night and kept for a week, with weekly copies kept for a month. Updates are done for them, and the site is watched around the clock.",
+    body: "A copy is saved every night and kept for a week, with weekly copies kept for a month. Updates are done for them.",
   },
 ];
 

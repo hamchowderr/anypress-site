@@ -122,7 +122,7 @@ export default function Help() {
 
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         {SECTIONS.map((s) => (
-          <section key={s.title} className="grid gap-6 py-8 lg:grid-cols-[1fr_1.7fr] lg:gap-10">
+          <section key={s.title} className="grid gap-6 py-8 lg:grid-cols-[1fr_1.7fr] lg:gap-10 [&_.faq]:m-0 [&_.faq]:w-full [&_.faq]:max-w-none">
             <h2 className="font-display text-2xl font-semibold">{s.title}</h2>
             <Questions items={s.items} />
           </section>

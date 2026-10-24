@@ -270,7 +270,7 @@ function System() {
       />
       <SystemDiagram storefront="A storefront" storefrontSub="Ours at shop.anypress.io, or your own if you sell websites." template="the starting site" />
       <p className="mt-10 text-center">
-        <Link href="/how-it-works" className="font-bold underline underline-offset-4">
+        <Link href="/how-it-works" className="inline-block py-1 font-bold underline underline-offset-4">
           See how it all works, step by step →
         </Link>
       </p>
@@ -298,7 +298,7 @@ function WhoItsFor() {
         ))}
       </ul>
       <p className="mt-8 text-center">
-        <Link href="/who" className="font-bold underline underline-offset-4">
+        <Link href="/who" className="inline-block py-1 font-bold underline underline-offset-4">
           Not sure which one you are? Start here →
         </Link>
       </p>

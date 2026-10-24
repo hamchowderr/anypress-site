@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const STEPS = [
   { title: "Apply", body: "Tell us about your business and who you build websites for. It takes two minutes." },
   { title: "We review it", body: "We look at every application ourselves and email you when you're approved." },
-  { title: "Start selling", body: "Sign in, set up your shop, and sell your first websites. You can start with three." },
+  { title: "Start selling", body: "Sign in, set up your shop, and sell your first website. There's no minimum." },
 ];
 
 export default function Sell() {

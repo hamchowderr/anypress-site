@@ -152,7 +152,7 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
           ))}
         </ol>
         <p className="mt-8 text-center">
-          <Link href="/how-it-works" className="font-bold underline underline-offset-4">
+          <Link href="/how-it-works" className="inline-block py-1 font-bold underline underline-offset-4">
             See the whole system behind it →
           </Link>
         </p>
@@ -180,7 +180,6 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
                 <dl>
                   {[
                     ["Computing power", s.cpu],
-                    ["Memory", s.memory],
                     ["Storage", s.storage],
                     ["Emails a month", s.emails],
                   ].map(([k, v]) => (
@@ -197,7 +196,7 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
             ))}
           </ul>
           <p className="mt-6 text-center text-ink-soft">
-            Three or more sites? Every site saves 10 to 30%.{" "}
+            You pay on our shop, and you can get your money back within 30 days. Three or more sites? Every site saves 10 to 30%.{" "}
             <Link href="/pricing#calculator" className="font-bold text-ink underline">
               Work out your price
             </Link>
