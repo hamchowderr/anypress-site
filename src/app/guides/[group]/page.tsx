@@ -26,7 +26,7 @@ export default async function GuidePage({ params }: PageProps<"/guides/[group]">
 
   return (
     <>
-      <PageHero eyebrow="Free guide" title={`${guide.title}.`} lead={guide.lead} />
+      <PageHero drawing="scroll" side={who.side} eyebrow="free guide" title={`${guide.title}.`} lead={guide.lead} />
 
       <section>
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">

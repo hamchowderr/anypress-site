@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "@/components/Icons";
+import { PriceCalculator } from "@/components/PriceCalculator";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { SITE_TYPES, SIZES, planUrl } from "@/lib/site";
 
@@ -40,7 +41,7 @@ const PRICING_FAQ: [string, string][] = [
 export default function Pricing() {
   return (
     <>
-      <PageHero
+      <PageHero drawing="piggy" side="owners"
         eyebrow="Prices"
         title="Pay for what you build, not for what you sell."
         lead="One monthly price per site. The kind of site sets the tools it gets, and the size sets how much room it has."
@@ -122,7 +123,19 @@ export default function Pricing() {
         </div>
       </section>
 
-      <section className="border-y border-line bg-paper-2">
+      <section id="calculator" className="sec soft scroll-mt-20" aria-labelledby="h-calc">
+        <div className="in">
+          <SectionHead
+            eyebrow="work it out"
+            title="What will it cost?"
+            lead="Pick what you're building, the size and how many sites. Three or more sites save 10 to 30% on every one."
+            id="h-calc"
+          />
+          <PriceCalculator />
+        </div>
+      </section>
+
+      <section className="border-b border-line">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <SectionHead title="What each size includes." lead="Every kind of site comes in the same three sizes." />
           <ul className="mt-10 grid gap-4 md:grid-cols-3">
@@ -152,7 +165,7 @@ export default function Pricing() {
 
       <section>
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2">
-          <SectionHead title="On every site, whatever you pick." />
+          <SectionHead left title="On every site, whatever you pick." />
           <ul className="space-y-3">
             {EVERY_SITE.map((x) => (
               <li key={x} className="flex items-start gap-2.5">
@@ -166,7 +179,7 @@ export default function Pricing() {
 
       <section className="border-t border-line">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.7fr]">
-          <SectionHead title="Price questions" />
+          <SectionHead left title="Price questions" />
           <Questions items={PRICING_FAQ} />
         </div>
       </section>

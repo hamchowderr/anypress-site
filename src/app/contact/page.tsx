@@ -18,7 +18,7 @@ const TOPICS = [
 export default function Contact() {
   return (
     <>
-      <PageHero eyebrow="Contact" title="Ask us anything." lead="Questions about AnyPress, selling sites to your clients, or creating sites from your own app? Send us a note.">
+      <PageHero drawing="mailbox" eyebrow="Contact" title="Ask us anything." lead="Questions about AnyPress, selling sites to your clients, or creating sites from your own app? Send us a note.">
         <div className="mt-9 flex flex-wrap gap-3">
           {CONTACT_EMAIL && (
             <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn-ink">

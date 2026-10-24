@@ -16,7 +16,7 @@ const STEPS = [
 export default function Sell() {
   return (
     <>
-      <PageHero
+      <PageHero drawing="sell" side="technical"
         eyebrow="For sellers and resellers"
         title="Sell websites with AnyPress."
         lead="Sell websites to your clients under your own name. We host every site, keep it backed up and up to date, and you pay per site with lower prices as you grow."
