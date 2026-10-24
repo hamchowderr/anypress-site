@@ -287,3 +287,23 @@ export const SIZES: Size[] = [
   { name: "Medium", times: 2, cpu: "2 CPUs", memory: "512 MB", storage: "10 GB", emails: "20,000", goodFor: "Busier sites" },
   { name: "Large", times: 4, cpu: "4 CPUs", memory: "768 MB", storage: "25 GB", emails: "50,000", goodFor: "Big shops and communities" },
 ];
+
+// Volume discount: the more live sites one customer has, the more every site saves (the shop's VolumeDiscount tiers,
+// in waas-plugins). Existing sites move to the new tier from their next renewal.
+export const VOLUME_TIERS = [
+  { sites: 3, percent: 10 },
+  { sites: 10, percent: 20 },
+  { sites: 25, percent: 30 },
+];
+
+/** Percent off each site for a customer with `sites` live sites. */
+export function volumePercent(sites: number): number {
+  let percent = 0;
+  for (const t of VOLUME_TIERS) if (sites >= t.sites) percent = t.percent;
+  return percent;
+}
+
+/** The next tier up, if there is one. */
+export function nextTier(sites: number) {
+  return VOLUME_TIERS.find((t) => sites < t.sites);
+}
