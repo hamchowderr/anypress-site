@@ -17,7 +17,7 @@ const COPY: Record<string, string> = {
   churches: "AnyPress gives churches one site for giving, events and small groups, easy enough for any volunteer to update.",
   franchises: "With AnyPress, every location gets its own site from the same starting point, and the price per site drops as you add more.",
   agencies: "AnyPress lets you sell websites as a monthly service under your own name. They build and look after every site.",
-  developers: "AnyPress has an API that creates a WordPress site for each of your customers. They run the servers, updates and backups.",
+  developers: "AnyPress has an API that creates a WordPress site for each of your customers. They run the servers, security fixes and backups.",
 };
 
 export default function AffiliateKit() {

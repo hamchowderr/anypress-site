@@ -116,7 +116,7 @@ export const SITE_DETAILS: Record<SiteTypeId, SiteDetail> = {
       ["Why not buy two smaller plans?", "Everything puts all the tools on one site, so a customer who buys, books and joins is one person, not three. It also costs less than the four other plans together, and adds a help desk."],
       ["Do I have to use every part?", "No. Switch on what you need today. The rest is ready when you are."],
       ["Which size should I pick?", "Small suits most new sites. Busy shops and big communities usually move to Medium or Large, and you can change any time."],
-      ["Is it harder to look after?", "No. We keep every part updated and saved every night, the same as any other AnyPress site."],
+      ["Is it harder to look after?", "No. We apply security fixes to every part and save it every night, the same as any other AnyPress site."],
     ],
   },
 };
