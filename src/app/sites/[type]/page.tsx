@@ -15,17 +15,13 @@ export function generateStaticParams() {
   return SITE_TYPES.map((t) => ({ type: t.id }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps<"/sites/[type]">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/sites/[type]">): Promise<Metadata> {
   const { type } = await params;
   const t = SITE_TYPES.find((s) => s.id === type);
   return t ? { title: t.name, description: t.pitch } : {};
 }
 
-export default async function SiteTypePage({
-  params,
-}: PageProps<"/sites/[type]">) {
+export default async function SiteTypePage({ params }: PageProps<"/sites/[type]">) {
   const { type } = await params;
   const t = SITE_TYPES.find((s) => s.id === type);
   if (!t) notFound();
@@ -35,22 +31,10 @@ export default async function SiteTypePage({
   const kind = t.short.toLowerCase();
 
   const steps: [DrawingName, string, string][] = [
-    [
-      "pick",
-      "Pick a size and pay",
-      "Small, Medium or Large. Monthly or yearly.",
-    ],
-    [
-      "tools",
-      `We build your ${kind} site`,
-      "Ready in minutes, with every tool switched on.",
-    ],
+    ["pick", "Pick a size and pay", "Small, Medium or Large. Monthly or yearly."],
+    ["tools", `We build your ${kind} site`, "Ready in minutes, with every tool switched on."],
     ["words", "Make it yours", `Add ${d.yourPart}.`],
-    [
-      "open",
-      "Open your doors",
-      "Share your link. We keep it running from here.",
-    ],
+    ["open", "Open your doors", "Share your link. We keep it running from here."],
   ];
 
   return (
@@ -94,10 +78,7 @@ export default async function SiteTypePage({
           <Drawing name={t.drawing} className="peek" />
           <div className="relative -rotate-[0.8deg] pr-8 pb-6 sm:pr-12">
             <BrowserShot example={ex} />
-            <PhoneShot
-              example={ex}
-              className="absolute right-0 bottom-0 w-[22%] max-w-[130px]"
-            />
+            <PhoneShot example={ex} className="absolute right-0 bottom-0 w-[22%] max-w-[130px]" />
           </div>
         </div>
       </section>
@@ -106,9 +87,7 @@ export default async function SiteTypePage({
         <div>
           <span className="hand">try it yourself</span>
           <b>{ex.name}</b>
-          <span className="text-ink-soft">
-            is a made-up business on a real AnyPress {kind} site.
-          </span>
+          <span className="text-ink-soft">is a made-up business on a real AnyPress {kind} site.</span>
         </div>
         <ul>
           {ex.tryIt.map((x) => (
@@ -118,29 +97,15 @@ export default async function SiteTypePage({
             </li>
           ))}
         </ul>
-        <a
-          href={ex.url}
-          target="_blank"
-          rel="noopener"
-          className="btn btn-honey !py-2.5"
-        >
+        <a href={ex.url} target="_blank" rel="noopener" className="btn btn-honey !py-2.5">
           Open the example ↗
         </a>
       </section>
 
-      <ProblemFix
-        soft
-        items={d.problems}
-        eyebrow="sound familiar?"
-        title={`What gets in the way, and how a ${kind} site fixes it.`}
-      />
+      <ProblemFix soft items={d.problems} eyebrow="sound familiar?" title={`What gets in the way, and how a ${kind} site fixes it.`} />
 
       <section className="sec in" aria-labelledby="h-does">
-        <SectionHead
-          eyebrow="what it does"
-          title="What it does for you."
-          id="h-does"
-        />
+        <SectionHead eyebrow="what it does" title="What it does for you." id="h-does" />
         <div className="yours">
           {t.features.map((f, i) => (
             <div key={f.title}>
@@ -177,8 +142,7 @@ export default async function SiteTypePage({
             ))}
           </ul>
           <p className="mt-6 text-center text-ink-soft">
-            Plus on every site: a copy saved every night, security fixes applied
-            for you, the padlock and your own domain.{" "}
+            Plus on every site: a copy saved every night, security fixes applied for you, the padlock and your own domain.{" "}
             <Link href="/included" className="font-bold text-ink underline">
               The tools by name
             </Link>
@@ -187,11 +151,7 @@ export default async function SiteTypePage({
       </section>
 
       <section className="sec in" aria-labelledby="h-steps">
-        <SectionHead
-          eyebrow="from order to open"
-          title="What happens when you buy."
-          id="h-steps"
-        />
+        <SectionHead eyebrow="from order to open" title="What happens when you buy." id="h-steps" />
         <ol className="flow">
           {steps.map(([dr, title, sub], i) => (
             <li key={title}>
@@ -204,20 +164,13 @@ export default async function SiteTypePage({
           ))}
         </ol>
         <p className="mt-8 text-center">
-          <Link
-            href="/how-it-works"
-            className="inline-block py-1 font-bold underline underline-offset-4"
-          >
+          <Link href="/how-it-works" className="inline-block py-1 font-bold underline underline-offset-4">
             See the whole system behind it →
           </Link>
         </p>
       </section>
 
-      <section
-        id="sizes"
-        className="sec soft scroll-mt-20"
-        aria-labelledby="h-sizes"
-      >
+      <section id="sizes" className="sec soft scroll-mt-20" aria-labelledby="h-sizes">
         <div className="in">
           <SectionHead
             eyebrow="pick a size"
@@ -235,10 +188,7 @@ export default async function SiteTypePage({
                   ${t.from * s.times}
                   <small> / month</small>
                 </p>
-                <p className="yr">
-                  or ${(t.from * s.times * 10).toLocaleString("en-US")} a year,
-                  two months free
-                </p>
+                <p className="yr">or ${(t.from * s.times * 10).toLocaleString("en-US")} a year, two months free</p>
                 <dl>
                   {[
                     ["Computing power", s.cpu],
@@ -251,22 +201,15 @@ export default async function SiteTypePage({
                     </div>
                   ))}
                 </dl>
-                <a
-                  href={planUrl(t, s.name)}
-                  className={`btn ${s.times === 1 ? "btn-ink" : "btn-paper"} w-full`}
-                >
+                <a href={planUrl(t, s.name)} className={`btn ${s.times === 1 ? "btn-ink" : "btn-paper"} w-full`}>
                   Start with {s.name}
                 </a>
               </li>
             ))}
           </ul>
           <p className="mt-6 text-center text-ink-soft">
-            You pay on our shop, and you can get your money back within 30 days.
-            Three or more sites? Every site saves 10 to 30%.{" "}
-            <Link
-              href="/pricing#calculator"
-              className="font-bold text-ink underline"
-            >
+            You pay on our shop, and you can get your money back within 30 days. Three or more sites? Every site saves 10 to 30%.{" "}
+            <Link href="/pricing#calculator" className="font-bold text-ink underline">
               Work out your price
             </Link>
           </p>
@@ -274,26 +217,14 @@ export default async function SiteTypePage({
       </section>
 
       <section className="sec in" aria-labelledby="h-q">
-        <SectionHead
-          drawing="question"
-          eyebrow="good to know"
-          title={`Questions about ${t.name.toLowerCase()} sites`}
-          id="h-q"
-        />
+        <SectionHead drawing="question" eyebrow="good to know" title={`Questions about ${t.name.toLowerCase()} sites`} id="h-q" />
         <Questions items={d.questions} firstOpen />
       </section>
 
       <section className="sec soft" aria-labelledby="h-other">
         <div className="in">
-          <SectionHead
-            eyebrow="or"
-            title="Building something else?"
-            id="h-other"
-          />
-          <div
-            className="types fit"
-            style={{ "--n": others.length } as CSSProperties}
-          >
+          <SectionHead eyebrow="or" title="Building something else?" id="h-other" />
+          <div className="types fit" style={{ "--n": others.length } as CSSProperties}>
             {others.map((o) => (
               <Link key={o.id} className="type" href={`/sites/${o.id}`}>
                 <Drawing name={o.drawing} />

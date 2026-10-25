@@ -58,11 +58,7 @@ const STEPS: {
   },
 ];
 
-const WHO = [
-  "Website owners",
-  "Shops, clubs and churches",
-  "People who sell websites",
-];
+const WHO = ["Website owners", "Shops, clubs and churches", "People who sell websites"];
 
 // Most cheap hosting is a shared house; AnyPress gives every site its own flat, and we're the building manager.
 const PROBLEMS: Problem[] = [
@@ -71,50 +67,26 @@ const PROBLEMS: Problem[] = [
       "One busy site slows the rest",
       "Cheap hosting puts many websites in one shared house, so when a neighbour gets busy, everyone's site gets slow.",
     ],
-    fix: [
-      "Your own flat",
-      "Every site has its own WordPress and database, with set computing power for its size. Nothing is shared.",
-    ],
+    fix: ["Your own flat", "Every site has its own WordPress and database, with set computing power for its size. Nothing is shared."],
   },
   {
-    problem: [
-      "A problem next door becomes yours",
-      "On a shared server, one hacked or broken site can drag the others down with it.",
-    ],
-    fix: [
-      "Walls between neighbours",
-      "Sites can't reach each other or the machine they run on. One site's bad day stays its own problem.",
-    ],
+    problem: ["A problem next door becomes yours", "On a shared server, one hacked or broken site can drag the others down with it."],
+    fix: ["Walls between neighbours", "Sites can't reach each other or the machine they run on. One site's bad day stays its own problem."],
   },
   {
-    problem: [
-      "You fix the leaks yourself",
-      "Security fixes, copies of your site and checking those copies work are all left to you.",
-    ],
-    fix: [
-      "We're the building manager",
-      "We apply security fixes, save a copy every night and test restoring one every day.",
-    ],
+    problem: ["You fix the leaks yourself", "Security fixes, copies of your site and checking those copies work are all left to you."],
+    fix: ["We're the building manager", "We apply security fixes, save a copy every night and test restoring one every day."],
   },
   {
     problem: [
       "Setting up takes days",
       "Hosting, WordPress, a theme, the padlock and email are each their own job before you write a word.",
     ],
-    fix: [
-      "Ready in minutes",
-      "Every order becomes a finished site with its pages, the padlock and email already set up.",
-    ],
+    fix: ["Ready in minutes", "Every order becomes a finished site with its pages, the padlock and email already set up."],
   },
   {
-    problem: [
-      "Moving out means packing by hand",
-      "Some site builders make it hard to take your site anywhere else.",
-    ],
-    fix: [
-      "Your furniture is yours",
-      "It's normal WordPress, so you can take a full copy to any host whenever you like.",
-    ],
+    problem: ["Moving out means packing by hand", "Some site builders make it hard to take your site anywhere else."],
+    fix: ["Your furniture is yours", "It's normal WordPress, so you can take a full copy to any host whenever you like."],
   },
 ];
 
@@ -124,21 +96,9 @@ const UNDER_HOOD: [DrawingName, string, ReactNode][] = [
     "Its own containers",
     "Every site runs in its own WordPress and database containers. Nothing is shared between customers' sites.",
   ],
-  [
-    "lock",
-    "Walled off",
-    "Sites can't reach each other or the machine they run on. One site having a bad day stays its own problem.",
-  ],
-  [
-    "sizes",
-    "Sizes we've tested",
-    "Small, Medium and Large each get set computing power, memory and storage, sized from load tests.",
-  ],
-  [
-    "backup",
-    "Copies kept off-site",
-    "Nightly copies are stored away from the servers, and we test restoring one every day.",
-  ],
+  ["lock", "Walled off", "Sites can't reach each other or the machine they run on. One site having a bad day stays its own problem."],
+  ["sizes", "Sizes we've tested", "Small, Medium and Large each get set computing power, memory and storage, sized from load tests."],
+  ["backup", "Copies kept off-site", "Nightly copies are stored away from the servers, and we test restoring one every day."],
   [
     "key",
     "An API for everything",
@@ -154,8 +114,7 @@ const UNDER_HOOD: [DrawingName, string, ReactNode][] = [
     "box",
     "Open source",
     <>
-      The software behind AnyPress is open source, so you can read how it works,
-      or{" "}
+      The software behind AnyPress is open source, so you can read how it works, or{" "}
       <Link href="/self-host" className="underline">
         run it yourself
       </Link>
@@ -184,8 +143,7 @@ const FAQ: [string, ReactNode][] = [
   [
     "Can I take my site with me?",
     <>
-      It&apos;s normal WordPress, so a full copy can go with you to any host.
-      And you can{" "}
+      It&apos;s normal WordPress, so a full copy can go with you to any host. And you can{" "}
       <Link href="/move" className="underline">
         bring a WordPress site in
       </Link>{" "}
@@ -213,12 +171,7 @@ export default function HowItWorks() {
         </div>
       </PageHero>
 
-      <ProblemFix
-        soft
-        who={WHO}
-        title="A flat of your own, not a room in a shared house."
-        items={PROBLEMS}
-      />
+      <ProblemFix soft who={WHO} title="A flat of your own, not a room in a shared house." items={PROBLEMS} />
 
       <section className="sec" aria-labelledby="h-system">
         <div className="in">
@@ -238,11 +191,7 @@ export default function HowItWorks() {
 
       <section className="sec soft" aria-labelledby="h-steps">
         <div className="in">
-          <SectionHead
-            eyebrow="step by step"
-            title="What happens when someone buys."
-            id="h-steps"
-          />
+          <SectionHead eyebrow="step by step" title="What happens when someone buys." id="h-steps" />
           <ol className="steps">
             {STEPS.map((s, i) => (
               <li key={s.title}>
@@ -306,11 +255,7 @@ export default function HowItWorks() {
       </section>
 
       <section className="sec in" aria-labelledby="h-faq">
-        <SectionHead
-          drawing="question"
-          title="Questions about how it works"
-          id="h-faq"
-        />
+        <SectionHead drawing="question" title="Questions about how it works" id="h-faq" />
         <Questions items={FAQ} firstOpen />
       </section>
 

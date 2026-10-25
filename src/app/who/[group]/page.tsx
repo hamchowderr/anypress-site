@@ -11,16 +11,13 @@ import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { GROUP_STORIES } from "@/lib/groups";
 import { AUDIENCE_GROUPS, SITE_TYPES, startUrl } from "@/lib/site";
 
-const groupFor = (id: string) =>
-  AUDIENCE_GROUPS.find((g) => g.id === id && g.page);
+const groupFor = (id: string) => AUDIENCE_GROUPS.find((g) => g.id === id && g.page);
 
 export function generateStaticParams() {
   return AUDIENCE_GROUPS.filter((g) => g.page).map((g) => ({ group: g.id }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps<"/who/[group]">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/who/[group]">): Promise<Metadata> {
   const g = groupFor((await params).group);
   return g?.page ? { title: g.name, description: g.page.lead } : {};
 }
@@ -36,13 +33,7 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
 
   return (
     <>
-      <PageHero
-        side={g.side}
-        drawing={g.drawing}
-        eyebrow={g.name.toLowerCase()}
-        title={page.title}
-        lead={page.lead}
-      >
+      <PageHero side={g.side} drawing={g.drawing} eyebrow={g.name.toLowerCase()} title={page.title} lead={page.lead}>
         <div className="ctas mt-8">
           <a href={startUrl(main)} className="btn btn-ink">
             Start your {main.short.toLowerCase()} site →
@@ -78,11 +69,7 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
           }))}
         >
           <ul className="checks mt-10">
-            {[
-              "We set it up and apply security fixes",
-              "A copy saved every night",
-              "Your own domain, and the site stays yours",
-            ].map((x) => (
+            {["We set it up and apply security fixes", "A copy saved every night", "Your own domain, and the site stays yours"].map((x) => (
               <li key={x}>
                 <Tick />
                 {x}
@@ -101,18 +88,10 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
           />
           <div className="relative mx-auto max-w-[880px] -rotate-[0.6deg] pr-10 pb-8 sm:pr-14">
             <BrowserShot example={ex} />
-            <PhoneShot
-              example={ex}
-              className="absolute right-0 bottom-0 w-[22%] max-w-[150px]"
-            />
+            <PhoneShot example={ex} className="absolute right-0 bottom-0 w-[22%] max-w-[150px]" />
           </div>
           <div className="ctas">
-            <a
-              href={ex.url}
-              target="_blank"
-              rel="noopener"
-              className="btn btn-paper"
-            >
+            <a href={ex.url} target="_blank" rel="noopener" className="btn btn-paper">
               Open the example ↗
             </a>
           </div>
@@ -121,15 +100,8 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
 
       <section id="plans" className="sec soft scroll-mt-20">
         <div className="in">
-          <SectionHead
-            eyebrow="good place to start"
-            title="Plans that fit."
-            lead="Prices are monthly, for the Small size."
-          />
-          <div
-            className="types fit"
-            style={{ "--n": fits.length } as CSSProperties}
-          >
+          <SectionHead eyebrow="good place to start" title="Plans that fit." lead="Prices are monthly, for the Small size." />
+          <div className="types fit" style={{ "--n": fits.length } as CSSProperties}>
             {fits.map((t) => (
               <Link key={t.id} className="type" href={`/sites/${t.id}`}>
                 <Drawing name={t.drawing} />
@@ -166,10 +138,7 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
             </div>
             <div>
               <h3>Want tips like this by email?</h3>
-              <p>
-                A few short emails for {g.name.toLowerCase()}, then the
-                occasional update.
-              </p>
+              <p>A few short emails for {g.name.toLowerCase()}, then the occasional update.</p>
               <LeadForm group={g.id} cta="Send me tips" />
             </div>
           </div>
@@ -178,11 +147,7 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
 
       <CtaBand
         href={fits.length === 1 ? startUrl(fits[0]) : "#plans"}
-        label={
-          fits.length === 1
-            ? `Start your ${fits[0].short.toLowerCase()} site`
-            : "Pick your plan"
-        }
+        label={fits.length === 1 ? `Start your ${fits[0].short.toLowerCase()} site` : "Pick your plan"}
         drawings={fits.map((t) => t.drawing).slice(0, 3)}
       />
     </>

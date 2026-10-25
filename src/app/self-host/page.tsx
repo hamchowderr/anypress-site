@@ -12,26 +12,13 @@ export const metadata: Metadata = {
 const REPO = "https://github.com/hamchowderr/waas-provisioning-api";
 const INSTALLER_DOCS = `${REPO}/blob/main/install/README.md`;
 const GUIDE = `${REPO}/blob/main/docs/self-hosting.md`;
-const RAW =
-  "https://raw.githubusercontent.com/hamchowderr/waas-provisioning-api/main/install";
+const RAW = "https://raw.githubusercontent.com/hamchowderr/waas-provisioning-api/main/install";
 
 const NEEDS: [string, string][] = [
-  [
-    "A server",
-    "Ubuntu 24.04 with 4 GB of memory or more. Hostinger, Hetzner, DigitalOcean or any provider.",
-  ],
-  [
-    "Two domains",
-    "One for your brand (the dashboard and API live on it) and one your customers' sites are named under.",
-  ],
-  [
-    "A storage bucket",
-    "Cloudflare R2 or any S3-compatible storage, for templates, snapshots and backups.",
-  ],
-  [
-    "Optional",
-    "A Cloudflare token to set the DNS records for you, toSend for email, and Stripe for selling.",
-  ],
+  ["A server", "Ubuntu 24.04 with 4 GB of memory or more. Hostinger, Hetzner, DigitalOcean or any provider."],
+  ["Two domains", "One for your brand (the dashboard and API live on it) and one your customers' sites are named under."],
+  ["A storage bucket", "Cloudflare R2 or any S3-compatible storage, for templates, snapshots and backups."],
+  ["Optional", "A Cloudflare token to set the DNS records for you, toSend for email, and Stripe for selling."],
 ];
 
 const STEPS = [
@@ -44,11 +31,7 @@ const STEPS = [
   "Ends with a check that tells you what still needs doing.",
 ];
 
-const WHO = [
-  "Developers",
-  "Hosting companies",
-  "Agencies with their own servers",
-];
+const WHO = ["Developers", "Hosting companies", "Agencies with their own servers"];
 
 const PROBLEMS: Problem[] = [
   {
@@ -62,43 +45,23 @@ const PROBLEMS: Problem[] = [
     ],
   },
   {
-    problem: [
-      "Locked into someone else's platform",
-      "If the platform changes its prices or closes, your business goes with it.",
-    ],
-    fix: [
-      "Open source under the GPL",
-      "Every part is public. Read it, change it and run it for as long as you like.",
-    ],
+    problem: ["Locked into someone else's platform", "If the platform changes its prices or closes, your business goes with it."],
+    fix: ["Open source under the GPL", "Every part is public. Read it, change it and run it for as long as you like."],
   },
   {
-    problem: [
-      "Your customers' data on someone else's servers",
-      "Some clients and industries need to know exactly where their sites live.",
-    ],
-    fix: [
-      "Your server, your storage",
-      "Use any provider you like, with backups in your own storage bucket.",
-    ],
+    problem: ["Your customers' data on someone else's servers", "Some clients and industries need to know exactly where their sites live."],
+    fix: ["Your server, your storage", "Use any provider you like, with backups in your own storage bucket."],
   },
   {
-    problem: [
-      "Setting it up by hand misses a step",
-      "One forgotten DNS record or password and something quietly breaks later.",
-    ],
-    fix: [
-      "It checks its own work",
-      "It ends with a check that tells you what still needs doing, and running it again is safe.",
-    ],
+    problem: ["Setting it up by hand misses a step", "One forgotten DNS record or password and something quietly breaks later."],
+    fix: ["It checks its own work", "It ends with a check that tells you what still needs doing, and running it again is safe."],
   },
 ];
 
 function Code({ title, children }: { title: string; children: string }) {
   return (
     <div className="overflow-hidden rounded-2xl border border-line bg-ink text-white">
-      <div className="border-b border-white/15 px-4 py-2.5 font-mono text-sm text-white/60">
-        {title}
-      </div>
+      <div className="border-b border-white/15 px-4 py-2.5 font-mono text-sm text-white/60">{title}</div>
       <pre className="overflow-x-auto p-5 font-mono text-[14px] leading-6">
         <code>{children}</code>
       </pre>
@@ -126,12 +89,7 @@ export default function SelfHost() {
         </div>
       </PageHero>
 
-      <ProblemFix
-        soft
-        who={WHO}
-        items={PROBLEMS}
-        title="Your own website platform, without building one."
-      />
+      <ProblemFix soft who={WHO} items={PROBLEMS} title="Your own website platform, without building one." />
 
       <section>
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
@@ -156,9 +114,8 @@ export default function SelfHost() {
               lead="Give the installer an API token from Hostinger, Hetzner or DigitalOcean. It makes the server, and AnyPress installs itself on it. You never log in to the server."
             />
             <p className="mt-6 leading-7 text-ink-soft">
-              Fill in the answers file first: your domains, your email and your
-              bucket, plus your provider&apos;s token. It runs on Linux, macOS
-              or Windows (WSL).
+              Fill in the answers file first: your domains, your email and your bucket, plus your provider&apos;s token. It runs on Linux,
+              macOS or Windows (WSL).
             </p>
           </div>
           <Code title="your computer">
@@ -191,10 +148,7 @@ export default function SelfHost() {
           <ol className="mt-10 grid gap-x-14 gap-y-4 text-lg leading-8 text-ink-soft md:grid-cols-2">
             {STEPS.map((step, i) => (
               <li key={step} className="flex gap-4">
-                <span className="font-display text-xl font-semibold text-accent">
-                  {i + 1}
-                </span>{" "}
-                {step}
+                <span className="font-display text-xl font-semibold text-accent">{i + 1}</span> {step}
               </li>
             ))}
           </ol>
@@ -219,17 +173,11 @@ export default function SelfHost() {
                   "Where is the full guide?",
                   <>
                     The{" "}
-                    <a
-                      href={INSTALLER_DOCS}
-                      className="font-semibold text-ink underline"
-                    >
+                    <a href={INSTALLER_DOCS} className="font-semibold text-ink underline">
                       install guide
                     </a>{" "}
                     covers every answer, and the{" "}
-                    <a
-                      href={GUIDE}
-                      className="font-semibold text-ink underline"
-                    >
+                    <a href={GUIDE} className="font-semibold text-ink underline">
                       self-hosting guide
                     </a>{" "}
                     explains each part, from one server up.

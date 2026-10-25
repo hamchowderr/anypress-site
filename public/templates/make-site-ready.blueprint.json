@@ -1,0 +1,111 @@
+{
+  "name": "AnyPress: email when a site is ready",
+  "flow": [
+    {
+      "id": 1,
+      "module": "app#anypress-7tal9l:watchSiteEvents",
+      "version": 1,
+      "parameters": {
+        "__IMTHOOK__": 2856215
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0
+        },
+        "setupValidation": {
+          "result": {
+            "valid": true,
+            "fields": []
+          },
+          "version": 1,
+          "configuration": "3477ae9f4d0cb5ae"
+        },
+        "restore": {
+          "parameters": {
+            "__IMTHOOK__": {
+              "data": {
+                "editable": "false"
+              },
+              "label": "AnyPress demo"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTHOOK__",
+            "type": "hook:app#anypress-7tal9l",
+            "label": "Webhook",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "module": "email:ActionSendEmail",
+      "version": 7,
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0,
+          "messages": [
+            {
+              "category": "setup",
+              "severity": "error",
+              "message": "Connection: Value must not be empty."
+            }
+          ]
+        },
+        "setupValidation": {
+          "result": {
+            "valid": false,
+            "fields": [
+              {
+                "path": "account",
+                "label": "Connection",
+                "domain": "parameters",
+                "errors": [
+                  {
+                    "code": "validate-bundle-param-required",
+                    "message": "Value must not be empty."
+                  }
+                ]
+              },
+              {
+                "path": "to",
+                "label": "To",
+                "domain": "expect",
+                "errors": []
+              }
+            ]
+          },
+          "version": 1,
+          "configuration": "eae7a72e75c87b9a"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "instant": true,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "us1.make.com",
+    "notes": []
+  }
+}

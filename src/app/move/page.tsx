@@ -14,47 +14,19 @@ export const metadata: Metadata = {
 };
 
 const STEPS: [DrawingName, string, ReactNode][] = [
-  [
-    "ticket",
-    "Get your code",
-    "We give you an import code that starts with AP1. It works for 7 days.",
-  ],
-  [
-    "plug",
-    "Add our free plugin",
-    "Install AnyPress Export on your current site, the same way you add any plugin.",
-  ],
-  [
-    "truck",
-    "Send it across",
-    "Paste the code and press send. Keep the page open while it uploads.",
-  ],
-  [
-    "open",
-    "Check it, then switch",
-    "Look over your site on its new address, then point your domain at it.",
-  ],
+  ["ticket", "Get your code", "We give you an import code that starts with AP1. It works for 7 days."],
+  ["plug", "Add our free plugin", "Install AnyPress Export on your current site, the same way you add any plugin."],
+  ["truck", "Send it across", "Paste the code and press send. Keep the page open while it uploads."],
+  ["open", "Check it, then switch", "Look over your site on its new address, then point your domain at it."],
 ];
 
 const MOVES: [DrawingName, string, string][] = [
-  [
-    "words",
-    "Every page and post",
-    "Your whole database: pages, posts, products, orders, customers and settings.",
-  ],
+  ["words", "Every page and post", "Your whole database: pages, posts, products, orders, customers and settings."],
   ["paint", "Your look", "Your themes, plugins, photos, files and languages."],
-  [
-    "lock",
-    "Your old site, untouched",
-    "Nothing on your current site is changed or deleted. It keeps running until you switch.",
-  ],
+  ["lock", "Your old site, untouched", "Nothing on your current site is changed or deleted. It keeps running until you switch."],
 ];
 
-const WHO = [
-  "WordPress site owners",
-  "Shops on another host",
-  "Sellers moving clients' sites",
-];
+const WHO = ["WordPress site owners", "Shops on another host", "Sellers moving clients' sites"];
 
 const PROBLEMS: Problem[] = [
   {
@@ -62,10 +34,7 @@ const PROBLEMS: Problem[] = [
       "Moving takes a weekend",
       "Exporting the database, copying files and fixing what broke on the way is a job most people put off for years.",
     ],
-    fix: [
-      "A plugin and a code",
-      "Add our free AnyPress Export plugin to your current site, paste the code and press send.",
-    ],
+    fix: ["A plugin and a code", "Add our free AnyPress Export plugin to your current site, paste the code and press send."],
   },
   {
     problem: [
@@ -78,24 +47,12 @@ const PROBLEMS: Problem[] = [
     ],
   },
   {
-    problem: [
-      "Something gets left behind",
-      "A missing plugin, a lost photo folder or last week's orders turn up after the switch.",
-    ],
-    fix: [
-      "Everything comes across",
-      "Pages, posts, products, orders, customers, settings, themes, plugins, photos and files.",
-    ],
+    problem: ["Something gets left behind", "A missing plugin, a lost photo folder or last week's orders turn up after the switch."],
+    fix: ["Everything comes across", "Pages, posts, products, orders, customers, settings, themes, plugins, photos and files."],
   },
   {
-    problem: [
-      "The upkeep stays with you",
-      "On most hosts, security fixes and copies of your site are still your job after you move.",
-    ],
-    fix: [
-      "Looked after from then on",
-      "We apply security fixes and save a copy of your site every night.",
-    ],
+    problem: ["The upkeep stays with you", "On most hosts, security fixes and copies of your site are still your job after you move."],
+    fix: ["Looked after from then on", "We apply security fixes and save a copy of your site every night."],
   },
 ];
 
@@ -103,10 +60,8 @@ const FAQ: [string, ReactNode][] = [
   [
     "How do I get an import code?",
     <>
-      Pick your plan, then email{" "}
-      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> with your current
-      site&apos;s address and we&apos;ll send you a code. Selling sites with
-      AnyPress? You make codes yourself from your dashboard.
+      Pick your plan, then email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> with your current site&apos;s address and
+      we&apos;ll send you a code. Selling sites with AnyPress? You make codes yourself from your dashboard.
     </>,
   ],
   [
@@ -153,10 +108,7 @@ export default function Move() {
           <Link href="/pricing" className="btn btn-ink">
             Pick a plan →
           </Link>
-          <a
-            href={`mailto:${CONTACT_EMAIL}?subject=Moving%20my%20site%20to%20AnyPress`}
-            className="btn btn-paper"
-          >
+          <a href={`mailto:${CONTACT_EMAIL}?subject=Moving%20my%20site%20to%20AnyPress`} className="btn btn-paper">
             Ask about moving
           </a>
         </div>
@@ -176,19 +128,11 @@ export default function Move() {
         </ul>
       </PageHero>
 
-      <ProblemFix
-        soft
-        who={WHO}
-        title="Moving a site shouldn't be a weekend job."
-        items={PROBLEMS}
-      />
+      <ProblemFix soft who={WHO} title="Moving a site shouldn't be a weekend job." items={PROBLEMS} />
 
       <section className="sec">
         <div className="in">
-          <SectionHead
-            eyebrow="how it works"
-            title="Four steps, about as hard as adding a plugin."
-          />
+          <SectionHead eyebrow="how it works" title="Four steps, about as hard as adding a plugin." />
           <ol className="flow !mt-0">
             {STEPS.map(([d, title, body], i) => (
               <li key={title}>
@@ -205,10 +149,7 @@ export default function Move() {
 
       <section className="sec soft">
         <div className="in">
-          <SectionHead
-            eyebrow="what comes across"
-            title="Everything that makes it your site."
-          />
+          <SectionHead eyebrow="what comes across" title="Everything that makes it your site." />
           <div className="yours !grid-cols-1 md:!grid-cols-3">
             {MOVES.map(([d, title, body]) => (
               <div key={title}>
@@ -229,22 +170,15 @@ export default function Move() {
               <span className="eyebrow">selling sites?</span>
               <h2>Move your clients&apos; sites in from your dashboard.</h2>
               <p>
-                Choose <b className="text-white">Move a site in</b> on your
-                Stores page. It sets up a store that waits for the site and
+                Choose <b className="text-white">Move a site in</b> on your Stores page. It sets up a store that waits for the site and
                 gives you the code to hand to your client, or to use yourself.
               </p>
-              <p>
-                Developers can do the same with one command, with no time limit
-                on big sites.
-              </p>
+              <p>Developers can do the same with one command, with no time limit on big sites.</p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link className="btn btn-honey" href="/agencies">
                   How selling works →
                 </Link>
-                <Link
-                  className="btn border-white/40 text-white hover:bg-white/10"
-                  href="/developers"
-                >
+                <Link className="btn border-white/40 text-white hover:bg-white/10" href="/developers">
                   For developers
                 </Link>
               </div>

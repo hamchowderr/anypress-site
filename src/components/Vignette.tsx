@@ -14,13 +14,7 @@ type Player = {
  * loads once the scene is near the screen. It plays once when it scrolls into view, and again when the card around
  * it is hovered. With reduced motion it shows the last frame, which is the finished picture. Decoration only.
  */
-export function Vignette({
-  name,
-  className = "",
-}: {
-  name: string;
-  className?: string;
-}) {
+export function Vignette({ name, className = "" }: { name: string; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

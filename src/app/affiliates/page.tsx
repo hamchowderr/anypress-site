@@ -6,8 +6,7 @@ import { AFFILIATE_URL, CONTACT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Affiliate program",
-  description:
-    "Recommend AnyPress and earn 30% of every new customer's first payment. Free to join, paid by PayPal.",
+  description: "Recommend AnyPress and earn 30% of every new customer's first payment. Free to join, paid by PayPal.",
 };
 
 // The program's terms in one place, so the page and the fine print can't disagree.
@@ -16,22 +15,10 @@ const COOKIE_DAYS = 30;
 const MIN_PAYOUT = "$50";
 
 const FLOW = [
-  [
-    "Sign up",
-    "with your name, email and PayPal address. We approve new affiliates by hand, usually within a day.",
-  ],
-  [
-    "Share your link",
-    "on your site, in your videos, with your clients. Anyone who buys within 30 days counts as yours.",
-  ],
-  [
-    "They buy a plan",
-    `and you earn ${RATE} of what they pay up front, monthly or yearly.`,
-  ],
-  [
-    "You get paid",
-    `by PayPal at the start of each month, once you've earned ${MIN_PAYOUT}.`,
-  ],
+  ["Sign up", "with your name, email and PayPal address. We approve new affiliates by hand, usually within a day."],
+  ["Share your link", "on your site, in your videos, with your clients. Anyone who buys within 30 days counts as yours."],
+  ["They buy a plan", `and you earn ${RATE} of what they pay up front, monthly or yearly.`],
+  ["You get paid", `by PayPal at the start of each month, once you've earned ${MIN_PAYOUT}.`],
 ];
 
 const EXAMPLES = [
@@ -55,10 +42,7 @@ const FINE_PRINT: [string, string][] = [
     "What if they ask for a refund?",
     "If the customer is refunded, the commission on that sale is cancelled. We hold each commission for 30 days, the length of our money-back promise, before it can be paid.",
   ],
-  [
-    "Can I buy through my own link?",
-    "No. Your own purchases don't earn commission.",
-  ],
+  ["Can I buy through my own link?", "No. Your own purchases don't earn commission."],
   [
     "Is there anything I can't do?",
     "Don't bid on the AnyPress name in search ads, send spam, or promise things we don't offer. We may close accounts that do, and unpaid commission from those sales isn't paid.",
@@ -73,12 +57,7 @@ const FINE_PRINT: [string, string][] = [
   ],
 ];
 
-const WHO = [
-  "Bloggers and video makers",
-  "Web designers",
-  "Coaches and teachers",
-  "Anyone people ask about websites",
-];
+const WHO = ["Bloggers and video makers", "Web designers", "Coaches and teachers", "Anyone people ask about websites"];
 
 const PROBLEMS: Problem[] = [
   {
@@ -86,30 +65,18 @@ const PROBLEMS: Problem[] = [
       "People ask you where to make a website",
       "You want to point them somewhere that won't leave them stuck with setup and upkeep.",
     ],
-    fix: [
-      "A site that's looked after",
-      "Every AnyPress plan is set up for them, with security fixes and a copy saved every night.",
-    ],
+    fix: ["A site that's looked after", "Every AnyPress plan is set up for them, with security fixes and a copy saved every night."],
   },
   {
     problem: [
       "Hard to tell what you'll earn",
       "Commission tables full of tiers and conditions make it hard to know what one recommendation is worth.",
     ],
-    fix: [
-      `${RATE} of the first payment`,
-      "On every plan, monthly or yearly. The examples below show what one sale pays.",
-    ],
+    fix: [`${RATE} of the first payment`, "On every plan, monthly or yearly. The examples below show what one sale pays."],
   },
   {
-    problem: [
-      "Payouts that take months",
-      "Some programs hold your money until you reach a high threshold or a long payment cycle.",
-    ],
-    fix: [
-      "Paid every month",
-      `By PayPal at the start of each month, once you've earned ${MIN_PAYOUT}.`,
-    ],
+    problem: ["Payouts that take months", "Some programs hold your money until you reach a high threshold or a long payment cycle."],
+    fix: ["Paid every month", `By PayPal at the start of each month, once you've earned ${MIN_PAYOUT}.`],
   },
   {
     problem: [
@@ -119,8 +86,7 @@ const PROBLEMS: Problem[] = [
     fix: [
       "A ready-made kit",
       <>
-        Copy, links and images are in the{" "}
-        <Link href="/affiliates/kit">affiliate kit</Link>.
+        Copy, links and images are in the <Link href="/affiliates/kit">affiliate kit</Link>.
       </>,
     ],
   },
@@ -148,12 +114,7 @@ export default function Affiliates() {
         </div>
       </PageHero>
 
-      <ProblemFix
-        soft
-        who={WHO}
-        items={PROBLEMS}
-        title="Recommend websites without the headaches."
-      />
+      <ProblemFix soft who={WHO} items={PROBLEMS} title="Recommend websites without the headaches." />
 
       <section>
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
@@ -161,12 +122,8 @@ export default function Affiliates() {
           <ol className="mt-10 grid gap-8 md:grid-cols-4">
             {FLOW.map(([title, sub], i) => (
               <li key={title} className="border-t border-line pt-6">
-                <span className="font-display text-sm font-semibold text-accent">
-                  Step {i + 1}
-                </span>
-                <p className="font-display mt-2 text-xl font-semibold">
-                  {title}
-                </p>
+                <span className="font-display text-sm font-semibold text-accent">Step {i + 1}</span>
+                <p className="font-display mt-2 text-xl font-semibold">{title}</p>
                 <p className="mt-1 leading-7 text-ink-soft">{sub}</p>
               </li>
             ))}
@@ -176,10 +133,7 @@ export default function Affiliates() {
 
       <section className="border-y border-line bg-paper-2">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <SectionHead
-            title="What you could earn."
-            lead="A few examples, for one sale each."
-          />
+          <SectionHead title="What you could earn." lead="A few examples, for one sale each." />
           <div className="card mt-10 max-w-2xl overflow-hidden">
             <table className="w-full text-left">
               <thead>
