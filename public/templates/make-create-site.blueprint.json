@@ -1,0 +1,189 @@
+{
+    "name": "AnyPress demo",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 2856214,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "setupValidation": {
+                    "result": {
+                        "valid": true,
+                        "fields": []
+                    },
+                    "version": 1,
+                    "configuration": "2de8967fb25831d1"
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "AnyPress demo"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "app#anypress-7tal9l:createSite",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 4888817
+            },
+            "mapper": {
+                "name": "Rose and Fern",
+                "role": "administrator",
+                "size": "small",
+                "email": "owner@roseandfern.example",
+                "externalId": "pay-3QxK81Lm"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "setupValidation": {
+                    "result": {
+                        "valid": true,
+                        "fields": []
+                    },
+                    "version": 1,
+                    "configuration": "cd376b1847da6889"
+                },
+                "restore": {
+                    "expect": {
+                        "role": {
+                            "mode": "chose",
+                            "label": "Administrator"
+                        },
+                        "size": {
+                            "mode": "chose",
+                            "label": "Small"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "app#anypress-7tal9l"
+                            },
+                            "label": "Otaku's AnyPress connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:app#anypress-7tal9l",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "name",
+                        "type": "text",
+                        "label": "Site Name",
+                        "required": true
+                    },
+                    {
+                        "name": "externalId",
+                        "type": "text",
+                        "label": "Your Reference"
+                    },
+                    {
+                        "name": "email",
+                        "type": "email",
+                        "label": "Client Email"
+                    },
+                    {
+                        "name": "username",
+                        "type": "text",
+                        "label": "Client Username"
+                    },
+                    {
+                        "name": "role",
+                        "type": "select",
+                        "label": "Client Role",
+                        "validate": {
+                            "enum": [
+                                "administrator",
+                                "editor",
+                                "author",
+                                "contributor"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "type": "select",
+                        "label": "Size",
+                        "validate": {
+                            "enum": [
+                                "small",
+                                "medium",
+                                "large"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "groupName",
+                        "type": "text",
+                        "label": "Starting Site Group"
+                    },
+                    {
+                        "name": "customDomainName",
+                        "type": "text",
+                        "label": "Custom Domain"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us1.make.com",
+        "notes": []
+    }
+}

@@ -1,0 +1,21 @@
+Zapier share-a-copy links: not available
+
+The two AnyPress demo Zaps can't be shared as copies, for two reasons
+(Zapier help, "Share a copy of your Zap", checked 2026-10-24):
+
+1. Shared Zap templates are deprecated. "You can no longer create new shared
+   Zap templates." Existing shared-template links stop working on
+   December 15, 2026. Zapier points to guided templates instead:
+   https://help.zapier.com/hc/en-us/articles/43465487495181
+2. "Zap workflows with ... private apps ... cannot be shared as copies."
+   AnyPress (Zapier app 248504) is a private, invite-only integration.
+
+The Share option is no longer in the Zap editor menu or the Zaps list menu.
+
+The two Zaps, for reference:
+- Create site: Stripe "New Payment" -> AnyPress "Create Site" (Zap 384643434)
+- Site ready: AnyPress "Site Event" -> Email by Zapier "Send Outbound Email" (Zap 384643509)
+
+People can install AnyPress with the invite link and build these two Zaps
+themselves:
+https://zapier.com/developer/public-invite/248504/d92ccd4f604ea3e76535ff8452c69eb9/
