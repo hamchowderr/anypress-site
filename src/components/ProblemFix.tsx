@@ -17,6 +17,7 @@ export function ProblemFix({
   eyebrow = "who it's for",
   soft = false,
   id = "h-problems",
+  children,
 }: {
   // Left out where the page already lists who it's for (the site type heroes).
   who?: string[];
@@ -25,6 +26,8 @@ export function ProblemFix({
   eyebrow?: string;
   soft?: boolean;
   id?: string;
+  // Anything that belongs under the pairs, such as a short list of what every plan includes.
+  children?: ReactNode;
 }) {
   return (
     <section className={`sec ${soft ? "soft" : ""}`} aria-labelledby={id}>
@@ -57,6 +60,7 @@ export function ProblemFix({
             </li>
           ))}
         </ol>
+        {children}
       </div>
     </section>
   );

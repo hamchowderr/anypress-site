@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Screenshot } from "@/components/AppShots";
 import { CopyField } from "@/components/CopyField";
 import { Drawing, type DrawingName } from "@/components/Drawing";
+import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -95,10 +96,71 @@ const ASKS: { drawing: DrawingName; title: string; asks: string[] }[] = [
 ];
 
 const SAFE: [string, string][] = [
-  ["It acts as you", "With your role on the team. If you can only look, so can the app."],
-  ["Only what you ticked", "Sites, backups, domains, email, versions and pages are each switched on separately."],
-  ["It asks first", "Before anything that deletes or restores, the app checks with you."],
-  ["Every change is logged", "Under your name. Page edits can be undone from the page's revisions."],
+  [
+    "It acts as you",
+    "With your role on the team. If you can only look, so can the app.",
+  ],
+  [
+    "Only what you ticked",
+    "Sites, backups, domains, email, versions and pages are each switched on separately.",
+  ],
+  [
+    "It asks first",
+    "Before anything that deletes or restores, the app checks with you.",
+  ],
+  [
+    "Every change is logged",
+    "Under your name. Page edits can be undone from the page's revisions.",
+  ],
+];
+
+const WHO = [
+  "Sellers and resellers",
+  "Website owners",
+  "Anyone who uses Claude or ChatGPT",
+];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: [
+      "Every job is a trip to the dashboard",
+      "A backup, a domain or a site that's stuck building each means signing in and clicking through screens.",
+    ],
+    fix: [
+      "Just ask",
+      "Type \u201cBack up every site tonight\u201d or \u201cWhich sites are still building?\u201d and your AI app does it.",
+    ],
+  },
+  {
+    problem: [
+      "Page changes mean learning the editor",
+      "A new section or a different header colour is a small change that takes a long time to find.",
+    ],
+    fix: [
+      "Describe the change",
+      "Ask for a pricing section or a Book now button, and the app edits the page and shows you what it did.",
+    ],
+  },
+  {
+    problem: [
+      "Connecting AI usually means keys and code",
+      "Most tools want an API key pasted somewhere, or a developer to wire it up.",
+    ],
+    fix: [
+      "Sign in and approve",
+      "Add the connector, sign in to AnyPress and tick what it may do. There's no key or secret to copy.",
+    ],
+  },
+  {
+    problem: [
+      "Letting AI loose feels risky",
+      "It's hard to trust an app that could change or delete the wrong site.",
+    ],
+    fix: [
+      "It can only do what you can",
+      "It acts with your role, only does what you ticked, asks before deleting or restoring, and logs every change.",
+    ],
+  },
 ];
 
 const FAQ: [string, ReactNode][] = [
@@ -122,7 +184,8 @@ const FAQ: [string, ReactNode][] = [
     "Building your own agent?",
     <>
       The connector speaks the open MCP standard, so any agent can use it. The
-      API, SDKs and webhooks are on the <Link href="/developers">developer page</Link>.
+      API, SDKs and webhooks are on the{" "}
+      <Link href="/developers">developer page</Link>.
     </>,
   ],
 ];
@@ -148,6 +211,12 @@ export default function Ai() {
           </a>
         </div>
       </PageHero>
+
+      <ProblemFix
+        who={WHO}
+        title="Run your sites by asking, not clicking."
+        items={PROBLEMS}
+      />
 
       <section className="sec soft" aria-labelledby="h-connect" id="connect">
         <div className="in">
@@ -185,7 +254,10 @@ export default function Ai() {
               <li key={a.url}>
                 <h3>{a.who}</h3>
                 <p>{a.body}</p>
-                <CopyField value={a.url} label={`Connector address for: ${a.who}`} />
+                <CopyField
+                  value={a.url}
+                  label={`Connector address for: ${a.who}`}
+                />
               </li>
             ))}
           </ul>
@@ -225,7 +297,7 @@ export default function Ai() {
             <Screenshot
               shot={{
                 src: "/apps/claude-stores.webp",
-                alt: "Claude answering \"Show my stores\" with the AnyPress stores screen: each site with its address, and Back up and Suspend buttons",
+                alt: 'Claude answering "Show my stores" with the AnyPress stores screen: each site with its address, and Back up and Suspend buttons',
                 width: 768,
                 height: 572,
               }}

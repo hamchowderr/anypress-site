@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { AppLogo, Screenshot, type Shot } from "@/components/AppShots";
 import { Drawing, type DrawingName } from "@/components/Drawing";
+import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { Templates, type Template } from "@/components/Templates";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 
@@ -50,6 +51,55 @@ const ROUTES: {
     body: "Connect AnyPress to Claude or ChatGPT and ask in plain words: make a site, back it up, change its home page.",
     href: "/ai",
     who: "Anyone who'd rather type than click",
+  },
+];
+
+const WHO = [
+  "Sellers and resellers",
+  "Agencies with a CRM",
+  "Teams without a developer",
+];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: [
+      "Every sale means a site built by hand",
+      "Someone on the team copies a site, sets it up and sends the logins, for every new client.",
+    ],
+    fix: [
+      "The order builds it",
+      "When someone pays on your storefront, their site is built straight away. Nothing to connect.",
+    ],
+  },
+  {
+    problem: [
+      "Clients don't all come through a shop",
+      "Deals close on a form, a signed proposal or a payment in another tool.",
+    ],
+    fix: [
+      "Your tools start it",
+      "The AnyPress app in n8n, Make or Zapier creates the site from that step, or start from a ready-made template.",
+    ],
+  },
+  {
+    problem: [
+      "Nobody knows when it's ready",
+      "Someone keeps checking back, and the client waits for a welcome email that's late.",
+    ],
+    fix: [
+      "You're told when it's ready",
+      "The Site ready trigger can email the team or send the client their welcome, the moment it's built.",
+    ],
+  },
+  {
+    problem: [
+      "Cancelled clients keep a live site",
+      "When a plan ends, the site lives on until someone remembers to take it down.",
+    ],
+    fix: [
+      "Cancelling tidies up",
+      "When a storefront plan is cancelled, the site is backed up and taken offline for you.",
+    ],
   },
 ];
 
@@ -140,7 +190,8 @@ const APPS: {
 
 const SUSPEND_DOC =
   "https://shop.anypress.io/docs/suspend-a-site-when-a-client-cancels/";
-const READY_DOC = "https://shop.anypress.io/docs/email-the-client-when-their-site-is-ready/";
+const READY_DOC =
+  "https://shop.anypress.io/docs/email-the-client-when-their-site-is-ready/";
 
 const n8nShot = (file: string, alt: string): Shot => ({
   src: `/templates/${file}.webp`,
@@ -156,7 +207,10 @@ const TEMPLATES: Template[] = [
     tool: "n8n",
     title: "Intake form sent, site created",
     body: "A client fills in your form and their site starts building, named after their business and with their login made.",
-    shot: n8nShot("n8n-create-site", "n8n workflow: Client intake form, then AnyPress Create a site"),
+    shot: n8nShot(
+      "n8n-create-site",
+      "n8n workflow: Client intake form, then AnyPress Create a site",
+    ),
     workflow: "/templates/n8n-create-site.json",
     guide: "https://shop.anypress.io/docs/create-a-site-from-a-form-with-n8n/",
   },
@@ -165,7 +219,10 @@ const TEMPLATES: Template[] = [
     tool: "n8n",
     title: "Stripe payment, site created",
     body: "A paid Stripe checkout makes the site. The subscription id is its reference, so a retry never makes two.",
-    shot: n8nShot("n8n-stripe-create-site", "n8n workflow: Stripe checkout paid, then AnyPress Create a site"),
+    shot: n8nShot(
+      "n8n-stripe-create-site",
+      "n8n workflow: Stripe checkout paid, then AnyPress Create a site",
+    ),
     workflow: "/templates/n8n-stripe-create-site.json",
     guide: N8N_DOC,
   },
@@ -174,7 +231,10 @@ const TEMPLATES: Template[] = [
     tool: "n8n",
     title: "Subscription ended, site suspended",
     body: "When the Stripe subscription ends, the site is backed up and taken offline. Resume brings it back as it was.",
-    shot: n8nShot("n8n-stripe-suspend-site", "n8n workflow: Stripe subscription ended, then AnyPress Suspend the site"),
+    shot: n8nShot(
+      "n8n-stripe-suspend-site",
+      "n8n workflow: Stripe subscription ended, then AnyPress Suspend the site",
+    ),
     workflow: "/templates/n8n-stripe-suspend-site.json",
     guide: SUSPEND_DOC,
   },
@@ -183,7 +243,10 @@ const TEMPLATES: Template[] = [
     tool: "n8n",
     title: "Site ready, team emailed",
     body: "The AnyPress trigger starts the flow the moment a site is built, with its name, address and your reference.",
-    shot: n8nShot("n8n-site-ready", "n8n workflow: AnyPress Site ready trigger, then Email the team"),
+    shot: n8nShot(
+      "n8n-site-ready",
+      "n8n workflow: AnyPress Site ready trigger, then Email the team",
+    ),
     workflow: "/templates/n8n-site-ready.json",
     guide: READY_DOC,
   },
@@ -198,7 +261,8 @@ const TEMPLATES: Template[] = [
       width: 1305,
       height: 536,
     },
-    guide: "https://shop.anypress.io/docs/create-a-site-from-a-crm-step-with-make/",
+    guide:
+      "https://shop.anypress.io/docs/create-a-site-from-a-crm-step-with-make/",
   },
   {
     id: "make-ready",
@@ -224,7 +288,8 @@ const TEMPLATES: Template[] = [
       width: 1070,
       height: 420,
     },
-    guide: "https://shop.anypress.io/docs/create-a-site-from-a-payment-with-zapier/",
+    guide:
+      "https://shop.anypress.io/docs/create-a-site-from-a-payment-with-zapier/",
   },
   {
     id: "zapier-ready",
@@ -262,10 +327,10 @@ const FAQ: [string, ReactNode][] = [
   [
     "What can a new site be told?",
     <>
-      Its name, your reference, the client&apos;s email and role, which
-      starting site to copy, its size and the client&apos;s own domain. The
-      guide for each app lists them, and the{" "}
-      <a href={API_DOCS}>API reference</a> has every field.
+      Its name, your reference, the client&apos;s email and role, which starting
+      site to copy, its size and the client&apos;s own domain. The guide for
+      each app lists them, and the <a href={API_DOCS}>API reference</a> has
+      every field.
     </>,
   ],
   [
@@ -317,6 +382,12 @@ export default function Automate() {
           </a>
         </div>
       </PageHero>
+
+      <ProblemFix
+        who={WHO}
+        title="Selling sites shouldn't mean building each one."
+        items={PROBLEMS}
+      />
 
       <section className="sec soft" aria-labelledby="h-routes">
         <div className="in">
@@ -456,7 +527,11 @@ export default function Automate() {
         </p>
       </section>
 
-      <section className="sec soft" aria-labelledby="h-templates" id="templates">
+      <section
+        className="sec soft"
+        aria-labelledby="h-templates"
+        id="templates"
+      >
         <div className="in">
           <SectionHead
             eyebrow="templates"
@@ -478,8 +553,8 @@ export default function Automate() {
             <span className="tag">Claude, ChatGPT and more</span>
             <h2 id="h-ai">Or just ask.</h2>
             <p>
-              Connect AnyPress to your AI app and say what you need: &ldquo;make a
-              bookings site for Still Water Yoga&rdquo;, &ldquo;back up every
+              Connect AnyPress to your AI app and say what you need: &ldquo;make
+              a bookings site for Still Water Yoga&rdquo;, &ldquo;back up every
               site tonight&rdquo;, &ldquo;add a pricing section to the home
               page&rdquo;.
             </p>
@@ -492,7 +567,7 @@ export default function Automate() {
           <Screenshot
             shot={{
               src: "/apps/claude-stores.webp",
-              alt: "Claude answering \"Show my stores\" with the AnyPress stores screen: each site with its address and Back up and Suspend buttons",
+              alt: 'Claude answering "Show my stores" with the AnyPress stores screen: each site with its address and Back up and Suspend buttons',
               width: 768,
               height: 572,
             }}
