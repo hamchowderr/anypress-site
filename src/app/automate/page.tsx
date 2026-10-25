@@ -491,12 +491,12 @@ export default function Automate() {
           </div>
           <Screenshot
             shot={{
-              src: "/apps/mcp-stores.webp",
-              alt: "The AnyPress stores screen an AI app shows: each site with its address and Back up and Suspend buttons",
-              width: 1520,
-              height: 657,
+              src: "/apps/claude-stores.webp",
+              alt: "Claude answering \"Show my stores\" with the AnyPress stores screen: each site with its address and Back up and Suspend buttons",
+              width: 768,
+              height: 572,
             }}
-            label="AnyPress stores"
+            label="Claude"
           />
         </div>
       </section>
