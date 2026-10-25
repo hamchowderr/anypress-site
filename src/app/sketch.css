@@ -1941,37 +1941,64 @@
     width: 18px;
     height: 18px;
   }
-  .can-list {
+  /* "Everything you can do with it" on /sites/<type>: three groups, each with a little animated scene. */
+  .can-groups {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-    max-width: 1040px;
+    gap: 22px;
+    max-width: 1080px;
     margin: 0 auto;
   }
-  .can-list li {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
+  .can-groups > li {
     background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 14px 16px;
-    font-weight: 600;
+    border: 1.5px solid var(--ink);
+    border-radius: 18px;
+    padding: 14px 14px 22px;
+    box-shadow: 6px 6px 0 var(--honey);
+    transition: box-shadow 0.2s;
   }
-  .can-list li svg {
-    width: 20px;
-    height: 20px;
+  .can-groups > li:nth-child(2) {
+    box-shadow: 6px 6px 0 var(--rose);
+  }
+  .can-groups > li:nth-child(3) {
+    box-shadow: 6px 6px 0 var(--magenta);
+  }
+  .vignette {
+    aspect-ratio: 320 / 200;
+    border-radius: 12px;
+    background: var(--paper-2);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .can-groups h3 {
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.25;
+    padding: 0 8px;
+    margin-bottom: 10px;
+  }
+  .can-groups ul {
+    display: grid;
+    gap: 8px;
+    padding: 0 8px;
+  }
+  .can-groups ul li {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .can-groups ul li svg {
+    width: 18px;
+    height: 18px;
     flex-shrink: 0;
     margin-top: 2px;
   }
-  @media (max-width: 860px) {
-    .can-list {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  @media (max-width: 520px) {
-    .can-list {
-      grid-template-columns: 1fr;
+  @media (max-width: 900px) {
+    .can-groups {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 460px;
     }
   }
   .size-cards {

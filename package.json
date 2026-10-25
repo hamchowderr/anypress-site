@@ -8,9 +8,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "drawings": "node scripts/drawings.mjs"
+    "drawings": "node scripts/drawings.mjs",
+    "vignettes": "node scripts/vignettes.mjs"
   },
   "dependencies": {
+    "lottie-web": "5.12.2",
     "next": "16.4.2",
     "react": "19.3.1",
     "react-dom": "19.3.1"
