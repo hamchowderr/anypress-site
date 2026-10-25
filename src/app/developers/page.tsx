@@ -30,6 +30,7 @@ const BLOCKS: { title: string; body: string; tag: string; href?: string }[] = [
     title: "MCP connector",
     body: "Let Claude, ChatGPT or any MCP client create and manage sites, with a simple sign-in and per-area permissions.",
     tag: "/mcp",
+    href: "/ai",
   },
   {
     title: "Your own domains",

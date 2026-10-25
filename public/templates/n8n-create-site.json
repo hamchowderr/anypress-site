@@ -1,0 +1,67 @@
+{
+  "name": "New client site from intake form",
+  "nodes": [
+    {
+      "name": "Client intake form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "formTitle": "Start your website",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Business name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "requiredField": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create a site",
+      "type": "n8n-nodes-anypress.anyPress",
+      "typeVersion": 1,
+      "position": [
+        320,
+        0
+      ],
+      "parameters": {
+        "operation": "create",
+        "name": "={{ $json['Business name'] }}",
+        "externalId": "=form-{{ $execution.id }}",
+        "email": "={{ $json.Email }}",
+        "additionalFields": {
+          "size": "small"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Client intake form": {
+      "main": [
+        [
+          {
+            "node": "Create a site",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

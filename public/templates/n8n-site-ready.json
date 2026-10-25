@@ -1,0 +1,54 @@
+{
+  "name": "Email when a site is ready",
+  "nodes": [
+    {
+      "name": "Site ready",
+      "type": "n8n-nodes-anypress.anyPressTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "events": [
+          "tenant.ready"
+        ]
+      }
+    },
+    {
+      "name": "Email the team",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        320,
+        0
+      ],
+      "parameters": {
+        "fromEmail": "hello@yourstudio.example",
+        "toEmail": "team@yourstudio.example",
+        "subject": "={{ $json.name }} is ready",
+        "emailFormat": "text",
+        "text": "={{ $json.name }} is live at {{ $json.url }}\nYour reference: {{ $json.externalId }}"
+      }
+    }
+  ],
+  "connections": {
+    "Site ready": {
+      "main": [
+        [
+          {
+            "node": "Email the team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
