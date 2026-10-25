@@ -15,6 +15,8 @@ export type Template = {
   blueprint?: string;
   /** Zapier's "copy this Zap" link. */
   zap?: string;
+  /** Where to add the app first, when the template can't be copied. */
+  invite?: { label: string; href: string };
   guide: string;
 };
 
@@ -89,6 +91,11 @@ export function Templates({ items }: { items: Template[] }) {
                 {t.blueprint && (
                   <a href={t.blueprint} download className="btn btn-ink">
                     Download blueprint
+                  </a>
+                )}
+                {t.invite && (
+                  <a href={t.invite.href} className="btn btn-ink">
+                    {t.invite.label}
                   </a>
                 )}
                 {t.zap && (
