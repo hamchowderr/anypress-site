@@ -552,6 +552,15 @@
     background: #fffaf0;
     font-weight: 700;
   }
+  /* Columns that are choices, not "us versus them": no column stands out. */
+  .compare.even thead th:last-child {
+    color: var(--ink-soft);
+    background: var(--paper-2);
+  }
+  .compare.even td:last-child {
+    background: none;
+    font-weight: inherit;
+  }
   .compare tbody th {
     font-weight: 600;
   }

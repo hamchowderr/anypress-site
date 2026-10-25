@@ -199,6 +199,8 @@ export interface AudienceGroup {
   name: string;
   line: string;
   body: string;
+  // A few kinds of business in this group, so people can spot themselves (shown on /who).
+  examples: string[];
   // The site types that usually fit this group.
   fits: SiteTypeId[];
   // Which side of AnyPress this group usually buys from: a site for themselves, or the technical side.
@@ -233,6 +235,7 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     name: "Online shops & niche sellers",
     line: "Open a shop without losing your weekends.",
     body: "Start one shop or ten. Each comes ready to take payments, get found on Google and email your customers, so a new idea is a new site, not a new project.",
+    examples: ["Product brands", "Makers and crafters", "Merch and print-on-demand", "Digital downloads", "Subscription boxes"],
     fits: ["store", "website"],
     side: "owners",
     drawing: "makers",
@@ -258,6 +261,7 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     name: "Supplements, CBD & other regulated products",
     line: "A store on your own website, with your own payments.",
     body: "Your store is your own website, connected to your own payment account, instead of a listing on someone else's marketplace.",
+    examples: ["Supplements and vitamins", "CBD and hemp", "Wellness and skincare", "Products marketplaces turn down"],
     fits: ["store", "everything"],
     side: "owners",
     drawing: "health",
@@ -283,6 +287,7 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     name: "Course creators & educators",
     line: "Courses and community without the platform tax.",
     body: "Sell programs, run classes and host discussions on your own domain, for one monthly price and no cut of what you earn.",
+    examples: ["Online course creators", "Coaches with a program", "Music and art teachers", "Tutors", "Paid communities"],
     fits: ["community", "everything"],
     side: "owners",
     drawing: "teach",
@@ -308,6 +313,7 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     name: "Chambers & associations",
     line: "Members, events and dues in one place.",
     body: "Collect dues, sell event tickets and give members a place to connect. Renewals and reminders send themselves.",
+    examples: ["Chambers of commerce", "Trade and professional associations", "Clubs and societies", "Alumni groups", "Nonprofits with members"],
     fits: ["everything", "community", "bookings"],
     side: "owners",
     drawing: "clubs",
@@ -333,6 +339,7 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     name: "Churches & ministries",
     line: "Giving, events and groups on one site.",
     body: "Take online giving, share events and give small groups a place to meet, on a website your volunteers can keep up to date.",
+    examples: ["Churches", "Ministries", "Faith-based nonprofits", "Small groups and fellowships"],
     fits: ["everything", "community", "website"],
     side: "owners",
     drawing: "church",
@@ -358,6 +365,7 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     name: "Franchises & multi-location brands",
     line: "A site for every location, all built the same way.",
     body: "Every location gets its own site from the same starting point, with its own bookings and domain, while the brand stays the same everywhere.",
+    examples: ["Franchise brands", "Salons and studios with several locations", "Gyms and clinics", "Local service chains"],
     fits: ["bookings", "website", "store"],
     side: "owners",
     drawing: "places",
@@ -383,6 +391,7 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     name: "Agencies & freelancers",
     line: "Sell websites as a monthly service.",
     body: "Sell websites under your own name, at your own prices. We build and look after every one.",
+    examples: ["Web design agencies", "Freelance designers and developers", "Marketing agencies", "Consultants who build sites"],
     fits: ["website", "store", "everything"],
     side: "technical",
     drawing: "agency",
@@ -393,6 +402,7 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     name: "SaaS & software teams",
     line: "A website for every customer, from inside your app.",
     body: "Give each of your customers their own site, created automatically from your product. Your developers will find everything they need on our developer page.",
+    examples: ["SaaS products", "Website builders", "Booking and membership apps", "Platforms that onboard businesses"],
     fits: ["website", "store", "everything"],
     side: "technical",
     drawing: "software",
