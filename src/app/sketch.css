@@ -2564,3 +2564,98 @@
     margin: 40px auto 0;
   }
 }
+
+/* ---------- who it's for: problem -> how AnyPress fixes it ---------- */
+@layer components {
+  .who-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
+    margin: -12px auto 40px;
+    max-width: 900px;
+    font-size: 15px;
+  }
+  .who-row b {
+    margin-right: 4px;
+  }
+  .who-row span {
+    border: 1px solid var(--line);
+    background: var(--paper);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-weight: 600;
+  }
+  .soft .who-row span {
+    background: var(--paper);
+  }
+  .pf {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 1000px;
+    display: grid;
+    gap: 18px;
+  }
+  .pf li {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+  .pf-p,
+  .pf-f {
+    border-radius: 16px;
+    padding: 20px 22px;
+  }
+  .pf-p {
+    border: 1.5px dashed color-mix(in srgb, var(--ink) 28%, transparent);
+    background: var(--paper-2);
+  }
+  .soft .pf-p {
+    background: var(--paper);
+  }
+  .pf-f {
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+  }
+  .pf-label {
+    display: block;
+    font: 700 1.15rem/1 var(--font-caveat);
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .pf-f .pf-label {
+    color: var(--accent);
+  }
+  .pf h3 {
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+  .pf p {
+    margin-top: 6px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .pf-arrow {
+    align-self: center;
+    font-size: 28px;
+    font-weight: 800;
+  }
+  @media (max-width: 760px) {
+    .pf li {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .pf-arrow {
+      justify-self: center;
+      transform: rotate(90deg);
+      font-size: 22px;
+    }
+    .pf {
+      gap: 28px;
+    }
+  }
+}

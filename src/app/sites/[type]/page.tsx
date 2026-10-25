@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { notFound } from "next/navigation";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { BrowserShot, PhoneShot } from "@/components/Shots";
+import { ProblemFix } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
 import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
 import { SITE_DETAILS } from "@/lib/siteDetails";
@@ -99,6 +100,13 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
           Open the example ↗
         </a>
       </section>
+
+      <ProblemFix
+        soft
+        items={d.problems}
+        eyebrow="sound familiar?"
+        title={`What gets in the way, and how a ${kind} site fixes it.`}
+      />
 
       <section className="sec in" aria-labelledby="h-does">
         <SectionHead eyebrow="what it does" title="What it does for you." id="h-does" />

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { Showcase } from "@/components/Showcase";
 import { CompareTable } from "@/components/CompareTable";
+import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
 import { CtaBand, Questions, SectionHead } from "@/components/ui";
 import { AUDIENCE_GROUPS, SITE_TYPES, WHOLESALE_PERCENT, groupUrl } from "@/lib/site";
@@ -12,8 +13,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Examples />
       <Included />
+      <Examples />
+      <ProblemFix soft who={WHO} items={PROBLEMS} title="Getting a website shouldn't be this hard." />
       <Pieces />
       <Sites />
       <HowItWorks />
@@ -134,6 +136,34 @@ function Included() {
   );
 }
 
+const WHO = ["Shops and makers", "Coaches and studios", "Course creators", "Chambers and associations", "Churches", "Franchises", "Anyone with clients"];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: ["Website tools are sold in pieces", "A builder, then a payments app, a booking tool and an email service, each with its own login and bill."],
+    fix: ["It comes together", "Pick what you're building and it arrives with the right tools switched on, set up for you."],
+  },
+  {
+    problem: ["You're not technical", "Hosting, plugins, the padlock, email settings. It's a lot to learn just to open your doors."],
+    fix: ["We do the technical part", "Your site is ready the same day. If you can write an email, you can edit your pages."],
+  },
+  {
+    problem: ["A cut of every sale", "Some platforms take a percentage of every order on top of the monthly fee."],
+    fix: ["No cut of your sales", "One monthly price. The card company's normal fee is the only fee on an order."],
+  },
+  {
+    problem: ["A payment company can freeze your account", "If your only way to take payments gets suspended, your shop stops selling overnight."],
+    fix: [
+      "Your own payment accounts, side by side",
+      "Payments go to your own accounts, not through us. On a store you can switch on Stripe and PayPal together, so customers can still pay if one has a problem.",
+    ],
+  },
+  {
+    problem: ["Hard to leave", "Many builders won't let you take your site with you."],
+    fix: ["Real WordPress you can take with you", "Download a full copy of your site whenever you like. No lock-in."],
+  },
+];
+
 const PIECES: [string, string, string][] = [
   ["A website you can grow", "Builder plan", "Included"],
   ["Your own domain, connected", "You set it up", "Done for you"],
@@ -219,7 +249,7 @@ const OUR_PART: [DrawingName, string][] = [
 
 function HowItWorks() {
   return (
-    <section className="sec soft" aria-labelledby="h-how">
+    <section className="sec" aria-labelledby="h-how">
       <div className="in">
         <SectionHead eyebrow="how it works" title="You do the fun part. We do the rest." id="h-how" />
         <div className="parts">
@@ -264,28 +294,30 @@ function HowItWorks() {
 
 function WhoItsFor() {
   return (
-    <section className="sec in" aria-labelledby="h-who">
-      <SectionHead
-        eyebrow="who it's for"
-        title="Made for every kind of business."
-        lead="No one comes first. If you need a website to run things, it's for you."
-        id="h-who"
-      />
-      <ul className="cards">
-        {AUDIENCE_GROUPS.map((g) => (
-          <li key={g.id} className="!basis-[250px]">
-            <Link href={groupUrl(g)} className="card-link">
-              <Drawing name={g.drawing} className="!w-[120px]" />
-              <span className="text-[17px] font-bold">{g.name}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-8 text-center">
-        <Link href="/who" className="inline-block py-1 font-bold underline underline-offset-4">
-          Not sure which one you are? Start here →
-        </Link>
-      </p>
+    <section className="sec soft" aria-labelledby="h-who">
+      <div className="in">
+        <SectionHead
+          eyebrow="who it's for"
+          title="Made for every kind of business."
+          lead="No one comes first. If you need a website to run things, it's for you."
+          id="h-who"
+        />
+        <ul className="cards">
+          {AUDIENCE_GROUPS.map((g) => (
+            <li key={g.id} className="!basis-[250px]">
+              <Link href={groupUrl(g)} className="card-link">
+                <Drawing name={g.drawing} className="!w-[120px]" />
+                <span className="text-[17px] font-bold">{g.name}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-8 text-center">
+          <Link href="/who" className="inline-block py-1 font-bold underline underline-offset-4">
+            Not sure which one you are? Start here →
+          </Link>
+        </p>
+      </div>
     </section>
   );
 }

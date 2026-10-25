@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { CompareTable } from "@/components/CompareTable";
+import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { SITE_TYPES, WHOLESALE_PERCENT, wholesalePrice } from "@/lib/site";
 
@@ -11,13 +12,38 @@ export const metadata: Metadata = {
   description: "Run several website brands under one login, with one monthly wholesale bill and partner keys for your developers.",
 };
 
-const GETS: [DrawingName, string, string][] = [
-  ["shops", "Several shops, one login", "Run a shop for each brand, region or kind of customer, all from one dashboard."],
-  ["bill", "One monthly bill", "Every site across every brand on one wholesale bill, sent automatically on the 1st."],
-  ["key", "Partner keys", "Each brand gets its own keys, so your developers can create and manage sites from code."],
-  ["nametag", "Your brand, not ours", "Your customers buy from your shops. If a site is ever unavailable, they see your brand."],
-  ["tools", "We run every site", "Security fixes, nightly copies and keeping each site safe are done for you."],
-  ["box", "Open source underneath", "Everything behind AnyPress is public, so you're never locked in."],
+const WHO = ["Agencies with several brands", "Franchise offices", "Web hosts", "Software companies", "Groups that run sites for members"];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: ["Every brand needs its own setup", "A separate account, login and set of sites for each brand, region or kind of customer."],
+    fix: ["Several shops, one login", "Run a shop for each brand, region or kind of customer, all from one dashboard."],
+  },
+  {
+    problem: ["A pile of bills every month", "Hosting bills per brand and per client, each to check and pay."],
+    fix: ["One wholesale bill", `Every live site across every brand on one bill, ${WHOLESALE_PERCENT}% off, sent automatically on the 1st.`],
+  },
+  {
+    problem: ["Your developers wait on manual steps", "Someone has to click through a setup for every new site your product sells."],
+    fix: [
+      "Partner keys for each brand",
+      <>
+        Your code creates, changes and removes sites on its own. See the <Link href="/developers">developer page</Link>.
+      </>,
+    ],
+  },
+  {
+    problem: ["Your brand gets lost", "Hosting emails, error pages and dashboards show someone else's name."],
+    fix: ["Your brand, not ours", "Customers buy from your shops at your prices. Even if a site is ever unavailable, they see your brand."],
+  },
+  {
+    problem: ["Servers to run for every brand", "Security fixes, backups and keeping hundreds of sites online."],
+    fix: ["We run every site", "Security fixes, nightly copies and keeping each site safe are done for you."],
+  },
+  {
+    problem: ["Afraid of being locked in", "If the platform changes or disappears, your whole business goes with it."],
+    fix: ["Open source underneath", "Everything behind AnyPress is public, so you can always run it yourself."],
+  },
 ];
 
 const TABLE: [string, string, string][] = [
@@ -82,20 +108,7 @@ export default function Resellers() {
         </div>
       </PageHero>
 
-      <section className="sec soft">
-        <div className="in">
-          <SectionHead eyebrow="what you get" title="Everything you need to run a website business." />
-          <div className="yours !grid-cols-1 sm:!grid-cols-2 lg:!grid-cols-3">
-            {GETS.map(([d, title, body]) => (
-              <div key={title}>
-                <Drawing name={d} />
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProblemFix soft who={WHO} items={PROBLEMS} title="Selling under several names, without the mess." />
 
       <section className="sec in">
         <SectionHead eyebrow="two ways to sell" title="Seller or reseller?" />

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
+import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -9,6 +10,31 @@ export const metadata: Metadata = {
 };
 
 const API_REPO = "https://github.com/hamchowderr/waas-provisioning-api";
+
+const WHO = ["SaaS teams", "Platforms that give each customer a site", "Developers at agencies", "Hosts", "No-code builders"];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: ["Multi-site hosting takes months to build", "Servers, isolation, backups, domains and certificates, before your first customer gets a site."],
+    fix: ["One API call per site", "Create, suspend, resume, restore and delete WordPress sites from your app. We run the servers."],
+  },
+  {
+    problem: ["Polling to see if it worked", "Site creation takes time, so your code keeps asking until it's done."],
+    fix: ["Signed webhooks", "Get tenant.ready, failures, domain changes and backups pushed to you as they happen."],
+  },
+  {
+    problem: ["One customer can take down the rest", "On a shared install, one heavy or hacked site slows or breaks everyone's."],
+    fix: ["Every site stands alone", "Each site is its own WordPress with its own database, sized Small, Medium or Large."],
+  },
+  {
+    problem: ["Custom domains are fiddly", "DNS checks, certificates and email sending for every customer's own domain."],
+    fix: ["Domains through the API", "Add and switch domains, with certificates handled, and give each site its own email sending domain."],
+  },
+  {
+    problem: ["Locked into a vendor", "If the host changes its terms, your product is stuck with them."],
+    fix: ["Open source under the GPL", "The API, plugins and dashboard are public. Run it yourself with one installer whenever you want."],
+  },
+];
 
 const BLOCKS: { title: string; body: string; tag: string; href?: string }[] = [
   {
@@ -67,6 +93,8 @@ export default function Developers() {
           </Link>
         </div>
       </PageHero>
+
+      <ProblemFix soft who={WHO} items={PROBLEMS} title="A WordPress site for every customer, without building a hosting company." />
 
       <section className="">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
