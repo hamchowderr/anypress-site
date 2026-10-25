@@ -21,7 +21,7 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://anypress.io"),
-  title: { default: "AnyPress: your business deserves a real website", template: "%s · AnyPress" },
+  title: { default: "AnyPress: managed WordPress, set up and looked after for you", template: "%s · AnyPress" },
   description:
     "AnyPress is WordPress, set up and looked after for you. Pick a website, bookings, a shop or a members' area, and it arrives ready to use. From $12 a month, no cut of your sales.",
 };

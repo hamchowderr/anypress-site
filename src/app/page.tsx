@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { Showcase } from "@/components/Showcase";
 import { CompareTable } from "@/components/CompareTable";
@@ -35,76 +35,64 @@ export default function Home() {
 
 function Hero() {
   return (
-    <section className="in hero" aria-labelledby="h-hero">
-      <Link className="badge" href="/move">
-        <b>New</b> Bring your current WordPress site with you →
-      </Link>
-      <h1 id="h-hero">
-        Your business deserves a <mark>real</mark> website.
-      </h1>
-      <p className="sub">
-        Pick what you&apos;re building. We set it up on real WordPress, keep it running and look after the fiddly parts. You keep
-        every sale.
-      </p>
-      <div className="ctas">
-        <Link className="btn btn-ink" href="#sites">
-          Start your site →
+    <section className="in hero hero-fix" aria-labelledby="h-hero">
+      <div className="hero-fix-text">
+        <Link className="badge" href="/move">
+          <b>New</b> Bring your current WordPress site with you →
         </Link>
-        <Link className="btn btn-paper" href="/pricing">
-          See prices
-        </Link>
-      </div>
-      <ul className="checks">
-        <li>
-          <Tick />
-          From $12 a month
-        </li>
-        <li>
-          <Tick />
-          No cut of your sales
-        </li>
-        <li>
-          <Tick />
-          30-day money-back
-        </li>
-      </ul>
-      <div className="built-for">For shops, studios, coaches, chambers, franchises, agencies and software teams</div>
-      <div className="scene-wrap">
-        <Drawing name="hero" />
-        <span className="hand l1" aria-hidden>
-          your website
-        </span>
-        <span className="hand l2" aria-hidden>
-          bookings
-        </span>
-        <span className="hand l3" aria-hidden>
-          your shop
-        </span>
-        <span className="hand l4" aria-hidden>
-          your members
-        </span>
-      </div>
-      <ol className="flow" aria-label="How it works in four steps">
-        {FLOW.map(([d, title, sub], i) => (
-          <li key={title}>
-            <Drawing name={d} />
-            <b>
-              {i + 1}. {title}
-            </b>
-            <span>{sub}</span>
+        <span className="eyebrow">managed WordPress for shops, studios, clubs and small businesses</span>
+        <h1 id="h-hero">
+          Sell, take bookings or teach online, <mark>without dealing with hosting</mark>.
+        </h1>
+        <p className="sub">
+          Hosting, plugins, email, backups and security are done for you. You get a finished WordPress site and add your words and photos.
+        </p>
+        <div className="ctas">
+          <Link className="btn btn-ink" href="#sites">
+            Start your site →
+          </Link>
+          <Link className="btn btn-paper" href="/pricing">
+            See prices
+          </Link>
+        </div>
+        <ul className="checks">
+          <li>
+            <Tick />
+            From $12 a month
           </li>
-        ))}
-      </ol>
+          <li>
+            <Tick />
+            No cut of your sales
+          </li>
+          <li>
+            <Tick />
+            30-day money-back
+          </li>
+        </ul>
+      </div>
+      <div className="desk" aria-label="Everything a website usually takes, done for you">
+        <ul className="notes">
+          {CHORES.map((c, i) => (
+            <li key={c} style={{ "--r": `${[-6, 4, -3, 5, -5, 3][i]}deg`, "--i": i } as CSSProperties}>
+              <span>{c}</span>
+              <i aria-hidden />
+            </li>
+          ))}
+        </ul>
+        <span className="desk-arrow" aria-hidden>
+          →
+        </span>
+        <div className="desk-done">
+          <Drawing name="website" still />
+          <span className="hand">done for you</span>
+        </div>
+      </div>
     </section>
   );
 }
 
-const FLOW: [DrawingName, string, string][] = [
-  ["pick", "Pick", "what you're building"],
-  ["tools", "We set it up", "tools switched on for you"],
-  ["paint", "Make it yours", "your words, photos, prices"],
-  ["open", "Open your doors", "and we keep it running"],
-];
+// The jobs a website usually takes. They get crossed off in the hero.
+const CHORES = ["Find hosting", "Install WordPress", "Pick plugins", "Set up email", "Back it up", "Keep it secure"];
 
 const INCLUDED: [DrawingName, string][] = [
   ["domain", "Your own domain"],

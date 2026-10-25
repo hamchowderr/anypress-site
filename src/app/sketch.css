@@ -169,6 +169,160 @@
     padding-block: 56px 40px;
     position: relative;
   }
+  /* Homepage hero (owner picked 2026-10-25): the words on the left, and on the right the jobs a website usually takes
+     get crossed off and one finished site takes their place. */
+  .hero-fix {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: center;
+    text-align: left;
+  }
+  .hero-fix .eyebrow {
+    display: block;
+    margin-top: 22px;
+  }
+  .hero.hero-fix h1 {
+    font-size: clamp(40px, 5.6vw, 70px);
+    line-height: 1.03;
+    max-width: none;
+    margin: 10px 0 0;
+  }
+  .hero.hero-fix .sub {
+    margin: 20px 0 28px;
+  }
+  .hero-fix .ctas,
+  .hero-fix .checks {
+    justify-content: flex-start;
+  }
+  .desk {
+    background: var(--paper-2);
+    border-radius: 22px;
+    padding: 28px 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+  }
+  .notes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .notes li {
+    position: relative;
+    background: #fff3c9;
+    border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font: 700 22px/1.1 var(--font-caveat);
+    transform: rotate(var(--r));
+    animation: note-in 0.45s calc(var(--i) * 0.16s) cubic-bezier(0.2, 0.75, 0.34, 0.94) both;
+  }
+  .notes li span {
+    animation: note-fade 0.3s calc(1.3s + var(--i) * 0.14s) both;
+  }
+  .notes li i {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    top: 52%;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--rose);
+    transform-origin: left;
+    animation: note-strike 0.35s calc(1.3s + var(--i) * 0.14s) cubic-bezier(0.2, 0.75, 0.34, 0.94) both;
+  }
+  .desk-arrow {
+    font: 700 46px/1 var(--font-caveat);
+    animation: note-show 0.4s 2.2s both;
+  }
+  .desk-done {
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 6px 6px 0 var(--honey);
+    text-align: center;
+    animation: done-pop 0.55s 2.4s cubic-bezier(0.94, 0.75, 0.34, 0.94) both;
+  }
+  .desk-done .hand {
+    display: block;
+    margin-top: 4px;
+    color: var(--accent);
+    font-size: 21px;
+  }
+  @keyframes note-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px) rotate(var(--r));
+    }
+  }
+  @keyframes note-strike {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes note-fade {
+    to {
+      opacity: 0.6;
+    }
+  }
+  @keyframes note-show {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes done-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.6) rotate(4deg);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1.06) rotate(-2deg);
+    }
+    to {
+      transform: rotate(-1deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .notes li,
+    .notes li span,
+    .notes li i,
+    .desk-arrow,
+    .desk-done {
+      animation-duration: 0.01s;
+      animation-delay: 0s;
+    }
+  }
+  @media (max-width: 900px) {
+    .hero-fix {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+    }
+  }
+  @media (max-width: 480px) {
+    .desk {
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: center;
+    }
+    .notes {
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+    }
+    .notes li {
+      font-size: 19px;
+    }
+    .desk-arrow {
+      transform: rotate(90deg);
+    }
+    .desk-done {
+      width: 70%;
+    }
+  }
   .badge {
     display: inline-flex;
     align-items: center;
@@ -1836,33 +1990,96 @@
 
 @layer components {
   /* ---------- a kind of site's own page ---------- */
+  /* Site type hero (owner picked 2026-10-25): centred words, then the four steps from order to open, drawn. */
   .type-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-    gap: 48px;
-    align-items: center;
-    padding-top: 48px;
-    padding-bottom: 40px;
-  }
-  .type-hero-text {
-    display: grid;
+    justify-items: center;
+    text-align: center;
     gap: 14px;
-    justify-items: start;
+    padding-top: 48px;
+    padding-bottom: 44px;
   }
   .type-hero h1 {
-    font-size: clamp(38px, 4.6vw, 58px);
-    line-height: 1.02;
+    font-size: clamp(40px, 5.6vw, 70px);
+    line-height: 1.03;
     font-weight: 800;
     letter-spacing: -0.035em;
+    text-wrap: balance;
+    max-width: 16ch;
   }
   .type-hero .lead {
     font-size: 19px;
     color: var(--ink-soft);
-    max-width: 46ch;
+    max-width: 50ch;
   }
   .type-hero .ctas,
   .type-hero .checks {
     margin-top: 4px;
+    justify-content: center;
+  }
+  .type-hero .made-for {
+    justify-content: center;
+    max-width: 760px;
+  }
+  .hero-steps {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0 0;
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    position: relative;
+  }
+  .hero-steps::before {
+    content: "";
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    top: 64px;
+    border-top: 2.5px dashed color-mix(in srgb, var(--ink) 25%, transparent);
+  }
+  .hero-steps li {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 2px;
+    animation: step-up 0.5s calc(0.2s + var(--i) * 0.45s) cubic-bezier(0.2, 0.75, 0.34, 0.94) both;
+  }
+  .hero-steps .ob {
+    width: min(160px, 100%);
+    background: var(--paper);
+    padding: 0 8px;
+  }
+  .hero-steps b {
+    font-size: 17px;
+    font-weight: 800;
+    margin-top: 6px;
+  }
+  .hero-steps .hand {
+    color: var(--accent);
+    font: 700 19px/1.15 var(--font-caveat);
+  }
+  @keyframes step-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-steps li {
+      animation: none;
+    }
+  }
+  @media (max-width: 760px) {
+    .hero-steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 26px;
+    }
+    .hero-steps::before {
+      display: none;
+    }
   }
   .made-for {
     display: flex;
@@ -1884,27 +2101,9 @@
     padding: 3px 11px 3px 7px;
     font-weight: 600;
   }
-  .type-hero-shot {
-    position: relative;
-  }
-  .type-hero-shot .peek {
-    position: absolute;
-    width: 120px;
-    left: -46px;
-    top: -54px;
-    z-index: 2;
-    transform: rotate(-8deg);
-  }
   @media (max-width: 960px) {
     .type-hero {
-      grid-template-columns: 1fr;
-      gap: 56px;
       padding-top: 28px;
-    }
-    .type-hero-shot .peek {
-      width: 90px;
-      left: -6px;
-      top: -48px;
     }
   }
   .try-strip {

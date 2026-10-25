@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { notFound } from "next/navigation";
 import { Drawing, type DrawingName } from "@/components/Drawing";
-import { BrowserShot, PhoneShot } from "@/components/Shots";
 import { ProblemFix } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
 import { Vignette } from "@/components/Vignette";
@@ -32,56 +31,56 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
   const kind = t.short.toLowerCase();
 
   const steps: [DrawingName, string, string][] = [
-    ["pick", "Pick a size and pay", "Small, Medium or Large. Monthly or yearly."],
-    ["tools", `We build your ${kind} site`, "Ready in minutes, with every tool switched on."],
-    ["words", "Make it yours", `Add ${d.yourPart}.`],
-    ["open", "Open your doors", "Share your link. We keep it running from here."],
+    ["pick", "Pick a size and pay", "a minute"],
+    ["tools", `We build your ${kind} site`, "minutes"],
+    ["words", "Make it yours", `add ${d.yourPart}`],
+    ["open", "Open your doors", "we keep it running"],
   ];
 
   return (
     <>
       <section className="in type-hero" aria-labelledby="h-type">
-        <div className="type-hero-text">
-          <SidePill side="owners" />
-          <span className="eyebrow">{t.name.toLowerCase()}</span>
-          <h1 id="h-type">{t.headline}</h1>
-          <p className="lead">{t.pitch}</p>
-          <div className="ctas !justify-start">
-            <a href={startUrl(t)} className="btn btn-ink">
-              Start your {kind} site →
-            </a>
-            <a href="#sizes" className="btn btn-paper">
-              See prices
-            </a>
-          </div>
-          <ul className="checks !justify-start">
-            <li>
-              <Tick />
-              From ${t.from} a month
-            </li>
-            <li>
-              <Tick />
-              No cut of your sales
-            </li>
-            <li>
-              <Tick />
-              30-day money-back
-            </li>
-          </ul>
-          <p className="made-for">
-            <b>Made for</b>
-            {t.idealFor.map((x) => (
-              <WhoChip key={x} label={x} />
-            ))}
-          </p>
+        <SidePill side="owners" />
+        <span className="eyebrow">{t.name.toLowerCase()} on managed WordPress</span>
+        <h1 id="h-type">{t.headline}</h1>
+        <p className="lead">{t.pitch}</p>
+        <div className="ctas">
+          <a href={startUrl(t)} className="btn btn-ink">
+            Start your {kind} site →
+          </a>
+          <a href="#sizes" className="btn btn-paper">
+            See prices
+          </a>
         </div>
-        <div className="type-hero-shot">
-          <Drawing name={t.drawing} className="peek" />
-          <div className="relative -rotate-[0.8deg] pr-8 pb-6 sm:pr-12">
-            <BrowserShot example={ex} />
-            <PhoneShot example={ex} className="absolute right-0 bottom-0 w-[22%] max-w-[130px]" />
-          </div>
-        </div>
+        <ul className="checks">
+          <li>
+            <Tick />
+            From ${t.from} a month
+          </li>
+          <li>
+            <Tick />
+            No cut of your sales
+          </li>
+          <li>
+            <Tick />
+            30-day money-back
+          </li>
+        </ul>
+        <p className="made-for">
+          <b>Made for</b>
+          {t.idealFor.map((x) => (
+            <WhoChip key={x} label={x} />
+          ))}
+        </p>
+        <ol className="hero-steps" aria-label="From order to open">
+          {steps.map(([dr, title, sub], i) => (
+            <li key={title} style={{ "--i": i } as CSSProperties}>
+              <Drawing name={dr} />
+              <b>{title}</b>
+              <span className="hand">{sub}</span>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section className="in try-strip" aria-label="Try the example site">
@@ -149,26 +148,6 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
             </Link>
           </p>
         </div>
-      </section>
-
-      <section className="sec in" aria-labelledby="h-steps">
-        <SectionHead eyebrow="from order to open" title="What happens when you buy." id="h-steps" />
-        <ol className="flow">
-          {steps.map(([dr, title, sub], i) => (
-            <li key={title}>
-              <Drawing name={dr} />
-              <b>
-                {i + 1}. {title}
-              </b>
-              <span>{sub}</span>
-            </li>
-          ))}
-        </ol>
-        <p className="mt-8 text-center">
-          <Link href="/how-it-works" className="inline-block py-1 font-bold underline underline-offset-4">
-            See the whole system behind it →
-          </Link>
-        </p>
       </section>
 
       <section id="sizes" className="sec soft scroll-mt-20" aria-labelledby="h-sizes">
