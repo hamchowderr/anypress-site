@@ -26,6 +26,35 @@ const SEARCH_NAME: Record<string, string> = {
   everything: "All-in-one business site",
 };
 
+// The same on every kind of site: what we do for you, under the site's own features.
+const LOOKED_AFTER = {
+  title: "Looked after for you",
+  items: [
+    "Security fixes applied for you",
+    "A copy saved every night",
+    "The padlock (https) on your own domain",
+    "Two-step sign-in and limits on login attempts",
+    "Spam protection on every form",
+    "Logins for your team, each with their own access",
+  ],
+};
+
+function CanList({ title, items }: { title: string; items: string[] }) {
+  return (
+    <>
+      <h3>{title}</h3>
+      <ul>
+        {items.map((x) => (
+          <li key={x}>
+            <Tick />
+            {x}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
 export async function generateMetadata({ params }: PageProps<"/sites/[type]">): Promise<Metadata> {
   const { type } = await params;
   const t = SITE_TYPES.find((s) => s.id === type);
@@ -166,25 +195,26 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
             id="h-can"
           />
           <ul className="can-groups">
-            {d.can.map((g) => (
-              <li key={g.title} data-replay>
-                <Vignette name={g.scene} />
-                <h3>{g.title}</h3>
-                <ul>
-                  {g.items.map((x) => (
-                    <li key={x}>
-                      <Tick />
-                      {x}
-                    </li>
-                  ))}
-                </ul>
+            {d.can
+              .filter((g) => g.scene)
+              .map((g) => (
+                <li key={g.title} data-replay>
+                  <Vignette name={g.scene!} />
+                  <CanList title={g.title} items={g.items} />
+                </li>
+              ))}
+          </ul>
+          <ul className="can-more">
+            {[...d.can.filter((g) => !g.scene), LOOKED_AFTER].map((g) => (
+              <li key={g.title}>
+                <CanList title={g.title} items={g.items} />
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-center text-ink-soft">
-            Plus on every site: a copy saved every night, security fixes applied for you, the padlock and your own domain.{" "}
+          <p className="mt-8 text-center text-ink-soft">
+            Know WordPress?{" "}
             <Link href="/included" className="font-bold text-ink underline">
-              The tools by name
+              See the tools by name
             </Link>
           </p>
         </div>
