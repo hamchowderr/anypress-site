@@ -53,6 +53,10 @@ const ROUTES: {
   },
 ];
 
+const ZAPIER_INVITE = {
+  label: "Add AnyPress to Zapier",
+  href: "https://zapier.com/developer/public-invite/248504/d92ccd4f604ea3e76535ff8452c69eb9/",
+};
 const N8N_DOC = "https://shop.anypress.io/docs/use-anypress-in-n8n/";
 const MAKE_DOC = "https://shop.anypress.io/docs/use-anypress-in-make/";
 const ZAPIER_DOC = "https://shop.anypress.io/docs/use-anypress-in-zapier/";
@@ -118,7 +122,7 @@ const APPS: {
     how: "Open the invite link to add AnyPress to your Zapier account, then pick it as the app in any Zap.",
     add: {
       label: "Add to Zapier",
-      href: "https://zapier.com/developer/public-invite/248504/d92ccd4f604ea3e76535ff8452c69eb9/",
+      href: ZAPIER_INVITE.href,
     },
     doc: ZAPIER_DOC,
     actions: [
@@ -198,6 +202,7 @@ const TEMPLATES: Template[] = [
       width: 1305,
       height: 536,
     },
+    blueprint: "/templates/make-create-site.blueprint.json",
     guide: "https://shop.anypress.io/docs/create-a-site-from-a-crm-step-with-make/",
   },
   {
@@ -211,6 +216,7 @@ const TEMPLATES: Template[] = [
       width: 1305,
       height: 536,
     },
+    blueprint: "/templates/make-site-ready.blueprint.json",
     guide: READY_DOC,
   },
   {
@@ -224,6 +230,7 @@ const TEMPLATES: Template[] = [
       width: 1070,
       height: 420,
     },
+    invite: ZAPIER_INVITE,
     guide: "https://shop.anypress.io/docs/create-a-site-from-a-payment-with-zapier/",
   },
   {
@@ -237,6 +244,7 @@ const TEMPLATES: Template[] = [
       width: 1070,
       height: 420,
     },
+    invite: ZAPIER_INVITE,
     guide: READY_DOC,
   },
 ];
@@ -257,7 +265,7 @@ const FAQ: [string, ReactNode][] = [
   ],
   [
     "How do I use a template?",
-    "Add the AnyPress app to your tool first. In n8n, copy the workflow and paste it onto an empty canvas. In Make, create a scenario and import the blueprint. In Zapier, open the template link and Zapier makes you a copy. Then pick your AnyPress login on the AnyPress step and turn it on.",
+    "Add the AnyPress app to your tool first. In n8n, copy the workflow and paste it onto an empty canvas. In Make, download the blueprint, create a scenario, then choose Import blueprint from its ... menu. In Zapier, add AnyPress with the invite link and follow the guide: each Zap is a trigger and one AnyPress step. Then pick your AnyPress login on the AnyPress step and turn it on.",
   ],
   [
     "What can a new site be told?",
@@ -466,7 +474,8 @@ export default function Automate() {
           />
           <Templates items={TEMPLATES} />
           <p className="compare-note">
-            n8n: copy the workflow, then paste it onto an empty canvas. Every
+            n8n: copy the workflow, then paste it onto an empty canvas. Make:
+            create a scenario, then Import blueprint from its ... menu. Every
             template has a guide in <a href={DOCS}>the docs</a>.
           </p>
         </div>
