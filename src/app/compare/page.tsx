@@ -4,11 +4,14 @@ import { CompareTable } from "@/components/CompareTable";
 import { Drawing } from "@/components/Drawing";
 import { CtaBand, PageHero, SectionHead, SidePill } from "@/components/ui";
 import { COMPARISONS } from "@/lib/compare";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Compare",
+export const metadata: Metadata = pageMeta({
+  path: "/compare",
+  title: "Compare AnyPress with hosting, multisite and more",
+  card: "Compare",
   description: "How AnyPress compares with website builders, regular hosting, WordPress multisite, WP Ultimo and ManageWP.",
-};
+});
 
 export default function Compare() {
   return (

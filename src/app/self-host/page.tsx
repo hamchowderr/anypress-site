@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/self-host",
   title: "Run AnyPress yourself",
   description:
     "Install the whole AnyPress platform on your own server with one command: the API, the dashboard, the store templates and your storefront.",
-};
+});
 
 const REPO = "https://github.com/hamchowderr/waas-provisioning-api";
 const INSTALLER_DOCS = `${REPO}/blob/main/install/README.md`;

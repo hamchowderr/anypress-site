@@ -8,12 +8,14 @@ import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { SystemDiagram } from "@/components/SystemDiagram";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { VOLUME_TIERS, WHOLESALE_PERCENT } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/agencies",
   title: "Sell websites",
   description:
     "Sell websites to your clients as a monthly service, under your own name, from one storefront that creates a new site for every order. We build and look after every one.",
-};
+});
 
 const WHO = ["Freelance web designers", "Small agencies", "Marketing consultants", "Chambers selling to members", "Anyone whose clients ask for a website"];
 

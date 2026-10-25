@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { PageHero } from "@/components/ui";
 import { ApplicationForm } from "./ApplicationForm";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/sell",
   title: "Sell websites with AnyPress",
-  description: "Apply to sell WordPress websites to your own clients, hosted and kept running by AnyPress.",
-};
+  description:
+    "Apply to sell WordPress websites to your own clients under your own name. Each order creates a finished site, and AnyPress hosts and looks after every one.",
+});
 
 const STEPS = [
   {

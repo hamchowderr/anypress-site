@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CtaBand, PageHero, SectionHead } from "@/components/ui";
 import { AFFILIATE_URL, AUDIENCE_GROUPS, SHOP_URL } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/affiliates/kit",
   title: "Affiliate kit",
-  description: "Links, ready-to-use words for each kind of business, and the AnyPress logo, for AnyPress affiliates.",
-};
+  description:
+    "Everything AnyPress affiliates need: your link, ready-to-use words for each kind of business, and the AnyPress logo to download.",
+});
 
 // A short recommendation per customer group, written for an affiliate to paste and adjust.
 const COPY: Record<string, string> = {

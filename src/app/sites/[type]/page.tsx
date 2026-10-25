@@ -10,15 +10,32 @@ import { WhoChip } from "@/components/WhoChip";
 import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
 import { SITE_DETAILS } from "@/lib/siteDetails";
 import { SITE_TYPES, SIZES, planUrl, startUrl } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { BASE_URL, breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return SITE_TYPES.map((t) => ({ type: t.id }));
 }
 
+// What people search for, per site type: the page title and the thing they'd call it.
+const SEARCH_NAME: Record<string, string> = {
+  website: "Website & blog",
+  bookings: "Booking website",
+  store: "Online store",
+  community: "Community & course site",
+  everything: "All-in-one business site",
+};
+
 export async function generateMetadata({ params }: PageProps<"/sites/[type]">): Promise<Metadata> {
   const { type } = await params;
   const t = SITE_TYPES.find((s) => s.id === type);
-  return t ? { title: t.name, description: t.pitch } : {};
+  if (!t) return {};
+  return pageMeta({
+    path: `/sites/${t.id}`,
+    title: `${SEARCH_NAME[t.id]} on managed WordPress`,
+    card: t.headline,
+    description: `${t.pitch} ${SEARCH_NAME[t.id] === "Online store" || SEARCH_NAME[t.id] === "All-in-one business site" ? "An" : "A"} ${SEARCH_NAME[t.id].toLowerCase()} on WordPress, set up for you and looked after every day, from $${t.from} a month.`,
+  });
 }
 
 export default async function SiteTypePage({ params }: PageProps<"/sites/[type]">) {
@@ -39,6 +56,29 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
 
   return (
     <>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: `AnyPress ${t.name}`,
+            description: t.pitch,
+            brand: { "@type": "Brand", name: "AnyPress" },
+            url: `${BASE_URL}/sites/${t.id}`,
+            offers: {
+              "@type": "AggregateOffer",
+              priceCurrency: "USD",
+              lowPrice: t.from,
+              highPrice: t.from * 4,
+              offerCount: 3,
+              availability: "https://schema.org/InStock",
+              url: planUrl(t),
+            },
+          },
+          faqLd(d.questions),
+          breadcrumbLd([[t.name, `/sites/${t.id}`]]),
+        ]}
+      />
       <section className="in type-hero" aria-labelledby="h-type">
         <SidePill side="owners" />
         <span className="eyebrow">{t.name.toLowerCase()} on managed WordPress</span>

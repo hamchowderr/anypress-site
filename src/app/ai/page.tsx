@@ -6,12 +6,14 @@ import { CopyField } from "@/components/CopyField";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/ai",
   title: "AnyPress in Claude and ChatGPT",
   description:
     "Connect AnyPress to Claude, ChatGPT or any MCP app and ask in plain words: make a site, back it up, connect a domain or change its pages.",
-};
+});
 
 const GUIDE = "https://shop.anypress.io/docs/connect-an-ai-app-to-anypress/";
 const MCP = "https://api.anypress.io/mcp";

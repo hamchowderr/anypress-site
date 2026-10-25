@@ -5,6 +5,8 @@ import { CompareTable } from "@/components/CompareTable";
 import { Drawing } from "@/components/Drawing";
 import { CtaBand, PageHero, SectionHead } from "@/components/ui";
 import { COMPARISONS } from "@/lib/compare";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbLd, pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return COMPARISONS.map((c) => ({ slug: c.slug }));
@@ -13,7 +15,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/compare/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const c = COMPARISONS.find((x) => x.slug === slug);
-  return c ? { title: `AnyPress vs ${c.name}`, description: c.lead } : {};
+  return c ? pageMeta({ path: `/compare/${c.slug}`, title: `AnyPress vs ${c.name.replace(/^Regular/, "regular")}`, description: c.lead }) : {};
 }
 
 export default async function ComparePage({ params }: PageProps<"/compare/[slug]">) {
@@ -25,6 +27,7 @@ export default async function ComparePage({ params }: PageProps<"/compare/[slug]
 
   return (
     <>
+      <JsonLd data={breadcrumbLd([["Compare", "/compare"], [`AnyPress vs ${c.name}`, `/compare/${c.slug}`]])} />
       <PageHero side={c.side} drawing="scales" eyebrow={`AnyPress vs ${c.name}`} title={c.title} lead={c.lead} />
 
       <section className="sec soft !pt-16">

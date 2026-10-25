@@ -5,12 +5,15 @@ import { Drawing, type DrawingName } from "@/components/Drawing";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { SystemDiagram } from "@/components/SystemDiagram";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "How it works",
+export const metadata: Metadata = pageMeta({
+  path: "/how-it-works",
+  title: "How AnyPress managed WordPress works",
+  card: "How it works",
   description:
     "The system behind AnyPress: one storefront takes the orders, every order becomes its own WordPress site, and we look after all of them.",
-};
+});
 
 const STEPS: {
   drawing: DrawingName;

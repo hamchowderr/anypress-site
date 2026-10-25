@@ -10,6 +10,8 @@ import { Tick } from "@/components/Tick";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { GROUP_STORIES } from "@/lib/groups";
 import { AUDIENCE_GROUPS, SITE_TYPES, startUrl } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 
 const groupFor = (id: string) => AUDIENCE_GROUPS.find((g) => g.id === id && g.page);
 
@@ -19,7 +21,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/who/[group]">): Promise<Metadata> {
   const g = groupFor((await params).group);
-  return g?.page ? { title: g.name, description: g.page.lead } : {};
+  return g?.page ? pageMeta({ path: `/who/${g.id}`, title: `Websites for ${g.name[0].toLowerCase()}${g.name.slice(1)}`, card: g.name, description: g.page.lead }) : {};
 }
 
 export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
@@ -33,6 +35,7 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
 
   return (
     <>
+      <JsonLd data={[faqLd(page.questions), breadcrumbLd([["Who it's for", "/who"], [g.name, `/who/${g.id}`]])]} />
       <PageHero side={g.side} drawing={g.drawing} eyebrow={g.name.toLowerCase()} title={page.title} lead={page.lead}>
         <div className="ctas mt-8">
           <a href={startUrl(main)} className="btn btn-ink">

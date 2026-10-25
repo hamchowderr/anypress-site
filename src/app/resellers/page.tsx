@@ -6,11 +6,13 @@ import { CompareTable } from "@/components/CompareTable";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { SITE_TYPES, WHOLESALE_PERCENT, wholesalePrice } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/resellers",
   title: "Become a reseller",
   description: "Run several website brands under one login, with one monthly wholesale bill and partner keys for your developers.",
-};
+});
 
 const WHO = ["Agencies with several brands", "Franchise offices", "Web hosts", "Software companies", "Groups that run sites for members"];
 

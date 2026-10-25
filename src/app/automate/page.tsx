@@ -6,12 +6,14 @@ import { Drawing, type DrawingName } from "@/components/Drawing";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { Templates, type Template } from "@/components/Templates";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/automate",
   title: "Create sites automatically",
   description:
     "Sellers and resellers never build client sites by hand. An order, a form or a CRM step creates the site, through your shop, n8n, Make, Zapier or the AnyPress API.",
-};
+});
 
 const API = "https://api.anypress.io";
 const API_DOCS = `${API}/docs`;

@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CtaBand, PageHero } from "@/components/ui";
 import { SITE_TYPES } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/included",
   title: "What's included",
-  description: "The WordPress tools in each AnyPress site, by name, for people who know WordPress.",
-};
+  description:
+    "Every WordPress plugin and tool in each AnyPress site, by name, for people who know WordPress: shop, bookings, forms, email, members, courses and backups.",
+});
 
 const EVERY_SITE = [
   ["Its own WordPress and database", "Every site runs in its own container. Nothing is shared with other sites."],

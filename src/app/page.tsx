@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
@@ -6,12 +7,22 @@ import { CompareTable } from "@/components/CompareTable";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
 import { CtaBand, Questions, SectionHead } from "@/components/ui";
+import { JsonLd } from "@/components/JsonLd";
+import { faqLd, pageMeta } from "@/lib/seo";
 import { AUDIENCE_GROUPS, SITE_TYPES, WHOLESALE_PERCENT, groupUrl } from "@/lib/site";
+
+export const metadata: Metadata = pageMeta({
+  path: "/",
+  card: "Sell, take bookings or teach online, without dealing with hosting",
+  description:
+    "Managed WordPress for shops, studios, clubs and small businesses: a website, bookings, a shop or courses, ready to use. From $12 a month, no cut of sales.",
+});
 
 // The approved round 3 homepage (2026-10-24): every section centered, a drawing for every idea.
 export default function Home() {
   return (
     <>
+      <JsonLd data={faqLd(FAQ)} />
       <Hero />
       <Included />
       <Examples />

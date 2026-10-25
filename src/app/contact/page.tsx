@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/ui";
 import { ACCOUNT_URL, CONTACT_EMAIL } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/contact",
   title: "Contact",
-  description: "Questions about AnyPress, seller and reseller accounts, or creating sites from your own app.",
-};
+  description:
+    "Questions about AnyPress, a seller or reseller account, or creating WordPress sites from your own app? Send us a message or email support@anypress.io.",
+});
 
 const TOPICS = [
   ["Choosing a site", "Tell us what you're building and we'll point you to the right box."],

@@ -3,11 +3,14 @@ import Link from "next/link";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { AFFILIATE_URL, CONTACT_EMAIL } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/affiliates",
   title: "Affiliate program",
-  description: "Recommend AnyPress and earn 30% of every new customer's first payment. Free to join, paid by PayPal.",
-};
+  description:
+    "Recommend AnyPress managed WordPress and earn 30% of every new customer's first payment. Free to join, a 30-day cookie, and paid by PayPal.",
+});
 
 // The program's terms in one place, so the page and the fine print can't disagree.
 const RATE = "30%";

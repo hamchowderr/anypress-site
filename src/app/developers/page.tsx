@@ -3,11 +3,13 @@ import Link from "next/link";
 import { LeadForm } from "@/components/LeadForm";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero } from "@/components/ui";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Developers",
+export const metadata: Metadata = pageMeta({
+  path: "/developers",
+  title: "WordPress site API for developers",
   description: "Create and manage WordPress sites from your own app with the AnyPress API, SDKs, webhooks and MCP connector.",
-};
+});
 
 const API_REPO = "https://github.com/hamchowderr/waas-provisioning-api";
 

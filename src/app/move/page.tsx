@@ -6,12 +6,14 @@ import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { CONTACT_EMAIL } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/move",
   title: "Move your site",
   description:
     "Bring your current WordPress site to AnyPress with a free plugin and a code. Your old site isn't changed, and everything comes across.",
-};
+});
 
 const STEPS: [DrawingName, string, ReactNode][] = [
   ["ticket", "Get your code", "We give you an import code that starts with AP1. It works for 7 days."],
