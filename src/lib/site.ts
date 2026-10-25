@@ -29,7 +29,8 @@ export interface SiteType {
   pitch: string;
   // What's in the box, in plain words (a parts list). The tool names live in `tools`.
   inBox: string[];
-  // The actual tools by name, shown only on the deeper "What's included" page.
+  // The actual tools by name, shown only on the deeper "What's included" page. Every plugin the site type's
+  // role switches on (waas-provisioning-api templates/anypress-store/roles.json).
   tools: string[];
   // Longer copy for the site type's own page.
   headline: string;
@@ -62,7 +63,7 @@ export const SITE_TYPES: SiteType[] = [
     from: 12,
     pitch: "Tell people who you are and help them find you.",
     inBox: ["Your website or blog", "Help getting found on Google", "Contact and sign-up forms", "A newsletter list"],
-    tools: ["WordPress", "Rank Math SEO", "Fluent Forms", "FluentCRM"],
+    tools: ["WordPress", "Fluent Forms", "FluentCRM", "Rank Math SEO", "FluentSnippets", "FluentAuth", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
     headline: "A website that brings people to you.",
     features: [
       { title: "Found on Google", body: "Your pages are set up so search engines can find them, without you touching a setting." },
@@ -88,7 +89,7 @@ export const SITE_TYPES: SiteType[] = [
     from: 19,
     pitch: "Let clients pick a time and pay when they book.",
     inBox: ["Your website", "An online booking calendar", "Payment when they book", "Reminder emails"],
-    tools: ["WordPress", "FluentBooking", "Fluent Forms", "FluentCRM"],
+    tools: ["WordPress", "FluentBooking", "FluentCart", "Fluent Support", "Fluent Forms", "FluentCRM", "Rank Math SEO", "FluentSnippets", "FluentAuth", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
     headline: "Get booked and paid while you work.",
     features: [
       { title: "Your calendar, online", body: "Clients see the times you're free and pick one. No more emailing back and forth." },
@@ -114,7 +115,7 @@ export const SITE_TYPES: SiteType[] = [
     from: 29,
     pitch: "Sell products, downloads and subscriptions, and keep every sale.",
     inBox: ["Your shop", "Card payments", "Your customer list and emails", "A way for others to earn by sending you sales"],
-    tools: ["WordPress", "FluentCart with Stripe", "FluentCRM", "FluentAffiliate", "Rank Math SEO"],
+    tools: ["WordPress", "FluentCart with Stripe", "FluentAffiliate", "Fluent Support", "Fluent Forms", "FluentCRM", "Rank Math SEO", "FluentSnippets", "FluentAuth", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
     headline: "Sell anything, and keep every sale.",
     features: [
       { title: "Take card payments", body: "Sell products, downloads, subscriptions and gift codes, with card payments built in." },
@@ -140,7 +141,7 @@ export const SITE_TYPES: SiteType[] = [
     from: 39,
     pitch: "A members' area with courses, discussions and paid access.",
     inBox: ["Your website", "A members' area with discussions", "Online courses", "Paid memberships"],
-    tools: ["WordPress", "FluentCommunity", "FluentCart", "FluentCRM"],
+    tools: ["WordPress", "FluentCommunity", "FluentCart", "Fluent Forms", "FluentCRM", "Rank Math SEO", "FluentSnippets", "FluentAuth", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
     headline: "Your members, your courses, your site.",
     features: [
       { title: "A space of your own", body: "Members get a feed, groups and profiles on your domain, not someone else's app." },
@@ -166,7 +167,7 @@ export const SITE_TYPES: SiteType[] = [
     from: 79,
     pitch: "Shop, bookings, members, courses and a help desk on one site.",
     inBox: ["Everything in the other four", "A help desk for customer questions", "One list of every customer", "Room to grow"],
-    tools: ["WordPress", "FluentCart", "FluentBooking", "FluentCommunity", "FluentCRM", "Fluent Support", "Fluent Forms", "Rank Math SEO"],
+    tools: ["WordPress", "FluentCart", "FluentBooking", "FluentCommunity", "Fluent Support", "FluentAffiliate", "Fluent Forms", "FluentCRM", "Rank Math SEO", "FluentSnippets", "FluentAuth", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
     headline: "One site that runs the whole operation.",
     features: [
       { title: "Every tool, one place", body: "Shop, bookings, members, courses and a help desk, all on one site with one login." },
