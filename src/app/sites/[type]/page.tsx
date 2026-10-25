@@ -7,6 +7,7 @@ import { ProblemFix } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
 import { Vignette } from "@/components/Vignette";
 import { WhoChip } from "@/components/WhoChip";
+import { ICONS, type IconName } from "@/components/icons.generated";
 import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
 import { SITE_DETAILS } from "@/lib/siteDetails";
 import { SITE_TYPES, SIZES, planUrl, startUrl } from "@/lib/site";
@@ -27,26 +28,33 @@ const SEARCH_NAME: Record<string, string> = {
 };
 
 // The same on every kind of site: what we do for you, under the site's own features.
-const LOOKED_AFTER = {
+const LOOKED_AFTER: { title: string; items: [IconName, string][] } = {
   title: "Looked after for you",
   items: [
-    "Security fixes applied for you",
-    "A copy saved every night",
-    "The padlock (https) on your own domain",
-    "Two-step sign-in and limits on login attempts",
-    "Spam protection on every form",
-    "Logins for your team, each with their own access",
+    ["shield", "Security fixes applied for you"],
+    ["cloud", "A copy saved every night"],
+    ["lock", "The padlock (https) on your own domain"],
+    ["key", "Two-step sign-in and limits on login attempts"],
+    ["funnel", "Spam protection on every form"],
+    ["people", "Logins for your team, each with their own access"],
   ],
 };
 
-function CanList({ title, items }: { title: string; items: string[] }) {
+function CanList({ title, items }: { title: string; items: [IconName, string][] }) {
   return (
     <>
       <h3>{title}</h3>
       <ul>
-        {items.map((x) => (
+        {items.map(([icon, x]) => (
           <li key={x}>
-            <Tick />
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              dangerouslySetInnerHTML={{ __html: ICONS[icon] }}
+            />
             {x}
           </li>
         ))}
