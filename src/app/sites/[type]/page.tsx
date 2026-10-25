@@ -7,6 +7,7 @@ import { ProblemFix } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
 import { Vignette } from "@/components/Vignette";
 import { WhoChip } from "@/components/WhoChip";
+import { ICONS, type IconName } from "@/components/icons.generated";
 import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
 import { SITE_DETAILS } from "@/lib/siteDetails";
 import { SITE_TYPES, SIZES, planUrl, startUrl } from "@/lib/site";
@@ -25,6 +26,42 @@ const SEARCH_NAME: Record<string, string> = {
   community: "Community & course site",
   everything: "All-in-one business site",
 };
+
+// The same on every kind of site: what we do for you, under the site's own features.
+const LOOKED_AFTER: { title: string; items: [IconName, string][] } = {
+  title: "Looked after for you",
+  items: [
+    ["shield", "Security fixes applied for you"],
+    ["cloud", "A copy saved every night"],
+    ["lock", "The padlock (https) on your own domain"],
+    ["key", "Two-step sign-in and limits on login attempts"],
+    ["funnel", "Spam protection on every form"],
+    ["people", "Logins for your team, each with their own access"],
+  ],
+};
+
+function CanList({ title, items }: { title: string; items: [IconName, string][] }) {
+  return (
+    <>
+      <h3>{title}</h3>
+      <ul>
+        {items.map(([icon, x]) => (
+          <li key={x}>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              dangerouslySetInnerHTML={{ __html: ICONS[icon] }}
+            />
+            {x}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
 
 export async function generateMetadata({ params }: PageProps<"/sites/[type]">): Promise<Metadata> {
   const { type } = await params;
@@ -166,25 +203,26 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
             id="h-can"
           />
           <ul className="can-groups">
-            {d.can.map((g) => (
-              <li key={g.title} data-replay>
-                <Vignette name={g.scene} />
-                <h3>{g.title}</h3>
-                <ul>
-                  {g.items.map((x) => (
-                    <li key={x}>
-                      <Tick />
-                      {x}
-                    </li>
-                  ))}
-                </ul>
+            {d.can
+              .filter((g) => g.scene)
+              .map((g) => (
+                <li key={g.title} data-replay>
+                  <Vignette name={g.scene!} />
+                  <CanList title={g.title} items={g.items} />
+                </li>
+              ))}
+          </ul>
+          <ul className="can-more">
+            {[...d.can.filter((g) => !g.scene), LOOKED_AFTER].map((g) => (
+              <li key={g.title}>
+                <CanList title={g.title} items={g.items} />
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-center text-ink-soft">
-            Plus on every site: a copy saved every night, security fixes applied for you, the padlock and your own domain.{" "}
+          <p className="mt-8 text-center text-ink-soft">
+            Know WordPress?{" "}
             <Link href="/included" className="font-bold text-ink underline">
-              The tools by name
+              See the tools by name
             </Link>
           </p>
         </div>

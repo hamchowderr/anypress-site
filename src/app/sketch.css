@@ -2172,33 +2172,51 @@
     margin-bottom: 16px;
     overflow: hidden;
   }
-  .can-groups h3 {
+  .can-more {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    max-width: 1080px;
+    margin: 22px auto 0;
+  }
+  .can-more > li {
+    background: var(--paper);
+    border: 1.5px dashed var(--ink);
+    border-radius: 18px;
+    padding: 22px 14px;
+  }
+  .can-more > li:last-child {
+    background: var(--paper-2);
+  }
+  .can-groups h3,
+  .can-more h3 {
     font-size: 19px;
     font-weight: 800;
     line-height: 1.25;
     padding: 0 8px;
     margin-bottom: 10px;
   }
-  .can-groups ul {
+  .can-groups ul, .can-more ul {
     display: grid;
     gap: 8px;
     padding: 0 8px;
   }
-  .can-groups ul li {
+  .can-groups ul li, .can-more ul li {
     display: flex;
     gap: 9px;
     align-items: flex-start;
     font-weight: 600;
     line-height: 1.4;
   }
-  .can-groups ul li svg {
-    width: 18px;
-    height: 18px;
+  .can-groups ul li svg, .can-more ul li svg {
+    width: 24px;
+    height: 24px;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: -1px;
   }
   @media (max-width: 900px) {
-    .can-groups {
+    .can-groups,
+    .can-more {
       grid-template-columns: minmax(0, 1fr);
       max-width: 460px;
     }
