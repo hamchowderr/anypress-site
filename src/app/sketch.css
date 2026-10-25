@@ -1875,10 +1875,13 @@
     margin-right: 4px;
   }
   .made-for span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     border: 1px solid var(--line);
     background: var(--paper-2);
     border-radius: 999px;
-    padding: 3px 10px;
+    padding: 3px 11px 3px 7px;
     font-weight: 600;
   }
   .type-hero-shot {
@@ -2608,11 +2611,20 @@
     margin-right: 4px;
   }
   .who-row span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     border: 1px solid var(--line);
     background: var(--paper);
     border-radius: 999px;
-    padding: 4px 12px;
+    padding: 4px 13px 4px 8px;
     font-weight: 600;
+  }
+  .who-row svg,
+  .made-for svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
   }
   .soft .who-row span {
     background: var(--paper);

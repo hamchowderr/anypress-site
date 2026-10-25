@@ -7,6 +7,7 @@ import { BrowserShot, PhoneShot } from "@/components/Shots";
 import { ProblemFix } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
 import { Vignette } from "@/components/Vignette";
+import { WhoChip } from "@/components/WhoChip";
 import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
 import { SITE_DETAILS } from "@/lib/siteDetails";
 import { SITE_TYPES, SIZES, planUrl, startUrl } from "@/lib/site";
@@ -70,7 +71,7 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
           <p className="made-for">
             <b>Made for</b>
             {t.idealFor.map((x) => (
-              <span key={x}>{x}</span>
+              <WhoChip key={x} label={x} />
             ))}
           </p>
         </div>

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { SectionHead } from "@/components/ui";
+import { WhoChip } from "@/components/WhoChip";
 
 export interface Problem {
   problem: [string, string];
@@ -37,7 +38,7 @@ export function ProblemFix({
           <p className="who-row">
             <b>Made for</b>
             {who.map((w) => (
-              <span key={w}>{w}</span>
+              <WhoChip key={w} label={w} />
             ))}
           </p>
         )}

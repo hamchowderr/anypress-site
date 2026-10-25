@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "drawings": "node scripts/drawings.mjs",
-    "vignettes": "node scripts/vignettes.mjs"
+    "vignettes": "node scripts/vignettes.mjs",
+    "icons": "node scripts/icons.mjs"
   },
   "dependencies": {
     "lottie-web": "5.12.2",
