@@ -2304,7 +2304,7 @@
   }
   .aflows {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 24px;
     max-width: 1080px;
     margin: 0 auto;
@@ -2319,7 +2319,29 @@
     scroll-margin-top: 96px;
   }
   .aflow.has-shot {
-    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    column-gap: 32px;
+    align-content: start;
+  }
+  .aflow.has-shot > * {
+    grid-column: 1;
+  }
+  .aflow.has-shot > .appshot {
+    grid-column: 2;
+    grid-row: 1 / span 6;
+    align-self: center;
+    margin-top: 0;
+  }
+  .aflow-link {
+    justify-self: start;
+  }
+  .ready-shots {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1080px;
+    margin: 24px auto 0;
   }
   .aflow-head {
     display: flex;
@@ -2384,8 +2406,14 @@
   }
   @media (max-width: 860px) {
     .app,
-    .aflows {
+    .aflow.has-shot,
+    .ready-shots {
       grid-template-columns: minmax(0, 1fr);
+    }
+    .aflow.has-shot > .appshot {
+      grid-column: 1;
+      grid-row: auto;
+      margin-top: 20px;
     }
     .app {
       padding: 20px;
