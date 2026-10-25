@@ -12,7 +12,7 @@ export const metadata: Metadata = pageMeta({
   path: "/automate",
   title: "Create sites automatically",
   description:
-    "Sellers and resellers never build client sites by hand. An order, a form or a CRM step creates the site, through your shop, n8n, Make, Zapier or the AnyPress API.",
+    "Sellers and resellers never build client sites by hand. An order, a form or a CRM step creates the site, through your shop, n8n, Make, Zapier, HighLevel or the AnyPress API.",
 });
 
 const API = "https://api.anypress.io";
@@ -94,6 +94,8 @@ const APPS: {
   actions: string[];
   trigger: string;
   shot?: Shot;
+  /** Not out yet: the card says so, and offers early access instead of a guide. */
+  soon?: boolean;
 }[] = [
   {
     tool: "n8n",
@@ -163,6 +165,25 @@ const APPS: {
       width: 808,
       height: 580,
     },
+  },
+  {
+    tool: "HighLevel",
+    logo: "/apps/highlevel-logo.svg",
+    how: "For agencies on HighLevel (GoHighLevel). Install AnyPress on your sub-accounts and add its actions to any workflow, so every sub-account you sell comes with its own WordPress site under your brand.",
+    add: {
+      label: "Get early access",
+      href: "mailto:support@anypress.io?subject=AnyPress%20for%20HighLevel",
+    },
+    doc: "",
+    actions: [
+      "Create site",
+      "Get site",
+      "Suspend site",
+      "Resume site",
+      "Delete site",
+    ],
+    trigger: "Site event",
+    soon: true,
   },
 ];
 
@@ -324,6 +345,10 @@ const FAQ: [string, ReactNode][] = [
     "Do my clients see AnyPress?",
     "No. The flows are yours, the emails come from you, and sites sold from your shop show your brand.",
   ],
+  [
+    "Is there an app for HighLevel (GoHighLevel)?",
+    "It's coming. Agencies will install AnyPress on their sub-accounts and create a client's site from any HighLevel workflow, then start the welcome steps when it's ready. Write to support@anypress.io for early access. Until then, HighLevel's Custom Webhook action can call the AnyPress API.",
+  ],
 ];
 
 export default function Automate() {
@@ -440,7 +465,7 @@ export default function Automate() {
       <section className="sec in" aria-labelledby="h-apps" id="apps">
         <SectionHead
           eyebrow="the apps"
-          title="AnyPress in n8n, Make and Zapier."
+          title="AnyPress in n8n, Make, Zapier and HighLevel."
           lead="Add the AnyPress app to the tool you already use and pick a step. Nothing to code, and the trigger sets up its own webhook when you turn the flow on."
           id="h-apps"
         />
@@ -453,7 +478,10 @@ export default function Automate() {
                   <span>+</span>
                   <AppLogo src={a.logo} />
                 </div>
-                <h3>AnyPress for {a.tool}</h3>
+                <h3>
+                  AnyPress for {a.tool}
+                  {a.soon && <span className="soon">Coming soon</span>}
+                </h3>
                 <p>{a.how}</p>
                 <h4>Actions</h4>
                 <ul className="chips">
@@ -473,9 +501,11 @@ export default function Automate() {
                   <a href={a.add.href} className="btn btn-ink">
                     {a.add.label} →
                   </a>
-                  <a href={a.doc} className="btn btn-paper">
-                    Setup guide
-                  </a>
+                  {a.doc && (
+                    <a href={a.doc} className="btn btn-paper">
+                      Setup guide
+                    </a>
+                  )}
                 </div>
               </div>
               {a.shot && <Screenshot shot={a.shot} label={a.tool} />}

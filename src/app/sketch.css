@@ -2462,6 +2462,21 @@
     margin-top: 8px;
     font-size: 14px;
   }
+  .app h3:has(.soon) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+  }
+  .app h3 .soon {
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    background: var(--accent);
+    color: var(--paper);
+  }
   .app-logos,
   .aflow-pair {
     display: inline-flex;
