@@ -216,6 +216,12 @@ const APPS: {
       "Delete a Site",
     ],
     trigger: "Watch Site Events",
+    shot: {
+      src: "/apps/make-create-site.webp",
+      alt: "The AnyPress Create a Site module in Make, with the site name, reference, client email and size filled in",
+      width: 894,
+      height: 666,
+    },
   },
   {
     tool: "Zapier",
@@ -234,6 +240,12 @@ const APPS: {
       "Delete Site",
     ],
     trigger: "Site Event",
+    shot: {
+      src: "/apps/zapier-create-site.webp",
+      alt: "The AnyPress Create Site action in a Zap, with the site name, reference, client email and size filled in",
+      width: 808,
+      height: 580,
+    },
   },
 ];
 
@@ -282,6 +294,12 @@ const FLOWS: {
       "Use the payment's id as Your Reference, so a Zap that runs twice still makes one site.",
     ],
     doc: ZAPIER_DOC,
+    shot: {
+      src: "/apps/zapier-zap.webp",
+      alt: "A Zap: Stripe New Payment, then AnyPress Create Site",
+      width: 1070,
+      height: 420,
+    },
   },
   {
     id: "crm",
@@ -296,6 +314,12 @@ const FLOWS: {
       "Use the contact's id as Your Reference, so one client is always one site.",
     ],
     doc: MAKE_DOC,
+    shot: {
+      src: "/apps/make-scenario.webp",
+      alt: "A Make scenario: a custom webhook, then AnyPress Create a Site",
+      width: 1305,
+      height: 536,
+    },
   },
   {
     id: "cancel",
@@ -669,6 +693,26 @@ export default function Automate() {
               label="n8n"
             />
           </div>
+        </div>
+        <div className="ready-shots">
+          <Screenshot
+            shot={{
+              src: "/apps/make-site-ready.webp",
+              alt: "A Make scenario: AnyPress Watch Site Events, then Send an Email",
+              width: 1305,
+              height: 536,
+            }}
+            label="Make"
+          />
+          <Screenshot
+            shot={{
+              src: "/apps/zapier-site-ready.webp",
+              alt: "A Zap: AnyPress Site Event, then Email by Zapier",
+              width: 1070,
+              height: 420,
+            }}
+            label="Zapier"
+          />
         </div>
 
         <div className="compare mt-10">
