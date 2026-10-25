@@ -169,6 +169,17 @@ export default function Ai() {
               </li>
             ))}
           </ol>
+          <div className="ai-connector">
+            <Screenshot
+              shot={{
+                src: "/apps/claude-connector.webp",
+                alt: "AnyPress connected in Claude's connector settings, at https://api.anypress.io/mcp, with its tools listed",
+                width: 809,
+                height: 626,
+              }}
+              label="Claude, Settings, Connectors"
+            />
+          </div>
           <ul className="addresses">
             {ADDRESSES.map((a) => (
               <li key={a.url}>
@@ -210,24 +221,15 @@ export default function Ai() {
             lead="In apps that support it, your sites appear as a screen in the chat, with buttons to back up, suspend or bring a site back."
             id="h-screens"
           />
-          <div className="ai-shots">
+          <div className="ai-connector">
             <Screenshot
               shot={{
-                src: "/apps/mcp-stores.webp",
-                alt: "The AnyPress stores screen: five sites, each with its address, and Back up and Suspend buttons",
-                width: 1520,
-                height: 657,
+                src: "/apps/claude-stores.webp",
+                alt: "Claude answering \"Show my stores\" with the AnyPress stores screen: each site with its address, and Back up and Suspend buttons",
+                width: 768,
+                height: 572,
               }}
-              label="Your sites"
-            />
-            <Screenshot
-              shot={{
-                src: "/apps/mcp-store.webp",
-                alt: "The AnyPress screen for one site: its address, size, version and domains, with Back up and Suspend buttons",
-                width: 1520,
-                height: 841,
-              }}
-              label="One site"
+              label="Claude"
             />
           </div>
         </div>

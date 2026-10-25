@@ -2557,3 +2557,10 @@
     }
   }
 }
+
+@layer components {
+  .ai-connector {
+    max-width: 720px;
+    margin: 40px auto 0;
+  }
+}
