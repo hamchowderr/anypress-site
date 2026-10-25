@@ -1,25 +1,53 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Drawing, type DrawingName } from "@/components/Drawing";
+import { Drawing } from "@/components/Drawing";
 import { EarningsCalculator } from "@/components/EarningsCalculator";
 import { LeadForm } from "@/components/LeadForm";
+import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { SystemDiagram } from "@/components/SystemDiagram";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { VOLUME_TIERS, WHOLESALE_PERCENT } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/agencies",
   title: "Sell websites",
   description:
     "Sell websites to your clients as a monthly service, under your own name, from one storefront that creates a new site for every order. We build and look after every one.",
-};
+});
 
-const FLOW: [DrawingName, string, string][] = [
-  ["paint", "Set up your starting site", "Design it once: your theme, pages and plugins."],
-  ["sell", "Clients buy from your storefront", "On your domain, at your prices, into your payment account."],
-  ["tools", "We build each one", "A copy of your starting site, as its own WordPress, in minutes."],
-  ["coins", "You get paid every month", "Clients pay you. You pay us per site, less as you grow."],
+const WHO = ["Freelance web designers", "Small agencies", "Marketing consultants", "Chambers selling to members", "Anyone whose clients ask for a website"];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: ["You get paid once, then start again at zero", "You build a site, send the invoice, and next month you need a new project to get paid."],
+    fix: [
+      "Websites become a monthly service",
+      <>
+        Clients pay you every month from your storefront, so each new client adds to what comes in.{" "}
+        <a href="#earnings" className="underline">Work out what you&apos;d earn</a>.
+      </>,
+    ],
+  },
+  {
+    problem: ["Hosting every client is a second job", "A hosting account, a login, a renewal and a bill for every client, and you're the one they call."],
+    fix: ["Every client and site under one login", "Each order becomes its own website on our servers. You see every client and every site in one dashboard."],
+  },
+  {
+    problem: ["Setting up each site by hand", "Install WordPress, add the theme and plugins, set up email, connect the domain. Again, for every client."],
+    fix: ["Sites build themselves", "Design your starting site once. Each order is a copy of it, ready in minutes, with nothing for you to set up."],
+  },
+  {
+    problem: ["Looking after sites eats your weekends", "Security fixes, backups and the odd emergency, for every site you've ever built."],
+    fix: ["We look after every site", "Security fixes applied for you, a copy saved every night, and the padlock on every site."],
+  },
+  {
+    problem: ["Big hosts put their name on everything", "Your clients see someone else's brand, and it's easy for them to go straight to the host."],
+    fix: ["Your name, not ours", "Your storefront, your domain, your prices and emails from your name. Your clients never see AnyPress."],
+  },
 ];
+
 
 const YOU: [string, string][] = [
   ["Your brand", "Your name, logo and domain on the storefront and every email. AnyPress stays in the background."],
@@ -85,7 +113,9 @@ export default function Agencies() {
         </div>
       </PageHero>
 
-      <section className="sec soft" aria-labelledby="h-system">
+      <ProblemFix soft who={WHO} items={PROBLEMS} title="Selling websites shouldn't mean running a hosting company." />
+
+      <section className="sec" aria-labelledby="h-system">
         <div className="in">
           <SectionHead
             eyebrow="the system"
@@ -97,20 +127,6 @@ export default function Agencies() {
         </div>
       </section>
 
-      <section className="sec in" aria-labelledby="h-flow">
-        <SectionHead eyebrow="how selling works" title="Set it up once. Sell it again and again." id="h-flow" />
-        <ol className="flow">
-          {FLOW.map(([d, title, sub], i) => (
-            <li key={title}>
-              <Drawing name={d} />
-              <b>
-                {i + 1}. {title}
-              </b>
-              <span>{sub}</span>
-            </li>
-          ))}
-        </ol>
-      </section>
 
       <section className="sec soft" aria-labelledby="h-split">
         <div className="in">

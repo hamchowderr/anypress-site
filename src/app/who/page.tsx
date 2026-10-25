@@ -3,11 +3,13 @@ import Link from "next/link";
 import { Drawing } from "@/components/Drawing";
 import { CtaBand, PageHero, SectionHead } from "@/components/ui";
 import { AUDIENCE_GROUPS, groupUrl } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Who it's for",
+export const metadata: Metadata = pageMeta({
+  path: "/who",
+  title: "Who AnyPress is for",
   description: "Shops, educators, chambers, franchises, agencies, software teams and regulated sellers all build on AnyPress. Find your way in.",
-};
+});
 
 const OWNERS = AUDIENCE_GROUPS.filter((g) => g.side === "owners");
 const TECHNICAL = AUDIENCE_GROUPS.filter((g) => g.side === "technical");

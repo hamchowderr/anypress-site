@@ -2,16 +2,26 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
+import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { SystemDiagram } from "@/components/SystemDiagram";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "How it works",
+export const metadata: Metadata = pageMeta({
+  path: "/how-it-works",
+  title: "How AnyPress managed WordPress works",
+  card: "How it works",
   description:
     "The system behind AnyPress: one storefront takes the orders, every order becomes its own WordPress site, and we look after all of them.",
-};
+});
 
-const STEPS: { drawing: DrawingName; title: string; when: string; body: string; list?: string[] }[] = [
+const STEPS: {
+  drawing: DrawingName;
+  title: string;
+  when: string;
+  body: string;
+  list?: string[];
+}[] = [
   {
     drawing: "pick",
     title: "Someone picks a site and pays",
@@ -51,13 +61,69 @@ const STEPS: { drawing: DrawingName; title: string; when: string; body: string; 
   },
 ];
 
+const WHO = ["Website owners", "Shops, clubs and churches", "People who sell websites"];
+
+// Most cheap hosting is a shared house; AnyPress gives every site its own flat, and we're the building manager.
+const PROBLEMS: Problem[] = [
+  {
+    problem: [
+      "One busy site slows the rest",
+      "Cheap hosting puts many websites in one shared house, so when a neighbour gets busy, everyone's site gets slow.",
+    ],
+    fix: ["Your own flat", "Every site has its own WordPress and database, with set computing power for its size. Nothing is shared."],
+  },
+  {
+    problem: ["A problem next door becomes yours", "On a shared server, one hacked or broken site can drag the others down with it."],
+    fix: ["Walls between neighbours", "Sites can't reach each other or the machine they run on. One site's bad day stays its own problem."],
+  },
+  {
+    problem: ["You fix the leaks yourself", "Security fixes, copies of your site and checking those copies work are all left to you."],
+    fix: ["We're the building manager", "We apply security fixes, save a copy every night and test restoring one every day."],
+  },
+  {
+    problem: [
+      "Setting up takes days",
+      "Hosting, WordPress, a theme, the padlock and email are each their own job before you write a word.",
+    ],
+    fix: ["Ready in minutes", "Every order becomes a finished site with its pages, the padlock and email already set up."],
+  },
+  {
+    problem: ["Moving out means packing by hand", "Some site builders make it hard to take your site anywhere else."],
+    fix: ["Your furniture is yours", "It's normal WordPress, so you can take a full copy to any host whenever you like."],
+  },
+];
+
 const UNDER_HOOD: [DrawingName, string, ReactNode][] = [
-  ["server", "Its own containers", "Every site runs in its own WordPress and database containers. Nothing is shared between customers' sites."],
+  [
+    "server",
+    "Its own containers",
+    "Every site runs in its own WordPress and database containers. Nothing is shared between customers' sites.",
+  ],
   ["lock", "Walled off", "Sites can't reach each other or the machine they run on. One site having a bad day stays its own problem."],
   ["sizes", "Sizes we've tested", "Small, Medium and Large each get set computing power, memory and storage, sized from load tests."],
   ["backup", "Copies kept off-site", "Nightly copies are stored away from the servers, and we test restoring one every day."],
-  ["key", "An API for everything", <>Sellers and software teams can create, change and remove sites with code. <Link href="/developers" className="underline">See the API</Link>.</>],
-  ["box", "Open source", <>The software behind AnyPress is open source, so you can read how it works, or <Link href="/self-host" className="underline">run it yourself</Link>.</>],
+  [
+    "key",
+    "An API for everything",
+    <>
+      Sellers and software teams can create, change and remove sites with code.{" "}
+      <Link href="/developers" className="underline">
+        See the API
+      </Link>
+      .
+    </>,
+  ],
+  [
+    "box",
+    "Open source",
+    <>
+      The software behind AnyPress is open source, so you can read how it works, or{" "}
+      <Link href="/self-host" className="underline">
+        run it yourself
+      </Link>
+      .
+    </>,
+  ],
 ];
 
 const FAQ: [string, ReactNode][] = [
@@ -79,7 +145,13 @@ const FAQ: [string, ReactNode][] = [
   ],
   [
     "Can I take my site with me?",
-    <>It&apos;s normal WordPress, so a full copy can go with you to any host. And you can <Link href="/move" className="underline">bring a WordPress site in</Link> too.</>,
+    <>
+      It&apos;s normal WordPress, so a full copy can go with you to any host. And you can{" "}
+      <Link href="/move" className="underline">
+        bring a WordPress site in
+      </Link>{" "}
+      too.
+    </>,
   ],
 ];
 
@@ -102,7 +174,9 @@ export default function HowItWorks() {
         </div>
       </PageHero>
 
-      <section className="sec soft" aria-labelledby="h-system">
+      <ProblemFix soft who={WHO} title="A flat of your own, not a room in a shared house." items={PROBLEMS} />
+
+      <section className="sec" aria-labelledby="h-system">
         <div className="in">
           <SectionHead
             eyebrow="the big picture"
@@ -110,65 +184,38 @@ export default function HowItWorks() {
             lead="Our shop works this way, and so does every seller's shop. One place takes the orders. Every order becomes a separate website."
             id="h-system"
           />
-          <SystemDiagram storefront="A storefront" storefrontSub="Ours at shop.anypress.io, or your own if you sell websites." template="the starting site" />
+          <SystemDiagram
+            storefront="A storefront"
+            storefrontSub="Ours at shop.anypress.io, or your own if you sell websites."
+            template="the starting site"
+          />
         </div>
       </section>
 
-      <section className="sec in" aria-labelledby="h-steps">
-        <SectionHead eyebrow="step by step" title="What happens when someone buys." id="h-steps" />
-        <ol className="steps">
-          {STEPS.map((s, i) => (
-            <li key={s.title}>
-              <Drawing name={s.drawing} />
-              <div>
-                <h3>
-                  {i + 1}. {s.title}
-                  <span className="hand">{s.when}</span>
-                </h3>
-                <p>{s.body}</p>
-                {s.list && (
-                  <ul>
-                    {s.list.map((x) => (
-                      <li key={x}>{x}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="sec soft" aria-labelledby="h-flat">
+      <section className="sec soft" aria-labelledby="h-steps">
         <div className="in">
-          <SectionHead
-            eyebrow="in plain words"
-            title="A flat of your own, not a room in a shared house."
-            lead="Most cheap hosting puts many websites in one shared house. AnyPress gives every site its own flat, and we're the building manager."
-            id="h-flat"
-          />
-          <div className="versus">
-            <div>
-              <Drawing name="scales" />
-              <h3>A shared house</h3>
-              <ul>
-                <li>Everyone shares the kitchen, so one busy site slows the rest</li>
-                <li>A problem next door can become your problem</li>
-                <li>You fix the leaks yourself: updates, copies, security</li>
-                <li>Moving out means packing everything by hand</li>
-              </ul>
-            </div>
-            <div className="us">
-              <Drawing name="shops" />
-              <h3>Your own flat on AnyPress</h3>
-              <ul>
-                <li>Your own front door, rooms and meters: your own WordPress and database</li>
-                <li>Walls between you and the neighbours</li>
-                <li>A building manager who handles the repairs, every day</li>
-                <li>Your furniture is yours: take a full copy whenever you like</li>
-              </ul>
-            </div>
-          </div>
+          <SectionHead eyebrow="step by step" title="What happens when someone buys." id="h-steps" />
+          <ol className="steps">
+            {STEPS.map((s, i) => (
+              <li key={s.title}>
+                <Drawing name={s.drawing} />
+                <div>
+                  <h3>
+                    {i + 1}. {s.title}
+                    <span className="hand">{s.when}</span>
+                  </h3>
+                  <p>{s.body}</p>
+                  {s.list && (
+                    <ul>
+                      {s.list.map((x) => (
+                        <li key={x}>{x}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

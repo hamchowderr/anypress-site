@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { Arrow } from "@/components/Icons";
 import { CtaBand, PageHero, SectionHead } from "@/components/ui";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About",
-  description: "What AnyPress is, what we believe, and the open source code behind it.",
-};
+export const metadata: Metadata = pageMeta({
+  path: "/about",
+  title: "About AnyPress",
+  description:
+    "AnyPress is managed WordPress for small businesses: sites set up for you and looked after every day. What we believe, and the open source code behind it.",
+});
 
 const BELIEFS = [
   ["Building a website shouldn't be hard.", "WordPress can do almost anything. Getting there shouldn't take a weekend of hunting for parts."],

@@ -1,19 +1,32 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { Showcase } from "@/components/Showcase";
 import { CompareTable } from "@/components/CompareTable";
+import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
 import { CtaBand, Questions, SectionHead } from "@/components/ui";
+import { JsonLd } from "@/components/JsonLd";
+import { faqLd, pageMeta } from "@/lib/seo";
 import { AUDIENCE_GROUPS, SITE_TYPES, WHOLESALE_PERCENT, groupUrl } from "@/lib/site";
+
+export const metadata: Metadata = pageMeta({
+  path: "/",
+  card: "Sell, take bookings or teach online, without dealing with hosting",
+  description:
+    "Managed WordPress for shops, studios, clubs and small businesses: a website, bookings, a shop or courses, ready to use. From $12 a month, no cut of sales.",
+});
 
 // The approved round 3 homepage (2026-10-24): every section centered, a drawing for every idea.
 export default function Home() {
   return (
     <>
+      <JsonLd data={faqLd(FAQ)} />
       <Hero />
-      <Examples />
       <Included />
+      <Examples />
+      <ProblemFix soft who={WHO} items={PROBLEMS} title="Getting a website shouldn't be this hard." />
       <Pieces />
       <Sites />
       <HowItWorks />
@@ -33,76 +46,64 @@ export default function Home() {
 
 function Hero() {
   return (
-    <section className="in hero" aria-labelledby="h-hero">
-      <Link className="badge" href="/move">
-        <b>New</b> Bring your current WordPress site with you →
-      </Link>
-      <h1 id="h-hero">
-        Your business deserves a <mark>real</mark> website.
-      </h1>
-      <p className="sub">
-        Pick what you&apos;re building. We set it up on real WordPress, keep it running and look after the fiddly parts. You keep
-        every sale.
-      </p>
-      <div className="ctas">
-        <Link className="btn btn-ink" href="#sites">
-          Start your site →
+    <section className="in hero hero-fix" aria-labelledby="h-hero">
+      <div className="hero-fix-text">
+        <Link className="badge" href="/move">
+          <b>New</b> Bring your current WordPress site with you →
         </Link>
-        <Link className="btn btn-paper" href="/pricing">
-          See prices
-        </Link>
-      </div>
-      <ul className="checks">
-        <li>
-          <Tick />
-          From $12 a month
-        </li>
-        <li>
-          <Tick />
-          No cut of your sales
-        </li>
-        <li>
-          <Tick />
-          30-day money-back
-        </li>
-      </ul>
-      <div className="built-for">For shops, studios, coaches, chambers, franchises, agencies and software teams</div>
-      <div className="scene-wrap">
-        <Drawing name="hero" />
-        <span className="hand l1" aria-hidden>
-          your website
-        </span>
-        <span className="hand l2" aria-hidden>
-          bookings
-        </span>
-        <span className="hand l3" aria-hidden>
-          your shop
-        </span>
-        <span className="hand l4" aria-hidden>
-          your members
-        </span>
-      </div>
-      <ol className="flow" aria-label="How it works in four steps">
-        {FLOW.map(([d, title, sub], i) => (
-          <li key={title}>
-            <Drawing name={d} />
-            <b>
-              {i + 1}. {title}
-            </b>
-            <span>{sub}</span>
+        <span className="eyebrow">managed WordPress for shops, studios, clubs and small businesses</span>
+        <h1 id="h-hero">
+          Sell, take bookings or teach online, <mark>without dealing with hosting</mark>.
+        </h1>
+        <p className="sub">
+          Hosting, plugins, email, backups and security are done for you. You get a finished WordPress site and add your words and photos.
+        </p>
+        <div className="ctas">
+          <Link className="btn btn-ink" href="#sites">
+            Start your site →
+          </Link>
+          <Link className="btn btn-paper" href="/pricing">
+            See prices
+          </Link>
+        </div>
+        <ul className="checks">
+          <li>
+            <Tick />
+            From $12 a month
           </li>
-        ))}
-      </ol>
+          <li>
+            <Tick />
+            No cut of your sales
+          </li>
+          <li>
+            <Tick />
+            30-day money-back
+          </li>
+        </ul>
+      </div>
+      <div className="desk" aria-label="Everything a website usually takes, done for you">
+        <ul className="notes">
+          {CHORES.map((c, i) => (
+            <li key={c} style={{ "--r": `${[-6, 4, -3, 5, -5, 3][i]}deg`, "--i": i } as CSSProperties}>
+              <span>{c}</span>
+              <i aria-hidden />
+            </li>
+          ))}
+        </ul>
+        <span className="desk-arrow" aria-hidden>
+          →
+        </span>
+        <div className="desk-done">
+          <Drawing name="website" still />
+          <span className="hand">done for you</span>
+        </div>
+      </div>
     </section>
   );
 }
 
-const FLOW: [DrawingName, string, string][] = [
-  ["pick", "Pick", "what you're building"],
-  ["tools", "We set it up", "tools switched on for you"],
-  ["paint", "Make it yours", "your words, photos, prices"],
-  ["open", "Open your doors", "and we keep it running"],
-];
+// The jobs a website usually takes. They get crossed off in the hero.
+const CHORES = ["Find hosting", "Install WordPress", "Pick plugins", "Set up email", "Back it up", "Keep it secure"];
 
 const INCLUDED: [DrawingName, string][] = [
   ["domain", "Your own domain"],
@@ -133,6 +134,34 @@ function Included() {
     </div>
   );
 }
+
+const WHO = ["Shops and makers", "Coaches and studios", "Course creators", "Chambers and associations", "Churches", "Franchises", "Anyone with clients"];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: ["Website tools are sold in pieces", "A builder, then a payments app, a booking tool and an email service, each with its own login and bill."],
+    fix: ["It comes together", "Pick what you're building and it arrives with the right tools switched on, set up for you."],
+  },
+  {
+    problem: ["You're not technical", "Hosting, plugins, the padlock, email settings. It's a lot to learn just to open your doors."],
+    fix: ["We do the technical part", "Your site is ready the same day. If you can write an email, you can edit your pages."],
+  },
+  {
+    problem: ["A cut of every sale", "Some platforms take a percentage of every order on top of the monthly fee."],
+    fix: ["No cut of your sales", "One monthly price. The card company's normal fee is the only fee on an order."],
+  },
+  {
+    problem: ["A payment company can freeze your account", "If your only way to take payments gets suspended, your shop stops selling overnight."],
+    fix: [
+      "Your own payment accounts, side by side",
+      "Payments go to your own accounts, not through us. On a store you can switch on Stripe and PayPal together, so customers can still pay if one has a problem.",
+    ],
+  },
+  {
+    problem: ["Hard to leave", "Many builders won't let you take your site with you."],
+    fix: ["Real WordPress you can take with you", "Download a full copy of your site whenever you like. No lock-in."],
+  },
+];
 
 const PIECES: [string, string, string][] = [
   ["A website you can grow", "Builder plan", "Included"],
@@ -219,7 +248,7 @@ const OUR_PART: [DrawingName, string][] = [
 
 function HowItWorks() {
   return (
-    <section className="sec soft" aria-labelledby="h-how">
+    <section className="sec" aria-labelledby="h-how">
       <div className="in">
         <SectionHead eyebrow="how it works" title="You do the fun part. We do the rest." id="h-how" />
         <div className="parts">
@@ -264,28 +293,30 @@ function HowItWorks() {
 
 function WhoItsFor() {
   return (
-    <section className="sec in" aria-labelledby="h-who">
-      <SectionHead
-        eyebrow="who it's for"
-        title="Made for every kind of business."
-        lead="No one comes first. If you need a website to run things, it's for you."
-        id="h-who"
-      />
-      <ul className="cards">
-        {AUDIENCE_GROUPS.map((g) => (
-          <li key={g.id} className="!basis-[250px]">
-            <Link href={groupUrl(g)} className="card-link">
-              <Drawing name={g.drawing} className="!w-[120px]" />
-              <span className="text-[17px] font-bold">{g.name}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-8 text-center">
-        <Link href="/who" className="inline-block py-1 font-bold underline underline-offset-4">
-          Not sure which one you are? Start here →
-        </Link>
-      </p>
+    <section className="sec soft" aria-labelledby="h-who">
+      <div className="in">
+        <SectionHead
+          eyebrow="who it's for"
+          title="Made for every kind of business."
+          lead="No one comes first. If you need a website to run things, it's for you."
+          id="h-who"
+        />
+        <ul className="cards">
+          {AUDIENCE_GROUPS.map((g) => (
+            <li key={g.id} className="!basis-[250px]">
+              <Link href={groupUrl(g)} className="card-link">
+                <Drawing name={g.drawing} className="!w-[120px]" />
+                <span className="text-[17px] font-bold">{g.name}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-8 text-center">
+          <Link href="/who" className="inline-block py-1 font-bold underline underline-offset-4">
+            Not sure which one you are? Start here →
+          </Link>
+        </p>
+      </div>
     </section>
   );
 }

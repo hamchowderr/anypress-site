@@ -3,20 +3,39 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { notFound } from "next/navigation";
 import { Drawing, type DrawingName } from "@/components/Drawing";
-import { BrowserShot, PhoneShot } from "@/components/Shots";
+import { ProblemFix } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
+import { Vignette } from "@/components/Vignette";
+import { WhoChip } from "@/components/WhoChip";
 import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
 import { SITE_DETAILS } from "@/lib/siteDetails";
 import { SITE_TYPES, SIZES, planUrl, startUrl } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { BASE_URL, breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return SITE_TYPES.map((t) => ({ type: t.id }));
 }
 
+// What people search for, per site type: the page title and the thing they'd call it.
+const SEARCH_NAME: Record<string, string> = {
+  website: "Website & blog",
+  bookings: "Booking website",
+  store: "Online store",
+  community: "Community & course site",
+  everything: "All-in-one business site",
+};
+
 export async function generateMetadata({ params }: PageProps<"/sites/[type]">): Promise<Metadata> {
   const { type } = await params;
   const t = SITE_TYPES.find((s) => s.id === type);
-  return t ? { title: t.name, description: t.pitch } : {};
+  if (!t) return {};
+  return pageMeta({
+    path: `/sites/${t.id}`,
+    title: `${SEARCH_NAME[t.id]} on managed WordPress`,
+    card: t.headline,
+    description: `${t.pitch} ${SEARCH_NAME[t.id] === "Online store" || SEARCH_NAME[t.id] === "All-in-one business site" ? "An" : "A"} ${SEARCH_NAME[t.id].toLowerCase()} on WordPress, set up for you and looked after every day, from $${t.from} a month.`,
+  });
 }
 
 export default async function SiteTypePage({ params }: PageProps<"/sites/[type]">) {
@@ -29,56 +48,79 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
   const kind = t.short.toLowerCase();
 
   const steps: [DrawingName, string, string][] = [
-    ["pick", "Pick a size and pay", "Small, Medium or Large. Monthly or yearly."],
-    ["tools", `We build your ${kind} site`, "Ready in minutes, with every tool switched on."],
-    ["words", "Make it yours", `Add ${d.yourPart}.`],
-    ["open", "Open your doors", "Share your link. We keep it running from here."],
+    ["pick", "Pick a size and pay", "a minute"],
+    ["tools", `We build your ${kind} site`, "minutes"],
+    ["words", "Make it yours", `add ${d.yourPart}`],
+    ["open", "Open your doors", "we keep it running"],
   ];
 
   return (
     <>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: `AnyPress ${t.name}`,
+            description: t.pitch,
+            brand: { "@type": "Brand", name: "AnyPress" },
+            url: `${BASE_URL}/sites/${t.id}`,
+            offers: {
+              "@type": "AggregateOffer",
+              priceCurrency: "USD",
+              lowPrice: t.from,
+              highPrice: t.from * 4,
+              offerCount: 3,
+              availability: "https://schema.org/InStock",
+              url: planUrl(t),
+            },
+          },
+          faqLd(d.questions),
+          breadcrumbLd([[t.name, `/sites/${t.id}`]]),
+        ]}
+      />
       <section className="in type-hero" aria-labelledby="h-type">
-        <div className="type-hero-text">
-          <SidePill side="owners" />
-          <span className="eyebrow">{t.name.toLowerCase()}</span>
-          <h1 id="h-type">{t.headline}</h1>
-          <p className="lead">{t.pitch}</p>
-          <div className="ctas !justify-start">
-            <a href={startUrl(t)} className="btn btn-ink">
-              Start your {kind} site →
-            </a>
-            <a href="#sizes" className="btn btn-paper">
-              See prices
-            </a>
-          </div>
-          <ul className="checks !justify-start">
-            <li>
-              <Tick />
-              From ${t.from} a month
-            </li>
-            <li>
-              <Tick />
-              No cut of your sales
-            </li>
-            <li>
-              <Tick />
-              30-day money-back
-            </li>
-          </ul>
-          <p className="made-for">
-            <b>Made for</b>
-            {t.idealFor.map((x) => (
-              <span key={x}>{x}</span>
-            ))}
-          </p>
+        <SidePill side="owners" />
+        <span className="eyebrow">{t.name.toLowerCase()} on managed WordPress</span>
+        <h1 id="h-type">{t.headline}</h1>
+        <p className="lead">{t.pitch}</p>
+        <div className="ctas">
+          <a href={startUrl(t)} className="btn btn-ink">
+            Start your {kind} site →
+          </a>
+          <a href="#sizes" className="btn btn-paper">
+            See prices
+          </a>
         </div>
-        <div className="type-hero-shot">
-          <Drawing name={t.drawing} className="peek" />
-          <div className="relative -rotate-[0.8deg] pr-8 pb-6 sm:pr-12">
-            <BrowserShot example={ex} />
-            <PhoneShot example={ex} className="absolute right-0 bottom-0 w-[22%] max-w-[130px]" />
-          </div>
-        </div>
+        <ul className="checks">
+          <li>
+            <Tick />
+            From ${t.from} a month
+          </li>
+          <li>
+            <Tick />
+            No cut of your sales
+          </li>
+          <li>
+            <Tick />
+            30-day money-back
+          </li>
+        </ul>
+        <p className="made-for">
+          <b>Made for</b>
+          {t.idealFor.map((x) => (
+            <WhoChip key={x} label={x} />
+          ))}
+        </p>
+        <ol className="hero-steps" aria-label="From order to open">
+          {steps.map(([dr, title, sub], i) => (
+            <li key={title} style={{ "--i": i } as CSSProperties}>
+              <Drawing name={dr} />
+              <b>{title}</b>
+              <span className="hand">{sub}</span>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section className="in try-strip" aria-label="Try the example site">
@@ -99,6 +141,8 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
           Open the example ↗
         </a>
       </section>
+
+      <ProblemFix soft items={d.problems} eyebrow="sound familiar?" title={`What gets in the way, and how a ${kind} site fixes it.`} />
 
       <section className="sec in" aria-labelledby="h-does">
         <SectionHead eyebrow="what it does" title="What it does for you." id="h-does" />
@@ -121,11 +165,19 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
             lead="All of it is switched on when your site arrives. Nothing extra to buy."
             id="h-can"
           />
-          <ul className="can-list">
-            {d.can.map((x) => (
-              <li key={x}>
-                <Tick />
-                {x}
+          <ul className="can-groups">
+            {d.can.map((g) => (
+              <li key={g.title} data-replay>
+                <Vignette name={g.scene} />
+                <h3>{g.title}</h3>
+                <ul>
+                  {g.items.map((x) => (
+                    <li key={x}>
+                      <Tick />
+                      {x}
+                    </li>
+                  ))}
+                </ul>
               </li>
             ))}
           </ul>
@@ -136,26 +188,6 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
             </Link>
           </p>
         </div>
-      </section>
-
-      <section className="sec in" aria-labelledby="h-steps">
-        <SectionHead eyebrow="from order to open" title="What happens when you buy." id="h-steps" />
-        <ol className="flow">
-          {steps.map(([dr, title, sub], i) => (
-            <li key={title}>
-              <Drawing name={dr} />
-              <b>
-                {i + 1}. {title}
-              </b>
-              <span>{sub}</span>
-            </li>
-          ))}
-        </ol>
-        <p className="mt-8 text-center">
-          <Link href="/how-it-works" className="inline-block py-1 font-bold underline underline-offset-4">
-            See the whole system behind it →
-          </Link>
-        </p>
       </section>
 
       <section id="sizes" className="sec soft scroll-mt-20" aria-labelledby="h-sizes">

@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/self-host",
   title: "Run AnyPress yourself",
   description:
     "Install the whole AnyPress platform on your own server with one command: the API, the dashboard, the store templates and your storefront.",
-};
+});
 
 const REPO = "https://github.com/hamchowderr/waas-provisioning-api";
 const INSTALLER_DOCS = `${REPO}/blob/main/install/README.md`;
@@ -30,6 +33,33 @@ const STEPS = [
   "Ends with a check that tells you what still needs doing.",
 ];
 
+const WHO = ["Developers", "Hosting companies", "Agencies with their own servers"];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: [
+      "A hosting platform takes months to build",
+      "Provisioning, billing, backups, a dashboard and a shop to sell from are each a project.",
+    ],
+    fix: [
+      "One installer, about 15 minutes",
+      "It sets up the API, the dashboard, the store templates and your storefront on a fresh server.",
+    ],
+  },
+  {
+    problem: ["Locked into someone else's platform", "If the platform changes its prices or closes, your business goes with it."],
+    fix: ["Open source under the GPL", "Every part is public. Read it, change it and run it for as long as you like."],
+  },
+  {
+    problem: ["Your customers' data on someone else's servers", "Some clients and industries need to know exactly where their sites live."],
+    fix: ["Your server, your storage", "Use any provider you like, with backups in your own storage bucket."],
+  },
+  {
+    problem: ["Setting it up by hand misses a step", "One forgotten DNS record or password and something quietly breaks later."],
+    fix: ["It checks its own work", "It ends with a check that tells you what still needs doing, and running it again is safe."],
+  },
+];
+
 function Code({ title, children }: { title: string; children: string }) {
   return (
     <div className="overflow-hidden rounded-2xl border border-line bg-ink text-white">
@@ -44,7 +74,9 @@ function Code({ title, children }: { title: string; children: string }) {
 export default function SelfHost() {
   return (
     <>
-      <PageHero drawing="server" side="technical"
+      <PageHero
+        drawing="server"
+        side="technical"
         eyebrow="Open source"
         title="Run AnyPress on your own server."
         lead="Everything behind AnyPress is public under the GPL. One installer sets up the whole platform on a fresh server, so you can sell websites under your own brand."
@@ -58,6 +90,8 @@ export default function SelfHost() {
           </Link>
         </div>
       </PageHero>
+
+      <ProblemFix soft who={WHO} items={PROBLEMS} title="Your own website platform, without building one." />
 
       <section>
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
@@ -82,8 +116,8 @@ export default function SelfHost() {
               lead="Give the installer an API token from Hostinger, Hetzner or DigitalOcean. It makes the server, and AnyPress installs itself on it. You never log in to the server."
             />
             <p className="mt-6 leading-7 text-ink-soft">
-              Fill in the answers file first: your domains, your email and your bucket, plus your provider&apos;s token. It runs on
-              Linux, macOS or Windows (WSL).
+              Fill in the answers file first: your domains, your email and your bucket, plus your provider&apos;s token. It runs on Linux,
+              macOS or Windows (WSL).
             </p>
           </div>
           <Code title="your computer">
@@ -95,7 +129,11 @@ export default function SelfHost() {
       <section>
         <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
           <div>
-            <SectionHead left title="On a server you already have." lead="Log in as root on a fresh Ubuntu server and run the installer there." />
+            <SectionHead
+              left
+              title="On a server you already have."
+              lead="Log in as root on a fresh Ubuntu server and run the installer there."
+            />
           </div>
           <Code title="your server">
             {`curl -fsSLO ${RAW}/anypress-install.sh\ncurl -fsSL ${RAW}/anypress.env.example -o /root/anypress.env\nnano /root/anypress.env\n\nsudo bash anypress-install.sh`}
@@ -105,7 +143,10 @@ export default function SelfHost() {
 
       <section className="border-y border-line bg-paper-2">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <SectionHead title="What it does." lead="It takes about 15 minutes, and running it again is safe: it finds what it made before." />
+          <SectionHead
+            title="What it does."
+            lead="It takes about 15 minutes, and running it again is safe: it finds what it made before."
+          />
           <ol className="mt-10 grid gap-x-14 gap-y-4 text-lg leading-8 text-ink-soft md:grid-cols-2">
             {STEPS.map((step, i) => (
               <li key={step} className="flex gap-4">
@@ -133,9 +174,15 @@ export default function SelfHost() {
                 [
                   "Where is the full guide?",
                   <>
-                    The <a href={INSTALLER_DOCS} className="font-semibold text-ink underline">install guide</a> covers every answer, and the{" "}
-                    <a href={GUIDE} className="font-semibold text-ink underline">self-hosting guide</a> explains each part, from one server
-                    up.
+                    The{" "}
+                    <a href={INSTALLER_DOCS} className="font-semibold text-ink underline">
+                      install guide
+                    </a>{" "}
+                    covers every answer, and the{" "}
+                    <a href={GUIDE} className="font-semibold text-ink underline">
+                      self-hosting guide
+                    </a>{" "}
+                    explains each part, from one server up.
                   </>,
                 ],
                 [

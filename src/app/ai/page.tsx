@@ -4,13 +4,16 @@ import type { ReactNode } from "react";
 import { Screenshot } from "@/components/AppShots";
 import { CopyField } from "@/components/CopyField";
 import { Drawing, type DrawingName } from "@/components/Drawing";
+import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/ai",
   title: "AnyPress in Claude and ChatGPT",
   description:
     "Connect AnyPress to Claude, ChatGPT or any MCP app and ask in plain words: make a site, back it up, connect a domain or change its pages.",
-};
+});
 
 const GUIDE = "https://shop.anypress.io/docs/connect-an-ai-app-to-anypress/";
 const MCP = "https://api.anypress.io/mcp";
@@ -101,6 +104,27 @@ const SAFE: [string, string][] = [
   ["Every change is logged", "Under your name. Page edits can be undone from the page's revisions."],
 ];
 
+const WHO = ["Sellers and resellers", "Website owners", "Anyone who uses Claude or ChatGPT"];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: ["Every job is a trip to the dashboard", "A backup, a domain or a site that's stuck building each means signing in and clicking through screens."],
+    fix: ["Just ask", "Type \u201cBack up every site tonight\u201d or \u201cWhich sites are still building?\u201d and your AI app does it."],
+  },
+  {
+    problem: ["Page changes mean learning the editor", "A new section or a different header colour is a small change that takes a long time to find."],
+    fix: ["Describe the change", "Ask for a pricing section or a Book now button, and the app edits the page and shows you what it did."],
+  },
+  {
+    problem: ["Connecting AI usually means keys and code", "Most tools want an API key pasted somewhere, or a developer to wire it up."],
+    fix: ["Sign in and approve", "Add the connector, sign in to AnyPress and tick what it may do. There's no key or secret to copy."],
+  },
+  {
+    problem: ["Letting AI loose feels risky", "It's hard to trust an app that could change or delete the wrong site."],
+    fix: ["It can only do what you can", "It acts with your role, only does what you ticked, asks before deleting or restoring, and logs every change."],
+  },
+];
+
 const FAQ: [string, ReactNode][] = [
   [
     "Which AI apps work?",
@@ -148,6 +172,8 @@ export default function Ai() {
           </a>
         </div>
       </PageHero>
+
+      <ProblemFix who={WHO} title="Run your sites by asking, not clicking." items={PROBLEMS} />
 
       <section className="sec soft" aria-labelledby="h-connect" id="connect">
         <div className="in">

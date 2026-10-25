@@ -2,13 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "@/components/Icons";
 import { PriceCalculator } from "@/components/PriceCalculator";
+import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { SITE_TYPES, SIZES, planUrl } from "@/lib/site";
+import { faqLd, pageMeta } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 
-export const metadata: Metadata = {
-  title: "Prices",
-  description: "One monthly price per site, set by what you're building and how big it is. No cut of your sales.",
-};
+export const metadata: Metadata = pageMeta({
+  path: "/pricing",
+  title: "Prices for managed WordPress sites",
+  card: "Prices",
+  description:
+    "One monthly price per WordPress site, from $12, set by what you're building and how big it is. Hosting, email, backups and security included. No cut of your sales.",
+});
 
 const EVERY_SITE = [
   "Your own private website, not shared with anyone",
@@ -18,6 +24,31 @@ const EVERY_SITE = [
   "A copy saved every night, kept for 7 days, plus weekly copies for 4 weeks",
   "Your site's editor, one click from your account",
   "No cut of your sales",
+];
+
+const WHO = ["Small business owners", "Makers and shops", "Coaches and studios", "Course creators", "Chambers, churches and groups"];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: ["The price creeps up with add-ons", "A builder plan, then a payments app, a booking app and an email service, each with its own bill."],
+    fix: ["One price includes the tools", "Everything your kind of site needs is switched on when it arrives. Nothing extra to buy."],
+  },
+  {
+    problem: ["A cut of every sale", "Some platforms take a percentage of your sales on top of the monthly fee."],
+    fix: ["No cut, ever", "You pay one monthly price. The card company's normal fee is the only fee on an order."],
+  },
+  {
+    problem: ["Not sure what size you need", "Pay for too little and the site struggles, too much and you're wasting money."],
+    fix: ["Start Small, move up any time", "A bigger size starts right away and you only pay the difference for the rest of the month."],
+  },
+  {
+    problem: ["Several sites add up fast", "Every extra site is another full-price plan."],
+    fix: ["Savings from your third site", "10% off every site from 3 sites, 20% from 10 and 30% from 25."],
+  },
+  {
+    problem: ["Afraid of paying for something that doesn't fit", "Some hosts lock you into a year up front with no way back."],
+    fix: ["30 days to decide", "Not for you? Get your first payment back within 30 days. Monthly plans cancel any time."],
+  },
 ];
 
 const PRICING_FAQ: [string, string][] = [
@@ -41,6 +72,7 @@ const PRICING_FAQ: [string, string][] = [
 export default function Pricing() {
   return (
     <>
+      <JsonLd data={faqLd(PRICING_FAQ)} />
       <PageHero drawing="piggy" side="owners"
         eyebrow="Prices"
         title="Pay for what you build, not for what you sell."
@@ -69,7 +101,7 @@ export default function Pricing() {
                   ))}
                 </div>
                 <a href={planUrl(t)} className="btn btn-ink mt-4 w-full !py-2.5 text-sm">
-                  Start
+                  Start<span className="sr-only"> your {t.name.toLowerCase()} site</span>
                 </a>
               </li>
             ))}
@@ -111,7 +143,7 @@ export default function Pricing() {
                     ))}
                     <td className="px-6 py-5 text-right">
                       <a href={planUrl(t)} className="btn btn-ink !px-4 !py-2 text-sm">
-                        Start
+                        Start<span className="sr-only"> your {t.name.toLowerCase()} site</span>
                       </a>
                     </td>
                   </tr>
@@ -161,6 +193,8 @@ export default function Pricing() {
           </ul>
         </div>
       </section>
+
+      <ProblemFix soft who={WHO} items={PROBLEMS} eyebrow="why it's priced this way" title="Prices that don't surprise you later." />
 
       <section>
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2">

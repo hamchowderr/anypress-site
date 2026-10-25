@@ -4,11 +4,14 @@ import type { CSSProperties } from "react";
 import { notFound } from "next/navigation";
 import { Drawing } from "@/components/Drawing";
 import { LeadForm } from "@/components/LeadForm";
+import { ProblemFix } from "@/components/ProblemFix";
 import { BrowserShot, PhoneShot } from "@/components/Shots";
 import { Tick } from "@/components/Tick";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { GROUP_STORIES } from "@/lib/groups";
 import { AUDIENCE_GROUPS, SITE_TYPES, startUrl } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 
 const groupFor = (id: string) => AUDIENCE_GROUPS.find((g) => g.id === id && g.page);
 
@@ -18,7 +21,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/who/[group]">): Promise<Metadata> {
   const g = groupFor((await params).group);
-  return g?.page ? { title: g.name, description: g.page.lead } : {};
+  return g?.page ? pageMeta({ path: `/who/${g.id}`, title: `Websites for ${g.name[0].toLowerCase()}${g.name.slice(1)}`, card: g.name, description: g.page.lead }) : {};
 }
 
 export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
@@ -32,6 +35,7 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
 
   return (
     <>
+      <JsonLd data={[faqLd(page.questions), breadcrumbLd([["Who it's for", "/who"], [g.name, `/who/${g.id}`]])]} />
       <PageHero side={g.side} drawing={g.drawing} eyebrow={g.name.toLowerCase()} title={page.title} lead={page.lead}>
         <div className="ctas mt-8">
           <a href={startUrl(main)} className="btn btn-ink">
@@ -58,45 +62,33 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
       </PageHero>
 
       {story && (
-        <section className="sec soft">
-          <div className="in">
-            <SectionHead eyebrow="sound familiar?" title="What usually gets in the way." />
-            <ul className="mx-auto grid max-w-[1000px] gap-4 md:grid-cols-3">
-              {story.problems.map((p) => (
-                <li key={p.title} className="card p-6">
-                  <h3 className="text-lg font-extrabold">{p.title}</h3>
-                  <p className="mt-2 text-ink-soft">{p.body}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        <ProblemFix
+          soft
+          eyebrow="sound familiar?"
+          title="What usually gets in the way, and how AnyPress fixes it."
+          items={story.problems.map((p, i) => ({
+            problem: [p.title, p.body],
+            fix: [page.benefits[i].title, page.benefits[i].body],
+          }))}
+        >
+          <ul className="checks mt-10">
+            {["We set it up and apply security fixes", "A copy saved every night", "Your own domain, and the site stays yours"].map((x) => (
+              <li key={x}>
+                <Tick />
+                {x}
+              </li>
+            ))}
+          </ul>
+        </ProblemFix>
       )}
 
-      <section className="sec in">
-        <SectionHead eyebrow="what we do about it" title="What it does for you." />
-        <div className="yours !grid-cols-1 md:!grid-cols-3">
-          {page.benefits.map((b, i) => (
-            <div key={b.title}>
-              {story && <Drawing name={story.drawings[i]} />}
-              <h3>{b.title}</h3>
-              <p>{b.body}</p>
-            </div>
-          ))}
-        </div>
-        <ul className="checks mt-10">
-          {["We set it up and apply security fixes", "A copy saved every night", "Your own domain, and the site stays yours"].map((x) => (
-            <li key={x}>
-              <Tick />
-              {x}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="sec soft">
+      <section className="sec">
         <div className="in">
-          <SectionHead eyebrow="see one" title={`A real ${main.name.toLowerCase()} site.`} lead={`${ex.name} is a made-up business. ${ex.what}`} />
+          <SectionHead
+            eyebrow="see one"
+            title={`A real ${main.name.toLowerCase()} site.`}
+            lead={`${ex.name} is a made-up business. ${ex.what}`}
+          />
           <div className="relative mx-auto max-w-[880px] -rotate-[0.6deg] pr-10 pb-8 sm:pr-14">
             <BrowserShot example={ex} />
             <PhoneShot example={ex} className="absolute right-0 bottom-0 w-[22%] max-w-[150px]" />
@@ -109,45 +101,49 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
         </div>
       </section>
 
-      <section id="plans" className="sec in scroll-mt-20">
-        <SectionHead eyebrow="good place to start" title="Plans that fit." lead="Prices are monthly, for the Small size." />
-        <div className="types fit" style={{ "--n": fits.length } as CSSProperties}>
-          {fits.map((t) => (
-            <Link key={t.id} className="type" href={`/sites/${t.id}`}>
-              <Drawing name={t.drawing} />
-              <h3>{t.name}</h3>
-              <p>{t.pitch}</p>
-              <div className="price">
-                ${t.from} <small>/ month</small>
-              </div>
-              <span className="go">See what&apos;s inside →</span>
-            </Link>
-          ))}
+      <section id="plans" className="sec soft scroll-mt-20">
+        <div className="in">
+          <SectionHead eyebrow="good place to start" title="Plans that fit." lead="Prices are monthly, for the Small size." />
+          <div className="types fit" style={{ "--n": fits.length } as CSSProperties}>
+            {fits.map((t) => (
+              <Link key={t.id} className="type" href={`/sites/${t.id}`}>
+                <Drawing name={t.drawing} />
+                <h3>{t.name}</h3>
+                <p>{t.pitch}</p>
+                <div className="price">
+                  ${t.from} <small>/ month</small>
+                </div>
+                <span className="go">See what&apos;s inside →</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="sec soft">
+      <section className="sec">
         <div className="in">
           <SectionHead drawing="question" title="Questions" />
           <Questions items={page.questions} firstOpen />
         </div>
       </section>
 
-      <section id="guide" className="sec in scroll-mt-24">
-        <div className="guide-band">
-          <div>
-            <Drawing name="scroll" />
-            <span className="eyebrow">free guide</span>
-            <h2>{page.guide}</h2>
-            <p>Read it now, no sign-up needed.</p>
-            <Link href={`/guides/${g.id}`} className="btn btn-ink mt-5">
-              Read the guide →
-            </Link>
-          </div>
-          <div>
-            <h3>Want tips like this by email?</h3>
-            <p>A few short emails for {g.name.toLowerCase()}, then the occasional update.</p>
-            <LeadForm group={g.id} cta="Send me tips" />
+      <section id="guide" className="sec soft scroll-mt-24">
+        <div className="in">
+          <div className="guide-band">
+            <div>
+              <Drawing name="scroll" />
+              <span className="eyebrow">free guide</span>
+              <h2>{page.guide}</h2>
+              <p>Read it now, no sign-up needed.</p>
+              <Link href={`/guides/${g.id}`} className="btn btn-ink mt-5">
+                Read the guide →
+              </Link>
+            </div>
+            <div>
+              <h3>Want tips like this by email?</h3>
+              <p>A few short emails for {g.name.toLowerCase()}, then the occasional update.</p>
+              <LeadForm group={g.id} cta="Send me tips" />
+            </div>
           </div>
         </div>
       </section>

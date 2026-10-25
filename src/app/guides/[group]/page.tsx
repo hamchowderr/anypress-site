@@ -7,6 +7,8 @@ import { LeadForm } from "@/components/LeadForm";
 import { CtaBand, PageHero } from "@/components/ui";
 import { GUIDES } from "@/content/guides";
 import { AUDIENCE_GROUPS, groupUrl } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { BASE_URL, breadcrumbLd, pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return GUIDES.map((g) => ({ group: g.id }));
@@ -15,7 +17,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/guides/[group]">): Promise<Metadata> {
   const { group } = await params;
   const guide = GUIDES.find((g) => g.id === group);
-  return guide ? { title: guide.title, description: guide.lead } : {};
+  return guide ? pageMeta({ path: `/guides/${guide.id}`, title: guide.title, description: guide.lead.length < 100 ? `${guide.lead} A free guide from AnyPress.` : guide.lead }) : {};
 }
 
 export default async function GuidePage({ params }: PageProps<"/guides/[group]">) {
@@ -26,6 +28,21 @@ export default async function GuidePage({ params }: PageProps<"/guides/[group]">
 
   return (
     <>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: guide.title,
+            description: guide.lead,
+            url: `${BASE_URL}/guides/${guide.id}`,
+            image: `${BASE_URL}/og?t=${encodeURIComponent(guide.title)}`,
+            author: { "@type": "Organization", name: "AnyPress", url: BASE_URL },
+            publisher: { "@type": "Organization", name: "AnyPress", logo: { "@type": "ImageObject", url: `${BASE_URL}/logo-512.png` } },
+          },
+          breadcrumbLd([[guide.title, `/guides/${guide.id}`]]),
+        ]}
+      />
       <PageHero drawing="scroll" side={who.side} eyebrow="free guide" title={`${guide.title}.`} lead={guide.lead} />
 
       <section>

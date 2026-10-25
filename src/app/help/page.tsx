@@ -3,11 +3,15 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { PageHero, Questions } from "@/components/ui";
 import { ACCOUNT_URL, CONTACT_EMAIL } from "@/lib/site";
+import { faqLd, pageMeta } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 
-export const metadata: Metadata = {
-  title: "Help",
-  description: "How to sign in, open your site's editor, use your own domain, cancel, and get a refund.",
-};
+export const metadata: Metadata = pageMeta({
+  path: "/help",
+  title: "Help with your AnyPress website",
+  card: "Help",
+  description: "How to sign in, open your site's WordPress editor, use your own domain, cancel a plan, and get a refund on AnyPress.",
+});
 
 const A = ({ href, children }: { href: string; children: ReactNode }) => (
   <Link href={href} className="font-semibold text-ink underline">
@@ -103,6 +107,7 @@ const SECTIONS: { title: string; items: [string, ReactNode][] }[] = [
 export default function Help() {
   return (
     <>
+      <JsonLd data={faqLd(SECTIONS.flatMap((s) => s.items))} />
       <PageHero drawing="lifebuoy"
         eyebrow="Help"
         title="How can we help?"

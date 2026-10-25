@@ -3,14 +3,17 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { AppLogo, Screenshot, type Shot } from "@/components/AppShots";
 import { Drawing, type DrawingName } from "@/components/Drawing";
+import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { Templates, type Template } from "@/components/Templates";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/automate",
   title: "Create sites automatically",
   description:
     "Sellers and resellers never build client sites by hand. An order, a form or a CRM step creates the site, through your shop, n8n, Make, Zapier or the AnyPress API.",
-};
+});
 
 const API = "https://api.anypress.io";
 const API_DOCS = `${API}/docs`;
@@ -57,6 +60,27 @@ const ZAPIER_INVITE = {
   label: "Add AnyPress to Zapier",
   href: "https://zapier.com/developer/public-invite/248504/d92ccd4f604ea3e76535ff8452c69eb9/",
 };
+const WHO = ["Sellers and resellers", "Agencies with a CRM", "Teams without a developer"];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: ["Every sale means a site built by hand", "Someone on the team copies a site, sets it up and sends the logins, for every new client."],
+    fix: ["The order builds it", "When someone pays on your storefront, their site is built straight away. Nothing to connect."],
+  },
+  {
+    problem: ["Clients don't all come through a shop", "Deals close on a form, a signed proposal or a payment in another tool."],
+    fix: ["Your tools start it", "The AnyPress app in n8n, Make or Zapier creates the site from that step, or start from a ready-made template."],
+  },
+  {
+    problem: ["Nobody knows when it's ready", "Someone keeps checking back, and the client waits for a welcome email that's late."],
+    fix: ["You're told when it's ready", "The Site ready trigger can email the team or send the client their welcome, the moment it's built."],
+  },
+  {
+    problem: ["Cancelled clients keep a live site", "When a plan ends, the site lives on until someone remembers to take it down."],
+    fix: ["Cancelling tidies up", "When a storefront plan is cancelled, the site is backed up and taken offline for you."],
+  },
+];
+
 const N8N_DOC = "https://shop.anypress.io/docs/use-anypress-in-n8n/";
 const MAKE_DOC = "https://shop.anypress.io/docs/use-anypress-in-make/";
 const ZAPIER_DOC = "https://shop.anypress.io/docs/use-anypress-in-zapier/";
@@ -325,6 +349,8 @@ export default function Automate() {
           </a>
         </div>
       </PageHero>
+
+      <ProblemFix who={WHO} title="Selling sites shouldn't mean building each one." items={PROBLEMS} />
 
       <section className="sec soft" aria-labelledby="h-routes">
         <div className="in">

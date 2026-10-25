@@ -1,26 +1,63 @@
 import type { Metadata } from "next";
+import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { PageHero } from "@/components/ui";
 import { ApplicationForm } from "./ApplicationForm";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/sell",
   title: "Sell websites with AnyPress",
-  description: "Apply to sell WordPress websites to your own clients, hosted and kept running by AnyPress.",
-};
+  description:
+    "Apply to sell WordPress websites to your own clients under your own name. Each order creates a finished site, and AnyPress hosts and looks after every one.",
+});
 
 const STEPS = [
-  { title: "Apply", body: "Tell us about your business and who you build websites for. It takes two minutes." },
-  { title: "We review it", body: "We look at every application ourselves and email you when you're approved." },
-  { title: "Start selling", body: "Sign in, set up your shop, and sell your first website. There's no minimum." },
+  {
+    title: "Apply",
+    body: "Tell us about your business and who you build websites for. It takes two minutes.",
+  },
+  {
+    title: "We review it",
+    body: "We look at every application ourselves and email you when you're approved.",
+  },
+  {
+    title: "Start selling",
+    body: "Sign in, set up your shop, and sell your first website. There's no minimum.",
+  },
+];
+
+const WHO = ["Freelance web designers", "Small agencies", "Niche site sellers", "Anyone whose clients ask for a website"];
+
+const PROBLEMS: Problem[] = [
+  {
+    problem: ["You get paid once", "You build a site, send the invoice, and next month you need a new project to get paid."],
+    fix: ["A monthly service", "Clients pay you every month for their site, at the prices you set."],
+  },
+  {
+    problem: [
+      "Hosting every client is a second job",
+      "A hosting account, a renewal and a bill for every client, and you're the one they call.",
+    ],
+    fix: ["One login for every site", "Each order becomes its own website on our servers, and you see them all in one dashboard."],
+  },
+  {
+    problem: ["Upkeep eats your weekends", "Security fixes, backups and the odd emergency, for every site you've ever built."],
+    fix: ["We look after every site", "Security fixes applied for you and a copy saved every night, under your name, not ours."],
+  },
 ];
 
 export default function Sell() {
   return (
     <>
-      <PageHero drawing="sell" side="technical"
+      <PageHero
+        drawing="sell"
+        side="technical"
         eyebrow="For sellers and resellers"
         title="Sell websites with AnyPress."
         lead="Sell websites to your clients under your own name. We host every site, keep it backed up and apply security fixes, and you pay per site with lower prices as you grow."
       />
+
+      <ProblemFix soft who={WHO} items={PROBLEMS} title="Selling websites shouldn't mean running a hosting company." />
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <ol className="grid gap-8 sm:grid-cols-3">

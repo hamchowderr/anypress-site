@@ -13,8 +13,14 @@ import {
   type Websites,
 } from "@/lib/account";
 import { logInToWebsite } from "./actions";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Your websites", robots: { index: false } };
+export const metadata: Metadata = pageMeta({
+  path: "/account",
+  title: "Your websites",
+  description: "Sign in to see your AnyPress websites, open each one's WordPress editor and connect your own domain.",
+  noIndex: true,
+});
 
 export default function Account({ searchParams }: PageProps<"/account">) {
   return (
