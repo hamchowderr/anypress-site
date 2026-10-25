@@ -1,0 +1,52 @@
+{
+  "name": "Suspend the site when a Stripe subscription ends",
+  "nodes": [
+    {
+      "name": "Subscription ended",
+      "type": "n8n-nodes-base.stripeTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "events": [
+          "customer.subscription.deleted"
+        ]
+      }
+    },
+    {
+      "name": "Suspend the site",
+      "type": "n8n-nodes-anypress.anyPress",
+      "typeVersion": 1,
+      "position": [
+        320,
+        0
+      ],
+      "parameters": {
+        "operation": "suspend",
+        "findBy": "externalId",
+        "ref": "={{ $json.data.object.id }}"
+      }
+    }
+  ],
+  "connections": {
+    "Subscription ended": {
+      "main": [
+        [
+          {
+            "node": "Suspend the site",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

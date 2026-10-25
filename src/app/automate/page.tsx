@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { AppLogo, Screenshot, type Shot } from "@/components/AppShots";
 import { Drawing, type DrawingName } from "@/components/Drawing";
+import { Templates, type Template } from "@/components/Templates";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -12,7 +14,6 @@ export const metadata: Metadata = {
 
 const API = "https://api.anypress.io";
 const API_DOCS = `${API}/docs`;
-const API_REPO = "https://github.com/hamchowderr/waas-provisioning-api";
 const DOCS = "https://shop.anypress.io/docs-category/automation/";
 
 const ROUTES: {
@@ -37,136 +38,24 @@ const ROUTES: {
     who: "Teams without a developer",
   },
   {
-    drawing: "mailbox",
-    title: "Told when it's ready",
-    body: "We call your flow the moment a site is ready, so the welcome email, the CRM update and the team message go out by themselves.",
-    href: "#ready",
-    who: "Anyone who onboards clients",
+    drawing: "tools",
+    title: "Start from a template",
+    body: "Ready-made flows for the usual jobs: a form or a payment makes a site, a cancelled plan suspends it, a finished site emails the team.",
+    href: "#templates",
+    who: "Anyone who wants it done in minutes",
   },
-  {
-    drawing: "key",
-    title: "Your own code",
-    body: "Create, change and remove sites from your own app with the API and SDKs. Resellers get one partner key for every storefront.",
-    href: "#keys",
-    who: "Developers and software teams",
-  },
-];
-
-const STUDIO: {
-  drawing: DrawingName;
-  title: string;
-  when: string;
-  body: string;
-}[] = [
   {
     drawing: "words",
-    title: "A new client says yes",
-    when: "the trigger",
-    body: "They fill in the studio's intake form, or the deal is marked won in the CRM. That's the only thing a person does.",
+    title: "Just ask an AI app",
+    body: "Connect AnyPress to Claude or ChatGPT and ask in plain words: make a site, back it up, change its home page.",
+    href: "/ai",
+    who: "Anyone who'd rather type than click",
   },
-  {
-    drawing: "plug",
-    title: "The flow asks AnyPress for a site",
-    when: "seconds",
-    body: "One step in n8n sends the client's business name and email, the studio's starting site and the size. The order number goes with it, so a retry can never make a second site.",
-  },
-  {
-    drawing: "tools",
-    title: "AnyPress builds it",
-    when: "minutes",
-    body: "Its own WordPress and database, copied from the studio's starting site, with the client's login made for them.",
-  },
-  {
-    drawing: "mailbox",
-    title: "Everyone hears about it",
-    when: "when it's ready",
-    body: "A signed message reaches the flow. It emails the client their address and login link, adds the site to the CRM and posts in the team chat.",
-  },
-  {
-    drawing: "bill",
-    title: "The bill takes care of itself",
-    when: "on the 1st",
-    body: "Every live site, across all the studio's brands, is on one wholesale bill. Nobody counts sites by hand.",
-  },
-];
-
-const FIELDS: [string, string, string][] = [
-  [
-    "Site Name",
-    "name",
-    "The site's name. Its free address is made from it, for example rose-and-fern.anypress.site.",
-  ],
-  [
-    "Your Reference",
-    "externalId",
-    "Your own id for it: the order, deal or form entry number. Letters, numbers and dashes only. Running the same create again gets the site already made, so retries are safe.",
-  ],
-  [
-    "Client Email",
-    "wordPressUserEmail",
-    "Makes the client's WordPress login, so they can choose their own password.",
-  ],
-  [
-    "Client Role",
-    "wordPressUserRole",
-    "Their WordPress role. Administrator if you leave it out.",
-  ],
-  [
-    "Starting Site Group",
-    "groupName",
-    "Which of your starting sites to copy. Leave it empty to use your current one.",
-  ],
-  ["Size", "size", "Small, Medium or Large. Small if you leave it out."],
-  [
-    "Custom Domain",
-    "customDomainName",
-    "The client's own domain, if they already have one. You can add it later instead.",
-  ],
-  [
-    "Storefront",
-    "productId",
-    "Partner keys only: which storefront the site belongs to.",
-  ],
-];
-
-const EVENTS: [string, string, string][] = [
-  [
-    "Site ready",
-    "tenant.ready",
-    "A new site is built and answering. Send the welcome email.",
-  ],
-  [
-    "Site failed",
-    "tenant.failed",
-    "A change still failed after its retries. We're told too.",
-  ],
-  [
-    "Domain connected",
-    "tenant.domains_changed",
-    "The client's own domain is connected.",
-  ],
-  [
-    "Suspended or resumed",
-    "tenant.suspended / tenant.resumed",
-    "Taken offline, or back online.",
-  ],
-  [
-    "Deleted or restored",
-    "tenant.deleted / tenant.restored",
-    "Gone, or back from its backup.",
-  ],
-  [
-    "Backup done",
-    "tenant.backup_completed",
-    "A backup finished, nightly ones included.",
-  ],
 ];
 
 const N8N_DOC = "https://shop.anypress.io/docs/use-anypress-in-n8n/";
 const MAKE_DOC = "https://shop.anypress.io/docs/use-anypress-in-make/";
 const ZAPIER_DOC = "https://shop.anypress.io/docs/use-anypress-in-zapier/";
-
-type Shot = { src: string; alt: string; width: number; height: number };
 
 const APPS: {
   tool: string;
@@ -249,95 +138,106 @@ const APPS: {
   },
 ];
 
-/** A ready-made flow: what starts it, what AnyPress does, and how to set it up in the app. */
-const FLOWS: {
-  id: string;
-  tool: string;
-  logos: string[];
-  when: string;
-  then: string;
-  body: string;
-  steps: string[];
-  doc: string;
-  shot?: Shot;
-}[] = [
+const SUSPEND_DOC =
+  "https://shop.anypress.io/docs/suspend-a-site-when-a-client-cancels/";
+const READY_DOC = "https://shop.anypress.io/docs/email-the-client-when-their-site-is-ready/";
+
+const n8nShot = (file: string, alt: string): Shot => ({
+  src: `/templates/${file}.webp`,
+  alt,
+  width: 1316,
+  height: 518,
+});
+
+/** Ready-made flows people can copy into their own account. */
+const TEMPLATES: Template[] = [
   {
-    id: "form",
+    id: "n8n-form",
     tool: "n8n",
-    logos: ["/apps/n8n-logo.svg"],
-    when: "Intake form sent",
-    then: "Create a site",
-    body: "A client fills in your intake form, on your website or in n8n itself, and their site starts building.",
-    steps: [
-      "Start the workflow with an n8n Form Trigger, or a Webhook node your form posts to.",
-      "Add the AnyPress node and choose Create.",
-      "Map the business name to Site Name and the email to Client Email. Use the form entry as Your Reference, so a retry never makes a second site.",
-    ],
-    doc: N8N_DOC,
-    shot: {
-      src: "/apps/n8n-form-flow.webp",
-      alt: "An n8n workflow: a client intake form, then AnyPress Create a site",
-      width: 2400,
-      height: 1440,
-    },
+    title: "Intake form sent, site created",
+    body: "A client fills in your form and their site starts building, named after their business and with their login made.",
+    shot: n8nShot("n8n-create-site", "n8n workflow: Client intake form, then AnyPress Create a site"),
+    workflow: "/templates/n8n-create-site.json",
+    guide: "https://shop.anypress.io/docs/create-a-site-from-a-form-with-n8n/",
   },
   {
-    id: "payment",
-    tool: "Zapier",
-    logos: ["/apps/zapier-logo.svg"],
-    when: "Payment received",
-    then: "Create Site",
-    body: "The client pays through Stripe, an invoice tool or a booking app instead of your storefront.",
-    steps: [
-      "Trigger: the new payment, or the invoice marked paid, in your payment app.",
-      "Action: AnyPress, Create Site. Map the client's name and email.",
-      "Use the payment's id as Your Reference, so a Zap that runs twice still makes one site.",
-    ],
-    doc: ZAPIER_DOC,
-    shot: {
-      src: "/apps/zapier-zap.webp",
-      alt: "A Zap: Stripe New Payment, then AnyPress Create Site",
-      width: 1070,
-      height: 420,
-    },
+    id: "n8n-stripe",
+    tool: "n8n",
+    title: "Stripe payment, site created",
+    body: "A paid Stripe checkout makes the site. The subscription id is its reference, so a retry never makes two.",
+    shot: n8nShot("n8n-stripe-create-site", "n8n workflow: Stripe checkout paid, then AnyPress Create a site"),
+    workflow: "/templates/n8n-stripe-create-site.json",
+    guide: N8N_DOC,
   },
   {
-    id: "crm",
+    id: "n8n-cancel",
+    tool: "n8n",
+    title: "Subscription ended, site suspended",
+    body: "When the Stripe subscription ends, the site is backed up and taken offline. Resume brings it back as it was.",
+    shot: n8nShot("n8n-stripe-suspend-site", "n8n workflow: Stripe subscription ended, then AnyPress Suspend the site"),
+    workflow: "/templates/n8n-stripe-suspend-site.json",
+    guide: SUSPEND_DOC,
+  },
+  {
+    id: "n8n-ready",
+    tool: "n8n",
+    title: "Site ready, team emailed",
+    body: "The AnyPress trigger starts the flow the moment a site is built, with its name, address and your reference.",
+    shot: n8nShot("n8n-site-ready", "n8n workflow: AnyPress Site ready trigger, then Email the team"),
+    workflow: "/templates/n8n-site-ready.json",
+    guide: READY_DOC,
+  },
+  {
+    id: "make-crm",
     tool: "Make",
-    logos: ["/apps/make-logo.svg"],
-    when: "Deal won in your CRM",
-    then: "Create a Site",
-    body: "Your CRM already knows when a client signs. Let that step make the site.",
-    steps: [
-      "Start the scenario with your CRM's module, or a Custom webhook your CRM sends to. In FluentCRM Pro, that's an Outgoing Webhook when a tag like Signed is added.",
-      "Add AnyPress, Create a Site, and map the contact's details.",
-      "Use the contact's id as Your Reference, so one client is always one site.",
-    ],
-    doc: MAKE_DOC,
+    title: "Deal won in your CRM, site created",
+    body: "Your CRM calls the scenario when a client signs, and AnyPress makes their site from the contact's details.",
     shot: {
       src: "/apps/make-scenario.webp",
-      alt: "A Make scenario: a custom webhook, then AnyPress Create a Site",
+      alt: "Make scenario: a custom webhook, then AnyPress Create a Site",
       width: 1305,
       height: 536,
     },
+    guide: "https://shop.anypress.io/docs/create-a-site-from-a-crm-step-with-make/",
   },
   {
-    id: "cancel",
-    tool: "All three",
-    logos: [
-      "/apps/n8n-logo.svg",
-      "/apps/make-logo.svg",
-      "/apps/zapier-logo.svg",
-    ],
-    when: "Subscription cancelled",
-    then: "Suspend a site",
-    body: "When billing happens outside your storefront, end the site from the same flow that ends the subscription.",
-    steps: [
-      "Trigger: the subscription is cancelled in your payment app or CRM.",
-      "Add AnyPress, Suspend, with the same reference you created the site with. A backup is taken first.",
-      "If they come back, AnyPress Resume puts it online again, exactly as it was.",
-    ],
-    doc: "https://shop.anypress.io/docs/suspend-a-site-when-a-client-cancels/",
+    id: "make-ready",
+    tool: "Make",
+    title: "Site ready, client emailed",
+    body: "Watch Site Events starts the scenario when a site is ready, then an email goes out with its address.",
+    shot: {
+      src: "/apps/make-site-ready.webp",
+      alt: "Make scenario: AnyPress Watch Site Events, then Send an Email",
+      width: 1305,
+      height: 536,
+    },
+    guide: READY_DOC,
+  },
+  {
+    id: "zapier-payment",
+    tool: "Zapier",
+    title: "Stripe payment, site created",
+    body: "A new Stripe payment makes the site, with the payment id as its reference so a Zap that runs twice still makes one.",
+    shot: {
+      src: "/apps/zapier-zap.webp",
+      alt: "Zap: Stripe New Payment, then AnyPress Create Site",
+      width: 1070,
+      height: 420,
+    },
+    guide: "https://shop.anypress.io/docs/create-a-site-from-a-payment-with-zapier/",
+  },
+  {
+    id: "zapier-ready",
+    tool: "Zapier",
+    title: "Site ready, client emailed",
+    body: "The Site Event trigger runs the Zap when a site is ready, and Email by Zapier sends the welcome.",
+    shot: {
+      src: "/apps/zapier-site-ready.webp",
+      alt: "Zap: AnyPress Site Event, then Email by Zapier",
+      width: 1070,
+      height: 420,
+    },
+    guide: READY_DOC,
   },
 ];
 
@@ -356,6 +256,23 @@ const FAQ: [string, ReactNode][] = [
     </>,
   ],
   [
+    "How do I use a template?",
+    "Add the AnyPress app to your tool first. In n8n, copy the workflow and paste it onto an empty canvas. In Make, create a scenario and import the blueprint. In Zapier, open the template link and Zapier makes you a copy. Then pick your AnyPress login on the AnyPress step and turn it on.",
+  ],
+  [
+    "What can a new site be told?",
+    <>
+      Its name, your reference, the client&apos;s email and role, which
+      starting site to copy, its size and the client&apos;s own domain. The
+      guide for each app lists them, and the{" "}
+      <a href={API_DOCS}>API reference</a> has every field.
+    </>,
+  ],
+  [
+    "Which events can start a flow?",
+    "Site ready, site failed, domain connected, suspended, resumed, deleted, restored and backup done. Pick one or several on the AnyPress trigger.",
+  ],
+  [
     "What if the flow runs twice?",
     "Always fill in Your Reference with something unique, like the order or deal number. Running Create again with the same reference gets the site already made, and never builds another.",
   ],
@@ -367,8 +284,8 @@ const FAQ: [string, ReactNode][] = [
     "Can it put the client's own words and logo in too?",
     <>
       Yes. Every site starts from your starting site, and an AI app connected to
-      AnyPress can then change pages, sections, colours and menus for you. See
-      the <Link href="/developers">developer page</Link>.
+      AnyPress can then change pages, sections, colours and menus for you. See{" "}
+      <Link href="/ai">AnyPress in Claude and ChatGPT</Link>.
     </>,
   ],
   [
@@ -376,38 +293,6 @@ const FAQ: [string, ReactNode][] = [
     "No. The flows are yours, the emails come from you, and sites sold from your shop show your brand.",
   ],
 ];
-
-/** A platform or AnyPress logo in a small rounded tile. */
-function AppLogo({ src }: { src: string }) {
-  return (
-    <span className="app-logo">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" width={28} height={28} />
-    </span>
-  );
-}
-
-/** A real screenshot from the platform, in a window frame. */
-function Screenshot({ shot, label }: { shot: Shot; label: string }) {
-  return (
-    <figure className="appshot">
-      <div className="appshot-bar" aria-hidden="true">
-        <i />
-        <i />
-        <i />
-        <span>{label}</span>
-      </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={shot.src}
-        alt={shot.alt}
-        width={shot.width}
-        height={shot.height}
-        loading="lazy"
-      />
-    </figure>
-  );
-}
 
 export default function Automate() {
   return (
@@ -427,8 +312,8 @@ export default function Automate() {
           <a href="#apps" className="btn btn-ink">
             See the apps →
           </a>
-          <a href={DOCS} className="btn btn-paper">
-            Step-by-step docs
+          <a href="#templates" className="btn btn-paper">
+            Browse templates
           </a>
         </div>
       </PageHero>
@@ -518,35 +403,6 @@ export default function Automate() {
         </div>
       </section>
 
-      <section className="sec soft" aria-labelledby="h-studio">
-        <div className="in">
-          <SectionHead
-            eyebrow="an example"
-            title="A web studio with dozens of clients."
-            lead="The studio is a reseller with a few brands. Its owner never signs in to anything. One person on the team set this up once, in an afternoon, and now every new client gets a site without anyone touching WordPress."
-            id="h-studio"
-          />
-          <ol className="steps">
-            {STUDIO.map((s, i) => (
-              <li key={s.title}>
-                <Drawing name={s.drawing} />
-                <div>
-                  <h3>
-                    {i + 1}. {s.title}
-                    <span className="hand">{s.when}</span>
-                  </h3>
-                  <p>{s.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <p className="compare-note">
-            Made-up studio, real steps. The person who set it up still sees
-            every site, its backups and its jobs at app.anypress.io.
-          </p>
-        </div>
-      </section>
-
       <section className="sec in" aria-labelledby="h-apps" id="apps">
         <SectionHead
           eyebrow="the apps"
@@ -600,249 +456,60 @@ export default function Automate() {
         </p>
       </section>
 
-      <section className="sec soft" aria-labelledby="h-recipes" id="recipes">
+      <section className="sec soft" aria-labelledby="h-templates" id="templates">
         <div className="in">
           <SectionHead
-            eyebrow="popular flows"
-            title="Start from one of these."
-            lead={
-              <>
-                Each one is a trigger and one AnyPress step. Full step-by-step
-                guides are in <a href={DOCS}>the docs</a>.
-              </>
-            }
-            id="h-recipes"
+            eyebrow="templates"
+            title="Copy a flow that already works."
+            lead="Each one is a trigger and an AnyPress step, ready to go. Add it to your account, pick your AnyPress login and turn it on."
+            id="h-templates"
           />
-          <div className="aflows">
-            {FLOWS.map((f) => (
-              <article
-                key={f.id}
-                id={f.id}
-                className={`aflow${f.shot ? " has-shot" : ""}`}
-              >
-                <div className="aflow-head">
-                  <span className="aflow-pair" aria-hidden="true">
-                    {f.logos.map((l) => (
-                      <AppLogo key={l} src={l} />
-                    ))}
-                    <span className="arrow">→</span>
-                    <AppLogo src="/logo-mark.svg" />
-                  </span>
-                  <span className="tag">{f.tool}</span>
-                </div>
-                <h3>
-                  {f.when}, <span>{f.then}</span>
-                </h3>
-                <p>{f.body}</p>
-                <ol>
-                  {f.steps.map((x) => (
-                    <li key={x}>{x}</li>
-                  ))}
-                </ol>
-                <a href={f.doc} className="aflow-link">
-                  Full guide →
-                </a>
-                {f.shot && <Screenshot shot={f.shot} label={f.tool} />}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec in" aria-labelledby="h-ready" id="ready">
-        <SectionHead
-          eyebrow="when it's ready"
-          title="Let the welcome email send itself."
-          lead="A site takes a few minutes to build. Start a second flow with the AnyPress trigger and it runs the moment the site is ready."
-          id="h-ready"
-        />
-        <div className="recipes">
-          <div className="recipe">
-            <div>
-              <span className="tag">n8n, Make or Zapier</span>
-              <h3>Site ready, client told</h3>
-              <ol>
-                <li>
-                  Start a new flow with the AnyPress trigger: AnyPress Trigger
-                  in n8n, Watch Site Events in Make, or Site Event in Zapier.
-                </li>
-                <li>
-                  Pick Site ready as the event and turn the flow on. It
-                  registers itself with AnyPress, and only real events from
-                  AnyPress get through.
-                </li>
-                <li>
-                  Add an email step to the client with their new address and a
-                  link to choose a password. Then update your CRM and tell the
-                  team.
-                </li>
-              </ol>
-              <p className="tools">
-                Each event brings the site with it: its name, your reference,
-                its address and its status. Using another tool? Add the webhook
-                by hand at app.anypress.io, under Webhooks.
-              </p>
-            </div>
-            <Screenshot
-              shot={{
-                src: "/apps/n8n-site-ready-flow.webp",
-                alt: "An n8n workflow: the AnyPress Trigger for site ready, then an email to the client",
-                width: 2400,
-                height: 1440,
-              }}
-              label="n8n"
-            />
-          </div>
-        </div>
-        <div className="ready-shots">
-          <Screenshot
-            shot={{
-              src: "/apps/make-site-ready.webp",
-              alt: "A Make scenario: AnyPress Watch Site Events, then Send an Email",
-              width: 1305,
-              height: 536,
-            }}
-            label="Make"
-          />
-          <Screenshot
-            shot={{
-              src: "/apps/zapier-site-ready.webp",
-              alt: "A Zap: AnyPress Site Event, then Email by Zapier",
-              width: 1070,
-              height: 420,
-            }}
-            label="Zapier"
-          />
-        </div>
-
-        <div className="compare mt-10">
-          <div className="tablewrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Event</th>
-                  <th scope="col">When it&apos;s sent</th>
-                </tr>
-              </thead>
-              <tbody>
-                {EVENTS.map(([name, id, when]) => (
-                  <tr key={id}>
-                    <th scope="row">
-                      {name}
-                      <small className="block font-normal text-ink-soft">
-                        {id}
-                      </small>
-                    </th>
-                    <td>{when}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <section className="sec soft" aria-labelledby="h-keys" id="keys">
-        <div className="in">
-          <SectionHead
-            eyebrow="keys"
-            title="One key per storefront, or one for all of them."
-            lead="Every call signs in with a key and its secret, the same way in every tool."
-            id="h-keys"
-          />
-          <div className="compare">
-            <div className="tablewrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th scope="col"> </th>
-                    <th scope="col">API key</th>
-                    <th scope="col">Partner key</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Who has it</th>
-                    <td>Every seller and reseller storefront</td>
-                    <td>Resellers, for the whole account</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Where you get it</th>
-                    <td>API keys, at app.anypress.io</td>
-                    <td>From us, when you ask</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Works on</th>
-                    <td>That one storefront&apos;s sites</td>
-                    <td>Every storefront in the account</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Each call says</th>
-                    <td>Nothing extra</td>
-                    <td>
-                      Which storefront, with <code>?productId=</code>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Can also</th>
-                    <td>Manage sites, domains, webhooks</td>
-                    <td>Add storefronts, share starting sites, read usage</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <Templates items={TEMPLATES} />
           <p className="compare-note">
-            Keys can be replaced with a grace period, so a flow keeps working
-            while you paste in the new one. A wrong key or secret is answered
-            with 403.
+            n8n: copy the workflow, then paste it onto an empty canvas. Every
+            template has a guide in <a href={DOCS}>the docs</a>.
           </p>
-
-          <div className="mx-auto mt-14 max-w-[880px]">
-            <SectionHead
-              left
-              eyebrow="the fields"
-              title="What a new site can be told."
-            />
-            <div className="tablewrap mt-6 overflow-x-auto">
-              <table className="fields">
-                <tbody>
-                  {FIELDS.map(([label, api, d]) => (
-                    <tr key={api}>
-                      <th scope="row">
-                        {label}
-                        <small className="block font-normal text-ink-soft">
-                          {api}
-                        </small>
-                      </th>
-                      <td>{d}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-6 text-ink-soft">
-              Every call, with examples, is in the{" "}
-              <a href={API_DOCS} className="font-semibold text-ink underline">
-                API reference
-              </a>
-              . The code behind it is{" "}
-              <a href={API_REPO} className="font-semibold text-ink underline">
-                open source
-              </a>
-              .
-            </p>
-          </div>
         </div>
       </section>
 
-      <section className="sec in" aria-labelledby="h-faq">
-        <SectionHead
-          drawing="question"
-          title="Automation questions"
-          id="h-faq"
-        />
-        <Questions items={FAQ} firstOpen />
+      <section className="sec in" aria-labelledby="h-ai" id="ai">
+        <div className="ai-band">
+          <div>
+            <span className="tag">Claude, ChatGPT and more</span>
+            <h2 id="h-ai">Or just ask.</h2>
+            <p>
+              Connect AnyPress to your AI app and say what you need: &ldquo;make a
+              bookings site for Still Water Yoga&rdquo;, &ldquo;back up every
+              site tonight&rdquo;, &ldquo;add a pricing section to the home
+              page&rdquo;.
+            </p>
+            <div className="ctas mt-6">
+              <Link href="/ai" className="btn btn-ink">
+                AnyPress in Claude and ChatGPT →
+              </Link>
+            </div>
+          </div>
+          <Screenshot
+            shot={{
+              src: "/apps/mcp-stores.webp",
+              alt: "The AnyPress stores screen an AI app shows: each site with its address and Back up and Suspend buttons",
+              width: 1520,
+              height: 657,
+            }}
+            label="AnyPress stores"
+          />
+        </div>
+      </section>
+
+      <section className="sec soft" aria-labelledby="h-faq">
+        <div className="in">
+          <SectionHead
+            drawing="question"
+            title="Automation questions"
+            id="h-faq"
+          />
+          <Questions items={FAQ} firstOpen />
+        </div>
       </section>
 
       <CtaBand

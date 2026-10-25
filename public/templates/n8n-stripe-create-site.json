@@ -1,0 +1,56 @@
+{
+  "name": "Create a site when a Stripe payment comes in",
+  "nodes": [
+    {
+      "name": "Stripe checkout paid",
+      "type": "n8n-nodes-base.stripeTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "events": [
+          "checkout.session.completed"
+        ]
+      }
+    },
+    {
+      "name": "Create a site",
+      "type": "n8n-nodes-anypress.anyPress",
+      "typeVersion": 1,
+      "position": [
+        320,
+        0
+      ],
+      "parameters": {
+        "operation": "create",
+        "name": "={{ $json.data.object.customer_details.name }}",
+        "externalId": "={{ $json.data.object.subscription }}",
+        "email": "={{ $json.data.object.customer_details.email }}",
+        "additionalFields": {
+          "size": "small"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Stripe checkout paid": {
+      "main": [
+        [
+          {
+            "node": "Create a site",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
