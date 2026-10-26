@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { BuildYourOwn } from "@/components/BuildYourOwn";
 import { Drawing } from "@/components/Drawing";
 import { EarningsCalculator } from "@/components/EarningsCalculator";
 import { LeadForm } from "@/components/LeadForm";
@@ -53,7 +54,7 @@ const YOU: [string, string][] = [
   ["Your brand", "Your name, logo and domain on the storefront and every email. AnyPress stays in the background."],
   ["Your prices", "Charge whatever you like, monthly or yearly. Your clients never see our prices."],
   ["Your payment account", "Clients pay you directly. You keep the relationship and the money."],
-  ["Your starting sites", "Build the sites you sell once, and choose which one each product uses."],
+  ["Your starting sites", "Sell our ready-built sites, or your own with any plugins you like, premium ones included."],
   ["Your clients", "See every client and every site in one dashboard, under one login."],
 ];
 
@@ -127,8 +128,10 @@ export default function Agencies() {
         </div>
       </section>
 
+      <BuildYourOwn soft />
 
-      <section className="sec soft" aria-labelledby="h-split">
+
+      <section className="sec" aria-labelledby="h-split">
         <div className="in">
           <SectionHead eyebrow="who does what" title="You run the business. We run the sites." id="h-split" />
           <div className="split">
@@ -164,17 +167,19 @@ export default function Agencies() {
         </div>
       </section>
 
-      <section id="earnings" className="sec in scroll-mt-20" aria-labelledby="h-earn">
-        <SectionHead
-          eyebrow="do the maths"
-          title="What could you earn?"
-          lead="Move the sliders. Your price per site drops as you sell more, so every new client adds more."
-          id="h-earn"
-        />
-        <EarningsCalculator />
+      <section id="earnings" className="sec soft scroll-mt-20" aria-labelledby="h-earn">
+        <div className="in">
+          <SectionHead
+            eyebrow="do the maths"
+            title="What could you earn?"
+            lead="Move the sliders. Your price per site drops as you sell more, so every new client adds more."
+            id="h-earn"
+          />
+          <EarningsCalculator />
+        </div>
       </section>
 
-      <section className="sec soft" aria-labelledby="h-tiers">
+      <section className="sec" aria-labelledby="h-tiers">
         <div className="in">
           <SectionHead
             eyebrow="volume savings"
@@ -200,60 +205,64 @@ export default function Agencies() {
         </div>
       </section>
 
-      <section className="sec in" aria-labelledby="h-ways">
-        <SectionHead eyebrow="two ways to sell" title="Seller or reseller?" id="h-ways" />
-        <div className="picker">
-          <div className="pick">
-            <Drawing name="sell" />
-            <h3>Seller</h3>
-            <p>One storefront with your name on it. Pay per site at our normal prices, with the volume savings above. Most agencies and freelancers start here.</p>
-            <ul>
-              <li>Freelance designers</li>
-              <li>Local agencies</li>
-              <li>Chambers selling to members</li>
-            </ul>
-            <Link href="/sell" className="go">
-              Apply as a seller →
-            </Link>
-          </div>
-          <div className="pick tech">
-            <Drawing name="shops" />
-            <h3>Reseller</h3>
-            <p>Several storefronts under one login, {WHOLESALE_PERCENT}% off every site on one monthly bill, and partner keys so your developers can create sites with code.</p>
-            <ul>
-              <li>Agencies with several brands</li>
-              <li>Franchise offices</li>
-              <li>Software companies</li>
-            </ul>
-            <Link href="/resellers#wholesale" className="go">
-              See wholesale prices →
-            </Link>
+      <section className="sec soft" aria-labelledby="h-ways">
+        <div className="in">
+          <SectionHead eyebrow="two ways to sell" title="Seller or reseller?" id="h-ways" />
+          <div className="picker">
+            <div className="pick">
+              <Drawing name="sell" />
+              <h3>Seller</h3>
+              <p>One storefront with your name on it. Pay per site at our normal prices, with the volume savings above. Most agencies and freelancers start here.</p>
+              <ul>
+                <li>Freelance designers</li>
+                <li>Local agencies</li>
+                <li>Chambers selling to members</li>
+              </ul>
+              <Link href="/sell" className="go">
+                Apply as a seller →
+              </Link>
+            </div>
+            <div className="pick tech">
+              <Drawing name="shops" />
+              <h3>Reseller</h3>
+              <p>Several storefronts under one login, {WHOLESALE_PERCENT}% off every site on one monthly bill, and partner keys so your developers can create sites with code.</p>
+              <ul>
+                <li>Agencies with several brands</li>
+                <li>Franchise offices</li>
+                <li>Software companies</li>
+              </ul>
+              <Link href="/resellers#wholesale" className="go">
+                See wholesale prices →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="sec soft" aria-labelledby="h-q">
+      <section className="sec" aria-labelledby="h-q">
         <div className="in">
           <SectionHead drawing="question" title="Questions sellers ask" id="h-q" />
           <Questions items={QUESTIONS} firstOpen />
         </div>
       </section>
 
-      <section className="sec in" aria-labelledby="h-guide">
-        <div className="guide-band">
-          <div>
-            <Drawing name="scroll" />
-            <span className="eyebrow">not ready yet?</span>
-            <h2 id="h-guide">The agency profit guide</h2>
-            <p>Read it now, no sign-up needed.</p>
-            <Link href="/guides/agencies" className="btn btn-ink mt-5">
-              Read the guide →
-            </Link>
-          </div>
-          <div>
-            <h3>Want tips by email?</h3>
-            <p>A few short emails about selling websites as a monthly service.</p>
-            <LeadForm group="agencies" interest="Seller" cta="Send me tips" />
+      <section className="sec soft" aria-labelledby="h-guide">
+        <div className="in">
+          <div className="guide-band">
+            <div>
+              <Drawing name="scroll" />
+              <span className="eyebrow">not ready yet?</span>
+              <h2 id="h-guide">The agency profit guide</h2>
+              <p>Read it now, no sign-up needed.</p>
+              <Link href="/guides/agencies" className="btn btn-ink mt-5">
+                Read the guide →
+              </Link>
+            </div>
+            <div>
+              <h3>Want tips by email?</h3>
+              <p>A few short emails about selling websites as a monthly service.</p>
+              <LeadForm group="agencies" interest="Seller" cta="Send me tips" />
+            </div>
           </div>
         </div>
       </section>

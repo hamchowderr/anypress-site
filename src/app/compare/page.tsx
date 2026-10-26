@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CompareTable } from "@/components/CompareTable";
 import { Drawing } from "@/components/Drawing";
+import { PriceCompare } from "@/components/PriceCompare";
 import { CtaBand, PageHero, SectionHead, SidePill } from "@/components/ui";
 import { COMPARISONS } from "@/lib/compare";
 import { pageMeta } from "@/lib/seo";
@@ -10,7 +11,8 @@ export const metadata: Metadata = pageMeta({
   path: "/compare",
   title: "Compare AnyPress with hosting, multisite and more",
   card: "Compare",
-  description: "How AnyPress compares with website builders, regular hosting, WordPress multisite, WP Ultimo and ManageWP.",
+  description:
+    "AnyPress prices next to Shopify, Squarespace, Wix, Kajabi and Circle, and how it compares with regular hosting, WordPress multisite, WP Ultimo and ManageWP.",
 });
 
 export default function Compare() {
@@ -23,7 +25,19 @@ export default function Compare() {
         lead="Honest side-by-sides, including when the other option is the better choice."
       />
 
-      <section className="sec soft !pt-16">
+      <section className="sec soft !pt-16" aria-labelledby="h-prices">
+        <div className="in">
+          <SectionHead
+            eyebrow="prices"
+            title="What the same site costs elsewhere."
+            lead="The smallest plan for each kind of site, from each platform's own pricing page."
+            id="h-prices"
+          />
+          <PriceCompare />
+        </div>
+      </section>
+
+      <section className="sec">
         <div className="in">
           <SectionHead eyebrow="website builders" title="Most website tools sell it to you in pieces." />
           <CompareTable
@@ -39,22 +53,24 @@ export default function Compare() {
         </div>
       </section>
 
-      <section className="sec in">
-        <SectionHead eyebrow="side by side" title="Pick a comparison." />
-        <ul className="cards">
-          {COMPARISONS.map((c) => (
-            <li key={c.slug} className="!basis-[260px]">
-              <Link href={`/compare/${c.slug}`} className="card-link">
-                <Drawing name={c.drawing} className="!w-[120px]" />
-                <h3>AnyPress vs {c.name}</h3>
-                <p>{c.title}</p>
-              </Link>
-              <div className="mt-4">
-                <SidePill side={c.side} />
-              </div>
-            </li>
-          ))}
-        </ul>
+      <section className="sec soft">
+        <div className="in">
+          <SectionHead eyebrow="side by side" title="Pick a comparison." />
+          <ul className="cards">
+            {COMPARISONS.map((c) => (
+              <li key={c.slug} className="!basis-[260px]">
+                <Link href={`/compare/${c.slug}`} className="card-link">
+                  <Drawing name={c.drawing} className="!w-[120px]" />
+                  <h3>AnyPress vs {c.name}</h3>
+                  <p>{c.title}</p>
+                </Link>
+                <div className="mt-4">
+                  <SidePill side={c.side} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <CtaBand />

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "@/components/Icons";
 import { PriceCalculator } from "@/components/PriceCalculator";
+import { PriceCompare } from "@/components/PriceCompare";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { SITE_TYPES, SIZES, planUrl } from "@/lib/site";
@@ -18,6 +19,7 @@ export const metadata: Metadata = pageMeta({
 
 const EVERY_SITE = [
   "Your own private website, not shared with anyone",
+  "The tools for your kind of site, installed and set up, not an empty WordPress",
   "A free domain, and your own domain when you're ready",
   "Email that sends from your own address",
   "The padlock in the address bar, renewed for you",
@@ -155,7 +157,20 @@ export default function Pricing() {
         </div>
       </section>
 
-      <section id="calculator" className="sec soft scroll-mt-20" aria-labelledby="h-calc">
+      <section id="compare" className="sec soft scroll-mt-20" aria-labelledby="h-elsewhere">
+        <div className="in">
+          <SectionHead
+            drawing="scales"
+            eyebrow="side by side"
+            title="What the same site costs elsewhere."
+            lead="The smallest plan for each kind of site on the platforms people ask us about. They charge for the tools, WordPress hosts charge for the server, and we include both."
+            id="h-elsewhere"
+          />
+          <PriceCompare />
+        </div>
+      </section>
+
+      <section id="calculator" className="sec scroll-mt-20" aria-labelledby="h-calc">
         <div className="in">
           <SectionHead
             eyebrow="work it out"
@@ -167,7 +182,7 @@ export default function Pricing() {
         </div>
       </section>
 
-      <section className="border-b border-line">
+      <section className="border-y border-line bg-paper-2">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <SectionHead title="What each size includes." lead="Every kind of site comes in the same three sizes." />
           <ul className="mt-10 grid gap-4 md:grid-cols-3">
@@ -194,9 +209,9 @@ export default function Pricing() {
         </div>
       </section>
 
-      <ProblemFix soft who={WHO} items={PROBLEMS} eyebrow="why it's priced this way" title="Prices that don't surprise you later." />
+      <ProblemFix who={WHO} items={PROBLEMS} eyebrow="why it's priced this way" title="Prices that don't surprise you later." />
 
-      <section>
+      <section className="border-y border-line bg-paper-2">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2">
           <SectionHead left title="On every site, whatever you pick." />
           <ul className="space-y-3">
@@ -210,7 +225,7 @@ export default function Pricing() {
         </div>
       </section>
 
-      <section className="border-t border-line">
+      <section>
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.7fr]">
           <SectionHead left title="Price questions" />
           <Questions items={PRICING_FAQ} />

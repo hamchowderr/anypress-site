@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
+import { BuildYourOwn } from "@/components/BuildYourOwn";
 import { CompareTable } from "@/components/CompareTable";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
@@ -52,6 +53,7 @@ const TABLE: [string, string, string][] = [
   ["Shops", "One, with your name on it", "Several, under one login"],
   ["How you pay", "Per site, as you sell", "One monthly wholesale bill"],
   ["Saving as you grow", "10 to 30% off with 3 or more sites", `${WHOLESALE_PERCENT}% off every site, from the first one`],
+  ["Sites you sell", "Ours, or your own with any plugins", "Ours, or your own, shared across your shops"],
   ["Partner keys for developers", "No", "Yes, for each brand"],
   ["Who it suits", "Freelancers, agencies and groups with one brand", "Agencies, franchises, hosts and software companies with several"],
 ];
@@ -152,7 +154,9 @@ export default function Resellers() {
         </div>
       </section>
 
-      <section className="sec">
+      <BuildYourOwn />
+
+      <section className="sec soft">
         <div className="in">
           <SectionHead eyebrow="how to start" title="Four steps to your first sale." />
           <ol className="flow !mt-0">
@@ -169,7 +173,7 @@ export default function Resellers() {
         </div>
       </section>
 
-      <section className="sec soft">
+      <section className="sec">
         <div className="in">
           <SectionHead drawing="question" title="Reseller questions" />
           <Questions items={FAQ} firstOpen />
