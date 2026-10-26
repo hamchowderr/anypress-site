@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { LogoMark } from "@/components/Logo";
-import { ACCOUNT_URL, CONTACT_EMAIL, SITE_TYPES } from "@/lib/site";
+import { ACCOUNT_URL, CONTACT_EMAIL, DASHBOARD_URL, SITE_TYPES } from "@/lib/site";
 
 const COLUMNS = [
   {
-    title: "Sites",
+    title: "Get a website",
     links: [
       ...SITE_TYPES.map((t) => ({ href: `/sites/${t.id}`, label: t.name })),
       { href: "/pricing", label: "Prices" },
@@ -14,12 +14,12 @@ const COLUMNS = [
     ],
   },
   {
-    title: "Sell & build",
+    title: "Sell websites",
     links: [
       { href: "/agencies", label: "Sell websites" },
+      { href: "/how-it-works/sellers", label: "How selling works" },
       { href: "/resellers", label: "Become a reseller" },
       { href: "/sell", label: "Apply to sell" },
-      { href: "/affiliates", label: "Affiliate program" },
       { href: "/automate", label: "Create sites automatically" },
       { href: "/ai", label: "AnyPress in Claude and ChatGPT" },
       { href: "/developers", label: "For developers" },
@@ -33,6 +33,7 @@ const COLUMNS = [
       { href: "/who", label: "Who it's for" },
       { href: "/#examples", label: "Example sites" },
       { href: "/included", label: "What's included" },
+      { href: "/affiliates", label: "Affiliate program" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
     ],
@@ -41,8 +42,8 @@ const COLUMNS = [
     title: "Help",
     links: [
       { href: "/help", label: "Help" },
-      { href: ACCOUNT_URL, label: "Sign in" },
-      { href: "https://app.anypress.io", label: "Partner dashboard" },
+      { href: ACCOUNT_URL, label: "Sign in to your website" },
+      { href: DASHBOARD_URL, label: "Seller and reseller sign-in" },
       { href: "/terms", label: "Terms" },
       { href: "/privacy", label: "Privacy" },
       { href: "/refund-policy", label: "Refunds" },

@@ -163,6 +163,34 @@
     color: var(--paper);
   }
 
+  /* Two pages for two sides, shown as one switch (How it works). */
+  .side-switch {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    margin: 28px auto 0;
+    padding: 4px;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    background: var(--panel);
+  }
+  .side-switch a {
+    border-radius: 999px;
+    padding: 9px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .side-switch a:hover {
+    background: var(--paper-2);
+  }
+  .side-switch a[aria-current="page"] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
   /* ---------- home hero ---------- */
   .hero {
     text-align: center;

@@ -45,6 +45,13 @@ async function AccountBody({ searchParams }: Pick<PageProps<"/account">, "search
       <div className="mt-6">
         {error === "sign-in" && <p className="mb-4 text-sm">Signing in didn&apos;t work. Please try again.</p>}
         <p className="text-muted">Sign in with your AnyPress account to see and manage your websites.</p>
+        <p className="mt-2 text-sm text-muted">
+          Selling websites to your clients? Your dashboard is at{" "}
+          <a href="https://app.anypress.io" className="underline">
+            app.anypress.io
+          </a>
+          .
+        </p>
         <a
           href="/api/auth/signin?next=/account"
           className="mt-6 inline-block rounded-md bg-accent px-4 py-2.5 font-medium text-on-accent hover:opacity-90"
