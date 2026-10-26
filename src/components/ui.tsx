@@ -7,11 +7,12 @@ import { type Logo, LogoRow } from "@/components/LogoSwap";
  * Who a page is written for. AnyPress has two sides: people buying a website for their own
  * business, and the technical side (sellers, resellers, agencies and developers).
  */
-export type Side = "owners" | "technical";
+export type Side = "owners" | "technical" | "both";
 
 const SIDES: Record<Side, { tag: string; label: string; href: string }> = {
   owners: { tag: "For you", label: "Getting a website for your business", href: "/pricing" },
   technical: { tag: "Technical", label: "For sellers, resellers and developers", href: "/agencies" },
+  both: { tag: "Everyone", label: "For website owners and sellers", href: "/who" },
 };
 
 /** A small pill saying which side of AnyPress a page is for. */
@@ -22,6 +23,35 @@ export function SidePill({ side }: { side: Side }) {
       <b>{s.tag}</b>
       {s.label}
     </Link>
+  );
+}
+
+/**
+ * Two links styled as a switch, for a page that has a version for each side (How it works). Each side is its own
+ * page, so the switch works without JavaScript and every URL is clearly for one side.
+ */
+export function SideSwitch({
+  active,
+  owners,
+  technical,
+  label = "Who is this for?",
+}: {
+  active: Exclude<Side, "both">;
+  owners: { href: string; label: string };
+  technical: { href: string; label: string };
+  label?: string;
+}) {
+  return (
+    <nav className="side-switch" aria-label={label}>
+      {(["owners", "technical"] as const).map((side) => {
+        const o = side === "owners" ? owners : technical;
+        return (
+          <Link key={side} href={o.href} aria-current={side === active ? "page" : undefined} scroll={false}>
+            {o.label}
+          </Link>
+        );
+      })}
+    </nav>
   );
 }
 

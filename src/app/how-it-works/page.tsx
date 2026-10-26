@@ -2,199 +2,173 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
+import { JsonLd } from "@/components/JsonLd";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
-import { SystemDiagram } from "@/components/SystemDiagram";
-import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
-import { pageMeta } from "@/lib/seo";
+import { CtaBand, PageHero, Questions, SectionHead, SideSwitch } from "@/components/ui";
+import { faqLd, pageMeta } from "@/lib/seo";
+import { HOW_SWITCH } from "@/lib/site";
 
+// The website owner's side of How it works: someone buying a site for their own business. Sellers and resellers
+// have their own version at /how-it-works/sellers; the switch under the title moves between the two.
 export const metadata: Metadata = pageMeta({
   path: "/how-it-works",
-  title: "How AnyPress managed WordPress works",
+  title: "How getting a website on AnyPress works",
   card: "How it works",
   description:
-    "The system behind AnyPress: one storefront takes the orders, every order becomes its own WordPress site, and we look after all of them.",
+    "Pick what you're building and pay, and your website is ready in minutes. Add your words and photos, and we look after it every day from then on.",
 });
 
 const STEPS: {
   drawing: DrawingName;
   title: string;
   when: string;
-  body: string;
+  body: ReactNode;
   list?: string[];
 }[] = [
   {
     drawing: "pick",
-    title: "Someone picks a site and pays",
+    title: "Pick what you're building and pay",
     when: "a minute",
-    body: "On our shop, or on a seller's own shop. They choose the kind of site and its size, then pay by card. The payment goes to whoever owns the shop.",
+    body: (
+      <>
+        Choose a website, bookings, a store, courses or everything, and a size. Small suits most new sites. You pay by card, monthly or
+        yearly, and you have 30 days to change your mind. <Link href="/pricing" className="underline">See prices</Link>.
+      </>
+    ),
   },
   {
     drawing: "tools",
-    title: "AnyPress builds the site",
+    title: "We build your site",
     when: "minutes",
-    body: "The order reaches us straight away and we start building. Nobody has to press a button.",
+    body: "Nobody has to press a button. As soon as you've paid, your site is being made, and it arrives finished:",
     list: [
-      "A new WordPress site with its own database, on its own",
-      "A copy of the starting site: the pages, theme and tools for that kind of site",
-      "The owner's name, address, time zone and currency filled in",
-      "A free web address and the padlock, so it's secure from the start",
-      "Email set up to send from the site's own address",
+      "Pages that already suit your kind of business",
+      "The tools you picked switched on, like your shop, bookings or courses",
+      "Your business name, address, time zone and currency filled in",
+      "A free address to share straight away, with the padlock already on",
+      "Email that sends from your site, so receipts and bookings reach people",
     ],
   },
   {
     drawing: "mailbox",
-    title: "The owner gets a welcome email",
+    title: "You get a welcome email",
     when: "when it's ready",
-    body: "It has a link to their account, where they open their site's editor with one click. No passwords to set up for WordPress.",
+    body: "It links to your account on anypress.io. From there, one click opens your site's editor. There's no second password to set up.",
   },
   {
     drawing: "words",
-    title: "They make it theirs",
+    title: "Make it yours",
     when: "an afternoon",
-    body: "Their words, photos and prices go in. They can connect their own domain whenever they're ready, and email starts coming from it too.",
+    body: "Swap in your words, photos and prices. Change colours and fonts in a few clicks. When you're ready, connect your own domain and email starts coming from it too.",
+  },
+  {
+    drawing: "open",
+    title: "Open your doors",
+    when: "whenever you like",
+    body: "Share your link and start taking orders, bookings or sign-ups. Payments go straight to your own account, and we never take a cut.",
   },
   {
     drawing: "backup",
     title: "We look after it from then on",
     when: "every day",
-    body: "A copy is saved every night and kept for a week, with weekly copies kept for a month. Security fixes are applied for them.",
+    body: "A copy of your site is saved every night. Security fixes are applied for you. If something goes wrong, email us and a person answers.",
   },
 ];
 
-const WHO = ["Website owners", "Shops, clubs and churches", "People who sell websites"];
+const WHO = ["Shops and makers", "Coaches and studios", "Course creators", "Chambers, clubs and churches", "Any business that needs a website"];
 
 // Most cheap hosting is a shared house; AnyPress gives every site its own flat, and we're the building manager.
 const PROBLEMS: Problem[] = [
+  {
+    problem: ["Setting up takes days", "Hosting, WordPress, a design, the padlock and email are each their own job before you write a word."],
+    fix: ["Ready in minutes", "Your site arrives with its pages, tools, padlock and email already set up. You start with the fun part."],
+  },
   {
     problem: [
       "One busy site slows the rest",
       "Cheap hosting puts many websites in one shared house, so when a neighbour gets busy, everyone's site gets slow.",
     ],
-    fix: ["Your own flat", "Every site has its own WordPress and database, with set computing power for its size. Nothing is shared."],
+    fix: ["A flat of your own", "Your site has its own space and set computing power for its size. Nothing is shared with anyone else."],
   },
   {
-    problem: ["A problem next door becomes yours", "On a shared server, one hacked or broken site can drag the others down with it."],
-    fix: ["Walls between neighbours", "Sites can't reach each other or the machine they run on. One site's bad day stays its own problem."],
-  },
-  {
-    problem: ["You fix the leaks yourself", "Security fixes, copies of your site and checking those copies work are all left to you."],
-    fix: ["We're the building manager", "We apply security fixes, save a copy every night and test restoring one every day."],
-  },
-  {
-    problem: [
-      "Setting up takes days",
-      "Hosting, WordPress, a theme, the padlock and email are each their own job before you write a word.",
-    ],
-    fix: ["Ready in minutes", "Every order becomes a finished site with its pages, the padlock and email already set up."],
+    problem: ["You fix the leaks yourself", "Security fixes and copies of your site are usually left for you to remember."],
+    fix: ["We're the building manager", "We apply security fixes and save a copy every night, and we check those copies work."],
   },
   {
     problem: ["Moving out means packing by hand", "Some site builders make it hard to take your site anywhere else."],
-    fix: ["Your furniture is yours", "It's normal WordPress, so you can take a full copy to any host whenever you like."],
+    fix: ["Your furniture is yours", "It's real WordPress, so you can take a full copy of your site with you whenever you like."],
   },
 ];
 
-const UNDER_HOOD: [DrawingName, string, ReactNode][] = [
+const YOU_NEED: [DrawingName, string, string][] = [
+  ["email", "An email address", "Where we send your welcome email and receipts."],
+  ["card", "A card to pay with", "Monthly or yearly. Cancel any time from your account."],
+  ["words", "Your words and photos", "Rough is fine. You can change them whenever you like."],
+  ["domain", "Your domain, if you have one", "Optional. You can start on the free address and add it later."],
+];
+
+const WHERE: [DrawingName, string, ReactNode][] = [
   [
-    "server",
-    "Its own containers",
-    "Every site runs in its own WordPress and database containers. Nothing is shared between customers' sites.",
-  ],
-  ["lock", "Walled off", "Sites can't reach each other or the machine they run on. One site having a bad day stays its own problem."],
-  ["sizes", "Sizes we've tested", "Small, Medium and Large each get set computing power, memory and storage, sized from load tests."],
-  ["backup", "Copies kept off-site", "Nightly copies are stored away from the servers, and we test restoring one every day."],
-  [
-    "key",
-    "An API for everything",
+    "website",
+    "Your account",
     <>
-      Sellers and software teams can create, change and remove sites with code.{" "}
-      <Link href="/developers" className="underline">
-        See the API
-      </Link>
-      .
+      At <Link href="/account" className="underline">anypress.io/account</Link>. See your sites, change your plan, connect your own domain
+      and open each site&apos;s editor.
     </>,
   ],
+  ["paint", "Your site's editor", "Where you change pages, photos, colours, products and bookings. It works like editing a document."],
   [
-    "box",
-    "Open source",
+    "lifebuoy",
+    "Help, from a person",
     <>
-      The software behind AnyPress is open source, so you can read how it works, or{" "}
-      <Link href="/self-host" className="underline">
-        run it yourself
-      </Link>
-      .
+      Email <a href="mailto:support@anypress.io" className="underline">support@anypress.io</a>, or read the{" "}
+      <Link href="/help" className="underline">help page</Link>.
     </>,
   ],
 ];
 
 const FAQ: [string, ReactNode][] = [
   [
-    "Is my site really separate from everyone else's?",
-    "Yes. Each site has its own WordPress and its own database. It isn't one big WordPress with lots of sites inside it, so another site getting busy or breaking doesn't touch yours.",
-  ],
-  [
-    "What is a starting site?",
-    "It's the site every new order is copied from. We have one for each kind of site. Sellers can set up their own, with their design and pages, so every client starts with it.",
+    "Do I need to be technical?",
+    "No. We do the technical part. If you can write an email, you can edit your pages, and we're an email away if you get stuck.",
   ],
   [
     "How long does a new site take?",
-    "Minutes, not days. The owner gets an email as soon as it's ready, and if a build ever fails, we're told straight away and fix it.",
+    "Minutes, not days. You get an email as soon as it's ready. If a build ever fails, we're told straight away and fix it.",
   ],
   [
-    "Who can see or change my site?",
-    "You, and anyone you add to your WordPress. We only step in to keep it running, and when you ask us for help.",
+    "Is my site really separate from everyone else's?",
+    "Yes. It has its own space and its own WordPress. Another site getting busy or having a problem doesn't touch yours.",
   ],
+  ["Who can see or change my site?", "You, and anyone you add. We only step in to keep it running, or when you ask us for help."],
   [
-    "Can I take my site with me?",
+    "Can I bring the site I already have?",
     <>
-      It&apos;s normal WordPress, so a full copy can go with you to any host. And you can{" "}
-      <Link href="/move" className="underline">
-        bring a WordPress site in
-      </Link>{" "}
-      too.
+      If it&apos;s on WordPress, yes. <Link href="/move" className="underline">How moving works</Link>.
     </>,
   ],
+  ["Can I take my site with me?", "Yes. It's real WordPress, so a full copy can go with you to any host. No lock-in."],
 ];
 
 export default function HowItWorks() {
   return (
     <>
+      <JsonLd data={faqLd(FAQ)} />
       <PageHero
-        drawing="shops"
+        drawing="website"
+        side="owners"
         eyebrow="how it works"
-        title="One storefront. Every order becomes its own website."
-        lead="Here's the system behind every AnyPress site: how an order turns into a real WordPress site in minutes, and how we look after all of them afterwards."
+        title="Your website, ready in minutes. Looked after every day."
+        lead="You pick what you're building and pay. We set everything up. You add your words and photos, and we keep it running from then on."
       >
-        <div className="ctas mt-8">
-          <Link href="/#sites" className="btn btn-ink">
-            Start your site →
-          </Link>
-          <Link href="/agencies" className="btn btn-paper">
-            Sell websites with it
-          </Link>
+        <div>
+          <SideSwitch active="owners" {...HOW_SWITCH} />
         </div>
       </PageHero>
 
-      <ProblemFix soft who={WHO} title="A flat of your own, not a room in a shared house." items={PROBLEMS} />
-
-      <section className="sec" aria-labelledby="h-system">
-        <div className="in">
-          <SectionHead
-            eyebrow="the big picture"
-            title="One storefront can create as many sites as you sell."
-            lead="Our shop works this way, and so does every seller's shop. One place takes the orders. Every order becomes a separate website."
-            id="h-system"
-          />
-          <SystemDiagram
-            storefront="A storefront"
-            storefrontSub="Ours at shop.anypress.io, or your own if you sell websites."
-            template="the starting site"
-          />
-        </div>
-      </section>
-
       <section className="sec soft" aria-labelledby="h-steps">
         <div className="in">
-          <SectionHead eyebrow="step by step" title="What happens when someone buys." id="h-steps" />
+          <SectionHead eyebrow="step by step" title="From picking a site to opening your doors." id="h-steps" />
           <ol className="steps">
             {STEPS.map((s, i) => (
               <li key={s.title}>
@@ -216,50 +190,62 @@ export default function HowItWorks() {
               </li>
             ))}
           </ol>
+          <div className="ctas mt-10 justify-center">
+            <Link href="/#sites" className="btn btn-ink">
+              Start your site →
+            </Link>
+            <Link href="/#examples" className="btn btn-paper">
+              See an example first
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="sec in" aria-labelledby="h-template">
+      <section className="sec in" aria-labelledby="h-need">
+        <SectionHead eyebrow="before you start" title="All you need." id="h-need" />
+        <ul className="cards">
+          {YOU_NEED.map(([d, title, body]) => (
+            <li key={title} className="!basis-[240px]">
+              <Drawing name={d} />
+              <span className="text-[17px] font-bold">{title}</span>
+              <small>{body}</small>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <ProblemFix soft who={WHO} title="A flat of your own, not a room in a shared house." items={PROBLEMS} />
+
+      <section className="sec in" aria-labelledby="h-where">
         <SectionHead
-          eyebrow="for sellers"
-          title="Set it up once. Every client gets a copy."
-          lead="If you sell websites, you build your starting site once: your design, your pages, your plugins. From then on, every client who buys from your shop gets their own copy of it, built for you."
-          id="h-template"
-          drawing="paint"
+          eyebrow="once you're in"
+          title="Where everything lives."
+          lead="Three places, and you'll mostly use the first two."
+          id="h-where"
         />
-        <div className="ctas">
-          <Link href="/agencies" className="btn btn-ink">
-            How selling works →
-          </Link>
-          <Link href="/resellers" className="btn btn-paper">
-            Several brands? Become a reseller
-          </Link>
-        </div>
+        <ul className="cards">
+          {WHERE.map(([d, title, body]) => (
+            <li key={title} className="!basis-[300px]">
+              <Drawing name={d} />
+              <span className="text-[17px] font-bold">{title}</span>
+              <small>{body}</small>
+            </li>
+          ))}
+        </ul>
       </section>
 
-      <section className="sec soft" aria-labelledby="h-hood">
+      <section className="sec soft" aria-labelledby="h-faq">
         <div className="in">
-          <SectionHead
-            eyebrow="under the hood"
-            title="For the technical folks."
-            lead="The same system, in a bit more detail."
-            id="h-hood"
-          />
-          <ul className="cards">
-            {UNDER_HOOD.map(([d, title, body]) => (
-              <li key={title} className="!basis-[300px]">
-                <Drawing name={d} />
-                <span className="text-[17px] font-bold">{title}</span>
-                <small>{body}</small>
-              </li>
-            ))}
-          </ul>
+          <SectionHead drawing="question" title="Questions about how it works" id="h-faq" />
+          <Questions items={FAQ} firstOpen />
+          <p className="mt-10 text-center text-ink-soft">
+            Selling websites to your own clients?{" "}
+            <Link href="/how-it-works/sellers" className="font-semibold text-ink underline">
+              See how it works for sellers
+            </Link>
+            .
+          </p>
         </div>
-      </section>
-
-      <section className="sec in" aria-labelledby="h-faq">
-        <SectionHead drawing="question" title="Questions about how it works" id="h-faq" />
-        <Questions items={FAQ} firstOpen />
       </section>
 
       <CtaBand />

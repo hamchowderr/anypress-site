@@ -155,6 +155,7 @@ export default function Ai() {
   return (
     <>
       <PageHero
+        side="both"
         eyebrow="AI apps"
         title={
           <>

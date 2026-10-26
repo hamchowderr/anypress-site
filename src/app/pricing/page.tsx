@@ -79,7 +79,19 @@ export default function Pricing() {
         eyebrow="Prices"
         title="Pay for what you build, not for what you sell."
         lead="One monthly price per site. The kind of site sets the tools it gets, and the size sets how much room it has."
-      />
+      >
+        <p className="mt-6 text-ink-soft">
+          Selling websites to your own clients?{" "}
+          <Link href="/agencies#tiers" className="font-semibold text-ink underline">
+            See seller prices
+          </Link>{" "}
+          or{" "}
+          <Link href="/resellers#wholesale" className="font-semibold text-ink underline">
+            reseller wholesale prices
+          </Link>
+          .
+        </p>
+      </PageHero>
 
       <section>
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">

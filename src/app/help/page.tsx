@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { PageHero, Questions } from "@/components/ui";
-import { ACCOUNT_URL, CONTACT_EMAIL } from "@/lib/site";
+import { ACCOUNT_URL, CONTACT_EMAIL, DASHBOARD_URL } from "@/lib/site";
 import { faqLd, pageMeta } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
@@ -102,13 +102,29 @@ const SECTIONS: { title: string; items: [string, ReactNode][] }[] = [
       ],
     ],
   },
+  {
+    title: "If you sell websites",
+    items: [
+      [
+        "I sell websites. Where do I sign in?",
+        <>
+          Sellers and resellers sign in to the dashboard at <a href={DASHBOARD_URL} className="font-semibold text-ink underline">app.anypress.io</a>,
+          not here. It has every client and site you sell. New to selling? <A href="/how-it-works/sellers">See how selling works</A>.
+        </>,
+      ],
+      [
+        "Where do my clients sign in?",
+        "On your own storefront. They never get an AnyPress login, and they never see AnyPress.",
+      ],
+    ],
+  },
 ];
 
 export default function Help() {
   return (
     <>
       <JsonLd data={faqLd(SECTIONS.flatMap((s) => s.items))} />
-      <PageHero drawing="lifebuoy"
+      <PageHero drawing="lifebuoy" side="owners"
         eyebrow="Help"
         title="How can we help?"
         lead="Quick answers to the things people ask most. If yours isn't here, email us and a person will get back to you."

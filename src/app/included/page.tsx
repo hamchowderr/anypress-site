@@ -23,7 +23,7 @@ const EVERY_SITE = [
 export default function Included() {
   return (
     <>
-      <PageHero drawing="tools"
+      <PageHero drawing="tools" side="owners"
         eyebrow="What's included"
         title="What's included, by name."
         lead="For people who know WordPress: the tools that come set up in each site. If these names mean nothing to you, that's fine. You don't need to know them."

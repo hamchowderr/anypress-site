@@ -3,7 +3,6 @@ import type { CSSProperties, ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { Showcase } from "@/components/Showcase";
 import { CompareTable } from "@/components/CompareTable";
-import { BuildYourOwn } from "@/components/BuildYourOwn";
 import { PriceCompare } from "@/components/PriceCompare";
 import { ReadyBuilt } from "@/components/ReadyBuilt";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
@@ -34,7 +33,6 @@ export function HomePage({ hero }: { hero: HeroVersion }) {
       <WhoItsFor />
       <Prices />
       <SellBand />
-      <BuildYourOwn soft />
       <section className="sec" aria-labelledby="h-faq">
         <div className="in">
           <SectionHead drawing="question" title="Questions people ask" id="h-faq" />
@@ -171,7 +169,7 @@ function Included() {
   );
 }
 
-const WHO = ["Shops and makers", "Coaches and studios", "Course creators", "Chambers and associations", "Churches", "Franchises", "Anyone with clients"];
+const WHO = ["Shops and makers", "Coaches and studios", "Course creators", "Chambers and associations", "Churches", "Franchises", "Small businesses"];
 
 const PROBLEMS: Problem[] = [
   {
@@ -339,7 +337,20 @@ function WhoItsFor() {
           id="h-who"
         />
         <ul className="cards">
-          {AUDIENCE_GROUPS.map((g) => (
+          {AUDIENCE_GROUPS.filter((g) => g.side === "owners").map((g) => (
+            <li key={g.id} className="!basis-[250px]">
+              <Link href={groupUrl(g)} className="card-link">
+                <Drawing name={g.drawing} className="!w-[120px]" />
+                <span className="text-[17px] font-bold">{g.name}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <h3 className="mt-14 text-center text-[22px] font-extrabold">
+          And for people who sell websites <span className="hand block text-[22px] sm:ml-1.5 sm:inline">or build them into software</span>
+        </h3>
+        <ul className="cards mt-6">
+          {AUDIENCE_GROUPS.filter((g) => g.side === "technical").map((g) => (
             <li key={g.id} className="!basis-[250px]">
               <Link href={groupUrl(g)} className="card-link">
                 <Drawing name={g.drawing} className="!w-[120px]" />
@@ -376,11 +387,11 @@ function SellBand() {
             </li>
           </ul>
           <div className="flex flex-wrap gap-3">
-            <Link className="btn btn-honey" href="/agencies">
+            <Link className="btn btn-honey" href="/how-it-works/sellers">
               See how selling works →
             </Link>
-            <Link className="btn border-white/40 text-white hover:bg-white/10" href="/resellers">
-              Become a reseller
+            <Link className="btn border-white/40 text-white hover:bg-white/10" href="/agencies">
+              Sell websites
             </Link>
           </div>
         </div>

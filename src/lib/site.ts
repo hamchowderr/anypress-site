@@ -6,6 +6,8 @@ export const SHOP_URL = (process.env.NEXT_PUBLIC_SHOP_URL || "https://shop.anypr
 export const ACCOUNT_URL = `${SHOP_URL}${process.env.NEXT_PUBLIC_ACCOUNT_PATH || "/account/"}`;
 
 // FluentAffiliate's sign-up form and affiliate dashboard on the shop.
+/** Where sellers and resellers sign in. Website owners sign in on anypress.io/account instead. */
+export const DASHBOARD_URL = "https://app.anypress.io";
 export const AFFILIATE_URL = `${SHOP_URL}/affiliates/`;
 
 export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "support@anypress.io";
@@ -455,3 +457,9 @@ export function volumePercent(sites: number): number {
 export function nextTier(sites: number) {
   return VOLUME_TIERS.find((t) => sites < t.sites);
 }
+
+/** The two versions of How it works: website owners, and sellers and resellers. */
+export const HOW_SWITCH = {
+  owners: { href: "/how-it-works", label: "I want a website" },
+  technical: { href: "/how-it-works/sellers", label: "I sell websites" },
+};

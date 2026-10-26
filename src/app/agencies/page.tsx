@@ -179,7 +179,7 @@ export default function Agencies() {
         </div>
       </section>
 
-      <section className="sec" aria-labelledby="h-tiers">
+      <section id="tiers" className="sec scroll-mt-20" aria-labelledby="h-tiers">
         <div className="in">
           <SectionHead
             eyebrow="volume savings"
