@@ -582,6 +582,70 @@
     height: 18px;
     flex: none;
   }
+  /* How many tools a site type arrives with, on the homepage's "What are you building?" cards. */
+  .type .type-tools {
+    display: block;
+    margin-top: 8px;
+    font-size: 21px;
+    color: var(--accent);
+  }
+  /* The price comparison: other platforms' plans listed in one cell, ours in the last. */
+  .compare .elsewhere {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .compare .elsewhere a {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+  .compare .elsewhere a:hover {
+    text-decoration-color: var(--ink);
+  }
+  .compare .elsewhere .no {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .price-compare small {
+    display: block;
+    margin-top: 2px;
+    color: var(--ink-soft);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .price-compare .yes {
+    font-size: 20px;
+    white-space: nowrap;
+  }
+  /* Phones: the kind of site becomes a heading over its row, so both price columns fit without scrolling. */
+  @media (max-width: 640px) {
+    .price-compare tr {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 118px;
+    }
+    .compare .price-compare th,
+    .compare .price-compare td {
+      padding: 12px;
+      font-size: 15px;
+    }
+    .price-compare thead th:first-child {
+      display: none;
+    }
+    .compare .price-compare tbody th {
+      grid-column: 1 / -1;
+      padding-bottom: 0;
+      border-bottom: 0;
+      font-size: 17px;
+      font-weight: 800;
+    }
+    .price-compare .yes {
+      font-size: 18px;
+    }
+  }
   .compare-note {
     text-align: center;
     color: var(--ink-soft);
@@ -601,7 +665,7 @@
     padding: 22px 18px 20px;
     text-align: center;
     display: grid;
-    grid-template-rows: auto auto 1fr auto auto;
+    grid-template-rows: auto auto 1fr auto auto auto;
     gap: 6px;
     text-decoration: none;
     background: var(--paper);

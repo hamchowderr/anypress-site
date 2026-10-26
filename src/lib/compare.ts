@@ -1,7 +1,7 @@
 import type { DrawingName } from "@/components/drawings.generated";
 
 // Comparison pages (/compare/<slug>). Keep every claim about the other option general and fair:
-// say what it is and how it usually works, never prices, never anything we can't back up.
+// say what it is and how it usually works, never anything we can't back up. Dated prices live in src/lib/prices.ts.
 export interface Comparison {
   slug: string;
   name: string;

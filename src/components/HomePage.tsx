@@ -3,6 +3,9 @@ import type { CSSProperties, ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { Showcase } from "@/components/Showcase";
 import { CompareTable } from "@/components/CompareTable";
+import { BuildYourOwn } from "@/components/BuildYourOwn";
+import { PriceCompare } from "@/components/PriceCompare";
+import { ReadyBuilt } from "@/components/ReadyBuilt";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
 import { CtaBand, Questions, SectionHead } from "@/components/ui";
@@ -26,11 +29,13 @@ export function HomePage({ hero }: { hero: HeroVersion }) {
       <ProblemFix soft who={WHO} items={PROBLEMS} title="Getting a website shouldn't be this hard." />
       <Pieces />
       <Sites />
+      <ReadyBuilt />
       <HowItWorks />
       <WhoItsFor />
       <Prices />
       <SellBand />
-      <section className="sec soft" aria-labelledby="h-faq">
+      <BuildYourOwn soft />
+      <section className="sec" aria-labelledby="h-faq">
         <div className="in">
           <SectionHead drawing="question" title="Questions people ask" id="h-faq" />
           <Questions items={FAQ} firstOpen />
@@ -237,6 +242,7 @@ function Sites() {
               <Drawing name={t.drawing} />
               <h3>{t.name}</h3>
               <p>{t.pitch}</p>
+              <span className="type-tools hand">{t.tools.length - 1} tools set up for you</span>
               <div className="price">
                 ${t.from} <small>/ month</small>
               </div>
@@ -279,7 +285,7 @@ const OUR_PART: [DrawingName, string][] = [
 
 function HowItWorks() {
   return (
-    <section className="sec" aria-labelledby="h-how">
+    <section className="sec soft" aria-labelledby="h-how">
       <div className="in">
         <SectionHead eyebrow="how it works" title="You do the fun part. We do the rest." id="h-how" />
         <div className="parts">
@@ -324,7 +330,7 @@ function HowItWorks() {
 
 function WhoItsFor() {
   return (
-    <section className="sec soft" aria-labelledby="h-who">
+    <section className="sec" aria-labelledby="h-who">
       <div className="in">
         <SectionHead
           eyebrow="who it's for"
@@ -354,7 +360,7 @@ function WhoItsFor() {
 
 function SellBand() {
   return (
-    <section className="sec in !pt-0" aria-labelledby="h-sell">
+    <section className="sec in" aria-labelledby="h-sell">
       <div className="sell">
         <Drawing name="sell" />
         <div>
@@ -387,26 +393,34 @@ function SellBand() {
 
 function Prices() {
   return (
-    <section className="sec in" aria-labelledby="h-price">
-      <SectionHead eyebrow="simple prices" title="One price per site. Nothing hidden." lead="Starting prices for a small site, per month." id="h-price" />
-      <div className="prices">
-        {SITE_TYPES.map((t) => (
-          <Link key={t.id} href={`/sites/${t.id}`}>
-            <b>{t.short}</b>
-            <strong>${t.from}</strong>
-            <small>/ month</small>
+    <section className="sec soft" aria-labelledby="h-price">
+      <div className="in">
+        <SectionHead eyebrow="simple prices" title="One price per site. Nothing hidden." lead="Starting prices for a small site, per month." id="h-price" />
+        <div className="prices">
+          {SITE_TYPES.map((t) => (
+            <Link key={t.id} href={`/sites/${t.id}`}>
+              <b>{t.short}</b>
+              <strong>${t.from}</strong>
+              <small>/ month</small>
+            </Link>
+          ))}
+        </div>
+        <ul className="price-notes">
+          <li>Pay yearly, get 2 months free</li>
+          <li>More room? Medium is 2×, Large is 4×</li>
+          <li>3 or more sites? Save 10 to 30%</li>
+        </ul>
+        <h3 className="mt-16 text-center text-[26px] font-extrabold">
+          Next to other platforms <span className="hand block text-[22px] sm:ml-1.5 sm:inline">same kind of site, smallest plan</span>
+        </h3>
+        <div className="mt-6">
+          <PriceCompare />
+        </div>
+        <div className="ctas mt-10">
+          <Link className="btn btn-ink" href="/pricing">
+            See all prices
           </Link>
-        ))}
-      </div>
-      <ul className="price-notes">
-        <li>Pay yearly, get 2 months free</li>
-        <li>More room? Medium is 2×, Large is 4×</li>
-        <li>3 or more sites? Save 10 to 30%</li>
-      </ul>
-      <div className="ctas">
-        <Link className="btn btn-ink" href="/pricing">
-          See all prices
-        </Link>
+        </div>
       </div>
     </section>
   );
