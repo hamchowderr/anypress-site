@@ -2734,6 +2734,62 @@
     margin-top: 0;
     margin-left: 4px;
   }
+  .blocks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1080px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .block-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 16px;
+    scroll-margin-top: 96px;
+  }
+  .block-shot {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--paper);
+  }
+  /* The whole width of each section shows; tall ones are cut at the bottom, short ones sit in the middle. */
+  .block-shot {
+    display: grid;
+    align-content: safe center;
+    min-width: 0;
+    aspect-ratio: 2 / 1;
+  }
+  .block-shot img {
+    display: block;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+  }
+  .block-body {
+    padding: 16px 8px 6px;
+  }
+  .block-group {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .block-card h3 {
+    margin-top: 6px;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .block-body > p {
+    margin-top: 6px;
+    color: var(--ink-soft);
+  }
   .aflow-link {
     font-weight: 700;
     text-decoration: underline;
@@ -2771,6 +2827,7 @@
   @media (max-width: 860px) {
     .app,
     .tpls,
+    .blocks,
     .ai-band {
       grid-template-columns: minmax(0, 1fr);
     }
