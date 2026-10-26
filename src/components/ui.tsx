@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
+import { type Logo, LogoRow } from "@/components/LogoSwap";
 
 /**
  * Who a page is written for. AnyPress has two sides: people buying a website for their own
@@ -30,6 +31,7 @@ export function PageHero({
   title,
   lead,
   drawing,
+  visual,
   side,
   children,
 }: {
@@ -37,13 +39,15 @@ export function PageHero({
   title: ReactNode;
   lead?: ReactNode;
   drawing?: DrawingName;
+  /** Shown in place of the drawing. */
+  visual?: ReactNode;
   side?: Side;
   children?: ReactNode;
 }) {
   return (
     <section className="in page-hero">
       {side && <SidePill side={side} />}
-      {drawing && <Drawing name={drawing} />}
+      {visual ?? (drawing && <Drawing name={drawing} />)}
       {eyebrow && (
         <div>
           <span className="eyebrow">{eyebrow}</span>
@@ -105,6 +109,7 @@ export function CtaBand({
   href = "/#sites",
   label = "Start your site",
   drawings = ["store", "everything", "bookings"],
+  logos,
 }: {
   eyebrow?: string;
   title?: string;
@@ -112,6 +117,8 @@ export function CtaBand({
   href?: string;
   label?: string;
   drawings?: DrawingName[];
+  /** App logos shown in place of the drawings. */
+  logos?: Logo[];
 }) {
   return (
     <section className="in end">
@@ -126,7 +133,9 @@ export function CtaBand({
           Talk to us
         </Link>
       </div>
-      {drawings.length > 0 && (
+      {logos ? (
+        <LogoRow logos={logos} />
+      ) : drawings.length > 0 && (
         <div className="row">
           {drawings.map((d) => (
             <Drawing key={d} name={d} />

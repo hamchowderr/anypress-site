@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { AppLogo, Screenshot, type Shot } from "@/components/AppShots";
 import { Drawing, type DrawingName } from "@/components/Drawing";
+import { LogoSwap, type Logo } from "@/components/LogoSwap";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { Templates, type Template } from "@/components/Templates";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
@@ -60,6 +61,12 @@ const ZAPIER_INVITE = {
   label: "Add AnyPress to Zapier",
   href: "https://zapier.com/developer/public-invite/248504/d92ccd4f604ea3e76535ff8452c69eb9/",
 };
+const LOGOS: Logo[] = [
+  { src: "/apps/n8n-logo.svg", name: "n8n" },
+  { src: "/apps/make-logo.svg", name: "Make" },
+  { src: "/apps/zapier-logo.svg", name: "Zapier" },
+  { src: "/apps/highlevel-logo.svg", name: "HighLevel" },
+];
 const WHO = ["Sellers and resellers", "Agencies with a CRM", "Teams without a developer"];
 
 const PROBLEMS: Problem[] = [
@@ -293,6 +300,34 @@ const TEMPLATES: Template[] = [
     invite: ZAPIER_INVITE,
     guide: READY_DOC,
   },
+  {
+    id: "highlevel-tag",
+    tool: "HighLevel",
+    title: "Contact tagged, site created",
+    body: "Tag a contact and the Create site step makes their site. The contact is its reference, so a workflow that runs twice still makes one.",
+    shot: {
+      src: "/templates/highlevel-create-site.webp",
+      alt: "HighLevel workflow: Contact Tag trigger, then AnyPress Create site and Get site",
+      width: 1075,
+      height: 430,
+    },
+    soon: "App coming soon",
+    guide: HIGHLEVEL_DOC,
+  },
+  {
+    id: "highlevel-ready",
+    tool: "HighLevel",
+    title: "Site ready, workflow starts",
+    body: "The Site event trigger starts a workflow the moment a site is built. Add your welcome email or text after it.",
+    shot: {
+      src: "/templates/highlevel-site-ready.webp",
+      alt: "HighLevel workflow: AnyPress Site Event trigger, then Wait",
+      width: 960,
+      height: 384,
+    },
+    soon: "App coming soon",
+    guide: HIGHLEVEL_DOC,
+  },
 ];
 
 const FAQ: [string, ReactNode][] = [
@@ -357,7 +392,7 @@ export default function Automate() {
     <>
       <PageHero
         side="technical"
-        drawing="plug"
+        visual={<LogoSwap logos={LOGOS} />}
         eyebrow="automation"
         title={
           <>
@@ -584,7 +619,7 @@ export default function Automate() {
         body="Apply to sell, and your storefront creates sites from the first order. Need a partner key or help with a flow? Email support@anypress.io."
         href="/sell"
         label="Apply to sell"
-        drawings={["plug", "key", "mailbox"]}
+        logos={LOGOS}
       />
     </>
   );
