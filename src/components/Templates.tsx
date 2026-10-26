@@ -5,7 +5,7 @@ import { AppLogo, Screenshot, type Shot } from "./AppShots";
 
 export type Template = {
   id: string;
-  tool: "n8n" | "Make" | "Zapier";
+  tool: "n8n" | "Make" | "Zapier" | "HighLevel";
   title: string;
   body: string;
   shot: Shot;
@@ -17,6 +17,8 @@ export type Template = {
   zap?: string;
   /** Where to add the app first, when the template can't be copied. */
   invite?: { label: string; href: string };
+  /** Shown in place of the buttons while the app isn't out yet. */
+  soon?: string;
   guide: string;
 };
 
@@ -24,8 +26,9 @@ const LOGOS = {
   n8n: "/apps/n8n-logo.svg",
   Make: "/apps/make-logo.svg",
   Zapier: "/apps/zapier-logo.svg",
+  HighLevel: "/apps/highlevel-logo.svg",
 };
-const TABS = ["All", "n8n", "Make", "Zapier"] as const;
+const TABS = ["All", "n8n", "Make", "Zapier", "HighLevel"] as const;
 
 function CopyWorkflow({ file }: { file: string }) {
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
@@ -103,6 +106,7 @@ export function Templates({ items }: { items: Template[] }) {
                     Use this Zap
                   </a>
                 )}
+                {t.soon && <span className="soon">{t.soon}</span>}
                 <a href={t.guide} className="aflow-link">
                   Guide →
                 </a>
