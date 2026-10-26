@@ -78,10 +78,10 @@ export const SITE_TYPES: SiteType[] = [
     drawing: "website",
     example: {
       name: "Juniper Street Bakery",
-      what: "A neighbourhood bakery with its menu, opening hours and a newsletter.",
-      url: "https://t-1edb454e.stores.anypress.site/",
+      what: "A neighbourhood bakery with its menu, opening hours and cake orders.",
+      url: "https://t-c54f40af.stores.anypress.site/",
       shot: "website",
-      tryIt: ["Read the menu", "Find the opening hours", "Join the newsletter"],
+      tryIt: ["Read the menu", "Find the opening hours", "Order a cake"],
     },
   },
   {
