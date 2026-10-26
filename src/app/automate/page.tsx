@@ -84,6 +84,7 @@ const PROBLEMS: Problem[] = [
 const N8N_DOC = "https://shop.anypress.io/docs/use-anypress-in-n8n/";
 const MAKE_DOC = "https://shop.anypress.io/docs/use-anypress-in-make/";
 const ZAPIER_DOC = "https://shop.anypress.io/docs/use-anypress-in-zapier/";
+const HIGHLEVEL_DOC = "https://shop.anypress.io/docs/use-anypress-in-highlevel/";
 
 const APPS: {
   tool: string;
@@ -174,7 +175,7 @@ const APPS: {
       label: "Get early access",
       href: "mailto:support@anypress.io?subject=AnyPress%20for%20HighLevel",
     },
-    doc: "",
+    doc: HIGHLEVEL_DOC,
     actions: [
       "Create site",
       "Get site",
@@ -347,7 +348,7 @@ const FAQ: [string, ReactNode][] = [
   ],
   [
     "Is there an app for HighLevel (GoHighLevel)?",
-    "It's coming. Agencies will install AnyPress on their sub-accounts and create a client's site from any HighLevel workflow, then start the welcome steps when it's ready. Write to support@anypress.io for early access. Until then, HighLevel's Custom Webhook action can call the AnyPress API.",
+    "It's coming. Agencies will install AnyPress on their sub-accounts and create a client's site from any HighLevel workflow, then start the welcome steps when it's ready. Write to support@anypress.io for early access. You can start today with HighLevel's own webhook steps: the HighLevel guide in our docs shows how.",
   ],
 ];
 
