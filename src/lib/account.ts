@@ -170,6 +170,8 @@ export interface Website {
   can_log_in: boolean;
   needs_new_name: boolean;
   manage_plan_url: string;
+  /** Checkout for more emails for this website; null when the shop sells none. */
+  buy_emails_url?: string | null;
 }
 
 export interface DnsRecord {
