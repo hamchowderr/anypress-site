@@ -6,7 +6,7 @@ export const SHOP_URL = (process.env.NEXT_PUBLIC_SHOP_URL || "https://shop.anypr
 export const ACCOUNT_URL = `${SHOP_URL}${process.env.NEXT_PUBLIC_ACCOUNT_PATH || "/account/"}`;
 
 // FluentAffiliate's sign-up form and affiliate dashboard on the shop.
-/** Where sellers and resellers sign in. Website owners sign in on anypress.io/account instead. */
+/** Where sellers and resellers sign in. Website owners sign in on the shop's account page (ACCOUNT_URL) instead. */
 export const DASHBOARD_URL = "https://app.anypress.io";
 export const AFFILIATE_URL = `${SHOP_URL}/affiliates/`;
 

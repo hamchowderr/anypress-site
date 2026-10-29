@@ -26,14 +26,14 @@ const SECTIONS: { title: string; items: [string, ReactNode][] }[] = [
       [
         "How do I sign in?",
         <>
-          Go to <A href="/account">Your websites</A> and choose Sign in. Use the email address you bought your plan with. If you
+          Go to <A href={ACCOUNT_URL}>your account page</A> and sign in with the email address you bought your plan with. If you
           don&apos;t know your password, choose &quot;Lost your password?&quot; on the sign-in page and we&apos;ll email you a link to set a new one.
         </>,
       ],
       [
         "How do I open my site's editor?",
         <>
-          Sign in to <A href="/account">Your websites</A> and choose Log in to WordPress next to your site. It opens your site&apos;s
+          Sign in to <A href={ACCOUNT_URL}>your account page</A>, open My website and choose Log in to your website. It opens your site&apos;s
           WordPress dashboard already signed in, with no second password.
         </>,
       ],
@@ -53,10 +53,9 @@ const SECTIONS: { title: string; items: [string, ReactNode][] }[] = [
       [
         "How do I use my own domain?",
         <>
-          Sign in to <A href="/account">Your websites</A>. Under &quot;Using your own domain&quot; you&apos;ll find the records to add
-          where your domain is managed (the company you bought it from, or Cloudflare). Add them, then change your site&apos;s address on
-          the <A href={ACCOUNT_URL}>account page</A>. The secure connection is set up for you, and the old address keeps working for a few
-          minutes while it switches.
+          Sign in to <A href={ACCOUNT_URL}>your account page</A> and open My website. Under &quot;Use your own domain&quot; you&apos;ll find the
+          records to add where your domain is managed (the company you bought it from, or Cloudflare). Add them, then type your domain in the
+          same place. The secure connection is set up for you, and the old address keeps working for a few minutes while it switches.
         </>,
       ],
     ],
@@ -67,7 +66,7 @@ const SECTIONS: { title: string; items: [string, ReactNode][] }[] = [
       [
         "How do I cancel?",
         <>
-          Sign in to <A href="/account">Your websites</A> and choose Manage plan next to the site, then cancel. Your site stays online
+          Sign in to <A href={ACCOUNT_URL}>your account page</A>, open My website and choose Manage or cancel plan. Your site stays online
           until the end of the period you&apos;ve paid for, and you won&apos;t be charged again.
         </>,
       ],
@@ -130,9 +129,9 @@ export default function Help() {
         lead="Quick answers to the things people ask most. If yours isn't here, email us and a person will get back to you."
       >
         <div className="mt-9 flex flex-wrap gap-3">
-          <Link href="/account" className="btn btn-ink">
-            Sign in to your websites
-          </Link>
+          <a href={ACCOUNT_URL} className="btn btn-ink">
+            Sign in to your website
+          </a>
           {CONTACT_EMAIL && (
             <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn-paper">
               {CONTACT_EMAIL}
