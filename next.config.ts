@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
     return [
       { source: "/who/agencies", destination: "/agencies", permanent: true },
       { source: "/who/developers", destination: "/developers", permanent: true },
+      // Website owners manage their website on the shop's account page; old links and bookmarks go there.
+      { source: "/account", destination: `${(process.env.NEXT_PUBLIC_SHOP_URL || "https://shop.anypress.io").replace(/\/$/, "")}${process.env.NEXT_PUBLIC_ACCOUNT_PATH || "/account/"}`, permanent: false },
     ];
   },
   turbopack: {

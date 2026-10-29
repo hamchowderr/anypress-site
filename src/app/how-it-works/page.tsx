@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead, SideSwitch } from "@/components/ui";
 import { faqLd, pageMeta } from "@/lib/seo";
-import { HOW_SWITCH } from "@/lib/site";
+import { ACCOUNT_URL, HOW_SWITCH } from "@/lib/site";
 
 // The website owner's side of How it works: someone buying a site for their own business. Sellers and resellers
 // have their own version at /how-it-works/sellers; the switch under the title moves between the two.
@@ -112,8 +112,8 @@ const WHERE: [DrawingName, string, ReactNode][] = [
     "website",
     "Your account",
     <>
-      At <Link href="/account" className="underline">anypress.io/account</Link>. See your sites, change your plan, connect your own domain
-      and open each site&apos;s editor.
+      On <a href={ACCOUNT_URL} className="underline">your account page</a>, under My website. See your sites, change your plan, connect your
+      own domain and open each site&apos;s editor.
     </>,
   ],
   ["paint", "Your site's editor", "Where you change pages, photos, colours, products and bookings. It works like editing a document."],

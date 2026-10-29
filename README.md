@@ -32,10 +32,6 @@ All optional. Copy `.env.example` to `.env.local` to set them locally.
 | `NEXT_PUBLIC_SHOP_URL` | The WordPress shop that runs checkout and accounts | `https://shop.anypress.io` |
 | `NEXT_PUBLIC_ACCOUNT_PATH` | The account page on the shop | `/account/` |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | Address shown on the contact page | support@anypress.io |
-| `ACCOUNT_CLIENT_ID` | This site's client id on the shop (`wp waas-host account-client add`) | unset: sign-in off |
-| `ACCOUNT_CLIENT_SECRET` | Its client secret. Server only; never `NEXT_PUBLIC_` | unset: sign-in off |
-| `SESSION_SECRET` | 32+ random characters that encrypt the session cookie (`openssl rand -base64 32`) | unset: sign-in off |
-| `SITE_URL` | This site's address; the callback `<SITE_URL>/api/auth/callback` must be registered on the shop | `https://anypress.io` |
 
 Site types, prices and the customer groups live in `src/lib/site.ts`.
 

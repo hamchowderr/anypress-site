@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { NavLink, StartButton } from "@/components/HeaderLinks";
 import { Logo } from "@/components/Logo";
-import { accountSignInEnabled } from "@/lib/account";
 import { ACCOUNT_URL, DASHBOARD_URL } from "@/lib/site";
 
 // For people getting a website. Sellers and resellers get their own link, set apart after these.
@@ -20,7 +19,7 @@ const SELL = [
 ];
 
 export function SiteHeader() {
-  const signIn = accountSignInEnabled() ? "/account" : ACCOUNT_URL;
+  const signIn = ACCOUNT_URL;
   return (
     <>
       <aside className="announce" aria-label="Affiliate program">

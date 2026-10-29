@@ -4,7 +4,7 @@ const BASE = "https://anypress.io";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/", disallow: ["/api/", "/account"] },
+    rules: { userAgent: "*", allow: "/", disallow: ["/api/"] },
     sitemap: `${BASE}/sitemap.xml`,
     host: BASE,
   };
