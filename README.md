@@ -3,7 +3,7 @@
 The marketing site for [AnyPress](https://anypress.io): any website, on its own WordPress, with the tools already set up.
 
 It's a headless front end built with Next.js. Checkout stays on the AnyPress WordPress shop
-(`shop.anypress.io`, running FluentCart and the WaaS Host plugin), so this site never handles
+(`shop.anypress.io`, running FluentCart and the AnyPress Host plugin), so this site never handles
 payments. Plan buttons link to FluentCart's instant checkout on the shop.
 
 **Your websites** (`/account`): customers sign in on the shop (OAuth 2.0 with PKCE, see the

@@ -2,7 +2,7 @@
 
 @AGENTS.md
 
-The marketing site at anypress.io: a headless Next.js front end on Vercel. Checkout and customer accounts stay on the WordPress shop (shop.anypress.io, FluentCart and WaaS Host); this site never handles payments. Customer stores are not headless; only this site is.
+The marketing site at anypress.io: a headless Next.js front end on Vercel. Checkout and customer accounts stay on the WordPress shop (shop.anypress.io, FluentCart and AnyPress Host); this site never handles payments. Customer stores are not headless; only this site is.
 
 - `PRODUCT.md` says who the site speaks to and what it promises; `DESIGN.md` holds the look (the sketchbook style, its colours and type). Read both before changing copy or layout.
 - Every customer group is spoken to equally; none is the main audience. Pricing and plan names must match the shop's live plans.
