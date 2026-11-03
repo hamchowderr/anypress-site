@@ -27,7 +27,7 @@ Building a website shouldn't be hard. Other platforms make it harder than it nee
 ## Operating Context
 
 - Marketing site: anypress.io (this repo, Next.js on Vercel).
-- Checkout and customer accounts: shop.anypress.io (WordPress + FluentCart + WaaS Host). Buttons link there.
+- Checkout and customer accounts: shop.anypress.io (WordPress + FluentCart + AnyPress Host). Buttons link there.
 - Customer sites live at <name>.anypress.site until the customer connects their own domain.
 
 ## Capabilities and Constraints
