@@ -52,6 +52,43 @@ export const GUIDES: Guide[] = [
     ],
   },
   {
+    id: "trades",
+    title: "Local trades website checklist",
+    lead: "What a plumber, electrician or any local trade needs on a website to get found nearby and get booked.",
+    sections: [
+      {
+        heading: "Get found nearby",
+        checks: [
+          "Your business name, phone number and the towns you cover on every page",
+          "A page for each service you want more of, in the words customers search for",
+          "A free Google Business Profile that links to your website",
+          "A few photos of real jobs, with a line on what you did and where",
+        ],
+      },
+      {
+        heading: "Make it easy to book",
+        steps: [
+          "Put a Book a time button at the top of every page.",
+          "List the jobs people can book online and how long each takes.",
+          "Take a deposit for longer jobs, so a no-show doesn't cost you the slot.",
+          "Turn on reminder emails the day before.",
+        ],
+      },
+      {
+        heading: "Look like a real business",
+        checks: [
+          "Email from your own domain, not a free address",
+          "Your licence and insurance details where customers can see them",
+          "Clear prices or a starting price for common jobs",
+        ],
+      },
+      {
+        heading: "Keep customers coming back",
+        body: "Every booking adds the customer to your list. A short email after the job, and a seasonal reminder (like a furnace check before winter), brings repeat work without a single phone call.",
+      },
+    ],
+  },
+  {
     id: "regulated",
     title: "Regulated store checklist",
     lead: "What to have in place before you sell supplements, CBD or other regulated products from your own store.",

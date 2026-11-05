@@ -14,18 +14,28 @@ const ROWS: [string, string, string][] = [
   ["Security fixes", "Your job", "Done for you"],
 ];
 
-export function ReadyBuilt({ soft = false }: { soft?: boolean }) {
+// Version "b" of the homepage A/B test (src/lib/ab.ts): leads with how fast a site is ready to use.
+const ROWS_B: [string, string, string][] = ROWS.map((r) =>
+  r[0] === "Plugins that work together" ? ["Add-ons that break each other", "Hope they don't", "Made by one team to work together"] : r,
+);
+
+export function ReadyBuilt({ soft = false, version = "a" }: { soft?: boolean; version?: "a" | "b" }) {
+  const b = version === "b";
   return (
     <section className={`sec${soft ? " soft" : ""}`} aria-labelledby="h-ready">
       <div className="in">
         <SectionHead
           drawing="tools"
-          eyebrow="not an empty install"
-          title="WordPress, already built for what you do."
-          lead="Most WordPress hosts hand you a blank site and a long list of plugins to research. An AnyPress site arrives with its tools installed, connected and set up for the kind of site you picked."
+          eyebrow={b ? "already use WordPress?" : "not an empty install"}
+          title={b ? "Ready to go out of the gate." : "WordPress, already built for what you do."}
+          lead={
+            b
+              ? "Most WordPress hosts hand you a blank site and a week of setup. Yours arrives finished the same day, with everything installed, connected and working."
+              : "Most WordPress hosts hand you a blank site and a long list of plugins to research. An AnyPress site arrives with its tools installed, connected and set up for the kind of site you picked."
+          }
           id="h-ready"
         />
-        <CompareTable head={["Out of the box", "Plain WordPress hosting", "AnyPress"]} rows={ROWS} />
+        <CompareTable head={["Out of the box", "Plain WordPress hosting", "AnyPress"]} rows={b ? ROWS_B : ROWS} />
         <p className="compare-note">
           {WP_HOST.who}&apos;s price is from{" "}
           <a href={WP_HOST.url} target="_blank" rel="noopener nofollow" className="underline">

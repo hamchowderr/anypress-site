@@ -70,6 +70,12 @@ export default function Compare() {
               </li>
             ))}
           </ul>
+          <p className="mt-10 text-center">
+            Already on HighLevel? AnyPress adds the website to it.{" "}
+            <Link href="/highlevel" className="font-bold underline underline-offset-4">
+              Works with HighLevel →
+            </Link>
+          </p>
         </div>
       </section>
 

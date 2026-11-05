@@ -33,7 +33,7 @@ export function AbTracker() {
           url.searchParams.set("utm_source", "anypress.io");
           url.searchParams.set("utm_medium", "site");
           url.searchParams.set("utm_campaign", AB_TEST);
-          url.searchParams.set("utm_content", `hero-${who.version}`);
+          url.searchParams.set("utm_content", `copy-${who.version}`);
           a.href = url.toString();
         }
         send("shop", path);

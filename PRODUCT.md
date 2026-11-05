@@ -8,7 +8,7 @@ web
 
 ## Users
 
-Every customer group is spoken to equally; none is the "main" audience (owner, 2026-10-19). The groups: online shops and niche site sellers, supplement/CBD and other regulated sellers, course creators and educators, chambers and associations, franchises and multi-location brands, agencies and freelancers, SaaS and software teams.
+Every customer group is spoken to equally; none is the "main" audience (owner, 2026-10-19). The groups: online shops and niche site sellers, local services and trades (plumbers, electricians, HVAC, roofers, cleaners; added 2026-11-05), supplement/CBD and other regulated sellers, course creators and educators, chambers and associations, franchises and multi-location brands, agencies and freelancers, SaaS and software teams.
 
 What they share: they need a real website to run their business, most are not technical, and they don't want to become their own web team. Each group gets its own dedicated page; the homepage does not use a picker to swap content.
 
@@ -44,6 +44,8 @@ Building a website shouldn't be hard. Other platforms make it harder than it nee
 - Voice: plain, friendly language a non-technical person understands on first read. Outcomes before features. Technical words (database, SSL, DNS, CRM, API, plugin names) only on deeper pages (owner, 2026-10-19). Exception: say "domain", never "web address" (owner, 2026-10-19).
 - Never write "WPCS" or refer to the old platform by that name.
 - Not agency-only in any copy.
+- HighLevel (GoHighLevel) is never a competitor in copy: its agencies are customers. Say "works with HighLevel" (owner, 2026-11-05).
+- Lead with outcomes a business owner says out loud (get found on Google, get booked, get paid, keep track of customers, email from your own domain) and the pains they name (nickel-and-dimed by add-ons, updates that break the site). The homepage and /pricing run this as copy "b" in the site copy A/B test (src/lib/ab.ts).
 
 ## Evidence on Hand
 

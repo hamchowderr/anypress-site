@@ -80,7 +80,11 @@ const QUESTIONS: [string, ReactNode][] = [
     "Do I have to build each client's site by hand?",
     <>
       No. A paid order on your storefront builds the site by itself. Clients who sign up somewhere else can get a site from a form, a payment or your CRM
-      through n8n, Make or Zapier. <Link href="/automate" className="underline">Create sites automatically</Link>.
+      through n8n, Make or Zapier. <Link href="/automate" className="underline">Create sites automatically</Link>. On HighLevel?{" "}
+      <Link href="/highlevel" className="underline">
+        Add a website to every sub-account
+      </Link>
+      .
     </>,
   ],
   ["Who supports my clients?", "You do the client-facing side, the way you do today. We support you, and we look after the sites themselves."],

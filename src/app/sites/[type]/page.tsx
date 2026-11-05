@@ -10,7 +10,7 @@ import { WhoChip } from "@/components/WhoChip";
 import { ICONS, type IconName } from "@/components/icons.generated";
 import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
 import { SITE_DETAILS } from "@/lib/siteDetails";
-import { SITE_TYPES, SIZES, planUrl, startUrl } from "@/lib/site";
+import { SITE_TYPES, SIZES, planUrl, siteLabel, startUrl } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { BASE_URL, breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 
@@ -63,6 +63,16 @@ function CanList({ title, items }: { title: string; items: [IconName, string][] 
   );
 }
 
+// What each kind of site does, in a line above the headline. No "managed WordPress" here: it means nothing to most
+// visitors, and it's still in the page title for search.
+const EYEBROW: Record<string, string> = {
+  website: "a website that brings in customers",
+  bookings: "a website that fills your calendar",
+  store: "a store on your own website",
+  community: "courses and members on your own website",
+  everything: "everything your business runs on, in one website",
+};
+
 export async function generateMetadata({ params }: PageProps<"/sites/[type]">): Promise<Metadata> {
   const { type } = await params;
   const t = SITE_TYPES.find((s) => s.id === type);
@@ -82,11 +92,11 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
   const d = SITE_DETAILS[t.id];
   const others = SITE_TYPES.filter((s) => s.id !== t.id);
   const ex = t.example;
-  const kind = t.short.toLowerCase();
+  const label = siteLabel(t);
 
   const steps: [DrawingName, string, string][] = [
     ["pick", "Pick a size and pay", "a minute"],
-    ["tools", `We build your ${kind} site`, "minutes"],
+    ["tools", `We build your ${label}`, "minutes"],
     ["words", "Make it yours", `add ${d.yourPart}`],
     ["open", "Open your doors", "we keep it running"],
   ];
@@ -118,12 +128,12 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
       />
       <section className="in type-hero" aria-labelledby="h-type">
         <SidePill side="owners" />
-        <span className="eyebrow">{t.name.toLowerCase()} on managed WordPress</span>
+        <span className="eyebrow">{EYEBROW[t.id]}</span>
         <h1 id="h-type">{t.headline}</h1>
         <p className="lead">{t.pitch}</p>
         <div className="ctas">
           <a href={startUrl(t)} className="btn btn-ink">
-            Start your {kind} site →
+            Start your {label} →
           </a>
           <a href="#sizes" className="btn btn-paper">
             See prices
@@ -164,7 +174,7 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
         <div>
           <span className="hand">try it yourself</span>
           <b>{ex.name}</b>
-          <span className="text-ink-soft">is a made-up business on a real AnyPress {kind} site.</span>
+          <span className="text-ink-soft">is a made-up business on a real AnyPress {label}.</span>
         </div>
         <ul>
           {ex.tryIt.map((x) => (
@@ -179,7 +189,7 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
         </a>
       </section>
 
-      <ProblemFix soft items={d.problems} eyebrow="sound familiar?" title={`What gets in the way, and how a ${kind} site fixes it.`} />
+      <ProblemFix soft items={d.problems} eyebrow="sound familiar?" title={`What gets in the way, and how a ${label} fixes it.`} />
 
       <section className="sec in" aria-labelledby="h-does">
         <SectionHead eyebrow="what it does" title="What it does for you." id="h-does" />
@@ -298,10 +308,10 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
       </section>
 
       <CtaBand
-        title={`Ready for your ${kind} site?`}
+        title={`Ready for your ${label}?`}
         body="It's ready to use the same day, and we look after it from there. Not for you? Get your money back within 30 days."
         href={startUrl(t)}
-        label={`Start your ${kind} site`}
+        label={`Start your ${label}`}
         drawings={[t.drawing, "open", "thirty"]}
       />
     </>
