@@ -9,7 +9,7 @@ import { BrowserShot, PhoneShot } from "@/components/Shots";
 import { Tick } from "@/components/Tick";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { GROUP_STORIES } from "@/lib/groups";
-import { AUDIENCE_GROUPS, SITE_TYPES, startUrl } from "@/lib/site";
+import { AUDIENCE_GROUPS, SITE_TYPES, siteLabel, startUrl } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 
@@ -39,7 +39,7 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
       <PageHero side={g.side} drawing={g.drawing} eyebrow={g.name.toLowerCase()} title={page.title} lead={page.lead}>
         <div className="ctas mt-8">
           <a href={startUrl(main)} className="btn btn-ink">
-            Start your {main.short.toLowerCase()} site →
+            Start your {siteLabel(main)} →
           </a>
           <a href="#guide" className="btn btn-paper">
             Get the free guide
@@ -150,7 +150,7 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
 
       <CtaBand
         href={fits.length === 1 ? startUrl(fits[0]) : "#plans"}
-        label={fits.length === 1 ? `Start your ${fits[0].short.toLowerCase()} site` : "Pick your plan"}
+        label={fits.length === 1 ? `Start your ${siteLabel(fits[0])}` : "Pick your plan"}
         drawings={fits.map((t) => t.drawing).slice(0, 3)}
       />
     </>

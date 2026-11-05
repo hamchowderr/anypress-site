@@ -59,7 +59,7 @@ const STEPS: {
     drawing: "words",
     title: "Make it yours",
     when: "an afternoon",
-    body: "Swap in your words, photos and prices. Change colours and fonts in a few clicks. When you're ready, connect your own domain and email starts coming from it too.",
+    body: "Swap in your words, photos and prices. Change colours and fonts in a few clicks. Already have a domain? Type it in, and with supported domain companies it connects in one click. Email starts coming from it too.",
   },
   {
     drawing: "open",
@@ -214,7 +214,7 @@ export default function HowItWorks() {
         </ul>
       </section>
 
-      <ProblemFix soft who={WHO} title="A flat of your own, not a room in a shared house." items={PROBLEMS} />
+      <ProblemFix soft who={WHO} title="Like having your own tech team. We do the work and look after your site." items={PROBLEMS} />
 
       <section className="sec in" aria-labelledby="h-where">
         <SectionHead

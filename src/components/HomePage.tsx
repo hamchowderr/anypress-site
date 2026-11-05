@@ -14,29 +14,37 @@ import { AUDIENCE_GROUPS, SITE_TYPES, WHOLESALE_PERCENT, groupUrl } from "@/lib/
 
 
 // The approved round 3 homepage (2026-10-24): every section centered, a drawing for every idea.
-// Two heroes take turns while the A/B test runs (src/proxy.ts): "a" crosses off sticky notes, "b" shows the four
-// steps from order to open, as on the /sites pages.
-export type HeroVersion = "a" | "b";
+// Two versions of the words take turns while the A/B test runs (src/proxy.ts, src/lib/ab.ts). Both use the same
+// layout, so the test compares the words and nothing else: "a" is the copy from round 3, "b" leads with what a
+// business gets (found on Google, booked, paid) instead of what we do for it.
+export type CopyVersion = "a" | "b";
 
-export function HomePage({ hero }: { hero: HeroVersion }) {
+export function HomePage({ version }: { version: CopyVersion }) {
+  const b = version === "b";
+  const faq = b ? FAQ_B : FAQ;
   return (
     <>
-      <JsonLd data={faqLd(FAQ)} />
-      {hero === "b" ? <StepsHero /> : <Hero />}
-      <Included />
+      <JsonLd data={faqLd(faq)} />
+      <Hero version={version} />
+      <Included items={b ? INCLUDED_B : INCLUDED} />
       <Examples />
-      <ProblemFix soft who={WHO} items={PROBLEMS} title="Getting a website shouldn't be this hard." />
-      <Pieces />
-      <Sites />
-      <ReadyBuilt />
+      {b ? (
+        <ProblemFix soft who={WHO} items={PROBLEMS_B} title="Stop paying for your website one piece at a time." />
+      ) : (
+        <ProblemFix soft who={WHO} items={PROBLEMS} title="Getting a website shouldn't be this hard." />
+      )}
+      {!b && <Pieces />}
+      <Sites version={version} />
+      {!b && <ReadyBuilt />}
       <HowItWorks />
       <WhoItsFor />
+      {b && <ReadyBuilt version="b" />}
       <Prices />
       <SellBand />
       <section className="sec" aria-labelledby="h-faq">
         <div className="in">
           <SectionHead drawing="question" title="Questions people ask" id="h-faq" />
-          <Questions items={FAQ} firstOpen />
+          <Questions items={faq} firstOpen />
         </div>
       </section>
       <CtaBand />
@@ -44,20 +52,35 @@ export function HomePage({ hero }: { hero: HeroVersion }) {
   );
 }
 
-// The words both heroes share, so the test compares the layout and nothing else.
-function HeroCopy({ subClass }: { subClass: string }) {
+function HeroCopy({ subClass, version }: { subClass: string; version: CopyVersion }) {
+  const b = version === "b";
   return (
     <>
       <Link className="badge" href="/move">
         <b>New</b> Bring your current WordPress site with you →
       </Link>
-      <span className="eyebrow">managed WordPress for shops, studios, clubs and small businesses</span>
-      <h1 id="h-hero">
-        Sell, take bookings or teach online, <mark>without dealing with hosting</mark>.
-      </h1>
-      <p className={subClass}>
-        Hosting, plugins, email, backups and security are done for you. You get a finished WordPress site and add your words and photos.
-      </p>
+      {b ? (
+        <>
+          <span className="eyebrow">a website that runs your business, set up for you</span>
+          <h1 id="h-hero">
+            Get found, get booked and get paid. <mark>We set it all up</mark>.
+          </h1>
+          <p className={subClass}>
+            Your site arrives ready to show up on Google, take bookings and payments, keep track of every customer and send email from
+            your business name. You add your words and photos.
+          </p>
+        </>
+      ) : (
+        <>
+          <span className="eyebrow">managed WordPress for shops, studios, clubs and small businesses</span>
+          <h1 id="h-hero">
+            Sell, take bookings or teach online, <mark>without dealing with hosting</mark>.
+          </h1>
+          <p className={subClass}>
+            Hosting, plugins, email, backups and security are done for you. You get a finished WordPress site and add your words and photos.
+          </p>
+        </>
+      )}
       <div className="ctas">
         <Link className="btn btn-ink" href="#sites" data-ab="start">
           Start your site →
@@ -69,7 +92,7 @@ function HeroCopy({ subClass }: { subClass: string }) {
       <ul className="checks">
         <li>
           <Tick />
-          From $12 a month
+          {b ? "From $12 a month, everything included" : "From $12 a month"}
         </li>
         <li>
           <Tick />
@@ -84,15 +107,16 @@ function HeroCopy({ subClass }: { subClass: string }) {
   );
 }
 
-function Hero() {
+function Hero({ version }: { version: CopyVersion }) {
+  const b = version === "b";
   return (
     <section className="in hero hero-fix" aria-labelledby="h-hero">
       <div className="hero-fix-text">
-        <HeroCopy subClass="sub" />
+        <HeroCopy subClass="sub" version={version} />
       </div>
       <div className="desk" aria-label="Everything a website usually takes, done for you">
         <ul className="notes">
-          {CHORES.map((c, i) => (
+          {(b ? CHORES_B : CHORES).map((c, i) => (
             <li key={c} style={{ "--r": `${[-6, 4, -3, 5, -5, 3][i]}deg`, "--i": i } as CSSProperties}>
               <span>{c}</span>
               <i aria-hidden />
@@ -104,40 +128,17 @@ function Hero() {
         </span>
         <div className="desk-done">
           <Drawing name="website" still />
-          <span className="hand">done for you</span>
+          <span className="hand">{b ? "we do all of this for you" : "done for you"}</span>
         </div>
       </div>
     </section>
   );
 }
 
-// Hero "b": centred, with the same four drawn steps as the /sites pages.
-const STEPS: [DrawingName, string, string][] = [
-  ["pick", "Pick a site and pay", "a minute"],
-  ["tools", "We build it for you", "minutes"],
-  ["words", "Make it yours", "add your words and photos"],
-  ["open", "Open your doors", "we keep it running"],
-];
-
-function StepsHero() {
-  return (
-    <section className="in type-hero" aria-labelledby="h-hero">
-      <HeroCopy subClass="lead" />
-      <ol className="hero-steps" aria-label="From order to open">
-        {STEPS.map(([dr, title, sub], i) => (
-          <li key={title} style={{ "--i": i } as CSSProperties}>
-            <Drawing name={dr} />
-            <b>{title}</b>
-            <span className="hand">{sub}</span>
-          </li>
-        ))}
-      </ol>
-    </section>
-  );
-}
-
 // The jobs a website usually takes. They get crossed off in the hero.
 const CHORES = ["Find hosting", "Install WordPress", "Pick plugins", "Set up email", "Back it up", "Keep it secure"];
+// Version "b": the things customers never have to do or pay for, crossed off.
+const CHORES_B = ["Buy hosting", "Pick plugins", "Pay for add-ons", "Set up email", "Back it up", "Keep it secure"];
 
 const INCLUDED: [DrawingName, string][] = [
   ["domain", "Your own domain"],
@@ -151,13 +152,25 @@ const INCLUDED: [DrawingName, string][] = [
   ["thirty", "30-day money-back"],
 ];
 
-function Included() {
+// Version "b": what each item does for the business, not what it is.
+const INCLUDED_B: [DrawingName, string][] = [
+  ["email", "Email @yourbusiness.com, so you look professional"],
+  ["places", "Get found on Google"],
+  ["bookings", "Online booking and payments"],
+  ["nametag", "Your customer list, and it's yours"],
+  ["backup", "Backed up every night"],
+  ["piggy", "No cut of your sales"],
+  ["box", "Yours to keep"],
+  ["thirty", "30-day money-back"],
+];
+
+function Included({ items }: { items: [DrawingName, string][] }) {
   return (
     <div className="marquee" role="region" aria-label="Included with every site">
       <div className="label">included with every site</div>
       <div className="track">
         {[0, 1].map((copy) =>
-          INCLUDED.map(([d, label]) => (
+          items.map(([d, label]) => (
             <span key={`${copy}-${d}`} aria-hidden={copy === 1 || undefined}>
               <Drawing name={d} still className="!w-[54px] shrink-0" />
               {label}
@@ -197,6 +210,28 @@ const PROBLEMS: Problem[] = [
   },
 ];
 
+// Version "b" leads with the pains people name themselves: add-ons, updates that break things, not being found.
+const PROBLEMS_B: Problem[] = [
+  {
+    problem: ["Nickel-and-dimed by add-ons", "A site builder, then a booking app, a payments app, an email service and a contact list, each with its own bill."],
+    fix: ["One price, everything in", "Booking, payments, forms, your customer list and email are in your site from day one. Nothing else to buy."],
+  },
+  {
+    problem: [
+      "You're not technical, and one update can break your site",
+      "Everything stops working, and you don't find out until you hear it from a customer.",
+    ],
+    fix: ["We do the technical part", "Your site is ready the same day. If you can write an email, you can edit your pages."],
+  },
+  {
+    problem: ["Nobody nearby can find you", "You may be the best in town, but if no one knows it, you don't get the business."],
+    fix: ["Get found locally", "Your site is ready for Google from day one, with your name, your services and your area in the right places."],
+  },
+  PROBLEMS[2],
+  PROBLEMS[3],
+  PROBLEMS[4],
+];
+
 const PIECES: [string, string, string][] = [
   ["A website you can grow", "Builder plan", "Included"],
   ["Your own domain, connected", "You set it up", "Done for you"],
@@ -224,14 +259,24 @@ function Pieces() {
   );
 }
 
-function Sites() {
+// Version "b": the three things each kind of site does, instead of a count of tools.
+const RESULTS: Record<string, string> = {
+  website: "Found on Google · Messages to your inbox · Your own mailing list",
+  bookings: "Booked online · Paid upfront · Reminders sent for you",
+  store: "Sell online · Keep every sale · Customers on your list",
+  community: "Sell courses · Paid members' area · Students on your list",
+  everything: "Store, bookings and courses · Customer help · One site",
+};
+
+function Sites({ version }: { version: CopyVersion }) {
+  const b = version === "b";
   return (
     <section id="sites" className="sec soft scroll-mt-20" aria-labelledby="h-types">
       <div className="in">
         <SectionHead
           eyebrow="pick one"
-          title="What are you building?"
-          lead="Each one arrives ready to use, with the right tools already switched on."
+          title={b ? "What do you need your website to do?" : "What are you building?"}
+          lead={b ? "Each one arrives ready to use." : "Each one arrives ready to use, with the right tools already switched on."}
           id="h-types"
         />
         <div className="types">
@@ -240,7 +285,7 @@ function Sites() {
               <Drawing name={t.drawing} />
               <h3>{t.name}</h3>
               <p>{t.pitch}</p>
-              <span className="type-tools hand">{t.tools.length - 1} tools set up for you</span>
+              <span className="type-tools hand">{b ? RESULTS[t.id] : `${t.tools.length - 1} tools set up for you`}</span>
               <div className="price">
                 ${t.from} <small>/ month</small>
               </div>
@@ -462,4 +507,17 @@ const FAQ: [string, ReactNode][] = [
       guides too.
     </>,
   ],
+];
+
+const FAQ_B: [string, ReactNode][] = [
+  FAQ[0],
+  [
+    "Will my site show up on Google?",
+    "Your site is set up for Google from day one: page titles, link previews and a sitemap are done for you. Pages that say what you do and where you work do the rest.",
+  ],
+  [
+    "What if an update breaks something?",
+    "We apply security fixes for you, and a copy of your site is saved every night, so it can be put back the way it was. If something looks wrong, email us and a person answers.",
+  ],
+  ...FAQ.slice(1),
 ];

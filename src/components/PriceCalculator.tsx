@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Drawing } from "@/components/Drawing";
-import { SITE_TYPES, SIZES, nextTier, planUrl, volumePercent, type SiteTypeId } from "@/lib/site";
+import { SITE_TYPES, SIZES, nextTier, planUrl, siteLabel, volumePercent, type SiteTypeId } from "@/lib/site";
 
 const money = (n: number) => `$${n.toLocaleString("en-US", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;
 
@@ -97,7 +97,7 @@ export function PriceCalculator() {
           </p>
         )}
         <a href={planUrl(t, size)} className="btn btn-ink mt-5 w-full">
-          Start with one {t.short.toLowerCase()} site →
+          Start with one {siteLabel(t)} →
         </a>
         <p className="calc-fine">
           Prices in US dollars. Savings apply when you have 3 or more live sites, and your existing sites move to the new price

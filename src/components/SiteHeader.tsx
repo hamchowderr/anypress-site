@@ -5,7 +5,7 @@ import { ACCOUNT_URL, DASHBOARD_URL } from "@/lib/site";
 
 // For people getting a website. Sellers and resellers get their own link, set apart after these.
 const NAV = [
-  { href: "/pricing", label: "Sites & prices" },
+  { href: "/pricing", label: "Prices" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/#examples", label: "Examples" },
   { href: "/who", label: "Who it's for" },

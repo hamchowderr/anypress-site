@@ -1,4 +1,7 @@
 import type { DrawingName } from "@/components/drawings.generated";
+import { ELSEWHERE, WP_HOST } from "@/lib/prices";
+
+const SHOPIFY = ELSEWHERE.store.find((p) => p.who === "Shopify")!;
 
 // Comparison pages (/compare/<slug>). Keep every claim about the other option general and fair:
 // say what it is and how it usually works, never anything we can't back up. Dated prices live in src/lib/prices.ts.
@@ -19,14 +22,15 @@ export interface Comparison {
 export const COMPARISONS: Comparison[] = [
   {
     slug: "hosting",
-    name: "Regular web hosting",
+    name: "WordPress hosting",
     side: "owners",
     drawing: "server",
     title: "Hosting gives you a space. AnyPress gives you a finished site.",
     lead: "With regular hosting you rent room on a server and build the rest yourself. With AnyPress you pick what you're building and it arrives ready to use.",
     rows: [
       ["WordPress installed", "Usually one click, then it's up to you", "Done, with the right tools set up"],
-      ["Picking and setting up plugins", "You choose, install and configure them", "Chosen and set up for what you're building"],
+      ["Price", `From $${WP_HOST.price} a month for the server alone (${WP_HOST.who})`, "From $12 a month, everything included"],
+      ["Add-ons", "Buy them one by one, and hope they work together", "Included, and made to work together"],
       ["Payments, bookings or courses", "Find, buy and connect each one", "In the plan you pick"],
       ["Email from your business name", "Often a separate add-on", "Included"],
       ["Security fixes for WordPress", "Your job", "Done for you"],
@@ -34,6 +38,23 @@ export const COMPARISONS: Comparison[] = [
     ],
     theirs: "You want full control of a server, run software that isn't WordPress, or enjoy setting everything up yourself.",
     ours: "You'd rather spend your time on your business than on plugins, updates and settings.",
+  },
+  {
+    slug: "shopify",
+    name: "Shopify",
+    side: "owners",
+    drawing: "store",
+    title: "Shopify rents you a store. AnyPress gives you one.",
+    lead: "Both get you selling online. With Shopify you add paid apps as you grow and sell by their product rules. With AnyPress the tools come with the site, and the site is yours to take anywhere.",
+    rows: [
+      ["Starting price", `${SHOPIFY.plan} $${SHOPIFY.price} a month`, "From $29 a month"],
+      ["Fee on your sales", `${SHOPIFY.note}`, "No AnyPress fee, only the card company's"],
+      ["Bookings, courses and a mailing list", "Extra apps, each with its own price", "In the plan you pick"],
+      ["What you can sell", "Shopify's rules decide", "Your payment provider's rules decide"],
+      ["Moving somewhere else", "Rebuild your store on the new platform", "Download a full copy of your site"],
+    ],
+    theirs: "You sell at high volume across many sales channels, and want Shopify's in-person checkout and its app store.",
+    ours: "You want one price with the tools included, sell something Shopify may not allow, or want a store you fully own.",
   },
   {
     slug: "multisite",

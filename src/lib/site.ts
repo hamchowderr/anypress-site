@@ -66,7 +66,7 @@ export const SITE_TYPES: SiteType[] = [
     pitch: "Tell people who you are and help them find you.",
     inBox: ["Your website or blog", "Help getting found on Google", "Contact and sign-up forms", "A newsletter list"],
     tools: ["WordPress", "Fluent Forms", "FluentCRM", "Rank Math SEO", "FluentSnippets", "FluentAuth", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
-    headline: "A website that brings people to you.",
+    headline: "Get found on Google and get messages from customers.",
     features: [
       { title: "Found on Google", body: "Your pages are set up so search engines can find them, without you touching a setting." },
       { title: "Forms that reach you", body: "Contact and quote forms land in your inbox, and add people to your list." },
@@ -99,7 +99,7 @@ export const SITE_TYPES: SiteType[] = [
       { title: "Reminders send themselves", body: "Confirmation and reminder emails go out from your own address." },
       { title: "Every client remembered", body: "Each booking keeps the client's details, ready for follow-ups and offers." },
     ],
-    idealFor: ["Coaches and consultants", "Studios and classes", "Salons and therapists", "Event hosts", "Franchise locations"],
+    idealFor: ["Plumbers, electricians and HVAC", "Cleaners and handymen", "Coaches and consultants", "Studios and classes", "Salons and therapists", "Franchise locations"],
     shopSlug: "bookings",
     drawing: "bookings",
     example: {
@@ -195,6 +195,12 @@ export function startUrl(t: SiteType): string {
   return planUrl(t);
 }
 
+/** "website", "bookings site", "store site": the short name as a reader says it, never "website site". */
+export function siteLabel(t: SiteType): string {
+  const kind = t.short.toLowerCase();
+  return kind === "website" ? kind : `${kind} site`;
+}
+
 export interface AudienceGroup {
   // Also the group's value in the shop's CRM (customer_group) and its page: /who/<id>.
   id: string;
@@ -268,8 +274,8 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     side: "owners",
     drawing: "health",
     page: {
-      title: "Sell from your own store, not someone else's marketplace.",
-      lead: "Your products, your website and your payment account. No marketplace rules about what you can list, and no cut of your sales.",
+      title: "Sell what the big platforms won't let you sell.",
+      lead: "Your own store on your own domain, using the payment provider you're approved with. No platform rules about what you can list, and no cut of your sales.",
       benefits: [
         { title: "Your own store", body: "A full shop on your own domain, with product pages, subscriptions and order emails." },
         { title: "Your own payment account", body: "Payments go to the account you're approved for, straight to you." },
@@ -282,6 +288,33 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
         ["Is there a fee per order?", "No AnyPress fee. Your payment provider's fee is the only one."],
       ],
       guide: "Regulated store checklist",
+    },
+  },
+  {
+    id: "trades",
+    name: "Local services & trades",
+    line: "More jobs from your website, without touching a computer.",
+    body: "A website that shows up when people nearby search for what you do, lets them book a time, and keeps every customer in one list.",
+    examples: ["Plumbers", "Electricians", "HVAC", "Roofers and contractors", "Cleaners and handymen"],
+    fits: ["bookings", "website"],
+    side: "owners",
+    drawing: "truck",
+    page: {
+      title: "More jobs from your website, without touching a computer.",
+      lead: "We set up a website that shows up when people nearby search for what you do, lets them book a time, and keeps every customer in one list. You stay on the job.",
+      benefits: [
+        { title: "Customers book themselves", body: "They pick a time online and get a confirmation and a reminder, so you don't play phone tag." },
+        { title: "Set up to show up on Google", body: "Your site is ready for Google from day one, with your name, your services and your area in the right places." },
+        { title: "Every customer in one list", body: "Name, phone, email and every booking in one place, ready for the next job or a follow-up email." },
+      ],
+      example: "bookings",
+      questions: [
+        ["Can you move my domain over?", "Yes. Type in the domain you already have. With supported domain companies it connects in one click, and email can come from it too."],
+        ["Do I have to edit the site myself?", "Only your words and photos, and only if you want to. If you can write an email, you can edit your pages. We do the technical part."],
+        ["Can customers pay a deposit when they book?", "Yes. You can take card payment when someone books, so a no-show doesn't cost you the slot."],
+        ["Can it send my leads to HighLevel?", "Yes. AnyPress works with HighLevel, so the people who book or write in can land in your HighLevel contacts too."],
+      ],
+      guide: "Local trades website checklist",
     },
   },
   {

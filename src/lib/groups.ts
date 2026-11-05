@@ -15,9 +15,16 @@ export const GROUP_STORIES: Record<string, GroupStory> = {
   },
   regulated: {
     problems: [
-      { title: "Marketplaces can switch you off", body: "When your store is a listing on someone else's platform, their rules decide whether you can keep selling." },
+      { title: "Shut down overnight", body: "Big store builders and payment apps can close your account if your products break their rules, and your shop stops selling the same day." },
       { title: "Your payment setup isn't in your hands", body: "Many shop builders only let you use their own payments, which may not accept what you sell." },
       { title: "Marketplace rules limit what you can say", body: "Listings leave little room for the labels, warnings and policies your products need." },
+    ],
+  },
+  trades: {
+    problems: [
+      { title: "You miss calls while you're working", body: "You're under a sink or up a ladder, the phone rings, and the job goes to whoever picks up." },
+      { title: "Nobody nearby finds you", body: "You may be the best in town, but if no one knows it, you don't get the business." },
+      { title: "Customer details live on scraps of paper", body: "Names and numbers are in your phone, your truck and a notebook, so nobody hears from you again." },
     ],
   },
   courses: {
