@@ -10,9 +10,9 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
   path: "/ai",
-  title: "AnyPress in Claude and ChatGPT",
+  title: "AnyPress in your AI app",
   description:
-    "Connect AnyPress to Claude, ChatGPT or any MCP app and ask in plain words: make a site, back it up, connect a domain or change its pages.",
+    "Connect AnyPress to Claude, ChatGPT, Cursor, VS Code or any other MCP app and ask in plain words: make a site, back it up, connect a domain or change its pages.",
 });
 
 const GUIDE = "https://shop.anypress.io/docs/connect-an-ai-app-to-anypress/";
@@ -26,7 +26,8 @@ const STEPS: { drawing: DrawingName; title: string; body: ReactNode }[] = [
       <>
         In Claude, open Settings, then Connectors, then Add custom connector. In
         ChatGPT, turn on developer mode under Settings, Apps and Connectors,
-        then create a connector. Paste the address below.
+        then create a connector. In Cursor, VS Code, Windsurf, Gemini CLI or
+        any other MCP app, add a remote MCP server. Paste the address below.
       </>
     ),
   },
@@ -104,7 +105,7 @@ const SAFE: [string, string][] = [
   ["Every change is logged", "Under your name. Page edits can be undone from the page's revisions."],
 ];
 
-const WHO = ["Sellers and resellers", "Website owners", "Anyone who uses Claude or ChatGPT"];
+const WHO = ["Sellers and resellers", "Website owners", "Anyone who uses an AI app"];
 
 const PROBLEMS: Problem[] = [
   {
@@ -128,7 +129,7 @@ const PROBLEMS: Problem[] = [
 const FAQ: [string, ReactNode][] = [
   [
     "Which AI apps work?",
-    "Claude and ChatGPT, on plans that let you add custom connectors, and any other app that supports MCP connectors, such as Claude Code or Cursor.",
+    "Any app that connects to MCP servers: Claude and ChatGPT (on plans that let you add custom connectors), code editors such as Cursor, VS Code with GitHub Copilot and Windsurf, and command-line agents such as Claude Code and Gemini CLI. A tool that can\u2019t open a sign-in page can use your storefront\u2019s API key and secret instead.",
   ],
   [
     "Do I need an API key?",
@@ -159,7 +160,7 @@ export default function Ai() {
         eyebrow="AI apps"
         title={
           <>
-            AnyPress in <mark>Claude and ChatGPT</mark>.
+            AnyPress in <mark>your AI app</mark>.
           </>
         }
         lead="Connect once, then ask in plain words. Your AI app makes sites, backs them up, connects domains and edits pages, and shows you what it did."

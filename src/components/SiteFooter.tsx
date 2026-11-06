@@ -21,7 +21,7 @@ const COLUMNS = [
       { href: "/resellers", label: "Become a reseller" },
       { href: "/sell", label: "Apply to sell" },
       { href: "/automate", label: "Create sites automatically" },
-      { href: "/ai", label: "AnyPress in Claude and ChatGPT" },
+      { href: "/ai", label: "AnyPress in your AI app" },
       { href: "/developers", label: "For developers" },
       { href: "/self-host", label: "Run it yourself" },
       { href: "https://github.com/hamchowderr/waas-plugins", label: "Open source code" },
