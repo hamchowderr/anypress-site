@@ -374,7 +374,7 @@ const FAQ: [string, ReactNode][] = [
     <>
       Yes. Every site starts from your starting site, and an AI app connected to
       AnyPress can then change pages, sections, colours and menus for you. See{" "}
-      <Link href="/ai">AnyPress in Claude and ChatGPT</Link>.
+      <Link href="/ai">AnyPress in your AI app</Link>.
     </>,
   ],
   [
@@ -586,7 +586,7 @@ export default function Automate() {
             </p>
             <div className="ctas mt-6">
               <Link href="/ai" className="btn btn-ink">
-                AnyPress in Claude and ChatGPT →
+                AnyPress in your AI app →
               </Link>
             </div>
           </div>
