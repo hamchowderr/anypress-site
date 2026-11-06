@@ -26,7 +26,7 @@ const STEPS: { drawing: DrawingName; title: string; body: ReactNode }[] = [
       <>
         In Claude, open Settings, then Connectors, then Add custom connector. In
         ChatGPT, turn on developer mode under Settings, Apps and Connectors,
-        then create a connector. In Cursor, VS Code, Windsurf, Gemini CLI or
+        then create a connector. In Cursor, VS Code, Devin Desktop, Gemini CLI or
         any other MCP app, add a remote MCP server. Paste the address below.
       </>
     ),
@@ -129,7 +129,7 @@ const PROBLEMS: Problem[] = [
 const FAQ: [string, ReactNode][] = [
   [
     "Which AI apps work?",
-    "Any app that connects to MCP servers: Claude and ChatGPT (on plans that let you add custom connectors), code editors such as Cursor, VS Code with GitHub Copilot and Windsurf, and command-line agents such as Claude Code and Gemini CLI. A tool that can\u2019t open a sign-in page can use your storefront\u2019s API key and secret instead.",
+    "Any app that connects to MCP servers: Claude and ChatGPT (on plans that let you add custom connectors), code editors such as Cursor, VS Code with GitHub Copilot and Devin Desktop, and command-line agents such as Claude Code and Gemini CLI. A tool that can\u2019t open a sign-in page can use your storefront\u2019s API key and secret instead.",
   ],
   [
     "Do I need an API key?",
