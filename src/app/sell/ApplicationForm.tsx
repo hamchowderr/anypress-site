@@ -11,6 +11,7 @@ const input =
 export function ApplicationForm({ storeDomain }: { storeDomain: string }) {
   const [state, action, pending] = useActionState<ApplyState, FormData>(apply, { status: "idle" });
   const [hasSite, setHasSite] = useState<"yes" | "no" | "">("");
+  const [highLevel, setHighLevel] = useState<"yes" | "no" | "">("");
 
   if (state.status === "sent") {
     return (
@@ -109,6 +110,26 @@ export function ApplicationForm({ storeDomain }: { storeDomain: string }) {
               A free, ready-to-sell storefront, included with your account. You can use your own domain later.
             </span>
           </label>
+        )}
+      </fieldset>
+
+      <fieldset className="text-sm sm:col-span-2">
+        <legend className="font-medium">Do you run a HighLevel agency?</legend>
+        <div className="mt-2 flex flex-wrap gap-6">
+          <label className="flex items-center gap-2">
+            <input type="radio" name="highlevel" value="yes" required checked={highLevel === "yes"} onChange={() => setHighLevel("yes")} />
+            Yes
+          </label>
+          <label className="flex items-center gap-2">
+            <input type="radio" name="highlevel" value="no" checked={highLevel === "no"} onChange={() => setHighLevel("no")} />
+            No
+          </label>
+        </div>
+        {highLevel === "yes" && (
+          <p className="mt-2 text-muted">
+            Your sub-accounts can make and manage websites from HighLevel workflows with the AnyPress app. We&apos;ll set you up for
+            it.
+          </p>
         )}
       </fieldset>
 
