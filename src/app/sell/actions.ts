@@ -26,6 +26,7 @@ export async function apply(_prev: ApplyState, form: FormData): Promise<ApplySta
     expectedSites: field(form, "expected_sites"),
     wantsStorefront,
     storefrontSubdomain: wantsStorefront ? field(form, "subdomain").toLowerCase() || undefined : undefined,
+    highLevelAgency: field(form, "highlevel") === "yes",
   };
 
   let res: Response;
