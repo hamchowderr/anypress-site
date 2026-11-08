@@ -36,7 +36,7 @@ Building a website shouldn't be hard. Other platforms make it harder than it nee
 - Every site: its own WordPress and database, SSL, nightly backups with restore, free .anypress.site address, connect your own domain (one click with supported DNS providers), email from your own domain, one-click sign-in to WordPress, no AnyPress fee on sales (Stripe's card fee applies).
 - Tools by type come from the Fluent suite (FluentCart, FluentCRM, FluentBooking, FluentCommunity, Fluent Forms, FluentAffiliate, Fluent Support) plus Rank Math. Name them only on deeper pages.
 - Anyone can sell websites under their own name: as a seller (one shop, pays per site) or a reseller (several shops, one wholesale bill). Agencies are one of the groups who do this; developers can create sites through an API (deeper pages only).
-- Not offered / not to claim: page caching or speed claims, automatic core updates, 24/7 support, uptime guarantees, done-for-you migration (moving a WordPress site in is self-serve with the AnyPress Export plugin), AI content tools, templates library.
+- Not offered / not to claim: page caching or speed claims, automatic core updates, 24/7 support, uptime guarantees, done-for-you migration (moving a WordPress site in is self-serve: the owner adds WordPress's free Reprint plugin and the store copies the site; the AnyPress Export plugin is the fallback), AI content tools, templates library.
 
 ## Brand Commitments
 

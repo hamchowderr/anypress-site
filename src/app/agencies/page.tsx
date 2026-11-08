@@ -63,7 +63,7 @@ const US: [string, string][] = [
   ["Keeping them running", "Security fixes, the padlock, and every site kept walled off from the others."],
   ["Nightly copies", "Every site is saved each night, and we test restoring them every day."],
   ["Email that arrives", "Each site sends from its own address, with sending set up for you."],
-  ["Moving sites in", "Bring your existing client sites over with a one-time code from your dashboard."],
+  ["Moving sites in", "Bring your existing client sites over with a token from your dashboard, copied straight from their old host."],
 ];
 
 const QUESTIONS: [string, ReactNode][] = [
@@ -72,8 +72,8 @@ const QUESTIONS: [string, ReactNode][] = [
   [
     "Can I bring sites I already host?",
     <>
-      Yes. Make a move code in your dashboard, install our free export plugin on the old site and paste the code in. The whole site
-      comes across. <Link href="/move" className="underline">How moving works</Link>.
+      Yes. Choose Move a site in on your dashboard, add WordPress&apos;s free Reprint plugin to the old site and paste in the token.
+      The whole site is copied across. <Link href="/move" className="underline">How moving works</Link>.
     </>,
   ],
   [

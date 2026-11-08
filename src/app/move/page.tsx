@@ -12,14 +12,14 @@ export const metadata: Metadata = pageMeta({
   path: "/move",
   title: "Move your site",
   description:
-    "Bring your current WordPress site to AnyPress with a free plugin and a code. Your old site isn't changed, and everything comes across.",
+    "Bring your current WordPress site to AnyPress. We copy it straight from your old host with WordPress's own free Reprint plugin. Your old site isn't changed, and everything comes across.",
 });
 
 const STEPS: [DrawingName, string, ReactNode][] = [
-  ["ticket", "Get your code", "We give you an import code that starts with AP1. It works for 7 days."],
-  ["plug", "Add our free plugin", "Install AnyPress Export on your current site, the same way you add any plugin."],
-  ["truck", "Send it across", "Paste the code and press send. Keep the page open while it uploads."],
-  ["open", "Check it, then switch", "Look over your site on its new address, then point your domain at it."],
+  ["ticket", "Get your token", "We set up your new site and give you its Migration Token."],
+  ["plug", "Add Reprint", "Install Reprint, WordPress's own free moving plugin, on your current site and paste the token in."],
+  ["truck", "We copy it across", "Your new site copies the old one straight from its host. Nothing to download, nothing to upload."],
+  ["open", "Check it, then go live", "Look it over on its new address, copy again to catch new orders, then point your domain at it."],
 ];
 
 const MOVES: [DrawingName, string, string][] = [
@@ -36,7 +36,7 @@ const PROBLEMS: Problem[] = [
       "Moving takes a weekend",
       "Exporting the database, copying files and fixing what broke on the way is a job most people put off for years.",
     ],
-    fix: ["A plugin and a code", "Add our free AnyPress Export plugin to your current site, paste the code and press send."],
+    fix: ["A free plugin and a token", "Add WordPress's free Reprint plugin to your current site and paste in your token. We copy the rest."],
   },
   {
     problem: [
@@ -50,7 +50,10 @@ const PROBLEMS: Problem[] = [
   },
   {
     problem: ["Something gets left behind", "A missing plugin, a lost photo folder or last week's orders turn up after the switch."],
-    fix: ["Everything comes across", "Pages, posts, products, orders, customers, settings, themes, plugins, photos and files."],
+    fix: [
+      "Everything comes across, right up to the switch",
+      "Pages, posts, products, orders, customers, settings, themes, plugins, photos and files. Copy again before you go live and the newest orders come too.",
+    ],
   },
   {
     problem: ["The upkeep stays with you", "On most hosts, security fixes and copies of your site are still your job after you move."],
@@ -60,35 +63,50 @@ const PROBLEMS: Problem[] = [
 
 const FAQ: [string, ReactNode][] = [
   [
-    "How do I get an import code?",
+    "How do I get a Migration Token?",
     <>
       Pick your plan, then email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> with your current site&apos;s address and
-      we&apos;ll send you a code. Selling sites with AnyPress? You make codes yourself from your dashboard.
+      we&apos;ll send you a token. Selling sites with AnyPress? Choose Move a site in on your dashboard and the token is right there.
     </>,
+  ],
+  [
+    "What is Reprint?",
+    <>
+      A{" "}
+      <a href="https://wordpress.org/plugins/reprint/" target="_blank" rel="noreferrer">
+        free plugin made by WordPress.org
+      </a>{" "}
+      for moving sites. Add it from Plugins, Add New Plugin like any other, then open Tools, Reprint Server, paste the token and
+      choose Authorize client. It lets your new AnyPress site read a copy of the old one, and nothing on the old site is changed.
+    </>,
+  ],
+  [
+    "Do I have to keep a page open while it moves?",
+    "No. The copy runs on our side, straight from your old host, and your new site shows Ready when it's done. Big sites can take a while, and an interrupted copy carries on where it stopped.",
   ],
   [
     "Is my site down while it moves?",
     "No. Your current site keeps running the whole time. Visitors only reach the new one once you point your domain at it.",
   ],
   [
-    "What if the page closes halfway?",
-    "Open it again and it carries on where it stopped. Big sites can take a while, so it's fine to leave it running.",
+    "What about orders that come in after the copy?",
+    "Your new site stays on hold until you go live: it sends no emails to customers, runs no renewals and isn't shown to search engines. Just before you switch, copy it again and the newest orders, posts and form entries come across. Changes made on the new site in the meantime are replaced, so do your edits after you go live.",
+  ],
+  [
+    "What if my host blocks the copy?",
+    "Some security services, such as Cloudflare's browser check or Wordfence, stop the copy. We'll tell you what got in the way. Let it through and copy again, or send the site with our AnyPress Export plugin and a code instead, which uploads it from your old site.",
   ],
   [
     "What doesn't come across?",
     "Caches and backup plugins' archives are left out, because your AnyPress site has its own. Caching add-ons your old host put in place are removed for the same reason.",
   ],
   [
-    "My site is bigger than my plan's storage.",
-    "The plugin tells you before it starts. Pick a bigger size and start again with a new code.",
-  ],
-  [
     "Can I move a multisite network?",
-    "Not yet. The plugin moves one WordPress site at a time. If you run a network, talk to us about your options.",
+    "Not yet. We move one WordPress site at a time. If you run a network, talk to us about your options.",
   ],
   [
     "Does my site need anything special?",
-    "WordPress 5.6 or newer and PHP 7.4 or newer, which almost every host has, plus enough free space for a compressed copy of the site.",
+    "It needs to be reachable at an https address. Reprint runs on almost any WordPress and PHP your host offers.",
   ],
 ];
 
@@ -104,7 +122,7 @@ export default function Move() {
             Bring your WordPress site <mark>with you</mark>.
           </>
         }
-        lead="Already have a WordPress site somewhere else? Move it to AnyPress with a free plugin and a code. Everything comes across, and your old site isn't touched."
+        lead="Already have a WordPress site somewhere else? Add WordPress's free Reprint plugin, paste in your token, and we copy the whole site across. Your old site isn't touched."
       >
         <div className="ctas mt-8">
           <Link href="/pricing" className="btn btn-ink">
@@ -117,7 +135,7 @@ export default function Move() {
         <ul className="checks">
           <li>
             <Tick />
-            Free plugin
+            Nothing to upload
           </li>
           <li>
             <Tick />
@@ -134,7 +152,7 @@ export default function Move() {
 
       <section className="sec">
         <div className="in">
-          <SectionHead eyebrow="how it works" title="Four steps, about as hard as adding a plugin." />
+          <SectionHead eyebrow="how it works" title="Add a plugin, paste a token. We do the moving." />
           <ol className="flow !mt-0">
             {STEPS.map(([d, title, body], i) => (
               <li key={title}>
@@ -173,9 +191,10 @@ export default function Move() {
               <h2>Move your clients&apos; sites in from your dashboard.</h2>
               <p>
                 Choose <b className="text-white">Move a site in</b> on your Stores page. It sets up a store that waits for the site and
-                gives you the code to hand to your client, or to use yourself.
+                gives you the Migration Token to hand to your client. Once Reprint is authorized, enter the old site&apos;s address and
+                start the copy, and copy again before it goes live.
               </p>
-              <p>Developers can do the same with one command, with no time limit on big sites.</p>
+              <p>Developers can start and repeat the copy with one API call.</p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link className="btn btn-honey" href="/agencies">
                   How selling works →
@@ -199,7 +218,7 @@ export default function Move() {
       <CtaBand
         eyebrow="ready to move?"
         title="Your site, without the old hassle."
-        body="Pick a plan, then we'll send your code. Your site keeps running until you switch."
+        body="Pick a plan, then we'll send your token. Your site keeps running until you switch."
         href="/pricing"
         label="Pick a plan"
         drawings={["truck", "box", "open"]}

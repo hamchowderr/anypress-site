@@ -145,7 +145,7 @@ const FAQ: [string, ReactNode][] = [
   [
     "Can I bring sites I already host?",
     <>
-      Yes. Make a move code in your dashboard and the whole site comes across. <Link href="/move" className="underline">How moving works</Link>.
+      Yes. Choose Move a site in on your dashboard and the whole site is copied across. <Link href="/move" className="underline">How moving works</Link>.
     </>,
   ],
 ];
