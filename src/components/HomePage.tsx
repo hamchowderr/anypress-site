@@ -494,8 +494,8 @@ const FAQ: [string, ReactNode][] = [
   [
     "Can I move my current site over?",
     <>
-      If it runs on WordPress, yes. You install our free export plugin on your current site, paste in the code we give you, and your
-      site comes across. <Link href="/move" className="underline">How moving works</Link>.
+      If it runs on WordPress, yes. You add WordPress&apos;s free Reprint plugin to your current site, paste in the token we give you,
+      and we copy the whole site across. <Link href="/move" className="underline">How moving works</Link>.
     </>,
   ],
   ["Do you take a cut of my sales?", "Never. You pay one monthly price for the site. The only fee on an order is the card company's."],
