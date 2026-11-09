@@ -44,3 +44,6 @@ next-env.d.ts
 # Impeccable screenshots and local state
 .impeccable/review/
 .impeccable/config.local.json
+
+# Beads lock files
+*.gate.lock*
