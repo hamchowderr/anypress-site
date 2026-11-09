@@ -94,7 +94,7 @@ const FAQ: [string, ReactNode][] = [
   ],
   [
     "What if my host blocks the copy?",
-    "Some security services, such as Cloudflare's browser check or Wordfence, stop the copy. We'll tell you what got in the way. Let it through and copy again, or send the site with our AnyPress Export plugin and a code instead, which uploads it from your old site.",
+    "Some security services, such as Cloudflare's browser check or Wordfence, stop the copy. We'll tell you what got in the way. Let it through and copy again, or we'll give you another way to send the site.",
   ],
   [
     "What doesn't come across?",
