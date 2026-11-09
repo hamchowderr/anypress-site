@@ -1,0 +1,6 @@
+sync:
+    remote: chowderr/anypress_site
+export:
+    auto: true
+    git-add: false
+
