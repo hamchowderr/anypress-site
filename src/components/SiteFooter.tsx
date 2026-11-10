@@ -32,6 +32,7 @@ const COLUMNS = [
     links: [
       { href: "/who", label: "Who it's for" },
       { href: "/#examples", label: "Example sites" },
+      { href: "/designs", label: "Designs" },
       { href: "/included", label: "What's included" },
       { href: "/affiliates", label: "Affiliate program" },
       { href: "/about", label: "About" },
