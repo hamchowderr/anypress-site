@@ -142,7 +142,7 @@ const FAQ: [string, ReactNode][] = [
   ],
   [
     "Does it know my site's designs?",
-    "Yes. The app can see every ready-made section and starter page, the 16 design kits made for different kinds of business, the colour and font sets, and the interactive blocks such as carousels, popups, counters and maps. It can switch your site to a kit's look and build pages from that kit's sections. The old look is saved, so you can go back.",
+    "Yes. The app can see every ready-made section and starter page, the 16 design kits made for different kinds of business, the colour and font sets, and the interactive blocks such as carousels, popups, counters and maps. Ask to see them and the app shows each kit as a live preview of your site in that look, right in the chat. It can switch your site to a kit's look and build pages from that kit's sections. The old look is saved, so you can go back.",
   ],
   [
     "How do I stop it?",
@@ -251,7 +251,7 @@ export default function Ai() {
           <SectionHead
             eyebrow="in the chat"
             title="It shows you, not just tells you."
-            lead="In apps that support it, your sites appear as a screen in the chat, with buttons to back up, suspend or bring a site back."
+            lead="In apps that support it, your sites appear as a screen in the chat, with buttons to back up, suspend or bring a site back. Ask to see the designs and every kit shows as a live preview of your own site in that look, with a button to switch it on."
             id="h-screens"
           />
           <div className="ai-connector">
