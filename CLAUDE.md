@@ -6,7 +6,7 @@ The marketing site at anypress.io: a headless Next.js front end on Vercel. Check
 
 - `PRODUCT.md` says who the site speaks to and what it promises; `DESIGN.md` holds the look (the sketchbook style, its colours and type). Read both before changing copy or layout.
 - Every customer group is spoken to equally; none is the main audience. Pricing and plan names must match the shop's live plans.
-- Before pushing: `npm run lint` and `npm run build`. Check pages at phone width.
+- Before pushing: `npm run lint`, `npm run deadcode` and `npm run build`. `npm run deadcode` (Fallow, `.fallowrc.json`) fails on unused files, exports, types and packages: remove them rather than ignoring them. On a pull request CI also runs `fallow audit`, which fails on duplicated or overly complex code the change adds. Check pages at phone width.
 - Contact email on the site is support@anypress.io.
 
 ## Rules for every change

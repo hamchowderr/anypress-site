@@ -7,8 +7,7 @@ export const AB_TEST = "site-copy";
 export const AB_COOKIE = "ap_hero";
 // Pages with a "b" version, and where that version lives. Opening the "b" address itself redirects to the page.
 export const AB_PAGES: Record<string, string> = { "/": "/home-b", "/pricing": "/pricing-b" };
-export const AB_VERSIONS = ["a", "b"] as const;
-export type AbVersion = (typeof AB_VERSIONS)[number];
+export type AbVersion = "a" | "b";
 export const AB_EVENTS = ["view", "start", "shop"] as const;
 export type AbEvent = (typeof AB_EVENTS)[number];
 

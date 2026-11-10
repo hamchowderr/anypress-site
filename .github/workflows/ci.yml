@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The whole history, so `fallow audit` can compare with the base branch.
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           # Vercel builds this site on Node 24 (project setting).
@@ -17,4 +20,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
+      # Fallow (.fallowrc.json): unused files, exports, types and packages fail every run; on a pull request, new
+      # duplicated or overly complex code fails too.
+      - run: npm run deadcode
+      - if: github.event_name == 'pull_request'
+        run: npx fallow audit --base origin/${{ github.base_ref }}
       - run: npm run build
