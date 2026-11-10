@@ -10,7 +10,8 @@
     "lint": "eslint",
     "drawings": "node scripts/drawings.mjs",
     "vignettes": "node scripts/vignettes.mjs",
-    "icons": "node scripts/icons.mjs"
+    "icons": "node scripts/icons.mjs",
+    "deadcode": "fallow dead-code"
   },
   "dependencies": {
     "lottie-web": "5.12.2",
@@ -25,6 +26,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
+    "fallow": "3.41.0",
     "roughjs": "^4.6.6",
     "tailwindcss": "^4",
     "typescript": "^5"

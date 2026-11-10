@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { isValidElement, type ReactNode } from "react";
 
 export const BASE_URL = "https://anypress.io";
-export const SITE_NAME = "AnyPress";
+const SITE_NAME = "AnyPress";
 
 /**
  * Metadata for one page: title, description, its canonical address, and the card people see when
@@ -35,7 +35,7 @@ export function pageMeta({
 }
 
 /** The plain words inside some JSX, for structured data (answers in FAQs are written as JSX). */
-export function toText(node: ReactNode): string {
+function toText(node: ReactNode): string {
   if (node == null || typeof node === "boolean") return "";
   if (typeof node === "string" || typeof node === "number") return String(node);
   if (Array.isArray(node)) return node.map(toText).join("");
