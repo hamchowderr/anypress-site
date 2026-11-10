@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
+import { FramedShot, TryLive } from "@/components/Shots";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
+import { BLOCKS, blockPlayground, kitPlayground } from "@/lib/blocks";
 import { KITS } from "@/lib/kits";
 import { pageMeta } from "@/lib/seo";
 
@@ -39,19 +41,9 @@ const SWITCH: { drawing: DrawingName; title: string; body: ReactNode }[] = [
   },
 ];
 
-const BLOCKS: { title: string; body: string }[] = [
-  { title: "Popup", body: "A box over the page after a few seconds, on scroll or when someone is about to leave. Good for a signup or an offer." },
-  { title: "Carousel", body: "Slides that scroll sideways with arrows and dots, for reviews, projects, team members or photos." },
-  { title: "Before and after", body: "Two photos of the same job with a handle to drag between them: a kitchen, a lawn, a haircut, a roof." },
-  { title: "Countdown", body: "Days, hours and minutes left until an offer ends or an event starts." },
-  { title: "Counter", body: "A big number that counts up as it comes into view, such as years in business or jobs done." },
-  { title: "Star rating", body: "Your rating, how many reviews and where they're from, for example 4.9 out of 5 on Google." },
-  { title: "Map", body: "Your address on a map with a pin and a link for directions." },
-  { title: "Location finder", body: "All your branches next to a map. Visitors search by town or tap “Near me” to find the closest." },
-  { title: "Notice bar", body: "One short line across the top, such as holiday hours or free delivery. Visitors can close it." },
-  { title: "Call and book bar", body: "A bar along the bottom of phones with Call and Book buttons, so the main action is one tap away." },
-  { title: "Age check", body: "Asks visitors to confirm their age before they see the site, for shops selling age-restricted goods." },
-  { title: "And the usual pieces", body: "Headings, text, photos, buttons, columns, galleries and videos, all set up to follow your look." },
+const EXTRAS = [
+  ...BLOCKS,
+  { slug: "", title: "And the usual pieces", body: "Headings, text, photos, buttons, columns, galleries and videos, all set up to follow your look." },
 ];
 
 const FAQ: [string, ReactNode][] = [
@@ -70,6 +62,10 @@ const FAQ: [string, ReactNode][] = [
   [
     "Do the extras cost more?",
     "No. Popups, countdowns, maps and the rest come with every site, on every plan.",
+  ],
+  [
+    "What happens when I click Try it live?",
+    "A full WordPress site with that kit opens in your browser, using WordPress Playground. Click around, open the editor, change anything. Nothing is installed and nothing is saved, and it can take a minute to open.",
   ],
   [
     "Can I use the designs on another WordPress site?",
@@ -109,28 +105,17 @@ export default function Designs() {
           <SectionHead
             eyebrow="the kits"
             title="Made for your kind of business."
-            lead="Each kit has its own colours, fonts, page layouts and sections. These are the home pages from each kit's example site."
+            lead="Each kit has its own colours, fonts, page layouts and sections. Try any of them live: the whole example site opens in your browser, ready to click around."
             id="h-kits"
           />
           <ul className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {KITS.map((k) => (
               <li key={k.slug}>
-                <figure className="overflow-hidden rounded-[14px] border-[1.5px] border-ink bg-panel">
-                  <div className="flex items-center gap-1.5 border-b-[1.5px] border-ink bg-paper-2 px-3 py-2" aria-hidden>
-                    <span className="h-2 w-2 rounded-full border-[1.5px] border-ink" />
-                    <span className="h-2 w-2 rounded-full border-[1.5px] border-ink" />
-                    <span className="h-2 w-2 rounded-full border-[1.5px] border-ink" />
-                  </div>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`/designs/${k.slug}.webp`}
-                    alt={`The home page of an example site in the ${k.name} kit`}
-                    width={960}
-                    height={600}
-                    loading="lazy"
-                    className="block aspect-[16/10] h-auto w-full object-cover object-top"
-                  />
-                </figure>
+                <FramedShot
+                  src={`/designs/${k.slug}.webp`}
+                  alt={`The home page of an example site in the ${k.name} kit`}
+                  href={kitPlayground(k.slug)}
+                />
                 <div className="mt-4 flex items-center justify-between gap-3">
                   <h3 className="text-xl font-extrabold">{k.name}</h3>
                   <span className="flex shrink-0 -space-x-1.5" aria-label={`${k.name} colours`} role="img">
@@ -144,6 +129,7 @@ export default function Designs() {
                   </span>
                 </div>
                 <p className="mt-1 text-ink-soft">{k.who}</p>
+                <TryLive href={kitPlayground(k.slug)} label={`Try ${k.name} live`} />
               </li>
             ))}
           </ul>
@@ -176,13 +162,23 @@ export default function Designs() {
             id="h-extras"
           />
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {BLOCKS.map((b) => (
+            {EXTRAS.map((b) => (
               <li key={b.title} className="rounded-2xl border border-line bg-panel p-6">
-                <h3 className="text-lg font-extrabold">{b.title}</h3>
+                <h3 className="text-lg font-extrabold">
+                  {b.slug ? <Link href={`/designs/blocks#${b.slug}`} className="hover:underline">{b.title}</Link> : b.title}
+                </h3>
                 <p className="mt-1.5 leading-7 text-ink-soft">{b.body}</p>
               </li>
             ))}
           </ul>
+          <div className="ctas mt-10 justify-center">
+            <Link href="/designs/blocks" className="btn btn-ink">
+              See them working →
+            </Link>
+            <a href={blockPlayground()} target="_blank" rel="noopener" className="btn btn-paper">
+              Try them all live ↗
+            </a>
+          </div>
         </div>
       </section>
 
