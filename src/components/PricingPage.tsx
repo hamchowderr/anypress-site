@@ -8,6 +8,7 @@ import { SITE_TYPES, SIZES, VOLUME_RANGE, YEARLY_MONTHS, planUrl, volumeTiersInW
 import { faqLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { WP_HOST } from "@/lib/prices";
+import { CARE_FROM, dollars } from "@/lib/care";
 
 const EVERY_SITE = [
   "Your own private website, not shared with anyone",
@@ -87,6 +88,10 @@ const PRICING_FAQ: [string, string][] = [
   ["Is there a yearly price?", `Yes. Paying yearly costs ${YEARLY_MONTHS} times the monthly price, so you get ${12 - YEARLY_MONTHS} months free.`],
   ["Do you charge a fee on sales?", "No. The card company charges its normal fee on payments, and we add nothing on top."],
   ["How do I cancel?", "From your account, any time. Within 30 days of your first payment, you get that payment back."],
+  [
+    "Can you make changes to my site for me?",
+    `Yes. Care gives your website time for changes each month, from ${dollars(CARE_FROM)} a month, and one-time help to set it up or move it in. See the care page at anypress.io/care.`,
+  ],
 ];
 
 export function PricingPage({ version }: { version: "a" | "b" }) {
