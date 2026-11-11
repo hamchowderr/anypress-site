@@ -108,15 +108,15 @@ const FACTS: [IconName, string, ReactNode][] = [
     "coin",
     "What it costs",
     <>
-      Free until launch on 1 December: one Small site of any type for each tester. After that, pick a normal plan at today&apos;s
-      prices, from $12 a month for a website to $79 for everything.{" "}
+      Free until launch on 1 December. Sellers and resellers get up to 5 Small sites, enough to set up a storefront that sells
+      sites on its own; for your own site, one Small site of any type. After that, pick a normal plan at today&apos;s prices.{" "}
       <Link href="/pricing" className={link}>
         Every price
       </Link>
     </>,
   ],
   ["chat", "What we ask", "Use it for something real, and tell us what gets in the way, by email or a support ticket from your site."],
-  ["clock", "Dates", "20 places, invited in two waves of 10 from 12 November. Full launch on 1 December. Your site keeps running after the beta, with nothing to move."],
+  ["clock", "Dates", "Invites in two waves from 12 November, with room for 50 beta sites. Full launch on 1 December. Your site keeps running after the beta, with nothing to move."],
   [
     "server",
     "Where it runs",
@@ -267,7 +267,7 @@ export default function Beta() {
           </Link>
         </div>
         <ul className="checks">
-          {["Invites from 12 November", "Free until launch on 1 December", "20 places, one Small site each", "Your Fluent Pro licences work"].map((c) => (
+          {["Invites from 12 November", "Free until launch on 1 December", "Up to 5 sites for sellers", "Your Fluent Pro licences work"].map((c) => (
             <li key={c}>
               <Tick />
               {c}
@@ -598,7 +598,7 @@ export default function Beta() {
                 [
                   "What does it cost?",
                   <>
-                    Nothing during the beta: each tester gets one Small site free until launch on 1 December. After that, plans
+                    Nothing during the beta: until launch on 1 December, sellers and resellers get up to 5 Small sites free and website owners get one. After that, plans
                     run from $12 a month for a website to $79 for everything, and your first payment has a{" "}
                     <Link href="/refund-policy" className={link}>
                       30-day money-back guarantee
@@ -612,7 +612,7 @@ export default function Beta() {
                 ],
                 [
                   "How many places are there?",
-                  "20 sites in the beta, one Small site per tester, invited in two waves of 10. Everyone else can start at launch on 1 December.",
+                  "We're keeping the beta small: room for 50 sites in total, invited in two waves. Sellers and resellers get up to 5 Small sites each, website owners one. Everyone else can start at launch on 1 December.",
                 ],
                 [
                   "Do my Fluent Pro licences work?",
