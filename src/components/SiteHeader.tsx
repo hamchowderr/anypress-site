@@ -14,7 +14,7 @@ const NAV = [
 ];
 
 const SELL = [
-  { href: "/agencies", label: "Sell websites" },
+  { href: "/sellers", label: "Sell websites" },
   { href: "/how-it-works/sellers", label: "How selling works" },
   { href: "/resellers", label: "Become a reseller" },
 ];
@@ -40,7 +40,7 @@ export function SiteHeader() {
             ))}
             <span aria-hidden className="h-6 w-px bg-line" />
             <NavLink
-              href="/agencies"
+              href="/sellers"
               label="Sell websites"
               className="rounded-full border border-ink px-3.5 py-1 hover:bg-paper-2 aria-[current=page]:bg-ink aria-[current=page]:text-paper"
             />

@@ -199,7 +199,7 @@ export default function HowItWorksSellers() {
             <Link href="/sell" className="btn btn-ink">
               Apply to sell websites →
             </Link>
-            <Link href="/agencies#earnings" className="btn btn-paper">
+            <Link href="/sellers#earnings" className="btn btn-paper">
               Work out what you&apos;d earn
             </Link>
           </div>
@@ -254,7 +254,7 @@ export default function HowItWorksSellers() {
             </div>
           </div>
           <div className="ctas mt-10 justify-center">
-            <Link href="/agencies" className="btn btn-ink">
+            <Link href="/sellers" className="btn btn-ink">
               Selling websites →
             </Link>
             <Link href="/resellers" className="btn btn-paper">

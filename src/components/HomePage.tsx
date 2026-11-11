@@ -438,7 +438,7 @@ function SellBand() {
             <Link className="btn btn-honey" href="/how-it-works/sellers">
               See how selling works →
             </Link>
-            <Link className="btn border-white/40 text-white hover:bg-white/10" href="/agencies">
+            <Link className="btn border-white/40 text-white hover:bg-white/10" href="/sellers">
               Sell websites
             </Link>
           </div>

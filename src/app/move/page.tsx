@@ -229,7 +229,7 @@ export default function Move() {
               </p>
               <p>Developers can start and repeat the copy with one API call.</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link className="btn btn-honey" href="/agencies">
+                <Link className="btn btn-honey" href="/sellers">
                   How selling works →
                 </Link>
                 <Link className="btn border-white/40 text-white hover:bg-white/10" href="/developers">

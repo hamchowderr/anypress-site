@@ -448,7 +448,7 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
     fits: ["website", "store", "everything"],
     side: "technical",
     drawing: "agency",
-    href: "/agencies",
+    href: "/sellers",
   },
   {
     id: "developers",

@@ -11,7 +11,7 @@ export type Side = "owners" | "technical" | "both";
 
 const SIDES: Record<Side, { tag: string; label: string; href: string }> = {
   owners: { tag: "For you", label: "Getting a website for your business", href: "/pricing" },
-  technical: { tag: "Technical", label: "For sellers, resellers and developers", href: "/agencies" },
+  technical: { tag: "Technical", label: "For sellers, resellers and developers", href: "/sellers" },
   both: { tag: "Everyone", label: "For website owners and sellers", href: "/who" },
 };
 
