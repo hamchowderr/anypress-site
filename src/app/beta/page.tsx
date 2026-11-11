@@ -108,14 +108,15 @@ const FACTS: [IconName, string, ReactNode][] = [
     "coin",
     "What it costs",
     <>
-      The normal plans: from $12 a month for a website to $79 for everything, with a 30-day money-back on your first payment.{" "}
+      Free until launch on 1 December. Sellers and resellers get up to 5 Small sites, enough to set up a storefront that sells
+      sites on its own; for your own site, one Small site of any type. After that, pick a normal plan at today&apos;s prices.{" "}
       <Link href="/pricing" className={link}>
         Every price
       </Link>
     </>,
   ],
   ["chat", "What we ask", "Use it for something real, and tell us what gets in the way, by email or a support ticket from your site."],
-  ["clock", "Dates", "Invites from 12 November. Full launch by 26 November. Your site keeps running after the beta, with nothing to move."],
+  ["clock", "Dates", "25 beta sites, invited in two waves on 12 and 19 November: places for 3 sellers or resellers and 10 website owners. Full launch on 1 December. Your site keeps running after the beta, with nothing to move."],
   [
     "server",
     "Where it runs",
@@ -228,7 +229,7 @@ const STEPS: [DrawingName, string, string, ReactNode][] = [
     "during the beta",
     "Reply to any of our emails or open a support ticket from your site. What testers ask for decides what we build next.",
   ],
-  ["open", "Full launch", "by 26 November", "Your site carries on as it is. Nothing to move or rebuild when the beta ends."],
+  ["open", "Full launch", "1 December", "Pick a plan at today's prices and your site carries on as it is. Nothing to move or rebuild."],
 ];
 
 const ASKS: [string, string][] = [
@@ -266,7 +267,7 @@ export default function Beta() {
           </Link>
         </div>
         <ul className="checks">
-          {["Invites from 12 November", "Full launch by 26 November", "From $12 a month", "Your Fluent Pro licences work"].map((c) => (
+          {["Invites from 12 November", "Free until launch on 1 December", "Up to 5 sites for sellers", "Your Fluent Pro licences work"].map((c) => (
             <li key={c}>
               <Tick />
               {c}
@@ -502,7 +503,7 @@ export default function Beta() {
 
       <section className="sec soft" aria-labelledby="h-how">
         <div className="in">
-          <SectionHead eyebrow="two weeks, start to launch" title="How the beta works." id="h-how" />
+          <SectionHead eyebrow="three weeks, start to launch" title="How the beta works." id="h-how" />
           <ol className="steps mt-12">
             {STEPS.map(([d, title, when, body]) => (
               <li key={title}>
@@ -597,7 +598,8 @@ export default function Beta() {
                 [
                   "What does it cost?",
                   <>
-                    Plans run from $12 a month for a website to $79 for everything, and your first payment has a{" "}
+                    Nothing during the beta: until launch on 1 December, sellers and resellers get up to 5 Small sites free and website owners get one. After that, plans
+                    run from $12 a month for a website to $79 for everything, and your first payment has a{" "}
                     <Link href="/refund-policy" className={link}>
                       30-day money-back guarantee
                     </Link>
@@ -609,6 +611,10 @@ export default function Beta() {
                   </>,
                 ],
                 [
+                  "How many places are there?",
+                  "We're keeping the beta small: 25 sites in total. That's places for 3 sellers or resellers with up to 5 Small sites each, and 10 website owners with one each. Free demos on anypress.io/try have no limit, and everyone else can start at launch on 1 December.",
+                ],
+                [
                   "Do my Fluent Pro licences work?",
                   "Yes. Sites come with the free versions of the Fluent plugins. Add your Pro licences like on any WordPress site, and the Pro features turn on.",
                 ],
@@ -618,11 +624,11 @@ export default function Beta() {
                 ],
                 [
                   "What happens to my site when the beta ends?",
-                  "Your site keeps running as it is, on the same address and with its backups. There's nothing to move or rebuild.",
+                  "Pick a plan at today's prices and your site keeps running as it is, on the same address and with its backups. There's nothing to move or rebuild. If you don't pick one, the site is removed after launch.",
                 ],
                 [
-                  "Can I leave?",
-                  "Yes. It's real WordPress, so you can take a full copy of your site with you. No lock-in.",
+                  "What if I want to leave?",
+                  "Download the whole site any time and take it to any host. In wp-admin, Tools > Download my site gives you one zip with WordPress, every file and the database, and it restores on any WordPress host. Sellers and resellers get the same button on each site's page in the dashboard. No lock-in.",
                 ],
                 [
                   "Can it run on my own server?",
