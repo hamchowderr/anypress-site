@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { JsonLd } from "@/components/JsonLd";
 import { SiteHeader } from "@/components/SiteHeader";
 import { BASE_URL } from "@/lib/seo";
-import { CONTACT_EMAIL } from "@/lib/site";
+import { CONTACT_EMAIL, LOWEST_PRICE } from "@/lib/site";
 import "./globals.css";
 import "./sketch.css";
 
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://anypress.io"),
   title: { default: "AnyPress: managed WordPress, set up and looked after for you", template: "%s · AnyPress" },
   description:
-    "AnyPress is WordPress, set up and looked after for you. Pick a website, bookings, a shop or a members' area, and it arrives ready to use. From $12 a month, no cut of your sales.",
+    `AnyPress is WordPress, set up and looked after for you. Pick a website, bookings, a shop or a members' area, and it arrives ready to use. From $${LOWEST_PRICE} a month, no cut of your sales.`,
   applicationName: "AnyPress",
   formatDetection: { telephone: false, email: false, address: false },
 };

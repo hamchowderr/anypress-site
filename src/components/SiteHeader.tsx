@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { NavLink, StartButton } from "@/components/HeaderLinks";
 import { Logo } from "@/components/Logo";
-import { ACCOUNT_URL, DASHBOARD_URL } from "@/lib/site";
+import { ACCOUNT_URL, AFFILIATE_PERCENT, DASHBOARD_URL } from "@/lib/site";
 
 // For people getting a website. Sellers and resellers get their own link, set apart after these.
 const NAV = [
@@ -25,7 +25,7 @@ export function SiteHeader() {
     <>
       <aside className="announce" aria-label="Affiliate program">
         <div className="in">
-          <span className="pill">Affiliates</span> Earn 30% of every first payment you send our way.{" "}
+          <span className="pill">Affiliates</span> Earn {AFFILIATE_PERCENT}% of every first payment you send our way.{" "}
           <Link href="/affiliates">Join the program →</Link>
         </div>
       </aside>

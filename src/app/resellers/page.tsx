@@ -7,7 +7,7 @@ import { CompareTable } from "@/components/CompareTable";
 import { EarningsCalculator } from "@/components/EarningsCalculator";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
-import { SITE_TYPES, WHOLESALE_PERCENT, wholesalePrice } from "@/lib/site";
+import { SITE_TYPES, VOLUME_RANGE, VOLUME_TIERS, WHOLESALE_PERCENT, wholesalePrice } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -53,7 +53,7 @@ const PROBLEMS: Problem[] = [
 const TABLE: [string, string, string][] = [
   ["Shops", "One, with your name on it", "Several, under one login"],
   ["How you pay", "Per site, as you sell", "One monthly wholesale bill"],
-  ["Saving as you grow", "10 to 30% off with 3 or more sites", `${WHOLESALE_PERCENT}% off every site, from the first one`],
+  ["Saving as you grow", `${VOLUME_RANGE} off with ${VOLUME_TIERS[0].sites} or more sites`, `${WHOLESALE_PERCENT}% off every site, from the first one`],
   ["Sites you sell", "Ours, or your own with any plugins", "Ours, or your own, shared across your shops"],
   ["Partner keys for developers", "No", "Yes, for each brand"],
   ["Who it suits", "Freelancers, agencies and groups with one brand", "Agencies, franchises, hosts and software companies with several"],

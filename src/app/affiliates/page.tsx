@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
-import { AFFILIATE_URL, CONTACT_EMAIL } from "@/lib/site";
+import { AFFILIATE_PERCENT, AFFILIATE_URL, CONTACT_EMAIL, sitePrice, type SiteTypeId } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -13,7 +13,7 @@ export const metadata: Metadata = pageMeta({
 });
 
 // The program's terms in one place, so the page and the fine print can't disagree.
-const RATE = "30%";
+const RATE = `${AFFILIATE_PERCENT}%`;
 const COOKIE_DAYS = 30;
 const MIN_PAYOUT = "$50";
 
@@ -24,12 +24,17 @@ const FLOW = [
   ["You get paid", `by PayPal at the start of each month, once you've earned ${MIN_PAYOUT}.`],
 ];
 
+const dollars = (n: number) => `$${Number.isInteger(n) ? n : n.toFixed(2)}`;
+const example = (name: string, id: SiteTypeId, yearly: boolean) => {
+  const price = sitePrice(id, 1, yearly);
+  return [`${name}, ${yearly ? "yearly" : "monthly"}`, dollars(price), dollars(Math.round(price * AFFILIATE_PERCENT) / 100)];
+};
 const EXAMPLES = [
-  ["Website, monthly", "$12", "$3.60"],
-  ["Store, monthly", "$29", "$8.70"],
-  ["Everything, monthly", "$79", "$23.70"],
-  ["Store, yearly", "$290", "$87"],
-  ["Everything, yearly", "$790", "$237"],
+  example("Website", "website", false),
+  example("Store", "store", false),
+  example("Everything", "everything", false),
+  example("Store", "store", true),
+  example("Everything", "everything", true),
 ];
 
 const FINE_PRINT: [string, string][] = [

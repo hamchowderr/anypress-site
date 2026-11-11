@@ -10,7 +10,7 @@ import { WhoChip } from "@/components/WhoChip";
 import { ICONS, type IconName } from "@/components/icons.generated";
 import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
 import { SITE_DETAILS } from "@/lib/siteDetails";
-import { SITE_TYPES, SIZES, planUrl, siteLabel, startUrl } from "@/lib/site";
+import { SITE_TYPES, SIZES, VOLUME_RANGE, YEARLY_MONTHS, planUrl, siteLabel, startUrl } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { tryType } from "@/lib/try";
 import { BASE_URL, breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
@@ -260,7 +260,7 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
                   ${t.from * s.times}
                   <small> / month</small>
                 </p>
-                <p className="yr">or ${(t.from * s.times * 10).toLocaleString("en-US")} a year, two months free</p>
+                <p className="yr">or ${(t.from * s.times * YEARLY_MONTHS).toLocaleString("en-US")} a year, two months free</p>
                 <dl>
                   {[
                     ["Computing power", s.cpu],
@@ -281,7 +281,7 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
             ))}
           </ul>
           <p className="mt-6 text-center text-ink-soft">
-            You pay on our shop, and you can get your money back within 30 days. Three or more sites? Every site saves 10 to 30%.{" "}
+            You pay on our shop, and you can get your money back within 30 days. Three or more sites? Every site saves {VOLUME_RANGE}.{" "}
             <Link href="/pricing#calculator" className="font-bold text-ink underline">
               Work out your price
             </Link>

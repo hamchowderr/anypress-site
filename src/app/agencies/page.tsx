@@ -68,7 +68,7 @@ const US: [string, string][] = [
 
 const QUESTIONS: [string, ReactNode][] = [
   ["Do my clients see AnyPress?", "No. They buy from your storefront, get emails from your name and manage their site from an account on your shop."],
-  ["How many sites do I need to start?", "There's no minimum. Start with one site. From your third live site, every site you sell saves 10%."],
+  ["How many sites do I need to start?", `There's no minimum. Start with one site. Once you have ${VOLUME_TIERS[0].sites} live sites, every site you sell saves ${VOLUME_TIERS[0].percent}%.`],
   [
     "Can I bring sites I already host?",
     <>

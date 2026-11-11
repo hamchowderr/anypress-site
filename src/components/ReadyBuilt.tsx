@@ -2,10 +2,11 @@ import Link from "next/link";
 import { CompareTable } from "@/components/CompareTable";
 import { SectionHead } from "@/components/ui";
 import { WP_HOST } from "@/lib/prices";
+import { LOWEST_PRICE } from "@/lib/site";
 
 // Most people hear "WordPress" and picture an empty install. This says what actually arrives.
 const ROWS: [string, string, string][] = [
-  ["Price for one site", `From $${WP_HOST.price}/mo for hosting alone (${WP_HOST.who})`, "From $12/mo, tools included"],
+  ["Price for one site", `From $${WP_HOST.price}/mo for hosting alone (${WP_HOST.who})`, `From $${LOWEST_PRICE}/mo, tools included`],
   ["Shop, bookings, members or courses", "Research, buy and install plugins", "Installed and switched on"],
   ["Contact forms and a mailing list", "Another plugin to set up and connect", "Ready, and every sign-up lands in your list"],
   ["Getting found on Google", "Install an SEO plugin and work through it", "Set up on every page"],
