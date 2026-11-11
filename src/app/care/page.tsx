@@ -13,7 +13,7 @@ import {
   dollars,
 } from "@/lib/care";
 import { pageMeta } from "@/lib/seo";
-import { ACCOUNT_URL, CONTACT_EMAIL } from "@/lib/site";
+import { CARE_CALL_URL, CONTACT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta({
   path: "/care",
@@ -46,16 +46,16 @@ const SERVICE_ABOUT: Record<string, string> = {
 
 const HOW: [string, string][] = [
   [
-    "Add care to a website",
-    "Pick a package on a plan's page when you start, or later from the website's card in your account.",
+    "Book a short call",
+    "Tell us about your website and what you'd like done. We suggest the package or one-time help that fits.",
   ],
   [
-    "Send a request",
-    "Write what you need on the website's card. It reaches our support desk, and you get the answer by email.",
+    "Pay the link we send",
+    "After the call we email you a link to pay for what we agreed. Nothing starts, and nothing is charged, before that.",
   ],
   [
-    "We make the change",
-    "We log the time each request takes. The card shows how much of this month's time is left.",
+    "Send requests, we make the changes",
+    "Write what you need on the website's card in your account. We log the time each change takes, and the card shows what's left this month.",
   ],
 ];
 
@@ -81,8 +81,8 @@ export default function Care() {
         lead={`Time each month for the changes you need, with requests answered by email. From ${dollars(CARE_FROM)} a month, on any AnyPress website.`}
       >
         <div className="mt-9 flex flex-wrap gap-3">
-          <a href={ACCOUNT_URL} className="btn btn-ink">
-            Add care to your website
+          <a href={CARE_CALL_URL} className="btn btn-ink">
+            Book a call
           </a>
           <Link href="/#sites" className="btn btn-paper">
             Start a website
@@ -113,8 +113,8 @@ export default function Care() {
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-                <a href={ACCOUNT_URL} className="btn btn-paper mt-6 self-start">
-                  Add {p.name}
+                <a href={CARE_CALL_URL} className="btn btn-paper mt-6 self-start">
+                  Book a call about {p.name}
                 </a>
               </div>
             ))}
@@ -124,7 +124,7 @@ export default function Care() {
 
       <section className="border-y border-line bg-paper-2">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <SectionHead title="One-time help." lead="No package needed. Each is paid once." />
+          <SectionHead title="One-time help." lead="No package needed. Each is paid once, after a short call." />
           <ul className="mt-10 grid border-t border-line md:grid-cols-3 md:gap-x-10">
             {CARE_SERVICES.map((s) => (
               <li key={s.key} className="border-b border-line py-7">
@@ -136,7 +136,7 @@ export default function Care() {
           </ul>
           {CARE_EXTRA_HOUR && (
             <p className="mt-8 leading-7 text-ink-soft">
-              With a care package, an extra hour is {dollars(CARE_EXTRA_HOUR.price)}, from the website&apos;s card in your account.
+              With a care package, an extra hour is {dollars(CARE_EXTRA_HOUR.price)}, bought straight from the website&apos;s card in your account.
             </p>
           )}
         </div>
@@ -191,7 +191,11 @@ export default function Care() {
                 ],
                 [
                   "Can I change packages?",
-                  "Yes. Cancel the one you have from your account, then add the other from the website's card.",
+                  "Yes. Write to us or book a call, and we move your website to the other package.",
+                ],
+                [
+                  "Why a call first?",
+                  "So we know your website and what you need before you pay, and send a pay link only for what fits.",
                 ],
                 [
                   "Do I need care?",
@@ -215,9 +219,9 @@ export default function Care() {
 
       <CtaBand
         title="Want us to look after it?"
-        body="Add care to your website from your account, or pick it when you start a new site."
-        href={ACCOUNT_URL}
-        label="Add care"
+        body="Book a short call. We'll suggest what fits, then send you a link to pay."
+        href={CARE_CALL_URL}
+        label="Book a call"
       />
     </>
   );
