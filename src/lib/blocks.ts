@@ -23,8 +23,9 @@ export const BLOCKS: Block[] = [
   { slug: "age-check", title: "Age check", body: "Asks visitors to confirm their age before they see the site, for shops selling age-restricted goods." },
 ];
 
-// Seamless: the site fills the tab, with no Playground toolbar, dock or save prompt.
-const PLAYGROUND = "https://playground.wordpress.net/?mode=seamless&can-save=no&page-title=AnyPress+demo&blueprint-url=";
+// Our own copy of WordPress Playground: playground.wordpress.net's bot check turns visitors away. Seamless: the site
+// fills the tab, with no Playground toolbar, dock or save prompt.
+const PLAYGROUND = "https://demo.anypress.site/?mode=seamless&can-save=no&page-title=AnyPress+demo&blueprint-url=";
 const RAW = "https://raw.githubusercontent.com/hamchowderr/";
 
 /** Opens a kit's example site in WordPress Playground, on the latest theme and blocks. */
