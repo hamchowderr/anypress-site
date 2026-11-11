@@ -44,7 +44,7 @@ const FLUENT = ["FluentAuth", "FluentSMTP", "FluentCRM", "Fluent Forms", "Fluent
 // The questions Fluent users ask most in their community, and what AnyPress does about each.
 const PROBLEMS: Problem[] = [
   {
-    problem: ["Which host, and what size?", "Every thread gets ten answers, and a community or shop that outgrows its plan slows down at the worst time."],
+    problem: ["Which host, and what size?", "Ask in any group and you get ten different answers. Then your community or shop outgrows the plan and slows down right when it's busiest."],
     fix: [
       "No server to size or tune",
       <>
@@ -57,23 +57,23 @@ const PROBLEMS: Problem[] = [
     ],
   },
   {
-    problem: ["Why does my email land in spam?", "Welcome emails, receipts and newsletters go missing until someone sorts out sending and the domain records."],
+    problem: ["Why does my email land in spam?", "Welcome emails, receipts and newsletters quietly go missing, and fixing it means digging into DNS records."],
     fix: ["Email that lands", "Your mail domain and FluentSMTP and FluentCRM sending are set up before your first member or buyer arrives."],
   },
   {
-    problem: ["Which plugins do I actually need?", "Install too few and features are missing. Install too many and settings fight each other."],
+    problem: ["Which plugins do I actually need?", "Too few and something's missing. Too many and they start stepping on each other."],
     fix: ["Only the plugins you need", "Pick what you're building and only those Fluent plugins are turned on, already connected to each other."],
   },
   {
-    problem: ["How do I move my community over?", "Members, courses, orders and forms sit in other plugins, and copying them by hand takes weeks."],
+    problem: ["How do I move my community over?", "Your members, courses, orders and forms live in other plugins, and copying them by hand could take weeks."],
     fix: ["Bring your site with you", "Built-in switches copy WooCommerce, BuddyPress, LearnDash, Circle and more into the Fluent plugins. Your old data stays put until you're happy."],
   },
   {
-    problem: ["How do I keep many client sites the same?", "Each site drifts: different versions, different settings, and an update that breaks one of them on a Friday."],
+    problem: ["How do I keep many client sites the same?", "Over time every site ends up a little different, and sooner or later an update breaks one of them on a Friday."],
     fix: ["Many sites, one place", "Create, back up, restore and connect domains for every site from one dashboard, with your team. Updates are tested before they reach your sites."],
   },
   {
-    problem: ["Can AI do the busywork?", "Most AI tools can write a paragraph, but can't touch the site itself."],
+    problem: ["Can AI do the busywork?", "Most AI tools can write you a paragraph, but they can't actually do anything on the site."],
     fix: [
       "One AI connector for every site",
       <>
@@ -363,8 +363,8 @@ export default function Beta() {
 
       <ProblemFix
         soft
-        eyebrow="from the Fluent community"
-        title="The questions that keep coming up."
+        eyebrow="sound familiar?"
+        title="You've probably asked one of these."
         id="h-questions"
         items={PROBLEMS}
       />
