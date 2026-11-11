@@ -22,7 +22,7 @@ export const KITS: Kit[] = [
   { slug: "ledger", name: "Ledger", who: "Professional services", colors: ["#06525c", "#c7dcd6", "#06343a", "#f7f9f8"] },
   { slug: "keystone", name: "Keystone", who: "Real estate", colors: ["#24453a", "#c9a66b", "#18201c", "#f6f4ef"] },
   { slug: "branch", name: "Branch", who: "Franchises and chains", colors: ["#005f7a", "#ffb547", "#0b2530", "#fbfdfd"] },
-  { slug: "commons", name: "Commons", who: "Associations, chambers and churches", colors: ["#1f3a5f", "#9c3d24", "#14202e", "#f8f6f1"] },
+  { slug: "commons", name: "Commons", who: "Chambers and associations", colors: ["#1f3a5f", "#9c3d24", "#14202e", "#f8f6f1"] },
   { slug: "assay", name: "Assay", who: "Regulated health products", colors: ["#0e5a5f", "#e8c872", "#0f1d1f", "#fbfcfb"] },
   { slug: "launch", name: "Launch", who: "Startups and software", colors: ["#1c6844", "#cfe9d9", "#121212", "#f4f3ef"] },
   { slug: "byline", name: "Byline", who: "Blogs and magazines", colors: ["#a91f1b", "#1d2b3a", "#1a1a1a", "#faf8f3"] },
