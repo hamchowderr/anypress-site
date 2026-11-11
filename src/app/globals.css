@@ -268,3 +268,15 @@ input[type="checkbox"] {
   height: 20px;
   accent-color: var(--ink);
 }
+
+/* The /try loading screen's lines, each fading in as it takes its turn. */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

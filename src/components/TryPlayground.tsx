@@ -28,13 +28,84 @@ type WebTracker = NonNullable<
   Parameters<PlaygroundClientModule["startPlaygroundWeb"]>[0]["progressTracker"]
 >;
 
-// Our own words while the site starts, by how far along it is (Playground's own captions name plugin slugs).
-const stageCaption = (progress: number) =>
-  progress < 25
-    ? "Starting WordPress in your browser"
-    : progress < 85
-      ? "Adding the design and the tools for this site"
-      : "Setting up the pages";
+// Our own words while the site starts (Playground's own captions name plugin slugs): a line every few seconds, in
+// random order, from what every demo does and what this site type's business is filled with.
+const ALWAYS = [
+  "Starting WordPress in your browser",
+  "Nothing to install: it all runs on this page",
+  "Adding the design and the tools for this site",
+  "Switching on the plugins this site comes with",
+  "Loading sample data so every screen has something to show",
+  "Filling in months of history, so it feels lived in",
+  "Writing six months of blog posts",
+  "Sending past newsletters to the mailing list",
+  "Adding contacts to the CRM",
+  "Filling in a few form entries",
+  "Setting up the pages and the menu",
+  "Putting the kettle on",
+];
+const FILLING: Record<TryType, string[]> = {
+  website: ["Planning the next newsletter", "Lining up a sponsored post"],
+  bookings: [
+    "Booking three months of sessions",
+    "Filling the calendar for the next two weeks",
+    "Taking payment for paid sessions",
+  ],
+  store: [
+    "Taking six months of orders",
+    "Stocking the shop with real products",
+    "Packing a few parcels",
+  ],
+  community: [
+    "Bringing in members, posts and comments",
+    "Opening the course and its lessons",
+    "Signing up the first members",
+  ],
+  everything: [
+    "Taking orders, bookings and members",
+    "Opening the course and its lessons",
+    "Booking a few sessions",
+  ],
+  highlevel: ["Building the business's pages", "Connecting the contact forms"],
+};
+const LINES = Object.fromEntries(
+  Object.entries(FILLING).map(([type, more]) => [type, [...ALWAYS, ...more]]),
+) as Record<TryType, string[]>;
+const LINE_SECONDS = 4;
+
+/** A line from the list every few seconds, in a random order that shows every line before any comes back. */
+function useRandomLine(lines: string[]) {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    // The first line stays first ("Starting WordPress"); the rest are shuffled.
+    const order = lines.map((_, i) => i).slice(1);
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    let next = 0;
+    const timer = setInterval(() => {
+      setIndex(order[next % order.length]);
+      next += 1;
+    }, LINE_SECONDS * 1000);
+    return () => clearInterval(timer);
+  }, [lines]);
+  return lines[index % lines.length];
+}
+
+/** Seconds since the loading screen appeared. */
+function useSeconds() {
+  const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    const start = Date.now();
+    const timer = setInterval(
+      () => setSeconds(Math.floor((Date.now() - start) / 1000)),
+      1000,
+    );
+    return () => clearInterval(timer);
+  }, []);
+  return seconds;
+}
 
 /** The shop's page for the site type's plan, carrying the saved demo to checkout. */
 function demoCheckout(type: TryType, demoId: string): string | null {
@@ -118,7 +189,11 @@ function TryBar({
   return (
     <header className="border-b border-[#e9e4de] bg-white">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2.5 sm:px-5">
-        <Link href="/" aria-label="AnyPress home" className="shrink-0 rounded-md">
+        <Link
+          href="/"
+          aria-label="AnyPress home"
+          className="shrink-0 rounded-md"
+        >
           <LogoMark className="h-7 w-7" />
         </Link>
         {type ? (
@@ -142,11 +217,16 @@ function TryBar({
             ))}
           </nav>
         ) : (
-          <p className="min-w-0 flex-1 truncate text-[15px] font-bold">{title}</p>
+          <p className="min-w-0 flex-1 truncate text-[15px] font-bold">
+            {title}
+          </p>
         )}
         <div className="ml-auto flex shrink-0 items-center gap-3">
           {keep.error ? (
-            <p role="alert" className="hidden max-w-[22rem] text-right text-[13px] leading-snug text-[#b4232c] lg:block">
+            <p
+              role="alert"
+              className="hidden max-w-[22rem] text-right text-[13px] leading-snug text-[#b4232c] lg:block"
+            >
               {keep.error}
             </p>
           ) : (
@@ -176,11 +256,67 @@ function TryBar({
         </div>
       </div>
       {keep.error ? (
-        <p role="alert" className="px-4 pb-2 text-[13px] text-[#b4232c] sm:px-5 lg:hidden">
+        <p
+          role="alert"
+          className="px-4 pb-2 text-[13px] text-[#b4232c] sm:px-5 lg:hidden"
+        >
           {keep.error}
         </p>
       ) : null}
     </header>
+  );
+}
+
+/** The demo couldn't start: why that happens, and another try. */
+function DemoFailed({ onRetry }: { onRetry: () => void }) {
+  return (
+    <>
+      <p className="text-[19px] font-extrabold">This demo didn’t start.</p>
+      <p className="mt-2 text-[15px] text-[#5f5a55]">
+        It runs in your browser, so a private window or a blocked site can stop
+        it. Try once more.
+      </p>
+      <button type="button" onClick={onRetry} className="btn btn-ink mt-5">
+        Try again
+      </button>
+    </>
+  );
+}
+
+/** While the demo starts: how long it takes, a line for what it is doing now, and the bar. */
+function DemoStarting({
+  progress,
+  type,
+}: {
+  progress: number;
+  type?: TryType;
+}) {
+  const seconds = useSeconds();
+  const line = useRandomLine(type ? LINES[type] : ALWAYS);
+  return (
+    <>
+      <LogoMark className="mx-auto h-12 w-12 motion-safe:animate-pulse" />
+      <p className="mt-4 text-[22px] font-extrabold">
+        Hang tight, this takes about a minute
+      </p>
+      <p
+        key={line}
+        className="mt-2 min-h-[48px] text-[17px] text-[#3d3935] motion-safe:animate-[fadeIn_400ms_ease-out]"
+      >
+        {line}…
+      </p>
+      <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#f1ede8]">
+        <div
+          className="h-full rounded-full bg-[linear-gradient(90deg,#ffb338,#ff7a2a,#ee2f5e)] transition-[width] duration-500"
+          style={{ width: `${Math.max(progress, 4)}%` }}
+        />
+      </div>
+      <p className="mt-3 text-[14px] text-[#5f5a55]">
+        {seconds < 75
+          ? "We're building a real WordPress site in your browser, full of sample data, so you can click through everything."
+          : "Still going. On a slower computer it can take up to two minutes."}
+      </p>
+    </>
   );
 }
 
@@ -264,39 +400,9 @@ function TryPlayground({
           >
             <div className="w-full max-w-sm text-center">
               {failed ? (
-                <>
-                  <p className="text-[19px] font-extrabold">
-                    This demo didn’t start.
-                  </p>
-                  <p className="mt-2 text-[15px] text-[#5f5a55]">
-                    It runs in your browser, so a private window or a blocked
-                    site can stop it. Try once more.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={retry}
-                    className="btn btn-ink mt-5"
-                  >
-                    Try again
-                  </button>
-                </>
+                <DemoFailed onRetry={retry} />
               ) : (
-                <>
-                  <LogoMark className="mx-auto h-12 w-12 motion-safe:animate-pulse" />
-                  <p className="mt-4 text-[19px] font-extrabold">
-                    {stageCaption(progress)}
-                  </p>
-                  <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#f1ede8]">
-                    <div
-                      className="h-full rounded-full bg-[linear-gradient(90deg,#ffb338,#ff7a2a,#ee2f5e)] transition-[width] duration-500"
-                      style={{ width: `${Math.max(progress, 4)}%` }}
-                    />
-                  </div>
-                  <p className="mt-3 text-[14px] text-[#5f5a55]">
-                    A real WordPress site, built in your browser. This takes
-                    about a minute the first time.
-                  </p>
-                </>
+                <DemoStarting progress={progress} type={type} />
               )}
             </div>
           </div>
