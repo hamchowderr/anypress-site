@@ -116,7 +116,7 @@ const FACTS: [IconName, string, ReactNode][] = [
     </>,
   ],
   ["chat", "What we ask", "Use it for something real, and tell us what gets in the way, by email or a support ticket from your site."],
-  ["clock", "Dates", "25 beta sites, invited in two waves from 12 November: places for 3 sellers or resellers and 10 website owners. Full launch on 1 December. Your site keeps running after the beta, with nothing to move."],
+  ["clock", "Dates", "25 beta sites, invited in two waves on 12 and 19 November: places for 3 sellers or resellers and 10 website owners. Full launch on 1 December. Your site keeps running after the beta, with nothing to move."],
   [
     "server",
     "Where it runs",
