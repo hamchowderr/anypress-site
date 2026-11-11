@@ -9,6 +9,8 @@ import { Showcase } from "@/components/Showcase";
 import { Tick } from "@/components/Tick";
 import { VideoTile } from "@/components/VideoTile";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
+import { ICONS, type IconName } from "@/components/icons.generated";
+import { pluginLogo } from "@/lib/logos";
 import { CONTACT_EMAIL, SITE_TYPES } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 
@@ -20,6 +22,24 @@ export const metadata: Metadata = pageMeta({
 });
 
 const link = "font-semibold text-ink underline underline-offset-2";
+
+/** One of the hand-drawn icons (scripts/icons.mjs). */
+function SketchIcon({ name }: { name: IconName }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden fill="none" strokeLinecap="round" className="sketch-icon" dangerouslySetInnerHTML={{ __html: ICONS[name] }} />
+  );
+}
+
+/** A plugin's own icon, from its wordpress.org page; nothing when we don't have one. */
+function Logo({ name, size = 22 }: { name: string; size?: number }) {
+  const src = pluginLogo(name);
+  if (!src) return null;
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={src} alt="" width={size} height={size} className="plugin-logo" loading="lazy" />;
+}
+
+// The Fluent plugins, in the owner's order, for the row under the hero.
+const FLUENT = ["FluentAuth", "FluentSMTP", "FluentCRM", "Fluent Forms", "FluentBooking", "FluentCart", "FluentCommunity", "FluentPlayer", "FluentAffiliate", "Fluent Support", "FluentSnippets"];
 
 // The questions Fluent users ask most in their community, and what AnyPress does about each.
 const PROBLEMS: Problem[] = [
@@ -68,20 +88,24 @@ const PROBLEMS: Problem[] = [
 ];
 
 // The beta at a glance: what someone needs to know before they say yes.
-const FACTS: [string, ReactNode][] = [
+const FACTS: [IconName, string, ReactNode][] = [
   [
+    "laptop",
     "What it is",
     "Finished WordPress sites built on the Fluent plugins. We host them, set up the plugins, email and domain, back them up every night and test every update. You still get the full WordPress admin.",
   ],
   [
+    "people",
     "Who it's for",
     "Anyone building on Fluent: a business site, bookings, a shop, a community with courses, or all of it. And people who build those sites for clients.",
   ],
   [
+    "star",
     "What testers get",
     "A real site on your own domain, the dashboard for every site you run, and a direct line to the people building AnyPress. What you ask for shapes what ships before launch.",
   ],
   [
+    "coin",
     "What it costs",
     <>
       The normal plans: from $12 a month for a website to $79 for everything, with a 30-day money-back on your first payment.{" "}
@@ -90,9 +114,10 @@ const FACTS: [string, ReactNode][] = [
       </Link>
     </>,
   ],
-  ["What we ask", "Use it for something real, and tell us what gets in the way, by email or a support ticket from your site."],
-  ["Dates", "Invites from 12 November. Full launch by 26 November. Your site keeps running after the beta, with nothing to move."],
+  ["chat", "What we ask", "Use it for something real, and tell us what gets in the way, by email or a support ticket from your site."],
+  ["clock", "Dates", "Invites from 12 November. Full launch by 26 November. Your site keeps running after the beta, with nothing to move."],
   [
+    "server",
     "Where it runs",
     <>
       On our servers, or{" "}
@@ -103,6 +128,7 @@ const FACTS: [string, ReactNode][] = [
     </>,
   ],
   [
+    "person",
     "Who builds it",
     <>
       Otaku Solutions, selling websites as a service since 2023. Questions go to{" "}
@@ -162,30 +188,30 @@ const VIDEOS: [slug: string, title: string, length: string][] = [
 ];
 
 // For the people in the Fluent community who want the details.
-const HOOD: [string, string][] = [
-  ["WordPress 7.1 on PHP 8.3", "Each site in its own WordPress and MariaDB containers, never shared with another site."],
-  ["Plugins pinned and tested", "Every plugin and theme is pinned to a version. A new version is tried on every kind of site before it reaches yours, and the previous one is kept to roll back to."],
-  ["Free Fluent plugins, your Pro licences", "Sites come with the free versions. Add your Pro licences in WordPress like on any site and the Pro features turn on."],
-  ["Backups off the server", "A copy every night, kept in separate storage, restored from the dashboard in one click."],
-  ["Email set up", "FluentSMTP sends from your own domain, so FluentCRM newsletters and receipts arrive."],
-  ["AI, API and automations", "One AI connector for Claude, ChatGPT and other MCP apps, an API, and ready-made n8n, Make and Zapier steps."],
+const HOOD: [IconName, string, string, string[]?][] = [
+  ["code", "WordPress 7.1 on PHP 8.3", "Each site in its own WordPress and MariaDB containers, never shared with another site."],
+  ["pin", "Plugins pinned and tested", "Every plugin and theme is pinned to a version. A new version is tried on every kind of site before it reaches yours, and the previous one is kept to roll back to."],
+  ["key", "Free Fluent plugins, your Pro licences", "Sites come with the free versions. Add your Pro licences in WordPress like on any site and the Pro features turn on."],
+  ["cloud", "Backups off the server", "A copy every night, kept in separate storage, restored from the dashboard in one click."],
+  ["mail", "Email set up", "FluentSMTP sends from your own domain, so FluentCRM newsletters and receipts arrive."],
+  ["bolt", "AI, API and automations", "One AI connector for Claude, ChatGPT and other MCP apps, an API, and ready-made n8n, Make and Zapier steps.", ["n8n", "Make", "Zapier", "HighLevel"]],
 ];
 
-type Move = [from: string, into: string, soon?: boolean];
+type Move = [from: string, logos: string[], into: string, soon?: boolean];
 
 // The switches in AnyPress Client. Tutor LMS, LifterLMS and MemberPress are released and reach stores with the next
 // store template version.
 const MOVES: Move[] = [
-  ["WooCommerce products, orders and customers", "FluentCart"],
-  ["WooCommerce buyers, MailPoet and Newsletter subscribers", "FluentCRM"],
-  ["Contact Form 7, WPForms and Ninja Forms", "Fluent Forms"],
-  ["BuddyPress groups and members", "FluentCommunity"],
-  ["LearnDash courses, students and progress", "FluentCommunity courses"],
-  ["Circle communities, with courses", "FluentCommunity"],
-  ["Awesome Support tickets", "Fluent Support"],
-  ["SliceWP affiliates", "FluentAffiliate"],
-  ["Tutor LMS and LifterLMS courses", "FluentCommunity courses", true],
-  ["MemberPress members", "FluentCommunity spaces and courses", true],
+  ["WooCommerce products, orders and customers", ["WooCommerce"], "FluentCart"],
+  ["WooCommerce buyers, MailPoet and Newsletter subscribers", ["WooCommerce", "MailPoet", "Newsletter"], "FluentCRM"],
+  ["Contact Form 7, WPForms and Ninja Forms", ["Contact Form 7", "WPForms", "Ninja Forms"], "Fluent Forms"],
+  ["BuddyPress groups and members", ["BuddyPress"], "FluentCommunity"],
+  ["LearnDash courses, students and progress", [], "FluentCommunity courses"],
+  ["Circle communities, with courses", [], "FluentCommunity"],
+  ["Awesome Support tickets", ["Awesome Support"], "Fluent Support"],
+  ["SliceWP affiliates", ["SliceWP"], "FluentAffiliate"],
+  ["Tutor LMS and LifterLMS courses", ["Tutor LMS"], "FluentCommunity courses", true],
+  ["MemberPress members", [], "FluentCommunity spaces and courses", true],
 ];
 
 const STEPS: [DrawingName, string, string, ReactNode][] = [
@@ -243,6 +269,14 @@ export default function Beta() {
             </li>
           ))}
         </ul>
+        <ul className="beta-fluent" aria-label="The Fluent plugins on AnyPress sites">
+          {FLUENT.map((f) => (
+            <li key={f}>
+              <Logo name={f} size={40} />
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
         <div className="beta-hero-shot">
           <Screenshot
             shot={{ src: "/beta/dashboard-store.webp", alt: DASHBOARD[1].alt, width: 1440, height: 900 }}
@@ -255,9 +289,12 @@ export default function Beta() {
         <div className="in">
           <SectionHead eyebrow="before you say yes" title="The beta in one look." id="h-facts" />
           <dl className="beta-facts">
-            {FACTS.map(([term, detail]) => (
+            {FACTS.map(([icon, term, detail]) => (
               <div key={term}>
-                <dt>{term}</dt>
+                <dt>
+                  <SketchIcon name={icon} />
+                  {term}
+                </dt>
                 <dd>{detail}</dd>
               </div>
             ))}
@@ -351,7 +388,10 @@ export default function Beta() {
                     {t.tools
                       .filter((tool) => tool !== "WordPress")
                       .map((tool) => (
-                        <li key={tool}>{tool}</li>
+                        <li key={tool}>
+                          <Logo name={tool} size={18} />
+                          {tool}
+                        </li>
                       ))}
                   </ul>
                 </div>
@@ -382,10 +422,23 @@ export default function Beta() {
         <div className="in">
           <SectionHead eyebrow="for the technical side" title="Under the hood." id="h-hood" />
           <ul className="beta-hood">
-            {HOOD.map(([b, body]) => (
+            {HOOD.map(([icon, b, body, logos]) => (
               <li key={b}>
-                <h3>{b}</h3>
-                <p>{body}</p>
+                <SketchIcon name={icon} />
+                <div>
+                  <h3>{b}</h3>
+                  <p>{body}</p>
+                  {logos && (
+                    <p className="logo-line">
+                      {logos.map((l) => (
+                        <span key={l}>
+                          <Logo name={l} size={20} />
+                          {l}
+                        </span>
+                      ))}
+                    </p>
+                  )}
+                </div>
               </li>
             ))}
           </ul>
@@ -410,10 +463,22 @@ export default function Beta() {
                 </tr>
               </thead>
               <tbody>
-                {MOVES.map(([from, into, soon]) => (
+                {MOVES.map(([from, logos, into, soon]) => (
                   <tr key={from}>
-                    <th scope="row">{from}</th>
+                    <th scope="row">
+                      <span className="from">
+                        {logos.length > 0 && (
+                          <span className="logos">
+                            {logos.map((l) => (
+                              <Logo key={l} name={l} />
+                            ))}
+                          </span>
+                        )}
+                        <span>{from}</span>
+                      </span>
+                    </th>
                     <td>
+                      <Logo name={into} />
                       {into}
                       {soon && <span className="soon-tag">next update</span>}
                     </td>

@@ -3419,6 +3419,98 @@
       grid-template-columns: minmax(0, 1fr);
     }
   }
+  .sketch-icon {
+    width: 28px;
+    height: 28px;
+    flex: none;
+  }
+  .plugin-logo {
+    display: inline-block;
+    flex: none;
+    border-radius: 6px;
+    vertical-align: middle;
+  }
+  /* The Fluent plugins under the hero: each icon with its name. */
+  .beta-fluent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 8px;
+    max-width: 1110px;
+    margin: 40px auto 0;
+    padding: 0;
+    list-style: none;
+  }
+  .beta-fluent li {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    width: 92px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    text-align: center;
+    line-height: 1.2;
+  }
+  .beta-fluent .plugin-logo {
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .beta-facts dt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .beta-types .chips li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .beta-types .chips .plugin-logo {
+    border-radius: 4px;
+  }
+  .beta-hood li {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+  }
+  .beta-hood .sketch-icon {
+    width: 34px;
+    height: 34px;
+    margin-top: 2px;
+  }
+  .beta-hood .logo-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .beta-hood .logo-line span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .beta-moves .from {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .beta-moves .logos {
+    display: inline-flex;
+    flex: none;
+    gap: 4px;
+    margin-top: 1px;
+  }
+  .beta-facts > div {
+    align-items: start;
+  }
+  .beta-moves td .plugin-logo {
+    margin-right: 8px;
+  }
   /* What each switch moves, and into which Fluent plugin. */
   .beta-moves {
     max-width: 860px;
