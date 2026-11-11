@@ -105,7 +105,7 @@ const FACTS: Fact[] = [
     <>
       For your own site, one Small site of any type: add a card when you start and the first 7 days are free. After that it&apos;s
       your plan&apos;s normal price, and you can cancel any time before day 8 and pay nothing. Sellers and resellers get up to 5
-      Small sites, enough to set up a storefront that sells sites on its own; we&apos;ll set up billing with you on a call.{" "}
+      Small sites, enough to set up a storefront that sells sites on its own; you book a short call with us to get set up, billing included.{" "}
       <Link href="/pricing" className={link}>
         Every price
       </Link>
@@ -563,7 +563,7 @@ export default function Beta() {
                   "What does it cost?",
                   <>
                     For your own site, you add a card when you start and the first 7 days are free. Cancel before day 8 and you pay nothing.
-                    Sellers and resellers set up billing with us on a call. After that, plans
+                    Sellers and resellers book a short call with us to get set up, billing included. After that, plans
                     run from ${sitePrice("website")} a month for a website to ${sitePrice("everything")} for everything, and your first payment has a{" "}
                     <Link href="/refund-policy" className={link}>
                       30-day money-back guarantee
