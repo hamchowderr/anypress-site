@@ -28,52 +28,70 @@ type WebTracker = NonNullable<
   Parameters<PlaygroundClientModule["startPlaygroundWeb"]>[0]["progressTracker"]
 >;
 
-// Our own words while the site starts (Playground's own captions name plugin slugs), by how far along it is. Each
-// stage's lines take turns, so the screen keeps moving through the wait; most of it is the sample business.
+// Our own words while the site starts (Playground's own captions name plugin slugs): a line every few seconds, in
+// random order, from what every demo does and what this site type's business is filled with.
+const ALWAYS = [
+  "Starting WordPress in your browser",
+  "Nothing to install: it all runs on this page",
+  "Adding the design and the tools for this site",
+  "Switching on the plugins this site comes with",
+  "Loading sample data so every screen has something to show",
+  "Filling in months of history, so it feels lived in",
+  "Writing six months of blog posts",
+  "Sending past newsletters to the mailing list",
+  "Adding contacts to the CRM",
+  "Filling in a few form entries",
+  "Setting up the pages and the menu",
+  "Putting the kettle on",
+];
 const FILLING: Record<TryType, string[]> = {
-  website: [
-    "Writing six months of blog posts",
-    "Sending past newsletters to the mailing list",
-  ],
+  website: ["Planning the next newsletter", "Lining up a sponsored post"],
   bookings: [
     "Booking three months of sessions",
     "Filling the calendar for the next two weeks",
+    "Taking payment for paid sessions",
   ],
   store: [
     "Taking six months of orders",
     "Stocking the shop with real products",
+    "Packing a few parcels",
   ],
   community: [
     "Bringing in members, posts and comments",
     "Opening the course and its lessons",
+    "Signing up the first members",
   ],
   everything: [
     "Taking orders, bookings and members",
-    "Writing six months of blog posts",
+    "Opening the course and its lessons",
+    "Booking a few sessions",
   ],
-  highlevel: [
-    "Writing six months of blog posts",
-    "Building the business's pages",
-  ],
+  highlevel: ["Building the business's pages", "Connecting the contact forms"],
 };
-const stageLines = (progress: number, type?: TryType) =>
-  progress < 25
-    ? [
-        "Starting WordPress in your browser",
-        "Nothing to install: it all runs on this page",
-      ]
-    : progress < 85
-      ? [
-          "Adding the design and the tools for this site",
-          "Switching on the plugins this site comes with",
-        ]
-      : [
-          "Loading sample data so every screen has something to show",
-          ...(type ? FILLING[type] : []),
-          "Setting up the pages",
-          "Almost there",
-        ];
+const LINES = Object.fromEntries(
+  Object.entries(FILLING).map(([type, more]) => [type, [...ALWAYS, ...more]]),
+) as Record<TryType, string[]>;
 const LINE_SECONDS = 4;
+
+/** A line from the list every few seconds, in a random order that shows every line before any comes back. */
+function useRandomLine(lines: string[]) {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    // The first line stays first ("Starting WordPress"); the rest are shuffled.
+    const order = lines.map((_, i) => i).slice(1);
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    let next = 0;
+    const timer = setInterval(() => {
+      setIndex(order[next % order.length]);
+      next += 1;
+    }, LINE_SECONDS * 1000);
+    return () => clearInterval(timer);
+  }, [lines]);
+  return lines[index % lines.length];
+}
 
 /** Seconds since the loading screen appeared. */
 function useSeconds() {
@@ -274,8 +292,7 @@ function DemoStarting({
   type?: TryType;
 }) {
   const seconds = useSeconds();
-  const lines = stageLines(progress, type);
-  const line = lines[Math.floor(seconds / LINE_SECONDS) % lines.length];
+  const line = useRandomLine(type ? LINES[type] : ALWAYS);
   return (
     <>
       <LogoMark className="mx-auto h-12 w-12 motion-safe:animate-pulse" />
