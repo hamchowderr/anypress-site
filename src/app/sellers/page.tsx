@@ -425,7 +425,7 @@ export default function Sellers() {
               <span className="eyebrow">not ready yet?</span>
               <h2 id="h-guide">The profit calculator for selling websites</h2>
               <p>How the numbers work, and what your price leaves you each month. Read it now, no sign-up needed.</p>
-              <Link href="/guides/agencies" className="btn btn-ink mt-5">
+              <Link href="/guides/sellers" className="btn btn-ink mt-5">
                 Read the guide →
               </Link>
             </div>

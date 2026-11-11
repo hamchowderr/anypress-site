@@ -67,7 +67,7 @@ const LOGOS: Logo[] = [
   { src: "/apps/zapier-logo.svg", name: "Zapier" },
   { src: "/apps/highlevel-logo.svg", name: "HighLevel" },
 ];
-const WHO = ["Sellers and resellers", "Agencies with a CRM", "Teams without a developer"];
+const WHO = ["Sellers and resellers", "Web designers with a CRM", "Teams without a developer"];
 
 const PROBLEMS: Problem[] = [
   {

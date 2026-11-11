@@ -8,6 +8,8 @@ const TEN_SITES_SAVE = volumePercent(10);
 
 export interface Guide {
   id: string;
+  /** The customer group it belongs to, when its id differs from the guide's. */
+  group?: string;
   title: string;
   lead: string;
   sections: { heading: string; body?: string; steps?: string[]; checks?: string[] }[];
@@ -236,7 +238,8 @@ export const GUIDES: Guide[] = [
     ],
   },
   {
-    id: "agencies",
+    id: "sellers",
+    group: "agencies",
     title: "Profit calculator for selling websites",
     lead: "See what selling websites as a monthly service could earn you. You set your price; we charge per site, less as you grow.",
     sections: [

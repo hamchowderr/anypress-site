@@ -13,7 +13,7 @@ export const metadata: Metadata = pageMeta({
 
 const API_REPO = "https://github.com/hamchowderr/waas-provisioning-api";
 
-const WHO = ["SaaS teams", "Platforms that give each customer a site", "Developers at agencies", "Hosts", "No-code builders"];
+const WHO = ["SaaS teams", "Platforms that give each customer a site", "Developers at web studios", "Hosts", "No-code builders"];
 
 const PROBLEMS: Problem[] = [
   {

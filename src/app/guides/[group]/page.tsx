@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps<"/guides/[group]">)
 export default async function GuidePage({ params }: PageProps<"/guides/[group]">) {
   const { group } = await params;
   const guide = GUIDES.find((g) => g.id === group);
-  const who = AUDIENCE_GROUPS.find((g) => g.id === group);
+  const who = AUDIENCE_GROUPS.find((g) => g.id === (guide?.group ?? group));
   if (!guide || !who) notFound();
 
   return (

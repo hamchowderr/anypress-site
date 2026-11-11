@@ -5,7 +5,7 @@ import { type Logo, LogoRow } from "@/components/LogoSwap";
 
 /**
  * Who a page is written for. AnyPress has two sides: people buying a website for their own
- * business, and the technical side (sellers, resellers, agencies and developers).
+ * business, and the technical side (sellers, resellers and developers).
  */
 export type Side = "owners" | "technical" | "both";
 

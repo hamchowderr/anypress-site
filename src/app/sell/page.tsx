@@ -26,7 +26,7 @@ const STEPS = [
   },
 ];
 
-const WHO = ["Freelance web designers", "Small agencies", "Niche site sellers", "Anyone whose clients ask for a website"];
+const WHO = ["Freelance web designers", "Small web design studios", "Niche site sellers", "Anyone whose clients ask for a website"];
 
 const PROBLEMS: Problem[] = [
   {
