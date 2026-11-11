@@ -11,7 +11,8 @@ const nextConfig: NextConfig = {
   // The two customer groups whose page lives elsewhere, so /who/<group> works for every group.
   async redirects() {
     return [
-      { source: "/who/agencies", destination: "/agencies", permanent: true },
+      { source: "/agencies", destination: "/sellers", permanent: true },
+      { source: "/who/agencies", destination: "/sellers", permanent: true },
       { source: "/who/developers", destination: "/developers", permanent: true },
     ];
   },

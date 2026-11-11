@@ -17,7 +17,7 @@ const COLUMNS = [
   {
     title: "Sell websites",
     links: [
-      { href: "/agencies", label: "Sell websites" },
+      { href: "/sellers", label: "Sell websites" },
       { href: "/how-it-works/sellers", label: "How selling works" },
       { href: "/resellers", label: "Become a reseller" },
       { href: "/sell", label: "Apply to sell" },

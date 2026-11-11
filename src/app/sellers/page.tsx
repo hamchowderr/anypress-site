@@ -12,7 +12,7 @@ import { CONTACT_EMAIL, LOWEST_PRICE, VOLUME_RANGE, VOLUME_TIERS, WHOLESALE_PERC
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
-  path: "/agencies",
+  path: "/sellers",
   title: "Sell websites",
   description:
     "Build a website once and sell it every month, under your own name. Every order on your storefront becomes the client's own site in minutes, and we host and look after every one.",
@@ -204,7 +204,7 @@ const QUESTIONS: [string, ReactNode][] = [
   ],
 ];
 
-export default function Agencies() {
+export default function Sellers() {
   return (
     <>
       <PageHero

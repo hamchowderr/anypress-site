@@ -126,7 +126,7 @@ export function PricingPage({ version }: { version: "a" | "b" }) {
       >
         <p className="mt-6 text-ink-soft">
           Selling websites to your own clients?{" "}
-          <Link href="/agencies#tiers" className="font-semibold text-ink underline">
+          <Link href="/sellers#tiers" className="font-semibold text-ink underline">
             See seller prices
           </Link>{" "}
           or{" "}
