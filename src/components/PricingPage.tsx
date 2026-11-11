@@ -260,6 +260,7 @@ export function PricingPage({ version }: { version: "a" | "b" }) {
                     ["Computing power", s.cpu],
                     ["Storage", s.storage],
                     ["Emails a month", s.emails],
+                    ["AI assistant messages a month", s.assistant],
                     ["Price", s.times === 1 ? "The starting price" : `${s.times}× the starting price`],
                   ].map(([k, v]) => (
                     <div key={k} className="flex justify-between gap-4 py-2.5">
