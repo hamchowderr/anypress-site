@@ -179,6 +179,8 @@ const DASHBOARD: { src: string; label: string; alt: string; title: string; point
 
 // Short how-to videos, recorded on the real product (public/videos).
 const VIDEOS: [slug: string, title: string, length: string][] = [
+  ["build-a-site-in-your-browser", "Build a site in your browser at anypress.io/try", "0:41"],
+  ["choose-a-plan", "Choose a plan on the shop", "0:43"],
   ["buy-a-website", "Buy a website and open it", "1:09"],
   ["store-designs-and-plugins", "Designs and plugins", "0:42"],
   ["edit-your-website-with-ai", "Edit your site with AI", "0:36"],
@@ -349,7 +351,7 @@ export default function Beta() {
             eyebrow="under a minute each"
             title="Watch it work."
             id="h-videos"
-            lead="Short recordings of the real product, start to finish."
+            lead="Recorded on the live anypress.io and shop, start to finish."
           />
           <ul className="beta-videos">
             {VIDEOS.map(([slug, title, length]) => (
