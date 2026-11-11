@@ -12,7 +12,20 @@ const input =
  * Name, email, what they want and how they heard about us, into the shop's CRM.
  * `group` is the customer group the page is for; `interest` fixes the answer to "what do you want" (e.g. Seller).
  */
-export function LeadForm({ group = "", interest, cta = "Send it to me" }: { group?: string; interest?: string; cta?: string }) {
+export function LeadForm({
+  group = "",
+  interest,
+  source,
+  cta = "Send it to me",
+  note = "One email to confirm, then the occasional tip. Unsubscribe any time.",
+}: {
+  group?: string;
+  interest?: string;
+  /** Fixes "how did you hear about us" (one of SOURCES) when the page already knows. */
+  source?: string;
+  cta?: string;
+  note?: string;
+}) {
   const [state, action, pending] = useActionState<LeadState, FormData>(lead, { status: "idle" });
 
   if (state.status === "sent") {
@@ -56,17 +69,21 @@ export function LeadForm({ group = "", interest, cta = "Send it to me" }: { grou
           </select>
         </label>
       )}
-      <label className="block text-sm font-medium">
-        How did you hear about us? <span className="font-normal text-muted">(optional)</span>
-        <select name="source" defaultValue="" className={input}>
-          <option value="">Choose one</option>
-          {SOURCES.map(([value, label]) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </label>
+      {source ? (
+        <input type="hidden" name="source" value={source} />
+      ) : (
+        <label className="block text-sm font-medium">
+          How did you hear about us? <span className="font-normal text-muted">(optional)</span>
+          <select name="source" defaultValue="" className={input}>
+            <option value="">Choose one</option>
+            {SOURCES.map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
 
       {/* Hidden from people; bots fill it in. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
@@ -85,7 +102,7 @@ export function LeadForm({ group = "", interest, cta = "Send it to me" }: { grou
         <button type="submit" disabled={pending} className="btn btn-ink disabled:opacity-60">
           {pending ? "Sending…" : cta}
         </button>
-        <p className="mt-3 text-sm text-ink-soft">One email to confirm, then the occasional tip. Unsubscribe any time.</p>
+        <p className="mt-3 text-sm text-ink-soft">{note}</p>
       </div>
     </form>
   );
