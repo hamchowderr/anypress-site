@@ -17,8 +17,8 @@ const STEPS = [
     body: "Tell us about your business and who you build websites for. It takes two minutes.",
   },
   {
-    title: "We review it",
-    body: "We look at every application ourselves and email you when you're approved.",
+    title: "Book a short call",
+    body: "We email you a link to book a call. We get to know your business, show you how selling works and agree how billing works, then approve your account.",
   },
   {
     title: "Start selling",

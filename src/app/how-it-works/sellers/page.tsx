@@ -25,12 +25,12 @@ const LAST = VOLUME_TIERS[VOLUME_TIERS.length - 1];
 const STEPS: { drawing: DrawingName; title: string; when: string; body: ReactNode }[] = [
   {
     drawing: "sell",
-    title: "Apply and get approved",
-    when: "we email you back",
+    title: "Apply and book a call",
+    when: "a short call",
     body: (
       <>
-        Tell us about your business on <Link href="/sell" className="underline">Apply to sell</Link>. We read every application and set you up
-        as a seller, or as a reseller if you run several brands.
+        Tell us about your business on <Link href="/sell" className="underline">Apply to sell</Link>, then book a short call with us. We agree how
+        billing works and set you up as a seller, or as a reseller if you run several brands.
       </>
     ),
   },
@@ -296,7 +296,7 @@ export default function HowItWorksSellers() {
       <CtaBand
         eyebrow="ready?"
         title="Ready to sell websites?"
-        body="Tell us about your business and who you build for. We read every application and email you back."
+        body="Tell us about your business and who you build for, then book a short call with us to get set up, billing included."
         href="/sell"
         label="Apply to sell websites"
         drawings={["sell", "shops", "coins"]}

@@ -40,7 +40,7 @@ const FACTS: Fact[] = [
   ["server", "What we do", "Build every site, host it, save a copy every night, apply security fixes and send its email."],
   ["person", "What you do", "Find clients and look after them, the way you do today. They never see AnyPress."],
   ["clock", "How fast", "A paid order becomes a working site in minutes. Nobody has to press a button."],
-  ["send", "How to start", "Apply in two minutes. We read every application and email you back. There's no minimum."],
+  ["send", "How to start", "Apply in two minutes, then book a short call with us to get set up, billing included. There's no minimum."],
 ];
 
 const PROBLEMS: Problem[] = [
@@ -441,7 +441,7 @@ export default function Sellers() {
       <CtaBand
         eyebrow="ready?"
         title="Sell your first website this month."
-        body="Tell us about your business and who you build for. It takes two minutes, and we read every application and email you back."
+        body="Tell us about your business and who you build for. It takes two minutes, then you book a short call with us to get set up, billing included."
         href="/sell"
         label="Apply to sell websites"
         drawings={["sell", "shops", "coins"]}

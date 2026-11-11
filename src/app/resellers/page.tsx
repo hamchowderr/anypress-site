@@ -35,7 +35,7 @@ const FACTS: Fact[] = [
   ["key", "For your developers", "Partner keys for each brand, so your own app can create, change and remove sites."],
   ["server", "What we do", "Build every site, host it, save a copy every night, apply security fixes and send its email."],
   ["people", "Your team", "Invite the people who help you, and choose who can change things and who can only look."],
-  ["send", "How to start", "Apply, talk it through with us, and we set up your account and your first storefronts."],
+  ["send", "How to start", "Apply, book a short call with us to agree billing, and we set up your account and your first storefronts."],
 ];
 
 const PROBLEMS: Problem[] = [
@@ -154,7 +154,7 @@ const TABLE: ReactNode[][] = [
 
 const STEPS: [DrawingName, string, string][] = [
   ["words", "Apply", "Tell us about your business and your brands. It takes a few minutes."],
-  ["question", "Talk it through", "We read every application, answer your questions and set up your reseller account."],
+  ["question", "Book a short call", "We answer your questions, agree how billing works and set up your reseller account."],
   ["shops", "Set up your storefronts", "Add a storefront for each brand, with its own domain, prices and starting site."],
   ["coins", "Sell", "Your customers pay you. Each site is built in minutes, and we send one bill a month."],
 ];
@@ -338,7 +338,7 @@ export default function Resellers() {
       <CtaBand
         eyebrow="ready?"
         title="Tell us about your brands."
-        body="Apply in a few minutes. We read every application and email you back."
+        body="Apply in a few minutes, then book a short call with us to get set up, billing included."
         href="/sell"
         label="Apply to become a reseller"
         drawings={["shops", "bill", "key"]}

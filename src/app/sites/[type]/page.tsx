@@ -10,7 +10,7 @@ import { WhoChip } from "@/components/WhoChip";
 import { ICONS, type IconName } from "@/components/icons.generated";
 import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
 import { SITE_DETAILS } from "@/lib/siteDetails";
-import { SITE_TYPES, SIZES, VOLUME_RANGE, YEARLY_MONTHS, planUrl, siteLabel, startUrl } from "@/lib/site";
+import { SITE_TYPES, SIZES, TRIAL_DAYS, VOLUME_RANGE, YEARLY_MONTHS, planUrl, siteLabel, startUrl } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { tryType } from "@/lib/try";
 import { BASE_URL, breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
@@ -151,6 +151,10 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
           <li>
             <Tick />
             No cut of your sales
+          </li>
+          <li>
+            <Tick />
+            {TRIAL_DAYS} days free to start
           </li>
           <li>
             <Tick />

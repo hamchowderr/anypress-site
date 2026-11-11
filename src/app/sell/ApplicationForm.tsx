@@ -18,8 +18,9 @@ export function ApplicationForm({ storeDomain }: { storeDomain: string }) {
       <div className="mt-4" role="status">
         <p className="font-medium">Thanks, we got your application.</p>
         <p className="mt-2 text-sm text-muted">
-          We&apos;ve sent a confirmation to {state.email}. We review every application ourselves, and you&apos;ll get an
-          email with a link to sign in once you&apos;re approved.
+          We&apos;ve sent a confirmation to {state.email}. It has a link to book a short call
+          with us, where we get you set up and agree how billing works. Once you&apos;re approved, you&apos;ll get an email with a
+          link to sign in.
         </p>
       </div>
     );

@@ -4,7 +4,7 @@ import { PriceCalculator } from "@/components/PriceCalculator";
 import { PriceCompare } from "@/components/PriceCompare";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
-import { SITE_TYPES, SIZES, VOLUME_RANGE, YEARLY_MONTHS, planUrl, volumeTiersInWords } from "@/lib/site";
+import { SITE_TYPES, SIZES, TRIAL_DAYS, VOLUME_RANGE, YEARLY_MONTHS, planUrl, volumeTiersInWords } from "@/lib/site";
 import { faqLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { WP_HOST } from "@/lib/prices";
@@ -63,7 +63,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     problem: ["Afraid of paying for something that doesn't fit", "Some hosts lock you into a year up front with no way back."],
-    fix: ["30 days to decide", "Not for you? Get your first payment back within 30 days. Monthly plans cancel any time."],
+    fix: [`${TRIAL_DAYS} days free, then 30 days to decide`, `Add a card and the first ${TRIAL_DAYS} days are free. Cancel before then and you pay nothing. After that, your first payment is still covered for 30 days.`],
   },
 ];
 
@@ -87,7 +87,11 @@ const PRICING_FAQ: [string, string][] = [
   ],
   ["Is there a yearly price?", `Yes. Paying yearly costs ${YEARLY_MONTHS} times the monthly price, so you get ${12 - YEARLY_MONTHS} months free.`],
   ["Do you charge a fee on sales?", "No. The card company charges its normal fee on payments, and we add nothing on top."],
-  ["How do I cancel?", "From your account, any time. Within 30 days of your first payment, you get that payment back."],
+  [
+    "Is there a free trial?",
+    `Yes. Your first website plan starts with ${TRIAL_DAYS} days free. You add a card when you start, and the plan's price starts on day ${TRIAL_DAYS + 1} unless you cancel first. It's one free trial per person.`,
+  ],
+  ["How do I cancel?", `From your account, any time. Cancel in the first ${TRIAL_DAYS} days and you pay nothing. Within 30 days of your first payment, you get that payment back.`],
   [
     "Can you make changes to my site for me?",
     `Yes. Care gives your website time for changes each month, from ${dollars(CARE_FROM)} a month, and one-time help to set it up or move it in. See the care page at anypress.io/care.`,

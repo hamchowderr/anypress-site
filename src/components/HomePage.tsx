@@ -10,7 +10,7 @@ import { Tick } from "@/components/Tick";
 import { CtaBand, Questions, SectionHead } from "@/components/ui";
 import { JsonLd } from "@/components/JsonLd";
 import { faqLd } from "@/lib/seo";
-import { AUDIENCE_GROUPS, LOWEST_PRICE, SITE_TYPES, VOLUME_RANGE, VOLUME_TIERS, WHOLESALE_PERCENT, groupUrl } from "@/lib/site";
+import { AUDIENCE_GROUPS, LOWEST_PRICE, SITE_TYPES, TRIAL_DAYS, VOLUME_RANGE, VOLUME_TIERS, WHOLESALE_PERCENT, groupUrl } from "@/lib/site";
 
 
 // The approved round 3 homepage (2026-10-24): every section centered, a drawing for every idea.
@@ -97,6 +97,10 @@ function HeroCopy({ subClass, version }: { subClass: string; version: CopyVersio
         <li>
           <Tick />
           No cut of your sales
+        </li>
+        <li>
+          <Tick />
+          {TRIAL_DAYS} days free to start
         </li>
         <li>
           <Tick />

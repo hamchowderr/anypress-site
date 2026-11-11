@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { PageHero, Questions } from "@/components/ui";
-import { ACCOUNT_URL, CONTACT_EMAIL, DASHBOARD_URL } from "@/lib/site";
+import { ACCOUNT_URL, CONTACT_EMAIL, DASHBOARD_URL, TRIAL_DAYS } from "@/lib/site";
 import { faqLd, pageMeta } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
@@ -68,6 +68,13 @@ const SECTIONS: { title: string; items: [string, ReactNode][] }[] = [
         <>
           Sign in to <A href={ACCOUNT_URL}>your account page</A>, open My website and choose Manage or cancel plan. Your site stays online
           until the end of the period you&apos;ve paid for, and you won&apos;t be charged again.
+        </>,
+      ],
+      [
+        "Is there a free trial?",
+        <>
+          Yes. Your first website plan starts with {TRIAL_DAYS} days free. You add a card when you start, and the plan&apos;s price starts on
+          day {TRIAL_DAYS + 1} unless you cancel first from your account. It&apos;s one free trial per person.
         </>,
       ],
       [

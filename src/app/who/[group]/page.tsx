@@ -9,7 +9,7 @@ import { BrowserShot, PhoneShot } from "@/components/Shots";
 import { Tick } from "@/components/Tick";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { GROUP_STORIES } from "@/lib/groups";
-import { AUDIENCE_GROUPS, SITE_TYPES, siteLabel, startUrl } from "@/lib/site";
+import { AUDIENCE_GROUPS, SITE_TYPES, TRIAL_DAYS, siteLabel, startUrl } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 
@@ -53,6 +53,10 @@ export default async function GroupPage({ params }: PageProps<"/who/[group]">) {
           <li>
             <Tick />
             No cut of your sales
+          </li>
+          <li>
+            <Tick />
+            {TRIAL_DAYS} days free to start
           </li>
           <li>
             <Tick />
