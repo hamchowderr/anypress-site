@@ -627,8 +627,8 @@ export default function Beta() {
                   "Pick a plan at today's prices and your site keeps running as it is, on the same address and with its backups. There's nothing to move or rebuild. If you don't pick one, the site is removed after launch.",
                 ],
                 [
-                  "Can I leave?",
-                  "Yes. It's real WordPress, so you can take a full copy of your site with you. No lock-in.",
+                  "What if I want to leave?",
+                  "Download the whole site any time and take it to any host. In wp-admin, Tools > Download my site gives you one zip with WordPress, every file and the database, and it restores on any WordPress host. Sellers and resellers get the same button on each site's page in the dashboard. No lock-in.",
                 ],
                 [
                   "Can it run on my own server?",
