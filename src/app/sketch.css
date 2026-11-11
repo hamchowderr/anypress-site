@@ -1598,13 +1598,23 @@
       flex: 0 0 calc((100% - 16px) / 3);
     }
   }
+  @container (max-width: 860px) {
+    .calc {
+      gap: 36px;
+    }
+    /* Keep the offset shadow inside the column, so the card doesn't run into the screen edge. */
+    .calc-result {
+      box-shadow: 5px 5px 0 var(--honey);
+      margin-right: 5px;
+    }
+  }
   @container (max-width: 420px) {
     .calc-seg.two {
       grid-template-columns: 1fr;
     }
     .calc-inputs,
     .calc-result {
-      padding: 20px;
+      padding: 22px 20px;
     }
   }
 }
