@@ -199,7 +199,7 @@ const HOOD: [IconName, string, string, string[]?][] = [
   ["bolt", "AI, API and automations", "One AI connector for Claude, ChatGPT and other MCP apps, an API, and ready-made n8n, Make and Zapier steps.", ["n8n", "Make", "Zapier", "HighLevel"]],
 ];
 
-type Move = [from: string, logos: string[], into: string, soon?: boolean];
+type Move = [from: string, logos: string[], into: string];
 
 // The switches in AnyPress Client. Tutor LMS, LifterLMS and MemberPress are released and reach stores with the next
 // store template version.
@@ -208,12 +208,12 @@ const MOVES: Move[] = [
   ["WooCommerce buyers, MailPoet and Newsletter subscribers", ["WooCommerce", "MailPoet", "Newsletter"], "FluentCRM"],
   ["Contact Form 7, WPForms and Ninja Forms", ["Contact Form 7", "WPForms", "Ninja Forms"], "Fluent Forms"],
   ["BuddyPress groups and members", ["BuddyPress"], "FluentCommunity"],
-  ["LearnDash courses, students and progress", [], "FluentCommunity courses"],
-  ["Circle communities, with courses", [], "FluentCommunity"],
+  ["LearnDash courses, students and progress", ["LearnDash"], "FluentCommunity courses"],
+  ["Circle communities, with courses", ["Circle"], "FluentCommunity"],
   ["Awesome Support tickets", ["Awesome Support"], "Fluent Support"],
   ["SliceWP affiliates", ["SliceWP"], "FluentAffiliate"],
-  ["Tutor LMS and LifterLMS courses", ["Tutor LMS"], "FluentCommunity courses", true],
-  ["MemberPress members", [], "FluentCommunity spaces and courses", true],
+  ["Tutor LMS and LifterLMS courses", ["Tutor LMS", "LifterLMS"], "FluentCommunity courses"],
+  ["MemberPress members", ["MemberPress"], "FluentCommunity spaces and courses"],
 ];
 
 const STEPS: [DrawingName, string, string, ReactNode][] = [
@@ -454,7 +454,7 @@ export default function Beta() {
             eyebrow="no copying by hand"
             title="Bring your site with you."
             id="h-moves"
-            lead="Already on WordPress? We copy your whole site across first. Then switches in your site's admin move your data into the Fluent plugins, one at a time, and each one can be undone."
+            lead="Already on WordPress? We copy your whole site across first, and your clients' sites too if you build for others. Then switches in your site's admin move your data into the Fluent plugins, one at a time, and each one can be undone."
           />
           <div className="beta-moves">
             <table>
@@ -465,7 +465,7 @@ export default function Beta() {
                 </tr>
               </thead>
               <tbody>
-                {MOVES.map(([from, logos, into, soon]) => (
+                {MOVES.map(([from, logos, into]) => (
                   <tr key={from}>
                     <th scope="row">
                       <span className="from">
@@ -482,7 +482,6 @@ export default function Beta() {
                     <td>
                       <Logo name={into} />
                       {into}
-                      {soon && <span className="soon-tag">next update</span>}
                     </td>
                   </tr>
                 ))}
@@ -642,6 +641,10 @@ export default function Beta() {
                     </Link>
                     .
                   </>,
+                ],
+                [
+                  "Can you move my clients' sites too?",
+                  "Yes. Any WordPress site can come across, yours or a client's, one at a time or several. Each one becomes its own site in your dashboard, with its own domain and backups.",
                 ],
                 [
                   "Something else?",

@@ -3551,18 +3551,6 @@
     font-weight: 800;
     width: 40%;
   }
-  .beta-moves .soon-tag {
-    display: block;
-    width: fit-content;
-    margin-top: 4px;
-    padding: 1px 9px;
-    border: 1px dashed var(--ink-soft);
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    white-space: nowrap;
-  }
   @media (max-width: 560px) {
     .beta-moves tr {
       display: grid;
