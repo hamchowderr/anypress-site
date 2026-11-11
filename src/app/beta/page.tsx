@@ -103,8 +103,9 @@ const FACTS: Fact[] = [
     "coin",
     "What it costs",
     <>
-      Free until launch on 1 December. Sellers and resellers get up to 5 Small sites, enough to set up a storefront that sells
-      sites on its own; for your own site, one Small site of any type. After that, pick a normal plan at today&apos;s prices.{" "}
+      Add a card when you start and the first 7 days are free. After that it&apos;s your plan&apos;s normal price, and you can cancel
+      any time before day 8 and pay nothing. Sellers and resellers get up to 5 Small sites, enough to set up a storefront that sells
+      sites on its own; for your own site, one Small site of any type.{" "}
       <Link href="/pricing" className={link}>
         Every price
       </Link>
@@ -217,14 +218,14 @@ const MOVES: Move[] = [
 const STEPS: [DrawingName, string, string, ReactNode][] = [
   ["note", "Join the list", "today", "Tell us what you'd build and what you'd move in. It takes a minute."],
   ["mailbox", "Get your invite", "from 12 November", "We email your invite when your place is ready, with a link to start your site."],
-  ["pick", "Pick what you're building", "same day", "A website, bookings, an online store, a community with courses, or all of it. It's ready to use the same day."],
+  ["pick", "Pick what you're building", "same day", "A website, bookings, an online store, a community with courses, or all of it. Add a card and it's ready to use the same day."],
   [
     "question",
     "Tell us what's missing",
     "during the beta",
     "Reply to any of our emails or open a support ticket from your site. What testers ask for decides what we build next.",
   ],
-  ["open", "Full launch", "1 December", "Pick a plan at today's prices and your site carries on as it is. Nothing to move or rebuild."],
+  ["open", "Your plan starts", "after 7 days", "Your plan's normal price starts on day 8, unless you cancel first. Your site carries on as it is through launch on 1 December, with nothing to move or rebuild."],
 ];
 
 const ASKS: [string, string][] = [
@@ -262,7 +263,7 @@ export default function Beta() {
           </Link>
         </div>
         <ul className="checks">
-          {["Invites from 12 November", "Free until launch on 1 December", "Up to 5 sites for sellers", "Your Fluent Pro licences work"].map((c) => (
+          {["Invites from 12 November", "7 days free, then your plan", "Up to 5 sites for sellers", "Your Fluent Pro licences work"].map((c) => (
             <li key={c}>
               <Tick />
               {c}
@@ -561,7 +562,7 @@ export default function Beta() {
                 [
                   "What does it cost?",
                   <>
-                    Nothing during the beta: until launch on 1 December, sellers and resellers get up to 5 Small sites free and website owners get one. After that, plans
+                    You add a card when you start, and the first 7 days are free. Cancel before day 8 and you pay nothing. After that, plans
                     run from ${sitePrice("website")} a month for a website to ${sitePrice("everything")} for everything, and your first payment has a{" "}
                     <Link href="/refund-policy" className={link}>
                       30-day money-back guarantee
