@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type * as PlaygroundClientModuleType from "@wp-playground/client";
 import { LogoMark } from "@/components/Logo";
+import { saveDemo, uploadDemoImage } from "@/app/try/actions";
+import { DEMO_EXPORT_PHP, type DemoExport } from "@/lib/demoExport";
 import { SITE_TYPES, startUrl } from "@/lib/site";
 import {
   PLAYGROUND_CLIENT,
@@ -19,6 +21,9 @@ import {
 
 // The client bundles its own copy of the same ProgressTracker class (@php-wasm/progress at the same version).
 type PlaygroundClientModule = typeof PlaygroundClientModuleType;
+type PlaygroundClient = Awaited<
+  ReturnType<PlaygroundClientModule["startPlaygroundWeb"]>
+>;
 type WebTracker = NonNullable<
   Parameters<PlaygroundClientModule["startPlaygroundWeb"]>[0]["progressTracker"]
 >;
@@ -31,10 +36,142 @@ const stageCaption = (progress: number) =>
       ? "Adding the design and the tools for this site"
       : "Setting up the pages";
 
+/** The shop's page for the site type's plan, carrying the saved demo to checkout. */
+function demoCheckout(type: TryType, demoId: string): string | null {
+  const t = SITE_TYPES.find((s) => s.id === type);
+  if (!t) return null;
+  const url = new URL(startUrl(t));
+  url.searchParams.set("demo", demoId);
+  return url.toString();
+}
+
+/** Reads the demo out of its WordPress, saves it as a draft with its photos, and answers the checkout link. */
+async function keepDemo(
+  client: PlaygroundClient,
+  type: TryType,
+): Promise<string> {
+  const out = await client.run({ code: DEMO_EXPORT_PHP });
+  const demo = JSON.parse(out.text) as DemoExport;
+  const saved = await saveDemo(TRY_TYPES[type].blueprint, demo);
+  if (!saved.ok) throw new Error(saved.message);
+  await Promise.all(
+    saved.uploads.map(async ({ name, uploadUrl }) => {
+      const image = demo.images.find((i) => i.name === name);
+      if (!image) return;
+      const bytes = await client.readFileAsBuffer(image.path);
+      if (saved.maxImageBytes && bytes.byteLength > saved.maxImageBytes) return;
+      await uploadDemoImage(uploadUrl, new Blob([bytes as BlobPart]));
+    }),
+  );
+  return demoCheckout(type, saved.id) ?? buyHref(type);
+}
+
 function buyHref(type?: TryType) {
   if (type === "highlevel") return "/highlevel";
   const t = type && SITE_TYPES.find((s) => s.id === type);
   return t ? startUrl(t) : "/pricing";
+}
+
+type KeepDemo = { can: boolean; busy: boolean; error: string; run: () => void };
+
+/** "Make this my site": the shop sells HighLevel sites through their own page, so only the other site types keep their demo. */
+function useKeepDemo(
+  client: { current: PlaygroundClient | null },
+  type?: TryType,
+): KeepDemo {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const run = async () => {
+    if (!client.current || !type || busy) return;
+    setBusy(true);
+    setError("");
+    try {
+      window.location.assign(await keepDemo(client.current, type));
+    } catch (err) {
+      console.error(err);
+      setError(
+        err instanceof Error && err.message.length < 200
+          ? err.message
+          : "We couldn’t save your demo. Please try again.",
+      );
+      setBusy(false);
+    }
+  };
+  return {
+    can: type !== undefined && type !== "highlevel",
+    busy,
+    error,
+    run: () => void run(),
+  };
+}
+
+/** Our bar over the demo: home, the site type (or the example's name), and the way to keep it. */
+function TryBar({
+  title,
+  type,
+  keep,
+}: {
+  title: string;
+  type?: TryType;
+  keep: KeepDemo;
+}) {
+  return (
+    <header className="flex items-center gap-3 border-b border-[#e9e4de] bg-white px-4 py-2 sm:px-5">
+      <Link href="/" aria-label="AnyPress home" className="shrink-0 rounded-md">
+        <LogoMark className="h-7 w-7" />
+      </Link>
+      <div className="min-w-0 flex-1 leading-tight">
+        {type ? (
+          <label className="flex items-center gap-2">
+            <span className="sr-only">Site type</span>
+            <select
+              value={type}
+              onChange={(e) =>
+                window.location.assign(tryType(e.target.value as TryType))
+              }
+              className="max-w-full truncate rounded-md border border-[#e9e4de] bg-white py-1 pl-2 pr-7 text-[15px] font-bold"
+            >
+              {(Object.keys(TRY_TYPES) as TryType[]).map((t) => (
+                <option key={t} value={t}>
+                  {TRY_TYPES[t].name}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : (
+          <p className="truncate text-[15px] font-bold">{title}</p>
+        )}
+        {keep.error ? (
+          <p role="alert" className="truncate text-[13px] text-[#b4232c]">
+            {keep.error}
+          </p>
+        ) : (
+          <p className="hidden truncate text-[13px] text-[#5f5a55] sm:block">
+            {keep.can
+              ? "Runs in your browser. Change anything, then make it your site: it comes with you to checkout."
+              : "Runs in your browser. Click around and change anything; nothing is saved."}
+          </p>
+        )}
+      </div>
+      {keep.can ? (
+        <button
+          type="button"
+          onClick={keep.run}
+          disabled={keep.busy}
+          className="btn btn-ink shrink-0 !px-4 !py-2 text-[15px] disabled:opacity-70"
+        >
+          {keep.busy ? "Saving your site…" : "Make this my site"}
+        </button>
+      ) : (
+        <Link
+          href={buyHref(type)}
+          className="btn btn-ink shrink-0 !px-4 !py-2 text-[15px]"
+        >
+          Get this site
+        </Link>
+      )}
+    </header>
+  );
 }
 
 /** A site running in WordPress Playground, in this page, with our own bar and loading screen. */
@@ -52,6 +189,8 @@ function TryPlayground({
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const client = useRef<PlaygroundClient | null>(null);
+  const keepState = useKeepDemo(client, ready ? type : undefined);
 
   useEffect(() => {
     const frame = iframe.current;
@@ -73,7 +212,7 @@ function TryPlayground({
       });
       const res = await fetch(blueprintUrl, { cache: "no-store" });
       if (!res.ok) throw new Error(`Blueprint ${res.status}`);
-      await start({
+      client.current = await start({
         iframe: frame,
         remoteUrl: PLAYGROUND_REMOTE,
         blueprint: await res.json(),
@@ -99,47 +238,7 @@ function TryPlayground({
 
   return (
     <div className="fixed inset-0 z-[60] flex flex-col bg-[var(--paper-2,#faf8f5)]">
-      <header className="flex items-center gap-3 border-b border-[#e9e4de] bg-white px-4 py-2 sm:px-5">
-        <Link
-          href="/"
-          aria-label="AnyPress home"
-          className="shrink-0 rounded-md"
-        >
-          <LogoMark className="h-7 w-7" />
-        </Link>
-        <div className="min-w-0 flex-1 leading-tight">
-          {type ? (
-            <label className="flex items-center gap-2">
-              <span className="sr-only">Site type</span>
-              <select
-                value={type}
-                onChange={(e) =>
-                  window.location.assign(tryType(e.target.value as TryType))
-                }
-                className="max-w-full truncate rounded-md border border-[#e9e4de] bg-white py-1 pl-2 pr-7 text-[15px] font-bold"
-              >
-                {(Object.keys(TRY_TYPES) as TryType[]).map((t) => (
-                  <option key={t} value={t}>
-                    {TRY_TYPES[t].name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          ) : (
-            <p className="truncate text-[15px] font-bold">{title}</p>
-          )}
-          <p className="hidden truncate text-[13px] text-[#5f5a55] sm:block">
-            Runs in your browser. Click around and change anything; nothing is
-            saved.
-          </p>
-        </div>
-        <Link
-          href={buyHref(type)}
-          className="btn btn-ink shrink-0 !px-4 !py-2 text-[15px]"
-        >
-          Get this site
-        </Link>
-      </header>
+      <TryBar title={title} type={type} keep={keepState} />
       <div className="relative flex-1">
         <iframe
           key={attempt}
