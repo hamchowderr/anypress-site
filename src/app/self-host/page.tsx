@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Screenshot } from "@/components/AppShots";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
+import { Showcase } from "@/components/Showcase";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
 import { CONTACT_EMAIL } from "@/lib/site";
@@ -15,7 +17,6 @@ export const metadata: Metadata = pageMeta({
 const REPO = "https://github.com/hamchowderr/waas-provisioning-api";
 const INSTALLER_DOCS = `${REPO}/blob/main/install/README.md`;
 const GUIDE = `${REPO}/blob/main/docs/self-hosting.md`;
-const RAW = "https://raw.githubusercontent.com/hamchowderr/waas-provisioning-api/main/install";
 
 const NEEDS: [string, string][] = [
   ["A server", "Ubuntu 24.04 with 4 GB of memory or more. Hostinger, Hetzner, DigitalOcean or any provider."],
@@ -54,7 +55,7 @@ const WAYS: { name: string; price: string; body: string; items: string[]; cta: [
   },
   {
     name: "We set it up",
-    price: "One-time fee",
+    price: "$1,500 one time",
     body: "We install AnyPress on your server and your accounts, then hand it over working.",
     items: [
       "The server, your domains and DNS",
@@ -63,11 +64,11 @@ const WAYS: { name: string; price: string; body: string; items: string[]; cta: [
       "Your brand on the shop customers buy from",
       "A walk-through call, and a written handover",
     ],
-    cta: ["Ask for a quote", ask("set it up")],
+    cta: ["Book a setup", ask("set it up")],
   },
   {
     name: "We look after it",
-    price: "Monthly",
+    price: "$199 a month",
     body: "We keep your platform up to date and watch it, so you can get on with selling sites.",
     items: [
       "New releases put on for you",
@@ -75,11 +76,11 @@ const WAYS: { name: string; price: string; body: string; items: string[]; cta: [
       "Help by email when something goes wrong",
       "Moving to a bigger server when you need it",
     ],
-    cta: ["Ask about care", ask("care")],
+    cta: ["Start care", ask("care")],
   },
   {
     name: "For larger teams",
-    price: "Custom",
+    price: "From $1,000 a month",
     body: "For companies with more servers, their own rules or a procurement process.",
     items: [
       "Several servers, or a region of your choice",
@@ -100,6 +101,36 @@ const INCLUDED: [string, string][] = [
   ["Your own dashboard", "Every site, customer and job in one place, under your brand."],
   ["Moving sites in", "The same switches that move WooCommerce, LearnDash, BuddyPress and others into the Fluent tools."],
   ["An API and connector", "Make and change sites from your own code, automations or an AI assistant."],
+];
+
+const HOW: [string, string][] = [
+  [
+    "Answer a few questions",
+    "Your brand's domain, the domain your customers' sites go under, your email and your storage bucket.",
+  ],
+  [
+    "Run the installer",
+    "It makes a server at Hostinger, Hetzner or DigitalOcean for you, or runs on a server you already have.",
+  ],
+  [
+    "Open your dashboard",
+    "It finishes with your dashboard, your shop and the newest site templates ready, and tells you anything left to do.",
+  ],
+];
+
+const SCREENS: [string, string, string, string][] = [
+  [
+    "/beta/dashboard-stores.webp",
+    "Your dashboard · Stores",
+    "The AnyPress dashboard's Stores list, showing sample sites with their version, domain, status, last backup and date",
+    "Every site in one list: which are ready or being built, each one's domain and last backup.",
+  ],
+  [
+    "/beta/dashboard-store.webp",
+    "Your dashboard · A store",
+    "One site in the AnyPress dashboard: its details, its domains with a connected custom domain, and its languages",
+    "One page per site: log in to WordPress, connect a domain, take or restore a backup.",
+  ],
 ];
 
 const PROBLEMS: Problem[] = [
@@ -126,17 +157,6 @@ const PROBLEMS: Problem[] = [
     fix: ["It checks its own work", "It ends with a check that tells you what still needs doing, and running it again is safe."],
   },
 ];
-
-function Code({ title, children }: { title: string; children: string }) {
-  return (
-    <div className="overflow-hidden rounded-2xl border border-line bg-ink text-white">
-      <div className="border-b border-white/15 px-4 py-2.5 font-mono text-sm text-white/60">{title}</div>
-      <pre className="overflow-x-auto p-5 font-mono text-[14px] leading-6">
-        <code>{children}</code>
-      </pre>
-    </div>
-  );
-}
 
 export default function SelfHost() {
   return (
@@ -239,40 +259,61 @@ export default function SelfHost() {
       </section>
 
       <section>
-        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
-          <div>
-            <SectionHead
-              left
-              title="From your computer."
-              lead="Give the installer an API token from Hostinger, Hetzner or DigitalOcean. It makes the server, and AnyPress installs itself on it. You never log in to the server."
-            />
-            <p className="mt-6 leading-7 text-ink-soft">
-              Fill in the answers file first: your domains, your email and your bucket, plus your provider&apos;s token. It runs on Linux,
-              macOS or Windows (WSL).
-            </p>
-          </div>
-          <Code title="your computer">
-            {`curl -fsSLO ${RAW}/anypress-install.sh\ncurl -fsSL ${RAW}/anypress.env.example -o anypress.env\nnano anypress.env\n\nbash anypress-install.sh hostinger\n# or: hetzner, digitalocean`}
-          </Code>
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <SectionHead
+            title="How it works."
+            lead="Three steps, about 15 minutes. If you'd rather not do them, we do them for you."
+          />
+          <ol className="mt-10 grid gap-5 md:grid-cols-3">
+            {HOW.map(([title, body], i) => (
+              <li key={title} className="rounded-2xl border border-line bg-paper p-6">
+                <span className="font-display text-3xl font-semibold text-accent">{i + 1}</span>
+                <h3 className="mt-3 font-display text-xl font-semibold">{title}</h3>
+                <p className="mt-2 leading-7 text-ink-soft">{body}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-8 leading-7 text-ink-soft">
+            Developers: the{" "}
+            <a href={INSTALLER_DOCS} className="font-semibold text-ink underline">
+              install guide
+            </a>{" "}
+            has every step and setting.
+          </p>
         </div>
       </section>
 
       <section className="border-y border-line bg-paper-2">
-        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
-          <div>
-            <SectionHead
-              left
-              title="On a server you already have."
-              lead="Log in as root on a fresh Ubuntu server and run the installer there."
-            />
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <SectionHead
+            eyebrow="sample data, real screens"
+            title="The dashboard you get."
+            lead="Every site you run, on your own domain. These are the same screens as app.anypress.io."
+          />
+          <div className="mt-10 grid gap-8 lg:grid-cols-2">
+            {SCREENS.map(([src, label, alt, caption]) => (
+              <div key={src}>
+                <Screenshot shot={{ src, alt, width: 1440, height: 900 }} label={label} />
+                <p className="mt-4 leading-7 text-ink-soft">{caption}</p>
+              </div>
+            ))}
           </div>
-          <Code title="your server">
-            {`curl -fsSLO ${RAW}/anypress-install.sh\ncurl -fsSL ${RAW}/anypress.env.example -o /root/anypress.env\nnano /root/anypress.env\n\nsudo bash anypress-install.sh`}
-          </Code>
         </div>
       </section>
 
       <section>
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <SectionHead
+            title="The sites your customers get."
+            lead="Real example sites, one for each kind. Every site you sell starts from these."
+          />
+          <div className="mt-10">
+            <Showcase />
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-line bg-paper-2">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <SectionHead
             title="What it does."
@@ -288,7 +329,7 @@ export default function SelfHost() {
         </div>
       </section>
 
-      <section className="border-y border-line bg-paper-2">
+      <section>
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <SectionHead title="Questions." />
           <div className="mt-10">
@@ -318,7 +359,7 @@ export default function SelfHost() {
                 ],
                 [
                   "Does it cost anything?",
-                  "The software is free and open source. You pay your own server, storage and email providers directly. Setting it up for you, looking after it, and plans for larger teams are paid; ask us for a quote.",
+                  "The software is free and open source. You pay your own server, storage and email providers directly. If you want our help, setup is $1,500 one time, care is $199 a month, and plans for larger teams start at $1,000 a month.",
                 ],
                 [
                   "Is it the same AnyPress as anypress.io?",
