@@ -116,7 +116,7 @@ const FACTS: [IconName, string, ReactNode][] = [
     </>,
   ],
   ["chat", "What we ask", "Use it for something real, and tell us what gets in the way, by email or a support ticket from your site."],
-  ["clock", "Dates", "Invites in two waves from 12 November, with room for 50 beta sites. Full launch on 1 December. Your site keeps running after the beta, with nothing to move."],
+  ["clock", "Dates", "25 beta sites, invited in two waves from 12 November: places for 3 sellers or resellers and 10 website owners. Full launch on 1 December. Your site keeps running after the beta, with nothing to move."],
   [
     "server",
     "Where it runs",
@@ -612,7 +612,7 @@ export default function Beta() {
                 ],
                 [
                   "How many places are there?",
-                  "We're keeping the beta small: room for 50 sites in total, invited in two waves. Sellers and resellers get up to 5 Small sites each, website owners one. Everyone else can start at launch on 1 December.",
+                  "We're keeping the beta small: 25 sites in total. That's places for 3 sellers or resellers with up to 5 Small sites each, and 10 website owners with one each. Free demos on anypress.io/try have no limit, and everyone else can start at launch on 1 December.",
                 ],
                 [
                   "Do my Fluent Pro licences work?",
