@@ -116,60 +116,70 @@ function TryBar({
   keep: KeepDemo;
 }) {
   return (
-    <header className="flex items-center gap-3 border-b border-[#e9e4de] bg-white px-4 py-2 sm:px-5">
-      <Link href="/" aria-label="AnyPress home" className="shrink-0 rounded-md">
-        <LogoMark className="h-7 w-7" />
-      </Link>
-      <div className="min-w-0 flex-1 leading-tight">
-        {type ? (
-          <label className="flex items-center gap-2">
-            <span className="sr-only">Site type</span>
-            <select
-              value={type}
-              onChange={(e) =>
-                window.location.assign(tryType(e.target.value as TryType))
-              }
-              className="max-w-full truncate rounded-md border border-[#e9e4de] bg-white py-1 pl-2 pr-7 text-[15px] font-bold"
-            >
-              {(Object.keys(TRY_TYPES) as TryType[]).map((t) => (
-                <option key={t} value={t}>
-                  {TRY_TYPES[t].name}
-                </option>
-              ))}
-            </select>
-          </label>
-        ) : (
-          <p className="truncate text-[15px] font-bold">{title}</p>
-        )}
-        {keep.error ? (
-          <p role="alert" className="truncate text-[13px] text-[#b4232c]">
-            {keep.error}
-          </p>
-        ) : (
-          <p className="hidden truncate text-[13px] text-[#5f5a55] sm:block">
-            {keep.can
-              ? "Runs in your browser. Change anything, then make it your site: it comes with you to checkout."
-              : "Runs in your browser. Click around and change anything; nothing is saved."}
-          </p>
-        )}
-      </div>
-      {keep.can ? (
-        <button
-          type="button"
-          onClick={keep.run}
-          disabled={keep.busy}
-          className="btn btn-ink shrink-0 !px-4 !py-2 text-[15px] disabled:opacity-70"
-        >
-          {keep.busy ? "Saving your site…" : "Make this my site"}
-        </button>
-      ) : (
-        <Link
-          href={buyHref(type)}
-          className="btn btn-ink shrink-0 !px-4 !py-2 text-[15px]"
-        >
-          Get this site
+    <header className="border-b border-[#e9e4de] bg-white">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2.5 sm:px-5">
+        <Link href="/" aria-label="AnyPress home" className="shrink-0 rounded-md">
+          <LogoMark className="h-7 w-7" />
         </Link>
-      )}
+        {type ? (
+          <nav
+            aria-label="Site type"
+            className="order-last -mx-4 flex w-[calc(100%+2rem)] gap-1.5 overflow-x-auto px-4 [scrollbar-width:none] md:order-none md:mx-0 md:w-auto md:flex-1 md:px-0"
+          >
+            {(Object.keys(TRY_TYPES) as TryType[]).map((t) => (
+              <Link
+                key={t}
+                href={tryType(t)}
+                aria-current={t === type ? "page" : undefined}
+                className={`shrink-0 rounded-full border px-3.5 py-1.5 text-[14px] font-bold transition-colors ${
+                  t === type
+                    ? "border-[#141414] bg-[#141414] text-white"
+                    : "border-[#e9e4de] text-[#141414] hover:border-[#141414]"
+                }`}
+              >
+                {TRY_TYPES[t].short}
+              </Link>
+            ))}
+          </nav>
+        ) : (
+          <p className="min-w-0 flex-1 truncate text-[15px] font-bold">{title}</p>
+        )}
+        <div className="ml-auto flex shrink-0 items-center gap-3">
+          {keep.error ? (
+            <p role="alert" className="hidden max-w-[22rem] text-right text-[13px] leading-snug text-[#b4232c] lg:block">
+              {keep.error}
+            </p>
+          ) : (
+            <p className="hidden max-w-[17rem] text-right text-[13px] leading-snug text-[#5f5a55] xl:block">
+              {keep.can
+                ? "Runs in your browser. Change anything; it comes with you to checkout."
+                : "Runs in your browser. Click around and change anything."}
+            </p>
+          )}
+          {keep.can ? (
+            <button
+              type="button"
+              onClick={keep.run}
+              disabled={keep.busy}
+              className="btn btn-ink shrink-0 !px-4 !py-2 text-[15px] disabled:opacity-70"
+            >
+              {keep.busy ? "Saving your site…" : "Make This My Site"}
+            </button>
+          ) : (
+            <Link
+              href={buyHref(type)}
+              className="btn btn-ink shrink-0 !px-4 !py-2 text-[15px]"
+            >
+              Get This Site
+            </Link>
+          )}
+        </div>
+      </div>
+      {keep.error ? (
+        <p role="alert" className="px-4 pb-2 text-[13px] text-[#b4232c] sm:px-5 lg:hidden">
+          {keep.error}
+        </p>
+      ) : null}
     </header>
   );
 }
