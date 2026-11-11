@@ -32,6 +32,8 @@ const PLUGIN_LOGOS: Record<string, string> = {
   Circle: "/logos/circle.png",
   MemberPress: "/logos/memberpress.png",
   Polylang: "/logos/polylang.webp",
+  Claude: "/logos/claude.svg",
+  ChatGPT: "/logos/chatgpt.png",
   n8n: "/apps/n8n-logo.svg",
   Make: "/apps/make-logo.svg",
   Zapier: "/apps/zapier-logo.svg",

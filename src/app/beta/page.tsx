@@ -196,7 +196,9 @@ const HOOD: [IconName, string, string, string[]?][] = [
   ["key", "Free Fluent plugins, your Pro licences", "Sites come with the free versions. Add your Pro licences in WordPress like on any site and the Pro features turn on."],
   ["cloud", "Backups off the server", "A copy every night, kept in separate storage, restored from the dashboard in one click."],
   ["mail", "Email set up", "FluentSMTP sends from your own domain, so FluentCRM newsletters and receipts arrive."],
-  ["bolt", "AI, API and automations", "One AI connector for Claude, ChatGPT and other MCP apps, an API, and ready-made n8n, Make and Zapier steps.", ["n8n", "Make", "Zapier", "HighLevel"]],
+  ["chat", "Your AI, connected", "Connect Claude, ChatGPT or any other app that speaks MCP once, then ask in plain words: make a site, back it up, connect a domain or change its pages.", ["Claude", "ChatGPT"]],
+  ["bolt", "Automations and an API", "Ready-made steps for n8n, Make, Zapier and HighLevel, like starting a site when someone pays and emailing them when it's ready. Plus a REST API with TypeScript and PHP SDKs.", ["n8n", "Make", "Zapier", "HighLevel"]],
+  ["globe", "More than one language", "Turn on the Languages switch and Polylang is set up, with a language switcher in your menu.", ["Polylang"]],
 ];
 
 type Move = [from: string, logos: string[], into: string];
