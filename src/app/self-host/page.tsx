@@ -128,7 +128,7 @@ const SCREENS: [string, string, string, string][] = [
   [
     "/beta/dashboard-store.webp",
     "Your dashboard · A store",
-    "One site in the AnyPress dashboard: its details, its domains with a connected custom domain, and its languages",
+    "One site in the AnyPress dashboard: its domains with a connected custom domain, and its details",
     "One page per site: log in to WordPress, connect a domain, take or restore a backup.",
   ],
 ];

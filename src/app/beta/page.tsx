@@ -146,7 +146,7 @@ const DASHBOARD: { src: string; label: string; alt: string; title: string; point
   {
     src: "/beta/dashboard-stores.webp",
     label: "app.anypress.io · Stores",
-    alt: "The AnyPress dashboard's Stores list, showing four sample sites with their version, domain, status, last backup and date",
+    alt: "The AnyPress dashboard's Stores list, showing sample sites with their version, domain, status, last backup and date",
     title: "Every site in one list",
     points: [
       "See which sites are ready, being built, failed or suspended.",
@@ -157,7 +157,7 @@ const DASHBOARD: { src: string; label: string; alt: string; title: string; point
   {
     src: "/beta/dashboard-store.webp",
     label: "app.anypress.io · A store",
-    alt: "One site in the AnyPress dashboard: its details, its domains with a connected custom domain, and its languages",
+    alt: "One site in the AnyPress dashboard: its domains with a connected custom domain, and its details",
     title: "Everything about one site on one page",
     points: [
       "Log in to WordPress with one click, or email the owner.",
