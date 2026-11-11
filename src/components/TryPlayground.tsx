@@ -75,18 +75,17 @@ const stageLines = (progress: number, type?: TryType) =>
         ];
 const LINE_SECONDS = 4;
 
-/** Seconds since the loading screen appeared, counting while it shows. */
-function useSeconds(running: boolean) {
+/** Seconds since the loading screen appeared. */
+function useSeconds() {
   const [seconds, setSeconds] = useState(0);
   useEffect(() => {
-    if (!running) return;
     const start = Date.now();
     const timer = setInterval(
       () => setSeconds(Math.floor((Date.now() - start) / 1000)),
       1000,
     );
     return () => clearInterval(timer);
-  }, [running]);
+  }, []);
   return seconds;
 }
 
@@ -250,6 +249,60 @@ function TryBar({
   );
 }
 
+/** The demo couldn't start: why that happens, and another try. */
+function DemoFailed({ onRetry }: { onRetry: () => void }) {
+  return (
+    <>
+      <p className="text-[19px] font-extrabold">This demo didn’t start.</p>
+      <p className="mt-2 text-[15px] text-[#5f5a55]">
+        It runs in your browser, so a private window or a blocked site can stop
+        it. Try once more.
+      </p>
+      <button type="button" onClick={onRetry} className="btn btn-ink mt-5">
+        Try again
+      </button>
+    </>
+  );
+}
+
+/** While the demo starts: how long it takes, a line for what it is doing now, and the bar. */
+function DemoStarting({
+  progress,
+  type,
+}: {
+  progress: number;
+  type?: TryType;
+}) {
+  const seconds = useSeconds();
+  const lines = stageLines(progress, type);
+  const line = lines[Math.floor(seconds / LINE_SECONDS) % lines.length];
+  return (
+    <>
+      <LogoMark className="mx-auto h-12 w-12 motion-safe:animate-pulse" />
+      <p className="mt-4 text-[22px] font-extrabold">
+        Hang tight, this takes about a minute
+      </p>
+      <p
+        key={line}
+        className="mt-2 min-h-[48px] text-[17px] text-[#3d3935] motion-safe:animate-[fadeIn_400ms_ease-out]"
+      >
+        {line}…
+      </p>
+      <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#f1ede8]">
+        <div
+          className="h-full rounded-full bg-[linear-gradient(90deg,#ffb338,#ff7a2a,#ee2f5e)] transition-[width] duration-500"
+          style={{ width: `${Math.max(progress, 4)}%` }}
+        />
+      </div>
+      <p className="mt-3 text-[14px] text-[#5f5a55]">
+        {seconds < 75
+          ? "We're building a real WordPress site in your browser, full of sample data, so you can click through everything."
+          : "Still going. On a slower computer it can take up to two minutes."}
+      </p>
+    </>
+  );
+}
+
 /** A site running in WordPress Playground, in this page, with our own bar and loading screen. */
 function TryPlayground({
   blueprintUrl,
@@ -267,9 +320,6 @@ function TryPlayground({
   const [attempt, setAttempt] = useState(0);
   const client = useRef<PlaygroundClient | null>(null);
   const keepState = useKeepDemo(client, ready ? type : undefined);
-  const seconds = useSeconds(!ready && !failed);
-  const lines = stageLines(progress, type);
-  const line = lines[Math.floor(seconds / LINE_SECONDS) % lines.length];
 
   useEffect(() => {
     const frame = iframe.current;
@@ -333,46 +383,9 @@ function TryPlayground({
           >
             <div className="w-full max-w-sm text-center">
               {failed ? (
-                <>
-                  <p className="text-[19px] font-extrabold">
-                    This demo didn’t start.
-                  </p>
-                  <p className="mt-2 text-[15px] text-[#5f5a55]">
-                    It runs in your browser, so a private window or a blocked
-                    site can stop it. Try once more.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={retry}
-                    className="btn btn-ink mt-5"
-                  >
-                    Try again
-                  </button>
-                </>
+                <DemoFailed onRetry={retry} />
               ) : (
-                <>
-                  <LogoMark className="mx-auto h-12 w-12 motion-safe:animate-pulse" />
-                  <p className="mt-4 text-[22px] font-extrabold">
-                    Hang tight, this takes about a minute
-                  </p>
-                  <p
-                    key={line}
-                    className="mt-2 min-h-[48px] text-[17px] text-[#3d3935] motion-safe:animate-[fadeIn_400ms_ease-out]"
-                  >
-                    {line}…
-                  </p>
-                  <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#f1ede8]">
-                    <div
-                      className="h-full rounded-full bg-[linear-gradient(90deg,#ffb338,#ff7a2a,#ee2f5e)] transition-[width] duration-500"
-                      style={{ width: `${Math.max(progress, 4)}%` }}
-                    />
-                  </div>
-                  <p className="mt-3 text-[14px] text-[#5f5a55]">
-                    {seconds < 75
-                      ? "We're building a real WordPress site in your browser, full of sample data, so you can click through everything."
-                      : "Still going. On a slower computer it can take up to two minutes."}
-                  </p>
-                </>
+                <DemoStarting progress={progress} type={type} />
               )}
             </div>
           </div>
