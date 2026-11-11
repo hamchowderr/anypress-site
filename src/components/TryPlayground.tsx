@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type * as PlaygroundClientModuleType from "@wp-playground/client";
 import { LogoMark } from "@/components/Logo";
+import { saveDemo, uploadDemoImage } from "@/app/try/actions";
+import { DEMO_EXPORT_PHP, type DemoExport } from "@/lib/demoExport";
 import { SITE_TYPES, startUrl } from "@/lib/site";
 import {
   PLAYGROUND_CLIENT,
@@ -19,6 +21,7 @@ import {
 
 // The client bundles its own copy of the same ProgressTracker class (@php-wasm/progress at the same version).
 type PlaygroundClientModule = typeof PlaygroundClientModuleType;
+type PlaygroundClient = Awaited<ReturnType<PlaygroundClientModule["startPlaygroundWeb"]>>;
 type WebTracker = NonNullable<
   Parameters<PlaygroundClientModule["startPlaygroundWeb"]>[0]["progressTracker"]
 >;
@@ -30,6 +33,33 @@ const stageCaption = (progress: number) =>
     : progress < 85
       ? "Adding the design and the tools for this site"
       : "Setting up the pages";
+
+/** The shop's page for the site type's plan, carrying the saved demo to checkout. */
+function demoCheckout(type: TryType, demoId: string): string | null {
+  const t = SITE_TYPES.find((s) => s.id === type);
+  if (!t) return null;
+  const url = new URL(startUrl(t));
+  url.searchParams.set("demo", demoId);
+  return url.toString();
+}
+
+/** Reads the demo out of its WordPress, saves it as a draft with its photos, and answers the checkout link. */
+async function keepDemo(client: PlaygroundClient, type: TryType): Promise<string> {
+  const out = await client.run({ code: DEMO_EXPORT_PHP });
+  const demo = JSON.parse(out.text) as DemoExport;
+  const saved = await saveDemo(TRY_TYPES[type].blueprint, demo);
+  if (!saved.ok) throw new Error(saved.message);
+  await Promise.all(
+    saved.uploads.map(async ({ name, uploadUrl }) => {
+      const image = demo.images.find((i) => i.name === name);
+      if (!image) return;
+      const bytes = await client.readFileAsBuffer(image.path);
+      if (saved.maxImageBytes && bytes.byteLength > saved.maxImageBytes) return;
+      await uploadDemoImage(uploadUrl, new Blob([bytes as BlobPart]));
+    }),
+  );
+  return demoCheckout(type, saved.id) ?? buyHref(type);
+}
 
 function buyHref(type?: TryType) {
   if (type === "highlevel") return "/highlevel";
@@ -52,6 +82,11 @@ function TryPlayground({
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const client = useRef<PlaygroundClient | null>(null);
+  const [keeping, setKeeping] = useState(false);
+  const [keepError, setKeepError] = useState("");
+  // The shop sells HighLevel sites through their own page, so only the other site types keep their demo.
+  const canKeep = ready && type !== undefined && type !== "highlevel";
 
   useEffect(() => {
     const frame = iframe.current;
@@ -73,7 +108,7 @@ function TryPlayground({
       });
       const res = await fetch(blueprintUrl, { cache: "no-store" });
       if (!res.ok) throw new Error(`Blueprint ${res.status}`);
-      await start({
+      client.current = await start({
         iframe: frame,
         remoteUrl: PLAYGROUND_REMOTE,
         blueprint: await res.json(),
@@ -89,6 +124,19 @@ function TryPlayground({
       gone = true;
     };
   }, [blueprintUrl, attempt]);
+
+  const keep = async () => {
+    if (!client.current || !type || keeping) return;
+    setKeeping(true);
+    setKeepError("");
+    try {
+      window.location.assign(await keepDemo(client.current, type));
+    } catch (err) {
+      console.error(err);
+      setKeepError(err instanceof Error && err.message.length < 200 ? err.message : "We couldn’t save your demo. Please try again.");
+      setKeeping(false);
+    }
+  };
 
   const retry = () => {
     setFailed(false);
@@ -128,17 +176,35 @@ function TryPlayground({
           ) : (
             <p className="truncate text-[15px] font-bold">{title}</p>
           )}
-          <p className="hidden truncate text-[13px] text-[#5f5a55] sm:block">
-            Runs in your browser. Click around and change anything; nothing is
-            saved.
-          </p>
+          {keepError ? (
+            <p role="alert" className="truncate text-[13px] text-[#b4232c]">
+              {keepError}
+            </p>
+          ) : (
+            <p className="hidden truncate text-[13px] text-[#5f5a55] sm:block">
+              {canKeep
+                ? "Runs in your browser. Change anything, then make it your site: it comes with you to checkout."
+                : "Runs in your browser. Click around and change anything; nothing is saved."}
+            </p>
+          )}
         </div>
-        <Link
-          href={buyHref(type)}
-          className="btn btn-ink shrink-0 !px-4 !py-2 text-[15px]"
-        >
-          Get this site
-        </Link>
+        {canKeep ? (
+          <button
+            type="button"
+            onClick={keep}
+            disabled={keeping}
+            className="btn btn-ink shrink-0 !px-4 !py-2 text-[15px] disabled:opacity-70"
+          >
+            {keeping ? "Saving your site…" : "Make this my site"}
+          </button>
+        ) : (
+          <Link
+            href={buyHref(type)}
+            className="btn btn-ink shrink-0 !px-4 !py-2 text-[15px]"
+          >
+            Get this site
+          </Link>
+        )}
       </header>
       <div className="relative flex-1">
         <iframe
