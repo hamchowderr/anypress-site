@@ -25,7 +25,6 @@ export const BLOCKS: Block[] = [
   { slug: "age-check", title: "Age check", body: "Asks visitors to confirm their age before they see the site, for shops selling age-restricted goods." },
 ];
 
-// Seamless: the site fills the tab, with no Playground toolbar, dock or save prompt.
 const RAW = "https://raw.githubusercontent.com/hamchowderr/";
 
 /** Opens a kit's example site on our /try page (WordPress Playground in the browser), on the latest theme and blocks. */
