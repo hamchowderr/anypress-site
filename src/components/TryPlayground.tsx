@@ -28,13 +28,67 @@ type WebTracker = NonNullable<
   Parameters<PlaygroundClientModule["startPlaygroundWeb"]>[0]["progressTracker"]
 >;
 
-// Our own words while the site starts, by how far along it is (Playground's own captions name plugin slugs).
-const stageCaption = (progress: number) =>
+// Our own words while the site starts (Playground's own captions name plugin slugs), by how far along it is. Each
+// stage's lines take turns, so the screen keeps moving through the wait; most of it is the sample business.
+const FILLING: Record<TryType, string[]> = {
+  website: [
+    "Writing six months of blog posts",
+    "Sending past newsletters to the mailing list",
+  ],
+  bookings: [
+    "Booking three months of sessions",
+    "Filling the calendar for the next two weeks",
+  ],
+  store: [
+    "Taking six months of orders",
+    "Stocking the shop with real products",
+  ],
+  community: [
+    "Bringing in members, posts and comments",
+    "Opening the course and its lessons",
+  ],
+  everything: [
+    "Taking orders, bookings and members",
+    "Writing six months of blog posts",
+  ],
+  highlevel: [
+    "Writing six months of blog posts",
+    "Building the business's pages",
+  ],
+};
+const stageLines = (progress: number, type?: TryType) =>
   progress < 25
-    ? "Starting WordPress in your browser"
+    ? [
+        "Starting WordPress in your browser",
+        "Nothing to install: it all runs on this page",
+      ]
     : progress < 85
-      ? "Adding the design and the tools for this site"
-      : "Setting up the pages";
+      ? [
+          "Adding the design and the tools for this site",
+          "Switching on the plugins this site comes with",
+        ]
+      : [
+          "Loading sample data so every screen has something to show",
+          ...(type ? FILLING[type] : []),
+          "Setting up the pages",
+          "Almost there",
+        ];
+const LINE_SECONDS = 4;
+
+/** Seconds since the loading screen appeared, counting while it shows. */
+function useSeconds(running: boolean) {
+  const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    if (!running) return;
+    const start = Date.now();
+    const timer = setInterval(
+      () => setSeconds(Math.floor((Date.now() - start) / 1000)),
+      1000,
+    );
+    return () => clearInterval(timer);
+  }, [running]);
+  return seconds;
+}
 
 /** The shop's page for the site type's plan, carrying the saved demo to checkout. */
 function demoCheckout(type: TryType, demoId: string): string | null {
@@ -118,7 +172,11 @@ function TryBar({
   return (
     <header className="border-b border-[#e9e4de] bg-white">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2.5 sm:px-5">
-        <Link href="/" aria-label="AnyPress home" className="shrink-0 rounded-md">
+        <Link
+          href="/"
+          aria-label="AnyPress home"
+          className="shrink-0 rounded-md"
+        >
           <LogoMark className="h-7 w-7" />
         </Link>
         {type ? (
@@ -142,11 +200,16 @@ function TryBar({
             ))}
           </nav>
         ) : (
-          <p className="min-w-0 flex-1 truncate text-[15px] font-bold">{title}</p>
+          <p className="min-w-0 flex-1 truncate text-[15px] font-bold">
+            {title}
+          </p>
         )}
         <div className="ml-auto flex shrink-0 items-center gap-3">
           {keep.error ? (
-            <p role="alert" className="hidden max-w-[22rem] text-right text-[13px] leading-snug text-[#b4232c] lg:block">
+            <p
+              role="alert"
+              className="hidden max-w-[22rem] text-right text-[13px] leading-snug text-[#b4232c] lg:block"
+            >
               {keep.error}
             </p>
           ) : (
@@ -176,7 +239,10 @@ function TryBar({
         </div>
       </div>
       {keep.error ? (
-        <p role="alert" className="px-4 pb-2 text-[13px] text-[#b4232c] sm:px-5 lg:hidden">
+        <p
+          role="alert"
+          className="px-4 pb-2 text-[13px] text-[#b4232c] sm:px-5 lg:hidden"
+        >
           {keep.error}
         </p>
       ) : null}
@@ -201,6 +267,9 @@ function TryPlayground({
   const [attempt, setAttempt] = useState(0);
   const client = useRef<PlaygroundClient | null>(null);
   const keepState = useKeepDemo(client, ready ? type : undefined);
+  const seconds = useSeconds(!ready && !failed);
+  const lines = stageLines(progress, type);
+  const line = lines[Math.floor(seconds / LINE_SECONDS) % lines.length];
 
   useEffect(() => {
     const frame = iframe.current;
@@ -283,8 +352,14 @@ function TryPlayground({
               ) : (
                 <>
                   <LogoMark className="mx-auto h-12 w-12 motion-safe:animate-pulse" />
-                  <p className="mt-4 text-[19px] font-extrabold">
-                    {stageCaption(progress)}
+                  <p className="mt-4 text-[22px] font-extrabold">
+                    Hang tight, this takes about a minute
+                  </p>
+                  <p
+                    key={line}
+                    className="mt-2 min-h-[48px] text-[17px] text-[#3d3935] motion-safe:animate-[fadeIn_400ms_ease-out]"
+                  >
+                    {line}…
                   </p>
                   <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#f1ede8]">
                     <div
@@ -293,8 +368,9 @@ function TryPlayground({
                     />
                   </div>
                   <p className="mt-3 text-[14px] text-[#5f5a55]">
-                    A real WordPress site, built in your browser. This takes
-                    about a minute the first time.
+                    {seconds < 75
+                      ? "We're building a real WordPress site in your browser, full of sample data, so you can click through everything."
+                      : "Still going. On a slower computer it can take up to two minutes."}
                   </p>
                 </>
               )}
