@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Screenshot } from "@/components/AppShots";
+import { type DashboardShot, DashboardTour, type Fact, FactSheet, SketchIcon, type Video, VideoRow } from "@/components/FactPieces";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { LeadForm } from "@/components/LeadForm";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { Showcase } from "@/components/Showcase";
 import { Tick } from "@/components/Tick";
-import { VideoTile } from "@/components/VideoTile";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
-import { ICONS, type IconName } from "@/components/icons.generated";
+import type { IconName } from "@/components/icons.generated";
 import { pluginLogo } from "@/lib/logos";
 import { CONTACT_EMAIL, SITE_TYPES, sitePrice } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
@@ -24,11 +24,6 @@ export const metadata: Metadata = pageMeta({
 const link = "font-semibold text-ink underline underline-offset-2";
 
 /** One of the hand-drawn icons (scripts/icons.mjs). */
-function SketchIcon({ name }: { name: IconName }) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden fill="none" strokeLinecap="round" className="sketch-icon" dangerouslySetInnerHTML={{ __html: ICONS[name] }} />
-  );
-}
 
 /** A plugin's own icon, from its wordpress.org page; nothing when we don't have one. */
 function Logo({ name, size = 22 }: { name: string; size?: number }) {
@@ -88,7 +83,7 @@ const PROBLEMS: Problem[] = [
 ];
 
 // The beta at a glance: what someone needs to know before they say yes.
-const FACTS: [IconName, string, ReactNode][] = [
+const FACTS: Fact[] = [
   [
     "laptop",
     "What it is",
@@ -142,7 +137,7 @@ const FACTS: [IconName, string, ReactNode][] = [
 ];
 
 // Real screens from the dashboard (sample data), each with what it lets you do.
-const DASHBOARD: { src: string; label: string; alt: string; title: string; points: string[] }[] = [
+const DASHBOARD: DashboardShot[] = [
   {
     src: "/beta/dashboard-stores.webp",
     label: "app.anypress.io · Stores",
@@ -179,7 +174,7 @@ const DASHBOARD: { src: string; label: string; alt: string; title: string; point
 ];
 
 // Short how-to videos, recorded on the real product (public/videos).
-const VIDEOS: [slug: string, title: string, length: string][] = [
+const VIDEOS: Video[] = [
   ["build-a-site-in-your-browser", "Build a site in your browser at anypress.io/try", "0:41"],
   ["choose-a-plan", "Choose a plan on the shop", "0:43"],
   ["buy-a-website", "Buy a website and open it", "1:09"],
@@ -293,17 +288,7 @@ export default function Beta() {
       <section className="sec soft" aria-labelledby="h-facts">
         <div className="in">
           <SectionHead eyebrow="before you say yes" title="The beta in one look." id="h-facts" />
-          <dl className="beta-facts">
-            {FACTS.map(([icon, term, detail]) => (
-              <div key={term}>
-                <dt>
-                  <SketchIcon name={icon} />
-                  {term}
-                </dt>
-                <dd>{detail}</dd>
-              </div>
-            ))}
-          </dl>
+          <FactSheet facts={FACTS} />
         </div>
       </section>
 
@@ -327,24 +312,7 @@ export default function Beta() {
             id="h-dashboard"
             lead="Every site you run, in one place, at app.anypress.io. You and your team sign in with a link we email you."
           />
-          <div className="beta-dash">
-            {DASHBOARD.map((d) => (
-              <div key={d.src}>
-                <Screenshot shot={{ src: d.src, alt: d.alt, width: 1440, height: 900 }} label={d.label} />
-                <div>
-                  <h3>{d.title}</h3>
-                  <ul>
-                    {d.points.map((pt) => (
-                      <li key={pt}>
-                        <Tick className="mt-1 h-[18px] w-[18px] flex-none text-tick-green" />
-                        {pt}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
-          </div>
+          <DashboardTour shots={DASHBOARD} />
         </div>
       </section>
 
@@ -356,13 +324,7 @@ export default function Beta() {
             id="h-videos"
             lead="Recorded on the live anypress.io and shop, start to finish."
           />
-          <ul className="beta-videos">
-            {VIDEOS.map(([slug, title, length]) => (
-              <li key={slug}>
-                <VideoTile slug={slug} title={title} length={length} />
-              </li>
-            ))}
-          </ul>
+          <VideoRow videos={VIDEOS} />
         </div>
       </section>
 

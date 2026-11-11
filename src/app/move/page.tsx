@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Flow } from "@/components/FactPieces";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
@@ -174,17 +175,7 @@ export default function Move() {
       <section className="sec">
         <div className="in">
           <SectionHead eyebrow="how it works" title="Add a plugin, paste a token. We do the moving." />
-          <ol className="flow !mt-0">
-            {STEPS.map(([d, title, body], i) => (
-              <li key={title}>
-                <Drawing name={d} />
-                <b>
-                  {i + 1}. {title}
-                </b>
-                <span>{body}</span>
-              </li>
-            ))}
-          </ol>
+          <Flow steps={STEPS} />
         </div>
       </section>
 

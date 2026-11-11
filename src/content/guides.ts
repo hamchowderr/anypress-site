@@ -237,7 +237,7 @@ export const GUIDES: Guide[] = [
   },
   {
     id: "agencies",
-    title: "Agency profit calculator",
+    title: "Profit calculator for selling websites",
     lead: "See what selling websites as a monthly service could earn you. You set your price; we charge per site, less as you grow.",
     sections: [
       {
