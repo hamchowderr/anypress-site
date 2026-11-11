@@ -31,25 +31,7 @@ export function LeadForm({
 }) {
   const [state, action, pending] = useActionState<LeadState, FormData>(lead, { status: "idle" });
 
-  if (state.status === "sent") {
-    return (
-      <div className="mt-4" role="status">
-        <p className="font-semibold">{beta ? "Thanks, you're on the beta list." : "Thanks, you're on the list."}</p>
-        <p className="mt-2 text-ink-soft">
-          {[
-            state.confirm && "Check your inbox for one email from us and click the button in it to confirm.",
-            beta
-              ? "We'll email your invite when your place is ready. The first invites go out on 12 November."
-              : state.confirm
-                ? "Then we'll send what you asked for."
-                : "We'll send what you asked for shortly.",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-        </p>
-      </div>
-    );
-  }
+  if (state.status === "sent") return <Thanks beta={beta} confirm={state.confirm} />;
 
   return (
     <form action={action} className="mt-6 grid gap-5 sm:grid-cols-2">
@@ -125,4 +107,22 @@ function CampaignField() {
   const campaign =
     typeof window === "undefined" ? "" : (new URLSearchParams(window.location.search).get("utm_campaign") ?? "").slice(0, 100);
   return <input type="hidden" name="campaign" value={campaign} suppressHydrationWarning />;
+}
+
+/** What a person sees once the form has gone. */
+function Thanks({ beta, confirm }: { beta: boolean; confirm: boolean }) {
+  const next = beta
+    ? "We'll email your invite when your place is ready. The first invites go out on 12 November."
+    : confirm
+      ? "Then we'll send what you asked for."
+      : "We'll send what you asked for shortly.";
+  return (
+    <div className="mt-4" role="status">
+      <p className="font-semibold">{beta ? "Thanks, you're on the beta list." : "Thanks, you're on the list."}</p>
+      <p className="mt-2 text-ink-soft">
+        {confirm ? "Check your inbox for one email from us and click the button in it to confirm. " : ""}
+        {next}
+      </p>
+    </div>
+  );
 }
