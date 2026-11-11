@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { EarningsCalculator } from "@/components/EarningsCalculator";
 import { SITE_TYPES } from "@/lib/site";
 
 const input =
@@ -57,4 +58,9 @@ export function CourseCalculator() {
       </p>
     </div>
   );
+}
+
+/** The agency guide's calculator: the same seller and reseller calculator as /agencies and /resellers. */
+export function AgencyCalculator() {
+  return <EarningsCalculator />;
 }
