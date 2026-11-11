@@ -4,6 +4,7 @@
  * and the business details. Never plugins, code, users or settings. Photos from the media library become
  * `anypress-demo-image:<name>` and are listed with their file, so the page can send them to their upload links; the
  * rest of the demo's own address becomes a relative link, so theme images and page links work on the new store.
+ * Pages and menus the demo's sample business made stay behind unless the visitor changed them.
  */
 
 export interface DemoImage {
@@ -60,9 +61,15 @@ $clean = function (string $blocks) use ($home, $photo): string {
     return str_replace([$home . '/', str_replace('/', '\/', $home) . '\/'], ['/', '\/'], $blocks);
 };
 
+// What the demo's sample business wrote and the visitor left as it was: the store starts from its own pages instead.
+$sample = function (WP_Post $post): bool {
+    $mark = (string) get_post_meta($post->ID, '_anypress_sample', true);
+    return $mark !== '' && hash_equals($mark, md5($post->post_content));
+};
+
 $pages = [];
 foreach (get_posts(['post_type' => 'page', 'post_status' => ['publish', 'draft'], 'numberposts' => 30, 'orderby' => 'menu_order title', 'order' => 'ASC']) as $page) {
-    if (!preg_match('/^[a-z0-9][a-z0-9-]{0,199}$/', $page->post_name)) {
+    if (!preg_match('/^[a-z0-9][a-z0-9-]{0,199}$/', $page->post_name) || $sample($page)) {
         continue;
     }
     $pages[] = [
@@ -90,7 +97,7 @@ foreach (['header', 'footer'] as $area) {
 
 $menus = [];
 foreach (get_posts(['post_type' => 'wp_navigation', 'post_status' => 'publish', 'numberposts' => 5]) as $menu) {
-    if (trim($menu->post_title) !== '' && trim($menu->post_content) !== '') {
+    if (trim($menu->post_title) !== '' && trim($menu->post_content) !== '' && !$sample($menu)) {
         $menus[] = ['title' => mb_substr($menu->post_title, 0, 200), 'content' => $clean($menu->post_content)];
     }
 }
