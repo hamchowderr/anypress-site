@@ -60,7 +60,7 @@ export function CourseCalculator() {
   );
 }
 
-/** The agency guide's calculator: the same seller and reseller calculator as /sellers and /resellers. */
+/** The seller guide's calculator: the same seller and reseller calculator as /sellers and /resellers. */
 export function AgencyCalculator() {
   return <EarningsCalculator />;
 }

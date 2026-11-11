@@ -38,7 +38,7 @@ const STEPS = [
 const WHO = [
   "Developers",
   "Hosting companies",
-  "Agencies with their own servers",
+  "Studios with their own servers",
   "Companies with their own IT team",
   "Anyone who must keep data in their own country",
 ];

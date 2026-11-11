@@ -195,7 +195,7 @@ export const SITE_TYPES: SiteType[] = [
       { title: "Answer questions in one place", body: "Customers get a help page, and you get one inbox for every question." },
       { title: "Grows with you", body: "Start selling, add memberships later, open bookings next month. It's already there." },
     ],
-    idealFor: ["Chambers and associations", "Franchises and multi-location brands", "Education businesses", "Agencies' biggest clients", "Anyone outgrowing five apps"],
+    idealFor: ["Chambers and associations", "Franchises and multi-location brands", "Education businesses", "Web designers' biggest clients", "Anyone outgrowing five apps"],
     shopSlug: "everything",
     drawing: "everything",
     example: {
@@ -232,7 +232,7 @@ export interface AudienceGroup {
   // Which side of AnyPress this group usually buys from: a site for themselves, or the technical side.
   side: "owners" | "technical";
   drawing: DrawingName;
-  // Groups with a page elsewhere (agencies, developers) link there instead of /who/<id>.
+  // Groups with a page elsewhere (sellers, developers) link there instead of /who/<id>.
   href?: string;
   page?: GroupPage;
 }
@@ -441,10 +441,10 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
   },
   {
     id: "agencies",
-    name: "Agencies & freelancers",
+    name: "Web designers & freelancers",
     line: "Sell websites as a monthly service.",
     body: "Sell websites under your own name, at your own prices. We build and look after every one.",
-    examples: ["Web design agencies", "Freelance designers and developers", "Marketing agencies", "Consultants who build sites"],
+    examples: ["Web design studios", "Freelance designers and developers", "Marketing consultants", "Anyone who builds sites for clients"],
     fits: ["website", "store", "everything"],
     side: "technical",
     drawing: "agency",
