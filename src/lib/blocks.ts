@@ -1,3 +1,5 @@
+import { tryBlueprint } from "@/lib/try";
+
 /**
  * The blocks in AnyPress Blocks (hamchowderr/anypress-blocks), with the demo page each one has in WordPress
  * Playground (demo/blueprints/<slug>.json in that repository). Screenshots in public/designs/blocks/<slug>.webp are
@@ -24,12 +26,11 @@ export const BLOCKS: Block[] = [
 ];
 
 // Seamless: the site fills the tab, with no Playground toolbar, dock or save prompt.
-const PLAYGROUND = "https://playground.wordpress.net/?mode=seamless&can-save=no&page-title=AnyPress+demo&blueprint-url=";
 const RAW = "https://raw.githubusercontent.com/hamchowderr/";
 
-/** Opens a kit's example site in WordPress Playground, on the latest theme and blocks. */
-export const kitPlayground = (slug: string) => `${PLAYGROUND}${RAW}anypress-theme/main/demo/${slug}/blueprint.json`;
+/** Opens a kit's example site on our /try page (WordPress Playground in the browser), on the latest theme and blocks. */
+export const kitPlayground = (slug: string, name = "Example site") => tryBlueprint(`${RAW}anypress-theme/main/demo/${slug}/blueprint.json`, name);
 
-/** Opens one block's demo page in WordPress Playground, or every block's when no slug is given. */
-export const blockPlayground = (slug?: string) =>
-  `${PLAYGROUND}${RAW}anypress-blocks/main/demo/${slug ? `blueprints/${slug}.json` : "blueprint.json"}`;
+/** Opens one block's demo page on /try, or every block's when no slug is given. */
+export const blockPlayground = (slug?: string, name = "AnyPress Blocks") =>
+  tryBlueprint(`${RAW}anypress-blocks/main/demo/${slug ? `blueprints/${slug}.json` : "blueprint.json"}`, name);

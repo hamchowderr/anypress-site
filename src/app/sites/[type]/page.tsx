@@ -12,6 +12,7 @@ import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
 import { SITE_DETAILS } from "@/lib/siteDetails";
 import { SITE_TYPES, SIZES, planUrl, siteLabel, startUrl } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
+import { tryType } from "@/lib/try";
 import { BASE_URL, breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -135,6 +136,9 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
           <a href={startUrl(t)} className="btn btn-ink">
             Start your {label} →
           </a>
+          <Link href={tryType(t.id)} className="btn btn-paper">
+            Try one in your browser
+          </Link>
           <a href="#sizes" className="btn btn-paper">
             See prices
           </a>
