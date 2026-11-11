@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AgencyCalculator, CourseCalculator } from "@/components/Calculators";
+import { CourseCalculator } from "@/components/Calculators";
+import { EarningsCalculator } from "@/components/EarningsCalculator";
 import { Check } from "@/components/Icons";
 import { LeadForm } from "@/components/LeadForm";
 import { CtaBand, PageHero } from "@/components/ui";
@@ -71,7 +72,7 @@ export default async function GuidePage({ params }: PageProps<"/guides/[group]">
             </div>
           ))}
           {guide.calculator && (
-            <div className="pt-8">{guide.calculator === "course" ? <CourseCalculator /> : <AgencyCalculator />}</div>
+            <div className="pt-8">{guide.calculator === "course" ? <CourseCalculator /> : <EarningsCalculator />}</div>
           )}
           <p className="mt-10 text-lg">
             <Link href={groupUrl(who)} className="font-semibold underline">
