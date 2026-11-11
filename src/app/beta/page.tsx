@@ -46,7 +46,7 @@ export default function Beta() {
           <a href="#join" className="btn btn-ink">
             Join the beta
           </a>
-          <Link href="/designs" className="btn btn-paper">
+          <Link href="/try?type=community" className="btn btn-paper">
             Try it in your browser
           </Link>
         </div>
