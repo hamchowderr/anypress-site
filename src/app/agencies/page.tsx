@@ -176,7 +176,7 @@ export default function Agencies() {
           <SectionHead
             eyebrow="do the maths"
             title="What could you earn?"
-            lead="Move the sliders. Your price per site drops as you sell more, so every new client adds more."
+            lead={`Pick seller or reseller, then move the sliders. As a seller your price per site drops as you sell more; as a reseller every site is ${WHOLESALE_PERCENT}% off from the first.`}
             id="h-earn"
           />
           <EarningsCalculator />

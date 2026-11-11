@@ -1365,6 +1365,9 @@
 
 /* ---------- calculators ---------- */
 @layer components {
+  .calc-wrap {
+    container-type: inline-size;
+  }
   .calc {
     display: grid;
     grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
@@ -1514,6 +1517,7 @@
     font-variant-numeric: tabular-nums;
   }
   .calc-sum dd {
+    white-space: nowrap;
     font-weight: 700;
   }
   .calc-sum .total {
@@ -1526,6 +1530,47 @@
     font-size: 13px;
     color: var(--ink-soft);
   }
+  .calc-why {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .calc-compare {
+    width: 100%;
+    margin-top: 18px;
+    border-collapse: collapse;
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  .calc-compare caption {
+    text-align: left;
+    font-weight: 800;
+    padding-bottom: 6px;
+  }
+  .calc-compare th,
+  .calc-compare td {
+    padding: 7px 8px;
+    border-bottom: 1px solid var(--line);
+    text-align: right;
+  }
+  .calc-compare th[scope="row"],
+  .calc-compare thead th:first-child {
+    text-align: left;
+  }
+  .calc-compare thead th {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .calc-compare tr[aria-current="true"] {
+    background: #fff1d6;
+    font-weight: 700;
+  }
+  .calc-compare tbody tr:last-child th,
+  .calc-compare tbody tr:last-child td {
+    border-bottom: 0;
+  }
   @media (max-width: 860px) {
     .calc {
       grid-template-columns: 1fr;
@@ -1535,6 +1580,42 @@
     }
     .calc-types {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  /* The earnings calculator also stacks inside a narrow column, such as a guide's. */
+  @container (max-width: 860px) {
+    .calc {
+      grid-template-columns: 1fr;
+    }
+    .calc-result {
+      position: static;
+    }
+    .calc-types {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .calc-types button {
+      flex: 0 0 calc((100% - 16px) / 3);
+    }
+  }
+  @container (max-width: 860px) {
+    .calc {
+      gap: 36px;
+    }
+    /* Keep the offset shadow inside the column, so the card doesn't run into the screen edge. */
+    .calc-result {
+      box-shadow: 5px 5px 0 var(--honey);
+      margin-right: 5px;
+    }
+  }
+  @container (max-width: 420px) {
+    .calc-seg.two {
+      grid-template-columns: 1fr;
+    }
+    .calc-inputs,
+    .calc-result {
+      padding: 22px 20px;
     }
   }
 }

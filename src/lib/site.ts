@@ -140,7 +140,7 @@ export const SITE_TYPES: SiteType[] = [
     id: "community",
     name: "Community & courses",
     short: "Community",
-    from: 39,
+    from: 49,
     pitch: "A members' area with courses, discussions and paid access.",
     inBox: ["Your website", "A members' area with discussions", "Online courses", "Paid memberships"],
     tools: ["WordPress", "FluentAuth", "FluentSMTP", "FluentCRM", "Fluent Forms", "FluentCart", "FluentCommunity", "FluentPlayer", "FluentSnippets", "Rank Math SEO", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],

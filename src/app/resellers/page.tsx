@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { BuildYourOwn } from "@/components/BuildYourOwn";
 import { CompareTable } from "@/components/CompareTable";
+import { EarningsCalculator } from "@/components/EarningsCalculator";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { SITE_TYPES, WHOLESALE_PERCENT, wholesalePrice } from "@/lib/site";
@@ -151,6 +152,18 @@ export default function Resellers() {
             id="h-wholesale"
           />
           <CompareTable head={["Kind of site", "Website owners pay", "You pay"]} rows={WHOLESALE} />
+        </div>
+      </section>
+
+      <section id="earnings" className="sec scroll-mt-20" aria-labelledby="h-earn">
+        <div className="in">
+          <SectionHead
+            eyebrow="do the maths"
+            title="What could you earn?"
+            lead="Pick a kind of site, how many you sell and your price. The table under the result shows the same numbers as a seller, so you can see which account fits."
+            id="h-earn"
+          />
+          <EarningsCalculator start="reseller" />
         </div>
       </section>
 
