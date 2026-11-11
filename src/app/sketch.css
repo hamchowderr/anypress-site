@@ -3122,4 +3122,208 @@
       transition: none;
     }
   }
+
+  /* ---------- /beta ---------- */
+  /* Site types as rows: drawing, what it is with its plugins, then price and the try button. */
+  .beta-types {
+    display: grid;
+    gap: 16px;
+    max-width: 1000px;
+    margin: 48px auto 0;
+    padding: 0;
+    list-style: none;
+  }
+  .beta-types > li {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr) 170px;
+    gap: 28px;
+    align-items: center;
+    padding: 22px 26px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--paper);
+    transition: border-color 0.2s;
+  }
+  .beta-types > li:hover {
+    border-color: var(--ink);
+  }
+  .beta-types h3 {
+    font-size: 21px;
+    font-weight: 800;
+  }
+  .beta-types p {
+    margin-top: 2px;
+    color: var(--ink-soft);
+  }
+  .beta-types .chips {
+    margin-top: 12px;
+    padding: 0;
+    list-style: none;
+  }
+  .beta-types .chips li {
+    font-size: 13px;
+    padding: 3px 10px;
+  }
+  .beta-type-go {
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    text-align: center;
+  }
+  .beta-type-go .price {
+    font-size: 26px;
+    font-weight: 800;
+  }
+  .beta-type-go .price small {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .beta-type-go .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .beta-type-go .more {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .beta-type-go .more:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 760px) {
+    .beta-types > li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      padding: 18px;
+    }
+    .beta-types > li > .ob {
+      width: 96px;
+    }
+    .beta-type-go {
+      grid-column: 1 / -1;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 14px;
+    }
+    .beta-type-go .price {
+      font-size: 22px;
+      white-space: nowrap;
+    }
+  }
+  /* Same-height drawings, so every card's title lines up across the row. */
+  .cards.beta-every .ob {
+    width: auto !important;
+    height: 92px;
+    margin: 0 auto 12px;
+  }
+  .beta-every > li:has(a.card-link) {
+    display: flex;
+  }
+  .beta-every a.card-link {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  /* The form's last question takes the whole row, so no empty cell sits beside it. */
+  .beta-form form > label:has(select) {
+    grid-column: 1 / -1;
+  }
+  /* What each switch moves, and into which Fluent plugin. */
+  .beta-moves {
+    max-width: 860px;
+    margin: 44px auto 0;
+    border: 1.5px solid var(--ink);
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--paper);
+    box-shadow: 8px 8px 0 var(--honey);
+  }
+  .beta-moves table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  .beta-moves th,
+  .beta-moves td {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .beta-moves tr:last-child th,
+  .beta-moves tr:last-child td {
+    border-bottom: 0;
+  }
+  .beta-moves thead th {
+    background: var(--paper-2);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .beta-moves tbody th {
+    font-weight: 500;
+  }
+  .beta-moves td {
+    font-weight: 800;
+    width: 40%;
+  }
+  .beta-moves .soon-tag {
+    display: block;
+    width: fit-content;
+    margin-top: 4px;
+    padding: 1px 9px;
+    border: 1px dashed var(--ink-soft);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  @media (max-width: 560px) {
+    .beta-moves tr {
+      display: grid;
+    }
+    .beta-moves thead {
+      display: none;
+    }
+    .beta-moves tbody th {
+      border-bottom: 0;
+      padding-bottom: 2px;
+    }
+    .beta-moves td {
+      width: auto;
+      padding-top: 0;
+    }
+    .beta-moves td::before {
+      content: "→ ";
+      color: var(--accent);
+    }
+  }
+  /* The sign-up: what we ask beside the form, which sits on the section's one lifted panel. */
+  .beta-join {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 56px;
+    align-items: start;
+    max-width: 1080px;
+  }
+  .beta-form {
+    border: 1.5px solid var(--ink);
+    border-radius: 18px;
+    padding: 6px 28px 28px;
+    background: var(--paper);
+    box-shadow: 8px 8px 0 var(--honey);
+  }
+  @media (max-width: 860px) {
+    .beta-join {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
+    .beta-form {
+      padding: 2px 18px 22px;
+    }
+  }
 }
