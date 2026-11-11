@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Drawing } from "@/components/Drawing";
-import { SITE_TYPES, SIZES, WHOLESALE_PERCENT, nextTier, volumePercent, type SiteTypeId } from "@/lib/site";
+import { AFFILIATE_PERCENT, SITE_TYPES, SIZES, VOLUME_RANGE, WHOLESALE_PERCENT, nextTier, volumePercent, type SiteTypeId } from "@/lib/site";
 
 const money = (n: number) =>
   `$${n.toLocaleString("en-US", { minimumFractionDigits: Number.isInteger(Math.round(n * 100) / 100) ? 0 : 2, maximumFractionDigits: 2 })}`;
@@ -90,7 +90,7 @@ function AccountPicker({ account, onPick }: { account: Account; onPick: (a: Acco
       <div className="calc-seg two">
         <button type="button" aria-pressed={account === "seller"} onClick={() => onPick("seller")}>
           <b>Seller</b>
-          <small>One storefront. Pay per site, 10 to 30% off as you grow.</small>
+          <small>One storefront. Pay per site, {VOLUME_RANGE} off as you grow.</small>
         </button>
         <button type="button" aria-pressed={account === "reseller"} onClick={() => onPick("reseller")}>
           <b>Reseller</b>
@@ -194,7 +194,7 @@ function Result({ account, list, price, clients, seller, reseller }: ResultProps
         <Link href="/resellers" className="underline">
           see how they differ
         </Link>
-        . Only want to recommend us? Affiliates earn 30% of a new customer&apos;s first payment,{" "}
+        . Only want to recommend us? Affiliates earn {AFFILIATE_PERCENT}% of a new customer&apos;s first payment,{" "}
         <Link href="/affiliates" className="underline">
           see affiliates
         </Link>

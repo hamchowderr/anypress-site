@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CtaBand, PageHero, SectionHead } from "@/components/ui";
-import { AFFILIATE_URL, AUDIENCE_GROUPS, SHOP_URL } from "@/lib/site";
+import { AFFILIATE_PERCENT, AFFILIATE_URL, AUDIENCE_GROUPS, SHOP_URL } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -98,7 +98,7 @@ export default function AffiliateKit() {
         </div>
       </section>
 
-      <CtaBand title="Not an affiliate yet?" body="It's free to join. You earn 30% of every new customer's first payment." href={AFFILIATE_URL} label="Join the program" />
+      <CtaBand title="Not an affiliate yet?" body={`It's free to join. You earn ${AFFILIATE_PERCENT}% of every new customer's first payment.`} href={AFFILIATE_URL} label="Join the program" />
     </>
   );
 }

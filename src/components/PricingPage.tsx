@@ -4,7 +4,7 @@ import { PriceCalculator } from "@/components/PriceCalculator";
 import { PriceCompare } from "@/components/PriceCompare";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
-import { SITE_TYPES, SIZES, planUrl } from "@/lib/site";
+import { SITE_TYPES, SIZES, VOLUME_RANGE, YEARLY_MONTHS, planUrl, volumeTiersInWords } from "@/lib/site";
 import { faqLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { WP_HOST } from "@/lib/prices";
@@ -58,7 +58,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     problem: ["Several sites add up fast", "Every extra site is another full-price plan."],
-    fix: ["Savings from your third site", "10% off every site from 3 sites, 20% from 10 and 30% from 25."],
+    fix: ["Savings from your third site", `Every site saves ${volumeTiersInWords()}.`],
   },
   {
     problem: ["Afraid of paying for something that doesn't fit", "Some hosts lock you into a year up front with no way back."],
@@ -84,7 +84,7 @@ const PRICING_FAQ: [string, string][] = [
     "What happens if I send more email than my size includes?",
     "Your everyday emails, like receipts and booking confirmations, keep sending. Newsletters to your list pause until the next month or until you move up a size.",
   ],
-  ["Is there a yearly price?", "Yes. Paying yearly costs ten times the monthly price, so you get two months free."],
+  ["Is there a yearly price?", `Yes. Paying yearly costs ${YEARLY_MONTHS} times the monthly price, so you get ${12 - YEARLY_MONTHS} months free.`],
   ["Do you charge a fee on sales?", "No. The card company charges its normal fee on payments, and we add nothing on top."],
   ["How do I cancel?", "From your account, any time. Within 30 days of your first payment, you get that payment back."],
 ];
@@ -204,7 +204,7 @@ export function PricingPage({ version }: { version: "a" | "b" }) {
               </tbody>
             </table>
           </div>
-          <p className="mt-4 text-sm text-ink-soft">Monthly prices in US dollars. Pay yearly and get two months free.</p>
+          <p className="mt-4 text-sm text-ink-soft">Monthly prices in US dollars. Pay yearly and get {12 - YEARLY_MONTHS} months free.</p>
         </div>
       </section>
 
@@ -240,7 +240,7 @@ export function PricingPage({ version }: { version: "a" | "b" }) {
           <SectionHead
             eyebrow="work it out"
             title="What will it cost?"
-            lead="Pick what you're building, the size and how many sites. Three or more sites save 10 to 30% on every one."
+            lead={`Pick what you're building, the size and how many sites. Three or more sites save ${VOLUME_RANGE} on every one.`}
             id="h-calc"
           />
           <PriceCalculator />

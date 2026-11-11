@@ -11,7 +11,7 @@ import { VideoTile } from "@/components/VideoTile";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { ICONS, type IconName } from "@/components/icons.generated";
 import { pluginLogo } from "@/lib/logos";
-import { CONTACT_EMAIL, SITE_TYPES } from "@/lib/site";
+import { CONTACT_EMAIL, SITE_TYPES, sitePrice } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -599,7 +599,7 @@ export default function Beta() {
                   "What does it cost?",
                   <>
                     Nothing during the beta: until launch on 1 December, sellers and resellers get up to 5 Small sites free and website owners get one. After that, plans
-                    run from $12 a month for a website to $79 for everything, and your first payment has a{" "}
+                    run from ${sitePrice("website")} a month for a website to ${sitePrice("everything")} for everything, and your first payment has a{" "}
                     <Link href="/refund-policy" className={link}>
                       30-day money-back guarantee
                     </Link>

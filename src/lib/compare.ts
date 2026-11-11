@@ -1,5 +1,6 @@
 import type { DrawingName } from "@/components/drawings.generated";
 import { ELSEWHERE, WP_HOST } from "@/lib/prices";
+import { LOWEST_PRICE, sitePrice } from "@/lib/site";
 
 const SHOPIFY = ELSEWHERE.store.find((p) => p.who === "Shopify")!;
 
@@ -29,7 +30,7 @@ export const COMPARISONS: Comparison[] = [
     lead: "With regular hosting you rent room on a server and build the rest yourself. With AnyPress you pick what you're building and it arrives ready to use.",
     rows: [
       ["WordPress installed", "Usually one click, then it's up to you", "Done, with the right tools set up"],
-      ["Price", `From $${WP_HOST.price} a month for the server alone (${WP_HOST.who})`, "From $12 a month, everything included"],
+      ["Price", `From $${WP_HOST.price} a month for the server alone (${WP_HOST.who})`, `From $${LOWEST_PRICE} a month, everything included`],
       ["Add-ons", "Buy them one by one, and hope they work together", "Included, and made to work together"],
       ["Payments, bookings or courses", "Find, buy and connect each one", "In the plan you pick"],
       ["Email from your business name", "Often a separate add-on", "Included"],
@@ -47,7 +48,7 @@ export const COMPARISONS: Comparison[] = [
     title: "Shopify rents you a store. AnyPress gives you one.",
     lead: "Both get you selling online. With Shopify you add paid apps as you grow and sell by their product rules. With AnyPress the tools come with the site, and the site is yours to take anywhere.",
     rows: [
-      ["Starting price", `${SHOPIFY.plan} $${SHOPIFY.price} a month`, "From $29 a month"],
+      ["Starting price", `${SHOPIFY.plan} $${SHOPIFY.price} a month`, `From $${sitePrice("store")} a month`],
       ["Fee on your sales", `${SHOPIFY.note}`, "No AnyPress fee, only the card company's"],
       ["Bookings, courses and a mailing list", "Extra apps, each with its own price", "In the plan you pick"],
       ["What you can sell", "Shopify's rules decide", "Your payment provider's rules decide"],

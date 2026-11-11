@@ -10,7 +10,7 @@ import { Tick } from "@/components/Tick";
 import { CtaBand, Questions, SectionHead } from "@/components/ui";
 import { JsonLd } from "@/components/JsonLd";
 import { faqLd } from "@/lib/seo";
-import { AUDIENCE_GROUPS, SITE_TYPES, WHOLESALE_PERCENT, groupUrl } from "@/lib/site";
+import { AUDIENCE_GROUPS, LOWEST_PRICE, SITE_TYPES, VOLUME_RANGE, VOLUME_TIERS, WHOLESALE_PERCENT, groupUrl } from "@/lib/site";
 
 
 // The approved round 3 homepage (2026-10-24): every section centered, a drawing for every idea.
@@ -92,7 +92,7 @@ function HeroCopy({ subClass, version }: { subClass: string; version: CopyVersio
       <ul className="checks">
         <li>
           <Tick />
-          {b ? "From $12 a month, everything included" : "From $12 a month"}
+          {b ? `From $${LOWEST_PRICE} a month, everything included` : `From $${LOWEST_PRICE} a month`}
         </li>
         <li>
           <Tick />
@@ -428,7 +428,7 @@ function SellBand() {
           <p>Anyone with customers can offer AnyPress sites as their own. Your customers buy from your shop and never see us.</p>
           <ul>
             <li>
-              <b>Seller:</b> one free shop, pay per site, save up to 30% as you grow.
+              <b>Seller:</b> one free shop, pay per site, save up to {VOLUME_TIERS[VOLUME_TIERS.length - 1].percent}% as you grow.
             </li>
             <li>
               <b>Reseller:</b> several shops, {WHOLESALE_PERCENT}% off every site, one monthly bill.
@@ -467,7 +467,9 @@ function Prices() {
         <ul className="price-notes">
           <li>Pay yearly, get 2 months free</li>
           <li>More room? Medium is 2×, Large is 4×</li>
-          <li>3 or more sites? Save 10 to 30%</li>
+          <li>
+            {VOLUME_TIERS[0].sites} or more sites? Save {VOLUME_RANGE}
+          </li>
         </ul>
         <h3 className="mt-16 text-center text-[26px] font-extrabold">
           Next to other platforms <span className="hand block text-[22px] sm:ml-1.5 sm:inline">same kind of site, smallest plan</span>

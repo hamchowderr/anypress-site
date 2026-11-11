@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
+import { LOWEST_PRICE } from "@/lib/site";
 
 // The picture on a shared link: the page's title on paper, in the site's own type. /og?t=<title>
 // The fonts are in this folder (next.config traces them into the deployment).
@@ -56,7 +57,7 @@ export async function GET(req: NextRequest) {
           </div>
           <div style={{ display: "flex", fontSize: size, fontWeight: 800, lineHeight: 1.05, color: "#141414", letterSpacing: -2 }}>{title}</div>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 30, fontWeight: 500, color: "#5f5a55" }}>
-            <span>Set up for you. Looked after every day. From $12 a month.</span>
+            <span>Set up for you. Looked after every day. From ${LOWEST_PRICE} a month.</span>
             <span style={{ color: "#141414", fontWeight: 800 }}>anypress.io</span>
           </div>
         </div>

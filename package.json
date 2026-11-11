@@ -11,7 +11,9 @@
     "drawings": "node scripts/drawings.mjs",
     "vignettes": "node scripts/vignettes.mjs",
     "icons": "node scripts/icons.mjs",
-    "deadcode": "fallow dead-code"
+    "deadcode": "fallow dead-code",
+    "prices": "node scripts/prices.mjs",
+    "prices:check": "node scripts/prices.mjs --check"
   },
   "dependencies": {
     "@php-wasm/progress": "^3.1.64",
