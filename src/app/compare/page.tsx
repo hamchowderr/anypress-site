@@ -12,7 +12,7 @@ export const metadata: Metadata = pageMeta({
   title: "Compare AnyPress with hosting, multisite and more",
   card: "Compare",
   description:
-    "AnyPress prices next to Shopify, Squarespace, Wix, Kajabi and Circle, and how it compares with regular hosting, WordPress multisite, WP Ultimo and ManageWP.",
+    "AnyPress prices next to Shopify, Squarespace, Wix, Kajabi, Circle and Skool, and how it compares with regular hosting, WordPress multisite, WP Ultimo and ManageWP.",
 });
 
 export default function Compare() {

@@ -140,7 +140,7 @@ export const SITE_TYPES: SiteType[] = [
     id: "community",
     name: "Community & courses",
     short: "Community",
-    from: 39,
+    from: 49,
     pitch: "A members' area with courses, discussions and paid access.",
     inBox: ["Your website", "A members' area with discussions", "Online courses", "Paid memberships"],
     tools: ["WordPress", "FluentAuth", "FluentSMTP", "FluentCRM", "Fluent Forms", "FluentCart", "FluentCommunity", "FluentPlayer", "FluentSnippets", "Rank Math SEO", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
@@ -453,13 +453,15 @@ export interface Size {
   memory: string;
   storage: string;
   emails: string;
+  // The built-in AI assistant's messages a month (assistantMessagesPerMonth in the API's src/plans.ts).
+  assistant: string;
   goodFor: string;
 }
 
 export const SIZES: Size[] = [
-  { name: "Small", times: 1, cpu: "1 CPU", memory: "512 MB", storage: "5 GB", emails: "5,000", goodFor: "Most new sites" },
-  { name: "Medium", times: 2, cpu: "2 CPUs", memory: "512 MB", storage: "10 GB", emails: "20,000", goodFor: "Busier sites" },
-  { name: "Large", times: 4, cpu: "4 CPUs", memory: "768 MB", storage: "25 GB", emails: "50,000", goodFor: "Big shops and communities" },
+  { name: "Small", times: 1, cpu: "1 CPU", memory: "768 MB", storage: "5 GB", emails: "5,000", assistant: "150", goodFor: "Most new sites" },
+  { name: "Medium", times: 2, cpu: "2 CPUs", memory: "1.25 GB", storage: "10 GB", emails: "20,000", assistant: "300", goodFor: "Busier sites" },
+  { name: "Large", times: 4, cpu: "4 CPUs", memory: "2 GB", storage: "25 GB", emails: "50,000", assistant: "600", goodFor: "Big shops and communities" },
 ];
 
 // Resellers pay this much off the list price of every live site, on one monthly bill (resellers.wholesale_percent

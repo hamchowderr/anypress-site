@@ -266,6 +266,7 @@ export default async function SiteTypePage({ params }: PageProps<"/sites/[type]"
                     ["Computing power", s.cpu],
                     ["Storage", s.storage],
                     ["Emails a month", s.emails],
+                    ["AI assistant messages a month", s.assistant],
                   ].map(([k, v]) => (
                     <div key={k}>
                       <dt>{k}</dt>

@@ -237,7 +237,7 @@ export const GUIDES: Guide[] = [
     sections: [
       {
         heading: "How the numbers work",
-        body: "You pay us the plan price for each site, with 10% off at 3 to 9 sites, 20% off at 10 to 24, and 30% off at 25 or more. Whatever you charge your clients above that is yours.",
+        body: "As a seller you pay us the plan price for each site, with 10% off at 3 to 9 sites, 20% off at 10 to 24, and 30% off at 25 or more. As a reseller, running several brands, you pay 40% off every site on one monthly bill. Whatever you charge your clients above that is yours.",
       },
     ],
     calculator: "agency",
