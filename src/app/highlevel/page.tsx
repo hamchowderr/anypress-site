@@ -5,6 +5,7 @@ import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 import { CONTACT_EMAIL } from "@/lib/site";
+import { tryType } from "@/lib/try";
 
 // For agencies on HighLevel. HighLevel is not a competitor: its agencies are customers, and AnyPress adds the
 // WordPress website to what they already sell. Keep it a "works with" page, never a "vs" page.
@@ -57,6 +58,9 @@ export default function HighLevelPage() {
           <a href={EARLY_ACCESS} className="btn btn-ink">
             Get early access →
           </a>
+          <Link href={tryType("highlevel")} className="btn btn-paper">
+            Try one in your browser
+          </Link>
           <a href={HIGHLEVEL_DOC} className="btn btn-paper">
             See how it connects
           </a>

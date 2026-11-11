@@ -90,10 +90,10 @@ export default function Blocks() {
           <ul className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {BLOCKS.map((b) => (
               <li key={b.slug} id={b.slug} className="scroll-mt-24">
-                <FramedShot src={`/designs/blocks/${b.slug}.webp`} alt={`The ${b.title} block on an example page`} href={blockPlayground(b.slug)} />
+                <FramedShot src={`/designs/blocks/${b.slug}.webp`} alt={`The ${b.title} block on an example page`} href={blockPlayground(b.slug, `${b.title} block`)} />
                 <h3 className="mt-4 text-xl font-extrabold">{b.title}</h3>
                 <p className="mt-1 leading-7 text-ink-soft">{b.body}</p>
-                <TryLive href={blockPlayground(b.slug)} label={`Try the ${b.title.toLowerCase()} live`} />
+                <TryLive href={blockPlayground(b.slug, `${b.title} block`)} label={`Try the ${b.title.toLowerCase()} live`} />
               </li>
             ))}
             <li className="flex flex-col justify-center rounded-[14px] border-[1.5px] border-dashed border-ink p-8 text-center">

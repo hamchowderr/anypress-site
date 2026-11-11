@@ -114,7 +114,7 @@ export default function Designs() {
                 <FramedShot
                   src={`/designs/${k.slug}.webp`}
                   alt={`The home page of an example site in the ${k.name} kit`}
-                  href={kitPlayground(k.slug)}
+                  href={kitPlayground(k.slug, `${k.name} kit`)}
                 />
                 <div className="mt-4 flex items-center justify-between gap-3">
                   <h3 className="text-xl font-extrabold">{k.name}</h3>
@@ -129,7 +129,7 @@ export default function Designs() {
                   </span>
                 </div>
                 <p className="mt-1 text-ink-soft">{k.who}</p>
-                <TryLive href={kitPlayground(k.slug)} label={`Try ${k.name} live`} />
+                <TryLive href={kitPlayground(k.slug, `${k.name} kit`)} label={`Try ${k.name} live`} />
               </li>
             ))}
           </ul>
