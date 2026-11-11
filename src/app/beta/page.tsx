@@ -546,6 +546,7 @@ export default function Beta() {
           <div className="beta-form">
             <LeadForm
               source="community"
+              beta
               cta="Join the beta"
               note="One email to confirm, then your beta invite. Unsubscribe any time."
             />

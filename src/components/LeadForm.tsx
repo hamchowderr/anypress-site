@@ -18,6 +18,7 @@ export function LeadForm({
   source,
   cta = "Send it to me",
   note = "One email to confirm, then the occasional tip. Unsubscribe any time.",
+  beta = false,
 }: {
   group?: string;
   interest?: string;
@@ -25,17 +26,26 @@ export function LeadForm({
   source?: string;
   cta?: string;
   note?: string;
+  /** A beta sign-up: tagged for the beta in the CRM, with the beta's own thank-you. */
+  beta?: boolean;
 }) {
   const [state, action, pending] = useActionState<LeadState, FormData>(lead, { status: "idle" });
 
   if (state.status === "sent") {
     return (
       <div className="mt-4" role="status">
-        <p className="font-semibold">Thanks, you&apos;re on the list.</p>
+        <p className="font-semibold">{beta ? "Thanks, you're on the beta list." : "Thanks, you're on the list."}</p>
         <p className="mt-2 text-ink-soft">
-          {state.confirm
-            ? "Check your inbox for one email from us and click the button in it to confirm. Then we'll send what you asked for."
-            : "We'll send what you asked for shortly."}
+          {[
+            state.confirm && "Check your inbox for one email from us and click the button in it to confirm.",
+            beta
+              ? "We'll email your invite when your place is ready. The first invites go out on 12 November."
+              : state.confirm
+                ? "Then we'll send what you asked for."
+                : "We'll send what you asked for shortly.",
+          ]
+            .filter(Boolean)
+            .join(" ")}
         </p>
       </div>
     );
@@ -44,6 +54,7 @@ export function LeadForm({
   return (
     <form action={action} className="mt-6 grid gap-5 sm:grid-cols-2">
       <input type="hidden" name="group" value={group} />
+      {beta && <input type="hidden" name="beta" value="1" />}
       <CampaignField />
       <label className="block text-sm font-medium">
         Your name
@@ -66,6 +77,7 @@ export function LeadForm({
               </option>
             ))}
             <option value="Seller">Sell websites to my clients</option>
+            <option value="Reseller">Resell under my own brand</option>
           </select>
         </label>
       )}
