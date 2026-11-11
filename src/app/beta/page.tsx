@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Screenshot } from "@/components/AppShots";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { LeadForm } from "@/components/LeadForm";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
+import { Showcase } from "@/components/Showcase";
 import { Tick } from "@/components/Tick";
+import { VideoTile } from "@/components/VideoTile";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { CONTACT_EMAIL, SITE_TYPES } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
@@ -64,16 +67,108 @@ const PROBLEMS: Problem[] = [
   },
 ];
 
-// Every site, whatever its type (PRODUCT.md, Capabilities).
-const EVERY_SITE: [DrawingName, string, string][] = [
-  ["server", "Its own WordPress", "And its own database. Real WordPress, not a page builder that locks you in."],
-  ["backup", "Nightly backups", "Saved every night, restored with one click."],
-  ["domain", "Your own domain", "A free .anypress.site address, then connect yours, in one click with supported providers."],
-  ["email", "Email from your domain", "Sending set up for you, so receipts and newsletters arrive."],
-  ["lock", "Secure from day one", "SSL, security fixes and tested updates, looked after for you."],
-  ["key", "One-click sign-in", "Open WordPress straight from your account, no passwords to keep."],
-  ["piggy", "No cut of your sales", "We don't take a fee on what you sell. Only Stripe's card fee applies."],
-  ["words", "More than one language", "Turn on languages and add translated pages, with a language switcher in the menu."],
+// The beta at a glance: what someone needs to know before they say yes.
+const FACTS: [string, ReactNode][] = [
+  [
+    "What it is",
+    "Finished WordPress sites built on the Fluent plugins. We host them, set up the plugins, email and domain, back them up every night and test every update. You still get the full WordPress admin.",
+  ],
+  [
+    "Who it's for",
+    "Anyone building on Fluent: a business site, bookings, a shop, a community with courses, or all of it. And people who build those sites for clients.",
+  ],
+  [
+    "What testers get",
+    "A real site on your own domain, the dashboard for every site you run, and a direct line to the people building AnyPress. What you ask for shapes what ships before launch.",
+  ],
+  [
+    "What it costs",
+    <>
+      The normal plans: from $12 a month for a website to $79 for everything, with a 30-day money-back on your first payment.{" "}
+      <Link href="/pricing" className={link}>
+        Every price
+      </Link>
+    </>,
+  ],
+  ["What we ask", "Use it for something real, and tell us what gets in the way, by email or a support ticket from your site."],
+  ["Dates", "Invites from 12 November. Full launch by 26 November. Your site keeps running after the beta, with nothing to move."],
+  [
+    "Where it runs",
+    <>
+      On our servers, or{" "}
+      <Link href="/self-host" className={link}>
+        on your own
+      </Link>
+      . Every site has its own WordPress and its own database.
+    </>,
+  ],
+  [
+    "Who builds it",
+    <>
+      Otaku Solutions, selling websites as a service since 2023. Questions go to{" "}
+      <a href={`mailto:${CONTACT_EMAIL}`} className={link}>
+        {CONTACT_EMAIL}
+      </a>
+      .
+    </>,
+  ],
+];
+
+// Real screens from the dashboard (sample data), each with what it lets you do.
+const DASHBOARD: { src: string; label: string; alt: string; title: string; points: string[] }[] = [
+  {
+    src: "/beta/dashboard-stores.webp",
+    label: "app.anypress.io · Stores",
+    alt: "The AnyPress dashboard's Stores list, showing four sample sites with their version, domain, status, last backup and date",
+    title: "Every site in one list",
+    points: [
+      "See which sites are ready, being built, failed or suspended.",
+      "Each site's domain, version and last backup at a glance.",
+      "Start a new site, or move one in, from the top of the page.",
+    ],
+  },
+  {
+    src: "/beta/dashboard-store.webp",
+    label: "app.anypress.io · A store",
+    alt: "One site in the AnyPress dashboard: its details, its domains with a connected custom domain, and its languages",
+    title: "Everything about one site on one page",
+    points: [
+      "Log in to WordPress with one click, or email the owner.",
+      "Connect a domain, change the address or buy a new one.",
+      "Turn on more languages, set the email sender, take or restore a backup.",
+    ],
+  },
+  {
+    src: "/beta/dashboard-plugins.webp",
+    label: "app.anypress.io · Plugins",
+    alt: "The Plugins page: the Fluent plugins the template comes with, a wordpress.org search and a premium plugin upload",
+    title: "Choose the plugins your sites get",
+    points: [
+      "The Fluent plugins come with every site. Switch off what you don't use.",
+      "Add any free plugin from wordpress.org, or upload a premium one.",
+      "Every plugin is pinned to a version, so every site runs the same code.",
+    ],
+  },
+];
+
+// Short how-to videos, recorded on the real product (public/videos).
+const VIDEOS: [slug: string, title: string, length: string][] = [
+  ["buy-a-website", "Buy a website and open it", "1:09"],
+  ["store-designs-and-plugins", "Designs and plugins", "0:42"],
+  ["edit-your-website-with-ai", "Edit your site with AI", "0:36"],
+  ["your-own-domain-and-email", "Your own domain and email", "0:36"],
+  ["backups-and-restores", "Backups and restores", "0:29"],
+  ["move-your-site-to-anypress", "Move your site in", "0:42"],
+];
+
+// For the people in the Fluent community who want the details.
+const HOOD: [string, string][] = [
+  ["WordPress 7.1 on PHP 8.3", "Each site in its own WordPress and MariaDB containers, never shared with another site."],
+  ["Plugins pinned and tested", "Every plugin and theme is pinned to a version. A new version is tried on every kind of site before it reaches yours, and the previous one is kept to roll back to."],
+  ["Free Fluent plugins, your Pro licences", "Sites come with the free versions. Add your Pro licences in WordPress like on any site and the Pro features turn on."],
+  ["Backups off the server", "A copy every night, kept in separate storage, restored from the dashboard in one click."],
+  ["Email set up", "FluentSMTP sends from your own domain, so FluentCRM newsletters and receipts arrive."],
+  ["AI, API and automations", "One AI connector for Claude, ChatGPT and other MCP apps, an API, and ready-made n8n, Make and Zapier steps."],
 ];
 
 type Move = [from: string, into: string, soon?: boolean];
@@ -148,7 +243,86 @@ export default function Beta() {
             </li>
           ))}
         </ul>
+        <div className="beta-hero-shot">
+          <Screenshot
+            shot={{ src: "/beta/dashboard-store.webp", alt: DASHBOARD[1].alt, width: 1440, height: 900 }}
+            label="app.anypress.io: one of your sites"
+          />
+        </div>
       </PageHero>
+
+      <section className="sec soft" aria-labelledby="h-facts">
+        <div className="in">
+          <SectionHead eyebrow="before you say yes" title="The beta in one look." id="h-facts" />
+          <dl className="beta-facts">
+            {FACTS.map(([term, detail]) => (
+              <div key={term}>
+                <dt>{term}</dt>
+                <dd>{detail}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="sec" aria-labelledby="h-examples">
+        <div className="in">
+          <SectionHead
+            eyebrow="real sites, made-up businesses"
+            title="See what you'd get."
+            id="h-examples"
+            lead="Five live sites, one of each kind, all running on AnyPress. Open any of them and click around."
+          />
+          <Showcase />
+        </div>
+      </section>
+
+      <section className="sec soft" aria-labelledby="h-dashboard">
+        <div className="in">
+          <SectionHead
+            eyebrow="sample data, real screens"
+            title="Your dashboard."
+            id="h-dashboard"
+            lead="Every site you run, in one place, at app.anypress.io. You and your team sign in with a link we email you."
+          />
+          <div className="beta-dash">
+            {DASHBOARD.map((d) => (
+              <div key={d.src}>
+                <Screenshot shot={{ src: d.src, alt: d.alt, width: 1440, height: 900 }} label={d.label} />
+                <div>
+                  <h3>{d.title}</h3>
+                  <ul>
+                    {d.points.map((pt) => (
+                      <li key={pt}>
+                        <Tick className="mt-1 h-[18px] w-[18px] flex-none text-tick-green" />
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec" aria-labelledby="h-videos">
+        <div className="in">
+          <SectionHead
+            eyebrow="under a minute each"
+            title="Watch it work."
+            id="h-videos"
+            lead="Short recordings of the real product, start to finish."
+          />
+          <ul className="beta-videos">
+            {VIDEOS.map(([slug, title, length]) => (
+              <li key={slug}>
+                <VideoTile slug={slug} title={title} length={length} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <ProblemFix
         soft
@@ -204,14 +378,13 @@ export default function Beta() {
         </div>
       </section>
 
-      <section className="sec soft" aria-labelledby="h-every">
+      <section className="sec soft" aria-labelledby="h-hood">
         <div className="in">
-          <SectionHead eyebrow="on every plan" title="Every site comes with." id="h-every" />
-          <ul className="cards beta-every">
-            {EVERY_SITE.map(([d, title, body]) => (
-              <li key={title} className="!basis-[260px]">
-                <Drawing name={d} still />
-                <h3>{title}</h3>
+          <SectionHead eyebrow="for the technical side" title="Under the hood." id="h-hood" />
+          <ul className="beta-hood">
+            {HOOD.map(([b, body]) => (
+              <li key={b}>
+                <h3>{b}</h3>
                 <p>{body}</p>
               </li>
             ))}
