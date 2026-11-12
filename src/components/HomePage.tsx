@@ -512,7 +512,7 @@ const FAQ: [string, ReactNode][] = [
   [
     "How do I get help?",
     <>
-      Email support@anypress.io and a real person answers. There&apos;s a <Link href="/help" className="underline">help page</Link> with
+      Email support@anypress.io and we&apos;ll help. There&apos;s a <Link href="/help" className="underline">help page</Link> with
       guides too.
     </>,
   ],

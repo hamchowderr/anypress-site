@@ -29,8 +29,12 @@ export default function Who() {
       <PageHero
         drawing="pick"
         eyebrow="who it's for"
-        title="Who AnyPress is for."
-        lead="Two kinds of people use AnyPress. Most want a website for their own business. Others sell websites to their clients, or create them from their own software. Find yourself below."
+        title={
+          <>
+            A website for your business, or websites to sell. <mark>We set it all up</mark>.
+          </>
+        }
+        lead="Most people use AnyPress for their own business: to get found, get booked and get paid. Others sell websites to their clients, or create them from their own software. Find yourself below."
       >
         <div className="ctas mt-4 justify-center">
           <Link href="#owners" className="btn btn-ink">

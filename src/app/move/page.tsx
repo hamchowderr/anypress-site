@@ -141,7 +141,7 @@ export default function Move() {
         eyebrow="move your site"
         title={
           <>
-            Bring your WordPress site <mark>with you</mark>.
+            Move your site without losing a thing. <mark>We copy it all across</mark>.
           </>
         }
         lead="Already have a WordPress site somewhere else? Add WordPress's free Reprint plugin, paste in your token, and we copy the whole site across. Your old site isn't touched."
