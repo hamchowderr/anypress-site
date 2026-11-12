@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { ProblemFix } from "@/components/ProblemFix";
+import { INCLUDED_B, Included, PROBLEMS_B } from "@/components/HomePage";
 import { Tick } from "@/components/Tick";
 import { Vignette } from "@/components/Vignette";
 import { WhoChip } from "@/components/WhoChip";
@@ -69,14 +70,15 @@ const EYEBROW: Record<string, string> = {
   everything: "everything your business runs on, in one website",
 };
 
-// Version "b" of the hero and the closing band, for the site copy A/B test (src/lib/ab.ts). Like the homepage's "b"
-// copy, it leads with what the site does for the business and says that we set it all up.
+// Version "b" for the site copy A/B test (src/lib/ab.ts), built from the homepage's "b" copy (site PR #46): an
+// outcome headline ending "We set it all up", the "included" strip that says what each item does for a business, and
+// the pains people name themselves (add-ons, updates that break the site) ahead of this type's own problems.
 const B_HEADLINE: Record<string, string> = {
-  website: "A website that brings you customers.",
-  bookings: "Clients book and pay online.",
-  store: "Your own online store, ready to sell.",
-  community: "Sell courses and run your members' area.",
-  everything: "Your shop, bookings and courses on one site.",
+  website: "Get found on Google and hear from customers.",
+  bookings: "Get booked and get paid while you work.",
+  store: "Sell online and keep every sale.",
+  community: "Sell your courses and grow your members.",
+  everything: "Sell, take bookings and teach, all on one site.",
 };
 const B_LEAD: Record<string, string> = {
   website: "Your site arrives ready to show up on Google, take messages and grow your mailing list.",
@@ -129,7 +131,7 @@ export function SiteTypePage({ type, version }: { type: string; version: AbVersi
       />
       <section className="in type-hero" aria-labelledby="h-type">
         <SidePill side="owners" />
-        <span className="eyebrow">{b ? "set up for you, ready the same day" : EYEBROW[t.id]}</span>
+        <span className="eyebrow">{EYEBROW[t.id]}</span>
         {b ? (
           <h1 id="h-type">
             {B_HEADLINE[t.id]} <mark>We set it all up</mark>.
@@ -152,7 +154,7 @@ export function SiteTypePage({ type, version }: { type: string; version: AbVersi
         <ul className="checks">
           <li>
             <Tick />
-            {b ? `From $${t.from} a month, everything included` : `From $${t.from} a month`}
+            From ${t.from} a month
           </li>
           <li>
             <Tick />
@@ -184,6 +186,8 @@ export function SiteTypePage({ type, version }: { type: string; version: AbVersi
         </ol>
       </section>
 
+      {b && <Included items={INCLUDED_B} />}
+
       <section className="in try-strip" aria-label="Try the example site">
         <div>
           <span className="hand">try it yourself</span>
@@ -203,10 +207,14 @@ export function SiteTypePage({ type, version }: { type: string; version: AbVersi
         </a>
       </section>
 
-      <ProblemFix soft items={d.problems} eyebrow="sound familiar?" title={`What gets in the way, and how a ${label} fixes it.`} />
+      {b ? (
+        <ProblemFix soft items={[...PROBLEMS_B.slice(0, 2), ...d.problems]} eyebrow="sound familiar?" title="Stop paying for your website one piece at a time." />
+      ) : (
+        <ProblemFix soft items={d.problems} eyebrow="sound familiar?" title={`What gets in the way, and how a ${label} fixes it.`} />
+      )}
 
       <section className="sec in" aria-labelledby="h-does">
-        <SectionHead eyebrow="what it does" title={b ? "What you get on day one." : "What it does for you."} id="h-does" />
+        <SectionHead eyebrow="what it does" title="What it does for you." id="h-does" />
         <div className="yours">
           {t.features.map((f, i) => (
             <div key={f.title}>
@@ -324,11 +332,7 @@ export function SiteTypePage({ type, version }: { type: string; version: AbVersi
 
       <CtaBand
         title={`Ready for your ${label}?`}
-        body={
-          b
-            ? `We build it the same day and look after it from there. Start with ${TRIAL_DAYS} days free, and get your money back within 30 days if it isn't for you.`
-            : "It's ready to use the same day, and we look after it from there. Not for you? Get your money back within 30 days."
-        }
+        body="It's ready to use the same day, and we look after it from there. Not for you? Get your money back within 30 days."
         href={startUrl(t)}
         label={`Start your ${label}`}
         drawings={[t.drawing, "open", "thirty"]}
