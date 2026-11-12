@@ -3,7 +3,8 @@
 import { useActionState, useState } from "react";
 import { apply, type ApplyState } from "./actions";
 import { SOURCES } from "@/lib/sources";
-import { EXPECTED_SITES } from "./options";
+import { AUDIENCES, EXPECTED_SITES } from "./options";
+import PRICES from "@/lib/pricing.json";
 
 const input =
   "mt-1 block w-full rounded-md border border-line bg-bg px-3 py-2 text-fg placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent";
@@ -12,6 +13,8 @@ export function ApplicationForm({ storeDomain }: { storeDomain: string }) {
   const [state, action, pending] = useActionState<ApplyState, FormData>(apply, { status: "idle" });
   const [hasSite, setHasSite] = useState<"yes" | "no" | "">("");
   const [highLevel, setHighLevel] = useState<"yes" | "no" | "">("");
+  const [notSure, setNotSure] = useState(false);
+  const [noneFit, setNoneFit] = useState(false);
 
   if (state.status === "sent") {
     return (
@@ -79,6 +82,48 @@ export function ApplicationForm({ storeDomain }: { storeDomain: string }) {
           ))}
         </select>
       </label>
+
+      <fieldset className="text-sm sm:col-span-2">
+        <legend className="font-medium">What kinds of websites do you want to sell?</legend>
+        <p className="mt-1 text-muted">Tick all that fit. Your storefront shows only these plans, and you can add others later.</p>
+        <div className="mt-2 grid gap-2 sm:grid-cols-3">
+          {PRICES.siteTypes.map((t) => (
+            <label key={t.key} className="flex items-center gap-2">
+              <input type="checkbox" name="site_types" value={t.key} disabled={notSure} />
+              {t.name}
+            </label>
+          ))}
+          <label className="flex items-center gap-2">
+            <input type="checkbox" name="site_types" value="not-sure" checked={notSure} onChange={(e) => setNotSure(e.target.checked)} />
+            Not sure yet
+          </label>
+        </div>
+        <label className="mt-3 block font-medium">
+          Something else? <span className="font-normal text-muted">(optional)</span>
+          <input name="site_types_other" maxLength={300} placeholder="For example: restaurant menus with online ordering" className={input} />
+        </label>
+      </fieldset>
+
+      <fieldset className="text-sm sm:col-span-2">
+        <legend className="font-medium">Who are your customers?</legend>
+        <p className="mt-1 text-muted">Tick all that fit. Your storefront gets a page for each, written for them.</p>
+        <div className="mt-2 grid gap-2 sm:grid-cols-2">
+          {AUDIENCES.map(([key, label]) => (
+            <label key={key} className="flex items-center gap-2">
+              <input type="checkbox" name="audiences" value={key} disabled={noneFit} />
+              {label}
+            </label>
+          ))}
+          <label className="flex items-center gap-2">
+            <input type="checkbox" name="audiences" value="none" checked={noneFit} onChange={(e) => setNoneFit(e.target.checked)} />
+            None of these
+          </label>
+        </div>
+        <label className="mt-3 block font-medium">
+          Something else? <span className="font-normal text-muted">(optional)</span>
+          <input name="audiences_other" maxLength={300} placeholder="For example: dentists and vets" className={input} />
+        </label>
+      </fieldset>
 
       <fieldset className="text-sm sm:col-span-2">
         <legend className="font-medium">Do you already have a WordPress site to sell from?</legend>
