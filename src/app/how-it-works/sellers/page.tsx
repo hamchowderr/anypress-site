@@ -5,6 +5,7 @@ import { BuildYourOwn } from "@/components/BuildYourOwn";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { JsonLd } from "@/components/JsonLd";
 import { SystemDiagram } from "@/components/SystemDiagram";
+import { VersionStory } from "@/components/VersionStory";
 import { CtaBand, PageHero, Questions, SectionHead, SideSwitch } from "@/components/ui";
 import { faqLd, pageMeta } from "@/lib/seo";
 import { HOW_SWITCH, VOLUME_TIERS, WHOLESALE_PERCENT } from "@/lib/site";
@@ -102,7 +103,17 @@ const UNDER_HOOD: [DrawingName, string, ReactNode][] = [
   ["server", "Its own WordPress", "Every site runs its own copy of WordPress with its own database. Nothing is shared between sites."],
   ["lock", "Walled off", "Sites can't reach each other or the machine they run on. One site having a bad day stays its own problem."],
   ["sizes", "Sizes we've tested", "Small, Medium and Large each get set computing power, memory and storage, sized from load tests."],
-  ["backup", "Copies kept off-site", "Nightly copies are stored away from the servers, and we test restoring one every day."],
+  [
+    "backup",
+    "Copies kept off-site",
+    <>
+      Nightly copies are stored away from the servers, and we test restoring one every day.{" "}
+      <Link href="/hosting" className="underline">
+        Hosting and safety
+      </Link>
+      .
+    </>,
+  ],
   [
     "key",
     "An API for everything",
@@ -125,15 +136,6 @@ const UNDER_HOOD: [DrawingName, string, ReactNode][] = [
       .
     </>,
   ],
-];
-
-// Changing every client's site safely, in the order you do it (versions of a starting site).
-const UPDATES: { drawing: DrawingName; title: string; body: string }[] = [
-  { drawing: "paint", title: "Make a new version", body: "Copy your starting site into a new version. Your clients' sites don't change." },
-  { drawing: "tools", title: "Change it", body: "Add or update plugins, change the theme or pages, in the new version only." },
-  { drawing: "open", title: "Check it", body: "Open the new version and try it before any client gets it." },
-  { drawing: "truck", title: "Move sites over", body: "Make it the version new orders get, then move your clients' sites to it when you're ready." },
-  { drawing: "backup", title: "Go back if you need to", body: "Something not right? Move a site back to the old version. Older versions stay in your list." },
 ];
 
 const FAQ: [string, ReactNode][] = [
@@ -227,23 +229,18 @@ export default function HowItWorksSellers() {
         <div className="in">
           <SectionHead
             eyebrow="changing every site safely"
-            title="Improve every client's site without breaking one."
-            lead="Your starting site has versions. Change a new one, check it, then move sites over. The old one stays, so you can always go back."
+            title="Change all your clients' sites at once, without breaking one."
+            lead="Your starting site has versions. Change a copy, try it, then move your clients over when you're ready. The old one stays, so you can always go back."
             id="h-updates"
           />
-          <ol className="steps">
-            {UPDATES.map((s, i) => (
-              <li key={s.title}>
-                <Drawing name={s.drawing} />
-                <div>
-                  <h3>
-                    {i + 1}. {s.title}
-                  </h3>
-                  <p>{s.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <VersionStory />
+          <p className="mt-10 text-center text-ink-soft">
+            We update WordPress and the plugins every site comes with for you.{" "}
+            <Link href="/updates" className="font-semibold text-ink underline">
+              How updates stay safe
+            </Link>
+            .
+          </p>
         </div>
       </section>
 

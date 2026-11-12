@@ -526,7 +526,7 @@ const FAQ_B: [string, ReactNode][] = [
   ],
   [
     "What if an update breaks something?",
-    "We apply security fixes for you, and a copy of your site is saved every night, so it can be put back the way it was. If something looks wrong, email us and a person answers.",
+    "We apply security fixes for you, and a copy of your site is saved every night, so it can be put back the way it was. If something looks wrong, email us and we'll help.",
   ],
   ...FAQ.slice(1),
 ];

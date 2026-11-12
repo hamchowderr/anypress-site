@@ -146,7 +146,7 @@ const START: [DrawingName, string, string][] = [
   ["words", "Apply", "Tell us about your business and who you build for. It takes two minutes."],
   ["question", "Book a short call", "We get to know your business, show you how selling works and agree how billing works."],
   ["shops", "We set you up", "Once you're approved, your storefront is built in minutes. We help you pick what to sell and set your prices."],
-  ["coins", "Sell, with us behind you", "Your clients pay you and each site is built in minutes. Questions later? Email support@anypress.io and a person writes back."],
+  ["coins", "Sell, with us behind you", "Your clients pay you and each site is built in minutes. Questions later? Email support@anypress.io and we'll help."],
 ];
 
 const YOU: [string, string][] = [
@@ -434,6 +434,15 @@ export default function Sellers() {
             id="h-start"
           />
           <Flow steps={START} />
+          <p className="mt-10 text-center text-ink-soft">
+            <Link href="/sellers/setup" className="font-semibold text-ink underline">
+              How we set you up
+            </Link>{" "}
+            ·{" "}
+            <Link href="/sellers/autopilot" className="font-semibold text-ink underline">
+              What happens after each sale
+            </Link>
+          </p>
         </div>
       </section>
 
