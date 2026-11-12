@@ -99,7 +99,7 @@ export default function SellingOnAutopilot() {
         lead="Building it, billing it, backing it up, pausing it when a card fails and taking it down when a client leaves. You get paid. Your team never presses a button."
       />
 
-      <ProblemFix soft who={["Web designers", "Freelancers", "HighLevel agencies", "Franchises"]} items={PROBLEMS} title="Selling sites shouldn't mean babysitting them." />
+      <ProblemFix soft who={["Freelance web designers", "Small web design studios", "Marketing consultants", "Chambers selling to members", "Franchise offices"]} items={PROBLEMS} title="Selling sites shouldn't mean babysitting them." />
 
       <section className="sec" aria-labelledby="h-life">
         <div className="in">

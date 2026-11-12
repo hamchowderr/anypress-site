@@ -27,7 +27,7 @@ const STEPS: [DrawingName, string, ReactNode][] = [
       Two minutes on <Link href="/sell" className="underline">Apply to sell</Link>: your business and who you build for.
     </>,
   ],
-  ["mailbox", "Book your call", "The email that follows has a link to book 30 minutes with us, on a weekday between 9 and 5 Pacific."],
+  ["mailbox", "Book your call", "The email that follows has a link to pick a time that suits you. It takes half an hour."],
   ["question", "The call", "We get to know your business, show you how selling works on the real thing, and agree how billing works."],
   ["key", "You're approved", "You get an email with your sign-in link. Your storefront is built in minutes."],
   ["shops", "Your first week", "Make your storefront yours, pick what you sell and set your prices. We're on email the whole way."],
@@ -107,7 +107,7 @@ export default function SellerSetup() {
         lead="Every seller and reseller starts with a call. We set you up together, then stay close while you make your first sales."
       />
 
-      <ProblemFix soft who={["Web designers", "Freelancers", "HighLevel agencies", "Franchises"]} items={PROBLEMS} title="Getting started shouldn't be a guessing game." />
+      <ProblemFix soft who={["Freelance web designers", "Small web design studios", "Marketing consultants", "Chambers selling to members", "Franchise offices"]} items={PROBLEMS} title="Getting started shouldn't be a guessing game." />
 
       <section className="sec" aria-labelledby="h-steps">
         <div className="in">
