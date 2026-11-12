@@ -63,3 +63,24 @@ export async function uploadDemoImage(uploadUrl: string, photo: Blob): Promise<b
     return false;
   }
 }
+
+/**
+ * A sign-in for the website assistant beside the demo's page editor (the API's POST /demos/assistant): a demo has no
+ * store of its own, so the assistant gets a few messages for this demo, and only changes the page open in the editor.
+ * null when the API can't give one right now; the demo works without it.
+ */
+export async function startDemoAssistant(siteType: string): Promise<string | null> {
+  try {
+    const res = await fetch(`${API_URL}/demos/assistant`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ siteType }),
+      cache: "no-store",
+      signal: AbortSignal.timeout(10_000),
+    });
+    const answer = (await res.json().catch(() => null)) as { token?: unknown } | null;
+    return res.ok && typeof answer?.token === "string" && /^apdemo_[A-Za-z0-9_-]{43}$/.test(answer.token) ? answer.token : null;
+  } catch {
+    return null;
+  }
+}

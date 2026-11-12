@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type * as PlaygroundClientModuleType from "@wp-playground/client";
 import { LogoMark } from "@/components/Logo";
-import { saveDemo, uploadDemoImage } from "@/app/try/actions";
+import { saveDemo, startDemoAssistant, uploadDemoImage } from "@/app/try/actions";
 import { DEMO_EXPORT_PHP, type DemoExport } from "@/lib/demoExport";
 import { SITE_TYPES, startUrl } from "@/lib/site";
 import {
@@ -105,6 +105,18 @@ function useSeconds() {
     return () => clearInterval(timer);
   }, []);
   return seconds;
+}
+
+/**
+ * The website assistant beside the demo's page editor: AnyPress Client shows its panel once the demo holds a demo
+ * sign-in (ANYPRESS_DEMO_ASSISTANT). Without one, the demo works as before, edited by hand.
+ */
+async function addAssistant(client: PlaygroundClient, type: TryType): Promise<void> {
+  const token = await startDemoAssistant(TRY_TYPES[type].blueprint);
+  if (!token) return;
+  const dir = "/wordpress/wp-content/mu-plugins";
+  await client.mkdir(dir);
+  await client.writeFile(`${dir}/anypress-demo-assistant.php`, `<?php\ndefine('ANYPRESS_DEMO_ASSISTANT', '${token}');\n`);
 }
 
 /** The shop's page for the site type's plan, carrying the saved demo to checkout. */
@@ -365,6 +377,7 @@ function TryPlayground({
         progressTracker: tracker as unknown as WebTracker,
         disableProgressBar: true,
       });
+      if (type) await addAssistant(client.current, type);
       if (!gone) setReady(true);
     })().catch((err) => {
       console.error(err);
@@ -373,7 +386,7 @@ function TryPlayground({
     return () => {
       gone = true;
     };
-  }, [blueprintUrl, attempt]);
+  }, [blueprintUrl, attempt, type]);
 
   const retry = () => {
     setFailed(false);
