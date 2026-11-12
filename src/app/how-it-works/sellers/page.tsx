@@ -175,8 +175,12 @@ export default function HowItWorksSellers() {
         drawing="shops"
         side="technical"
         eyebrow="how it works for sellers"
-        title="Your storefront. Every order becomes its own website."
-        lead="Sell websites under your own name. Your clients buy from your shop, each order is built as its own site from your starting site, and we host and look after every one."
+        title={
+          <>
+            Your client pays, and their site builds itself. <mark>We look after it from there</mark>.
+          </>
+        }
+        lead="Sell websites under your own name. Your clients buy from your storefront, each order becomes its own site, copied from your starting site in minutes, and we host and look after every one."
       >
         <div>
           <SideSwitch active="technical" {...HOW_SWITCH} />

@@ -77,8 +77,12 @@ export default function Care() {
         drawing="lifebuoy"
         side="owners"
         eyebrow="Care"
-        title="We look after your website."
-        lead={`Time each month for the changes you need, with requests answered by email. From ${dollars(CARE_FROM)} a month, on any AnyPress website.`}
+        title={
+          <>
+            Changes to your site, made for you every month. <mark>Just email us what you need</mark>.
+          </>
+        }
+        lead={`A new page, a new price, a photo swapped or a form changed: email us and we'll do it, with time set aside for you every month. From ${dollars(CARE_FROM)} a month, on any AnyPress website.`}
       >
         <div className="mt-9 flex flex-wrap gap-3">
           <a href={CARE_CALL_URL} className="btn btn-ink">
