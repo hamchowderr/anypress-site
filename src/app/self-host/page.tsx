@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Screenshot } from "@/components/AppShots";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
-import { Showcase } from "@/components/Showcase";
+import { ClientSites } from "@/components/ClientSites";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
 import { CONTACT_EMAIL } from "@/lib/site";
@@ -304,11 +304,12 @@ export default function SelfHost() {
       <section>
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <SectionHead
+            eyebrow="real sites, real screens"
             title="The sites your customers get."
-            lead="Real example sites, one for each kind. Every site you sell starts from these."
+            lead="Five kinds of site, each with its own tools, and sixteen designs to dress any of them. Everything below is real: live example sites, screens from inside their WordPress, and demos you can open now."
           />
           <div className="mt-10">
-            <Showcase />
+            <ClientSites />
           </div>
         </div>
       </section>
