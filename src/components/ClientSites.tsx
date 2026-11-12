@@ -30,7 +30,12 @@ function ToolLogo({ tool, className = "h-6 w-6" }: { tool: string; className?: s
  * The sites a seller's customers get: each site type with its example site, real screens from inside its WordPress
  * and every tool it comes with; then all the design kits; then what every site comes with.
  */
-export function ClientSites() {
+/** For website owners (home page, /beta) the copy speaks to "you"; for sellers it speaks of "your customer". */
+const toYou = (text: string) =>
+  text.replace(/\bfor them\b/g, "for you").replace(/\btheir\b/g, "your").replace(/\bTheir\b/g, "Your");
+
+export function ClientSites({ forOwner = false }: { forOwner?: boolean }) {
+  const say = (text: string) => (forOwner ? toYou(text) : text);
   const [active, setActive] = useState(0);
   const [screen, setScreen] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -119,9 +124,9 @@ export function ClientSites() {
 
           {/* What the owner gets inside: one big screen, picked from the list beside it. */}
           <div className="mt-16">
-            <h3 className="text-2xl font-extrabold tracking-tight">Inside their WordPress</h3>
+            <h3 className="text-2xl font-extrabold tracking-tight">{say("Inside their WordPress")}</h3>
             <p className="mt-1 max-w-2xl text-ink-soft">
-              Real screens from the {t.short} demo, with its sample business. This is what your customer opens after one click from their account.
+              Real screens from the {t.short} demo, with its sample business. {forOwner ? "This is what you open after one click from your account." : "This is what your customer opens after one click from their account."}
             </p>
             <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
               <figure>
@@ -142,8 +147,8 @@ export function ClientSites() {
                       <ToolLogo tool={s.tool} className="mt-0.5 h-7 w-7" />
                       <span>
                         <span className="block text-sm font-semibold text-ink-soft">{toolName(s.tool)}</span>
-                        <span className="block font-bold">{s.title}</span>
-                        <span className="block text-[15px] leading-6 text-ink-soft">{s.caption}</span>
+                        <span className="block font-bold">{say(s.title)}</span>
+                        <span className="block text-[15px] leading-6 text-ink-soft">{say(s.caption)}</span>
                       </span>
                     </button>
                   </li>
@@ -179,7 +184,7 @@ export function ClientSites() {
           <div>
             <h3 className="text-[clamp(1.6rem,3vw,2.1rem)] font-extrabold tracking-tight">{KITS.length} designs, on any type of site</h3>
             <p className="mt-1 max-w-2xl text-ink-soft">
-              Each one is a full example business with its own pages, colours and fonts. Your customer picks one and switches in a click; their words and photos stay put.
+              Each one is a full example business with its own pages, colours and fonts. {forOwner ? "Pick one and switch in a click; your words and photos stay put." : "Your customer picks one and switches in a click; their words and photos stay put."}
             </p>
           </div>
           <Link href="/designs" className="font-semibold underline underline-offset-4">
@@ -211,8 +216,8 @@ export function ClientSites() {
         <dl className="mt-6 grid gap-x-10 border-t border-line sm:grid-cols-2 lg:grid-cols-3">
           {EVERY_SITE.map(([title, body]) => (
             <div key={title} className="border-b border-line py-5">
-              <dt className="font-bold">{title}</dt>
-              <dd className="mt-1 leading-7 text-ink-soft">{body}</dd>
+              <dt className="font-bold">{say(title)}</dt>
+              <dd className="mt-1 leading-7 text-ink-soft">{say(body)}</dd>
             </div>
           ))}
         </dl>
