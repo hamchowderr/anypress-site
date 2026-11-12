@@ -133,7 +133,7 @@ export default function Help() {
       <PageHero drawing="lifebuoy" side="owners"
         eyebrow="Help"
         title="How can we help?"
-        lead="Quick answers to the things people ask most. If yours isn't here, email us and a person will get back to you."
+        lead="Quick answers to the things people ask most. If yours isn't here, email us and we'll help."
       >
         <div className="mt-9 flex flex-wrap gap-3">
           <a href={ACCOUNT_URL} className="btn btn-ink">

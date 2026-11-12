@@ -9,6 +9,8 @@ export const ACCOUNT_URL = `${SHOP_URL}${process.env.NEXT_PUBLIC_ACCOUNT_PATH ||
 /** Where sellers and resellers sign in. Website owners sign in on the shop's account page (ACCOUNT_URL) instead. */
 export const DASHBOARD_URL = "https://app.anypress.io";
 export const AFFILIATE_URL = `${SHOP_URL}/affiliates/`;
+/** Where a website owner books the short call that starts care (a booking page on the shop). */
+export const CARE_CALL_URL = `${SHOP_URL}/care-call/`;
 
 export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "support@anypress.io";
 

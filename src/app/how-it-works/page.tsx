@@ -71,7 +71,7 @@ const STEPS: {
     drawing: "backup",
     title: "We look after it from then on",
     when: "every day",
-    body: "A copy of your site is saved every night. Security fixes are applied for you. If something goes wrong, email us and a person answers.",
+    body: "A copy of your site is saved every night. Security fixes are applied for you. If something goes wrong, email us and we'll help.",
   },
 ];
 
@@ -119,7 +119,7 @@ const WHERE: [DrawingName, string, ReactNode][] = [
   ["paint", "Your site's editor", "Where you change pages, photos, colours, products and bookings. It works like editing a document."],
   [
     "lifebuoy",
-    "Help, from a person",
+    "Help when you need it",
     <>
       Email <a href="mailto:support@anypress.io" className="underline">support@anypress.io</a>, or read the{" "}
       <Link href="/help" className="underline">help page</Link>.
