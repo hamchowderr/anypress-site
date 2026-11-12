@@ -304,10 +304,13 @@ function Examples() {
       <SectionHead
         eyebrow="click around"
         title="See a real one before you start."
-        lead="Five kinds of site, each with real example sites, real screens from inside, every tool by name and a demo you can open now. Then sixteen designs to dress any of them."
+        lead="Five example sites, built on AnyPress exactly as yours would be."
         id="h-ex"
       />
-      <ClientSites forOwner />
+      <ClientSites />
+      <p className="mt-10 text-center text-ink-soft">
+        Want a different look? <Link href="/designs" className="font-semibold text-ink underline">See all 16 designs</Link>.
+      </p>
     </section>
   );
 }

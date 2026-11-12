@@ -304,9 +304,8 @@ export default function SelfHost() {
       <section>
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <SectionHead
-            eyebrow="real sites, real screens"
             title="The sites your customers get."
-            lead="Five kinds of site, each with its own tools, and sixteen designs to dress any of them. Everything below is real: live example sites, screens from inside their WordPress, and demos you can open now."
+            lead="Real example sites, one for each kind. Every site you sell starts from these."
           />
           <div className="mt-10">
             <ClientSites />

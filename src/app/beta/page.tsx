@@ -301,7 +301,7 @@ export default function Beta() {
             id="h-examples"
             lead="Five live sites, one of each kind, all running on AnyPress. Open any of them and click around."
           />
-          <ClientSites forOwner />
+          <ClientSites />
         </div>
       </section>
 
