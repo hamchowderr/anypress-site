@@ -26,4 +26,4 @@ export function proxy(request: NextRequest) {
 }
 
 // Keep in step with AB_PAGES (the matcher has to be written out here).
-export const config = { matcher: ["/", "/home-b", "/pricing", "/pricing-b", "/sites/:type", "/sites-b/:type"] };
+export const config = { matcher: ["/", "/home-b", "/pricing", "/pricing-b", "/sellers", "/sellers-b", "/resellers", "/resellers-b", "/sites/:type", "/sites-b/:type"] };

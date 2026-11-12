@@ -11,6 +11,8 @@ export const AB_COOKIE = "ap_hero";
 export const AB_PAGES: Record<string, string> = {
   "/": "/home-b",
   "/pricing": "/pricing-b",
+  "/sellers": "/sellers-b",
+  "/resellers": "/resellers-b",
   ...Object.fromEntries(SITE_TYPES.map((t) => [`/sites/${t.id}`, `/sites-b/${t.id}`])),
 };
 export type AbVersion = "a" | "b";
