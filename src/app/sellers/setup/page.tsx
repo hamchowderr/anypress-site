@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Flow, VideoRow, type Video } from "@/components/FactPieces";
+import { FactSheet, Flow, VideoRow, type Fact, type Video } from "@/components/FactPieces";
 import type { DrawingName } from "@/components/Drawing";
 import { JsonLd } from "@/components/JsonLd";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
-import { Tick } from "@/components/Tick";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { faqLd, pageMeta } from "@/lib/seo";
 import { CONTACT_EMAIL } from "@/lib/site";
@@ -48,12 +47,12 @@ const PROBLEMS: Problem[] = [
   },
 ];
 
-const READY: string[] = [
-  "Your business name and logo",
-  "The domain you'd like your storefront on, if you have one",
-  "A Stripe account for your clients' payments, or we'll show you how to make one",
-  "An idea of what you'll sell and roughly what you'll charge",
-  "If you have more than one brand: a list of them",
+const READY: Fact[] = [
+  ["brush", "Your name and logo", "So your storefront looks like yours from day one."],
+  ["globe", "Your domain", "The address you'd like your storefront on, if you have one."],
+  ["card", "A Stripe account", "Where your clients' payments land. No account yet? We'll show you how to make one."],
+  ["coin", "What you'll sell", "Roughly what you'll offer and what you'd like to charge."],
+  ["shops", "Your brands", "If you run more than one, a list of them."],
 ];
 
 const VIDEOS: Video[] = [
@@ -117,16 +116,9 @@ export default function SellerSetup() {
       </section>
 
       <section className="sec soft" aria-labelledby="h-ready">
-        <div className="in max-w-[720px]">
+        <div className="in">
           <SectionHead eyebrow="before the call" title="Handy to have ready." lead="None of it is required. It just makes the call go further." id="h-ready" />
-          <ul className="mt-8 grid gap-3">
-            {READY.map((r) => (
-              <li key={r} className="flex gap-3 text-[17px]">
-                <Tick className="mt-1 h-[18px] w-[18px] flex-none text-tick-green" />
-                {r}
-              </li>
-            ))}
-          </ul>
+          <FactSheet facts={READY} />
         </div>
       </section>
 
