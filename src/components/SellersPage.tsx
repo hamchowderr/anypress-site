@@ -16,7 +16,7 @@ import {
 import { LeadForm } from "@/components/LeadForm";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
-import { INCLUDED_B, Included } from "@/components/HomePage";
+import { INCLUDED, Included } from "@/components/HomePage";
 import {
   CONTACT_EMAIL,
   LOWEST_PRICE,
@@ -26,7 +26,6 @@ import {
   sitePrice,
   volumePercent,
 } from "@/lib/site";
-import type { AbVersion } from "@/lib/ab";
 
 const FIRST = VOLUME_TIERS[0];
 const link = "underline underline-offset-2";
@@ -385,10 +384,9 @@ const QUESTIONS: [string, ReactNode][] = [
   ],
 ];
 
-// Version "b" for the site copy A/B test (src/lib/ab.ts), in the homepage "b" voice (site PR #46): an outcome said
-// out loud, "We set it all up", and the pains sellers name first (paying for every client's site piece by piece,
-// updates that break a client's site).
-const PROBLEMS_B: Problem[] = [
+// The pains sellers name first (paying for every client's site piece by piece, updates that break a client's site),
+// in the homepage's words (site PR #46).
+const TOP_PROBLEMS: Problem[] = [
   {
     problem: [
       "Paying for every client's site piece by piece",
@@ -411,9 +409,7 @@ const PROBLEMS_B: Problem[] = [
   PROBLEMS[4],
 ];
 
-/** The /sellers page. Both versions of the copy test use it; version "b" changes the hero and the problems. */
-export function SellersPage({ version }: { version: AbVersion }) {
-  const b = version === "b";
+export function SellersPage() {
   return (
     <>
       <PageHero
@@ -421,25 +417,15 @@ export function SellersPage({ version }: { version: AbVersion }) {
         side="technical"
         eyebrow="for anyone who builds websites for clients"
         title={
-          b ? (
-            <>
-              Sell websites under your name and get paid every month.{" "}
-              <mark>We set it all up</mark>.
-            </>
-          ) : (
-            <>
-              Build it <mark>once</mark>. Sell it every month.
-            </>
-          )
+          <>
+            Sell websites under your name and get paid every month.{" "}
+            <mark>We set it all up</mark>.
+          </>
         }
-        lead={
-          b
-            ? "Your storefront arrives ready to sell, with your name, your prices and email from your business. Every client who buys gets their own site in minutes, and we host it, back it up every night and keep it safe. You find the clients."
-            : "Make one starting site, or pick one of ours. Every client who buys from your storefront gets their own copy in minutes, under your name, and pays you every month. We host every site, back it up and keep it safe."
-        }
+        lead={"Your storefront arrives ready to sell, with your name, your prices and email from your business. Every client who buys gets their own site in minutes, and we host it, back it up every night and keep it safe. You find the clients."}
       >
         <div className="ctas mt-8">
-          <Link href="/sell" className="btn btn-ink" data-ab="start">
+          <Link href="/sell" className="btn btn-ink">
             Apply to sell websites →
           </Link>
           <a href="#videos" className="btn btn-paper">
@@ -448,7 +434,7 @@ export function SellersPage({ version }: { version: AbVersion }) {
         </div>
       </PageHero>
 
-      {b && <Included items={INCLUDED_B} />}
+      <Included items={INCLUDED} />
 
       <section className="sec soft" aria-labelledby="h-facts">
         <div className="in">
@@ -461,19 +447,11 @@ export function SellersPage({ version }: { version: AbVersion }) {
         </div>
       </section>
 
-      {b ? (
-        <ProblemFix
+      <ProblemFix
           who={WHO}
-          items={PROBLEMS_B}
+        items={TOP_PROBLEMS}
           title="Stop paying for every client's site one piece at a time."
-        />
-      ) : (
-        <ProblemFix
-          who={WHO}
-          items={PROBLEMS}
-          title="Selling websites shouldn't mean running a hosting company."
-        />
-      )}
+      />
 
       <section
         id="videos"

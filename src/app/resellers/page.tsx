@@ -10,5 +10,5 @@ export const metadata: Metadata = pageMeta({
 });
 
 export default function Page() {
-  return <ResellersPage version="a" />;
+  return <ResellersPage />;
 }

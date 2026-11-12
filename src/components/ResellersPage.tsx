@@ -16,7 +16,7 @@ import {
 } from "@/components/FactPieces";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
-import { INCLUDED_B, Included } from "@/components/HomePage";
+import { INCLUDED, Included } from "@/components/HomePage";
 import {
   CONTACT_EMAIL,
   LOWEST_PRICE,
@@ -27,7 +27,6 @@ import {
   sitePrice,
   wholesalePrice,
 } from "@/lib/site";
-import type { AbVersion } from "@/lib/ab";
 
 const link = "underline underline-offset-2";
 const money = (n: number) => `$${n.toFixed(2).replace(/\.00$/, "")}`;
@@ -375,10 +374,9 @@ const FAQ: [string, ReactNode][] = [
   ],
 ];
 
-// Version "b" for the site copy A/B test (src/lib/ab.ts), in the homepage "b" voice (site PR #46): an outcome said
-// out loud, "We set it all up", and the pains resellers name first (bills piece by piece for every brand, updates
-// that break sites).
-const PROBLEMS_B: Problem[] = [
+// The pains resellers name first (paying for every brand piece by piece, updates that break sites), in the
+// homepage's words (site PR #46).
+const TOP_PROBLEMS: Problem[] = [
   {
     problem: [
       "Paying for every brand piece by piece",
@@ -399,9 +397,7 @@ const PROBLEMS_B: Problem[] = [
   PROBLEMS[5],
 ];
 
-/** The /resellers page. Both versions of the copy test use it; version "b" changes the hero and the problems. */
-export function ResellersPage({ version }: { version: AbVersion }) {
-  const b = version === "b";
+export function ResellersPage() {
   return (
     <>
       <PageHero
@@ -409,25 +405,15 @@ export function ResellersPage({ version }: { version: AbVersion }) {
         drawing="shops"
         eyebrow="for businesses with more than one brand"
         title={
-          b ? (
-            <>
-              Sell websites under every brand you run.{" "}
-              <mark>We set it all up</mark>.
-            </>
-          ) : (
-            <>
-              Every brand you run. <mark>One</mark> login, one bill.
-            </>
-          )
+          <>
+            Sell websites under every brand you run.{" "}
+            <mark>We set it all up</mark>.
+          </>
         }
-        lead={
-          b
-            ? `Each brand gets its own storefront, ready to sell, at ${WHOLESALE_PERCENT}% off every site. We build every site, host it and look after it, and you get one bill on the 1st of the month.`
-            : `Run a storefront for each brand, region or kind of customer, and sell websites from all of them at ${WHOLESALE_PERCENT}% off. We build and look after every site, and send you one bill on the 1st of the month.`
-        }
+        lead={`Each brand gets its own storefront, ready to sell, at ${WHOLESALE_PERCENT}% off every site. We build every site, host it and look after it, and you get one bill on the 1st of the month.`}
       >
         <div className="ctas mt-8">
-          <Link href="/sell" className="btn btn-ink" data-ab="start">
+          <Link href="/sell" className="btn btn-ink">
             Apply to become a reseller →
           </Link>
           <a href="#videos" className="btn btn-paper">
@@ -436,7 +422,7 @@ export function ResellersPage({ version }: { version: AbVersion }) {
         </div>
       </PageHero>
 
-      {b && <Included items={INCLUDED_B} />}
+      <Included items={INCLUDED} />
 
       <section className="sec soft" aria-labelledby="h-facts">
         <div className="in">
@@ -449,19 +435,11 @@ export function ResellersPage({ version }: { version: AbVersion }) {
         </div>
       </section>
 
-      {b ? (
-        <ProblemFix
+      <ProblemFix
           who={WHO}
-          items={PROBLEMS_B}
+        items={TOP_PROBLEMS}
           title="Stop paying for every brand's sites one piece at a time."
-        />
-      ) : (
-        <ProblemFix
-          who={WHO}
-          items={PROBLEMS}
-          title="Selling under several names, without the mess."
-        />
-      )}
+      />
 
       <section
         id="videos"

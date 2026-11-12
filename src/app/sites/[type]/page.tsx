@@ -23,5 +23,5 @@ export async function generateMetadata({ params }: PageProps<"/sites/[type]">): 
 export default async function Page({ params }: PageProps<"/sites/[type]">) {
   const { type } = await params;
   if (!SITE_TYPES.some((s) => s.id === type)) notFound();
-  return <SiteTypePage type={type} version="a" />;
+  return <SiteTypePage type={type} />;
 }

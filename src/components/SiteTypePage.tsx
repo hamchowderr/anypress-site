@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { ProblemFix } from "@/components/ProblemFix";
-import { INCLUDED_B, Included, PROBLEMS_B } from "@/components/HomePage";
+import { INCLUDED, Included, PROBLEMS } from "@/components/HomePage";
 import { Tick } from "@/components/Tick";
 import { Vignette } from "@/components/Vignette";
 import { WhoChip } from "@/components/WhoChip";
@@ -13,7 +13,6 @@ import { SITE_TYPES, SIZES, TRIAL_DAYS, VOLUME_RANGE, YEARLY_MONTHS, planUrl, si
 import { JsonLd } from "@/components/JsonLd";
 import { tryType } from "@/lib/try";
 import { BASE_URL, breadcrumbLd, faqLd } from "@/lib/seo";
-import type { AbVersion } from "@/lib/ab";
 
 // What people search for, per site type: the page title and the thing they'd call it.
 export const SEARCH_NAME: Record<string, string> = {
@@ -70,17 +69,17 @@ const EYEBROW: Record<string, string> = {
   everything: "everything your business runs on, in one website",
 };
 
-// Version "b" for the site copy A/B test (src/lib/ab.ts), built from the homepage's "b" copy (site PR #46): an
-// outcome headline ending "We set it all up", the "included" strip that says what each item does for a business, and
-// the pains people name themselves (add-ons, updates that break the site) ahead of this type's own problems.
-const B_HEADLINE: Record<string, string> = {
+// The homepage's words (site PR #46): an outcome headline ending "We set it all up", the "included" strip that says
+// what each item does for a business, and the pains people name themselves (add-ons, updates that break the site)
+// ahead of this type's own problems.
+const HEADLINE: Record<string, string> = {
   website: "Get found on Google and hear from customers.",
   bookings: "Get booked and get paid while you work.",
   store: "Sell online and keep every sale.",
   community: "Sell your courses and grow your members.",
   everything: "Sell, take bookings and teach, all on one site.",
 };
-const B_LEAD: Record<string, string> = {
+const LEAD: Record<string, string> = {
   website: "Your site arrives ready to show up on Google, take messages and grow your mailing list.",
   bookings: "Your site arrives with a booking calendar, payment when people book and reminder emails, all switched on.",
   store: "Your store arrives ready to take payments, ship orders and email your customers, with no cut of your sales.",
@@ -88,10 +87,9 @@ const B_LEAD: Record<string, string> = {
   everything: "Your site arrives with a store, bookings, courses and a help desk, all working together.",
 };
 
-/** One site type's page. Both versions of the copy test use it; version "b" changes the hero, one heading and the closing band. */
-export function SiteTypePage({ type, version }: { type: string; version: AbVersion }) {
+/** One site type's page. */
+export function SiteTypePage({ type }: { type: string }) {
   const t = SITE_TYPES.find((s) => s.id === type)!;
-  const b = version === "b";
   const d = SITE_DETAILS[t.id];
   const others = SITE_TYPES.filter((s) => s.id !== t.id);
   const ex = t.example;
@@ -132,16 +130,14 @@ export function SiteTypePage({ type, version }: { type: string; version: AbVersi
       <section className="in type-hero" aria-labelledby="h-type">
         <SidePill side="owners" />
         <span className="eyebrow">{EYEBROW[t.id]}</span>
-        {b ? (
-          <h1 id="h-type">
-            {B_HEADLINE[t.id]} <mark>We set it all up</mark>.
-          </h1>
-        ) : (
-          <h1 id="h-type">{t.headline}</h1>
-        )}
-        <p className="lead">{b ? `${B_LEAD[t.id]} You add ${d.yourPart}.` : t.pitch}</p>
+        <h1 id="h-type">
+          {HEADLINE[t.id]} <mark>We set it all up</mark>.
+        </h1>
+        <p className="lead">
+          {LEAD[t.id]} You add {d.yourPart}.
+        </p>
         <div className="ctas">
-          <a href={startUrl(t)} className="btn btn-ink" data-ab="start">
+          <a href={startUrl(t)} className="btn btn-ink">
             Start your {label} →
           </a>
           <Link href={tryType(t.id)} className="btn btn-paper">
@@ -186,7 +182,7 @@ export function SiteTypePage({ type, version }: { type: string; version: AbVersi
         </ol>
       </section>
 
-      {b && <Included items={INCLUDED_B} />}
+      <Included items={INCLUDED} />
 
       <section className="in try-strip" aria-label="Try the example site">
         <div>
@@ -207,11 +203,7 @@ export function SiteTypePage({ type, version }: { type: string; version: AbVersi
         </a>
       </section>
 
-      {b ? (
-        <ProblemFix soft items={[...PROBLEMS_B.slice(0, 2), ...d.problems]} eyebrow="sound familiar?" title="Stop paying for your website one piece at a time." />
-      ) : (
-        <ProblemFix soft items={d.problems} eyebrow="sound familiar?" title={`What gets in the way, and how a ${label} fixes it.`} />
-      )}
+      <ProblemFix soft items={[...PROBLEMS.slice(0, 2), ...d.problems]} eyebrow="sound familiar?" title="Stop paying for your website one piece at a time." />
 
       <section className="sec in" aria-labelledby="h-does">
         <SectionHead eyebrow="what it does" title="What it does for you." id="h-does" />

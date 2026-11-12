@@ -11,5 +11,5 @@ export const metadata: Metadata = pageMeta({
 });
 
 export default function Home() {
-  return <HomePage version="a" />;
+  return <HomePage />;
 }

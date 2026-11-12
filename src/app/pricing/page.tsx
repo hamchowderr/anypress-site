@@ -12,5 +12,5 @@ export const metadata: Metadata = pageMeta({
 });
 
 export default function Pricing() {
-  return <PricingPage version="a" />;
+  return <PricingPage />;
 }
