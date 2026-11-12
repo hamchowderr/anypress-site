@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Screenshot } from "@/components/AppShots";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
-import { Showcase } from "@/components/Showcase";
+import { ClientSites } from "@/components/ClientSites";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { pageMeta } from "@/lib/seo";
 import { CONTACT_EMAIL } from "@/lib/site";
@@ -308,7 +308,7 @@ export default function SelfHost() {
             lead="Real example sites, one for each kind. Every site you sell starts from these."
           />
           <div className="mt-10">
-            <Showcase />
+            <ClientSites />
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { Drawing, type DrawingName } from "@/components/Drawing";
-import { Showcase } from "@/components/Showcase";
+import { ClientSites } from "@/components/ClientSites";
 import { CompareTable } from "@/components/CompareTable";
 import { PriceCompare } from "@/components/PriceCompare";
 import { ReadyBuilt } from "@/components/ReadyBuilt";
@@ -307,7 +307,7 @@ function Examples() {
         lead="Five example sites, built on AnyPress exactly as yours would be."
         id="h-ex"
       />
-      <Showcase />
+      <ClientSites />
       <p className="mt-10 text-center text-ink-soft">
         Want a different look? <Link href="/designs" className="font-semibold text-ink underline">See all 16 designs</Link>.
       </p>

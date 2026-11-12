@@ -6,7 +6,7 @@ import { type DashboardShot, DashboardTour, type Fact, FactSheet, SketchIcon, ty
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { LeadForm } from "@/components/LeadForm";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
-import { Showcase } from "@/components/Showcase";
+import { ClientSites } from "@/components/ClientSites";
 import { Tick } from "@/components/Tick";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import type { IconName } from "@/components/icons.generated";
@@ -301,7 +301,7 @@ export default function Beta() {
             id="h-examples"
             lead="Five live sites, one of each kind, all running on AnyPress. Open any of them and click around."
           />
-          <Showcase />
+          <ClientSites />
         </div>
       </section>
 
