@@ -311,7 +311,7 @@ const TEMPLATES: Template[] = [
       width: 1075,
       height: 430,
     },
-    soon: "App coming soon",
+    soon: "Early access",
     guide: HIGHLEVEL_DOC,
   },
   {
@@ -325,7 +325,7 @@ const TEMPLATES: Template[] = [
       width: 960,
       height: 384,
     },
-    soon: "App coming soon",
+    soon: "Early access",
     guide: HIGHLEVEL_DOC,
   },
 ];
@@ -383,7 +383,7 @@ const FAQ: [string, ReactNode][] = [
   ],
   [
     "Is there an app for HighLevel (GoHighLevel)?",
-    "It's coming. HighLevel agencies will install AnyPress on their sub-accounts and create a client's site from any HighLevel workflow, then start the welcome steps when it's ready. Write to support@anypress.io for early access. You can start today with HighLevel's own webhook steps: the HighLevel guide in our docs shows how.",
+    "Yes, in early access. Install AnyPress on your sub-accounts, create a client's site from any HighLevel workflow, then start the welcome steps when it's ready. Email support@anypress.io and we'll set you up. You can also start today with HighLevel's own webhook steps: the HighLevel guide in our docs shows how.",
   ],
 ];
 
@@ -516,7 +516,7 @@ export default function Automate() {
                 </div>
                 <h3>
                   AnyPress for {a.tool}
-                  {a.soon && <span className="soon">Coming soon</span>}
+                  {a.soon && <span className="soon">Early access</span>}
                 </h3>
                 <p>{a.how}</p>
                 <h4>Actions</h4>
