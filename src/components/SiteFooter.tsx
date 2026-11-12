@@ -19,6 +19,8 @@ const COLUMNS = [
     links: [
       { href: "/sellers", label: "Sell websites" },
       { href: "/how-it-works/sellers", label: "How selling works" },
+      { href: "/sellers/setup", label: "How we set you up" },
+      { href: "/sellers/autopilot", label: "Selling on autopilot" },
       { href: "/resellers", label: "Become a reseller" },
       { href: "/sell", label: "Apply to sell" },
       { href: "/automate", label: "Create sites automatically" },
@@ -36,6 +38,8 @@ const COLUMNS = [
       { href: "/designs", label: "Designs" },
       { href: "/designs/blocks", label: "Blocks" },
       { href: "/included", label: "What's included" },
+      { href: "/hosting", label: "Hosting and safety" },
+      { href: "/updates", label: "Safe updates" },
       { href: "/affiliates", label: "Affiliate program" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },

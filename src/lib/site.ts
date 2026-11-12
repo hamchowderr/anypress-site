@@ -35,6 +35,8 @@ function smallPrice(id: SiteTypeId): number {
 
 /** A year costs this many months (ten, so two are free). */
 export const YEARLY_MONTHS = PRICES.yearlyMonths;
+/** Free days a new website plan starts with (the shop's FluentCart trial; a card is added at checkout, one trial per person). */
+export const TRIAL_DAYS = 7;
 
 /** What an affiliate earns of a customer's first payment, in percent. */
 export const AFFILIATE_PERCENT = PRICES.affiliatePercent;

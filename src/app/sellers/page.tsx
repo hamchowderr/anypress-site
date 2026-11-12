@@ -40,7 +40,7 @@ const FACTS: Fact[] = [
   ["server", "What we do", "Build every site, host it, save a copy every night, apply security fixes and send its email."],
   ["person", "What you do", "Find clients and look after them, the way you do today. They never see AnyPress."],
   ["clock", "How fast", "A paid order becomes a working site in minutes. Nobody has to press a button."],
-  ["send", "How to start", "Apply in two minutes. We read every application and email you back. There's no minimum."],
+  ["send", "How to start", "Apply in two minutes, then book a short call with us to get set up, billing included. There's no minimum."],
 ];
 
 const PROBLEMS: Problem[] = [
@@ -139,6 +139,14 @@ const MOVE: [DrawingName, string, string][] = [
   ["plug", "Add Reprint", "Install Reprint, WordPress's own free moving plugin, on the client's current site and paste the token in."],
   ["truck", "We copy it across", "The whole site comes straight from the old host: pages, products, orders, theme, plugins and photos."],
   ["open", "Check it, then go live", "Look it over on its new address, copy again to catch anything new, then point the domain at it."],
+];
+
+// How a seller starts: apply, a short call, we set you up, then help as you grow.
+const START: [DrawingName, string, string][] = [
+  ["words", "Apply", "Tell us about your business and who you build for. It takes two minutes."],
+  ["question", "Book a short call", "We get to know your business, show you how selling works and agree how billing works."],
+  ["shops", "We set you up", "Once you're approved, your storefront is built in minutes. We help you pick what to sell and set your prices."],
+  ["coins", "Sell, with us behind you", "Your clients pay you and each site is built in minutes. Questions later? Email support@anypress.io and we'll help."],
 ];
 
 const YOU: [string, string][] = [
@@ -417,7 +425,28 @@ export default function Sellers() {
         </div>
       </section>
 
-      <section className="sec soft" aria-labelledby="h-guide">
+      <section className="sec soft" aria-labelledby="h-start">
+        <div className="in">
+          <SectionHead
+            eyebrow="how to start"
+            title="Four steps to your first sale."
+            lead="You're never left to work it out alone: we talk it through with you first and set you up."
+            id="h-start"
+          />
+          <Flow steps={START} />
+          <p className="mt-10 text-center text-ink-soft">
+            <Link href="/sellers/setup" className="font-semibold text-ink underline">
+              How we set you up
+            </Link>{" "}
+            ·{" "}
+            <Link href="/sellers/autopilot" className="font-semibold text-ink underline">
+              What happens after each sale
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      <section className="sec" aria-labelledby="h-guide">
         <div className="in">
           <div className="guide-band">
             <div>
@@ -441,7 +470,7 @@ export default function Sellers() {
       <CtaBand
         eyebrow="ready?"
         title="Sell your first website this month."
-        body="Tell us about your business and who you build for. It takes two minutes, and we read every application and email you back."
+        body="Tell us about your business and who you build for. It takes two minutes, then you book a short call with us to get set up, billing included."
         href="/sell"
         label="Apply to sell websites"
         drawings={["sell", "shops", "coins"]}

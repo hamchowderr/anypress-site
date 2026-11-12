@@ -74,7 +74,7 @@ export default async function ComparePage({ params }: PageProps<"/compare/[slug]
         <CtaBand
           eyebrow="ready?"
           title="Sell websites without running servers."
-          body="Apply in a few minutes. We read every application and email you back."
+          body="Apply in a few minutes, then book a short call with us to get set up, billing included."
           href="/sell"
           label="Apply to sell websites"
           drawings={["sell", "shops", "software"]}

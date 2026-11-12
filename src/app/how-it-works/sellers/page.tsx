@@ -5,6 +5,7 @@ import { BuildYourOwn } from "@/components/BuildYourOwn";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { JsonLd } from "@/components/JsonLd";
 import { SystemDiagram } from "@/components/SystemDiagram";
+import { VersionStory } from "@/components/VersionStory";
 import { CtaBand, PageHero, Questions, SectionHead, SideSwitch } from "@/components/ui";
 import { faqLd, pageMeta } from "@/lib/seo";
 import { HOW_SWITCH, VOLUME_TIERS, WHOLESALE_PERCENT } from "@/lib/site";
@@ -25,12 +26,12 @@ const LAST = VOLUME_TIERS[VOLUME_TIERS.length - 1];
 const STEPS: { drawing: DrawingName; title: string; when: string; body: ReactNode }[] = [
   {
     drawing: "sell",
-    title: "Apply and get approved",
-    when: "we email you back",
+    title: "Apply and book a call",
+    when: "a short call",
     body: (
       <>
-        Tell us about your business on <Link href="/sell" className="underline">Apply to sell</Link>. We read every application and set you up
-        as a seller, or as a reseller if you run several brands.
+        Tell us about your business on <Link href="/sell" className="underline">Apply to sell</Link>, then book a short call with us. We agree how
+        billing works and set you up as a seller, or as a reseller if you run several brands.
       </>
     ),
   },
@@ -99,10 +100,20 @@ const PAY: [string, string, string][] = [
 ];
 
 const UNDER_HOOD: [DrawingName, string, ReactNode][] = [
-  ["server", "Its own containers", "Every site runs in its own WordPress and database containers. Nothing is shared between sites."],
+  ["server", "Its own WordPress", "Every site runs its own copy of WordPress with its own database. Nothing is shared between sites."],
   ["lock", "Walled off", "Sites can't reach each other or the machine they run on. One site having a bad day stays its own problem."],
   ["sizes", "Sizes we've tested", "Small, Medium and Large each get set computing power, memory and storage, sized from load tests."],
-  ["backup", "Copies kept off-site", "Nightly copies are stored away from the servers, and we test restoring one every day."],
+  [
+    "backup",
+    "Copies kept off-site",
+    <>
+      Nightly copies are stored away from the servers, and we test restoring one every day.{" "}
+      <Link href="/hosting" className="underline">
+        Hosting and safety
+      </Link>
+      .
+    </>,
+  ],
   [
     "key",
     "An API for everything",
@@ -142,6 +153,12 @@ const FAQ: [string, ReactNode][] = [
     </>,
   ],
   ["Who supports my clients?", "You do the client-facing side. We support you, and we look after the sites themselves."],
+  [
+    "Who updates WordPress and the plugins?",
+    "We do, for WordPress, our theme and the plugins we include. Every new release is tried on every kind of site before it reaches yours. Plugins you add yourself, you update in a new version of your starting site.",
+  ],
+  ["Does every site get the padlock (HTTPS)?", "Yes. Every site and every domain your clients connect gets a free certificate, renewed for you."],
+  ["What happens when a client stops paying?", "When their plan is cancelled, the site is backed up and taken offline for you. Nothing to remember."],
   [
     "Can I bring sites I already host?",
     <>
@@ -207,6 +224,25 @@ export default function HowItWorksSellers() {
       </section>
 
       <BuildYourOwn soft />
+
+      <section className="sec" aria-labelledby="h-updates">
+        <div className="in">
+          <SectionHead
+            eyebrow="changing every site safely"
+            title="Change all your clients' sites at once, without breaking one."
+            lead="Your starting site has versions. Change a copy, try it, then move your clients over when you're ready. The old one stays, so you can always go back."
+            id="h-updates"
+          />
+          <VersionStory />
+          <p className="mt-10 text-center text-ink-soft">
+            We update WordPress and the plugins every site comes with for you.{" "}
+            <Link href="/updates" className="font-semibold text-ink underline">
+              How updates stay safe
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
 
       <section className="sec in" aria-labelledby="h-where">
         <SectionHead eyebrow="who signs in where" title="Your team, your shop, your clients." id="h-where" />
@@ -296,7 +332,7 @@ export default function HowItWorksSellers() {
       <CtaBand
         eyebrow="ready?"
         title="Ready to sell websites?"
-        body="Tell us about your business and who you build for. We read every application and email you back."
+        body="Tell us about your business and who you build for, then book a short call with us to get set up, billing included."
         href="/sell"
         label="Apply to sell websites"
         drawings={["sell", "shops", "coins"]}

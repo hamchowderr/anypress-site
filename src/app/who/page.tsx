@@ -17,7 +17,7 @@ const TECHNICAL = AUDIENCE_GROUPS.filter((g) => g.side === "technical");
 // The three ways to have an AnyPress account, side by side. Sellers and resellers both sign in to the partner dashboard.
 const ACCOUNTS: [string, string, string, string][] = [
   ["Who it's for", "A business that wants a website of its own", "Freelancers, web design studios and groups selling sites under one name", "Studios, franchises, hosts and software companies with several brands"],
-  ["How you start", "Pick a site and pay. It's ready in minutes.", "Apply on Sell websites. We approve you and set up your storefront.", "Apply to be a reseller. We talk it through and approve you."],
+  ["How you start", "Pick a site and pay. It's ready in minutes.", "Apply, then book a short call with us to get set up, billing included.", "Apply to be a reseller, then book a short call to agree billing and get set up."],
   ["How you pay", "Monthly or yearly, for each site", `Per site, as you sell. ${VOLUME_TIERS[0].percent} to ${VOLUME_TIERS[VOLUME_TIERS.length - 1].percent}% off from ${VOLUME_TIERS[0].sites} sites`, `One bill a month, ${WHOLESALE_PERCENT}% off every site`],
   ["Whose name customers see", "Yours", "Yours, on one storefront", "Yours, on a storefront for each brand"],
   ["Where you sign in", "Sign in, here on anypress.io", "The partner dashboard", "The partner dashboard"],

@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead, SideSwitch } from "@/components/ui";
 import { faqLd, pageMeta } from "@/lib/seo";
-import { ACCOUNT_URL, HOW_SWITCH } from "@/lib/site";
+import { ACCOUNT_URL, HOW_SWITCH, TRIAL_DAYS } from "@/lib/site";
 
 // The website owner's side of How it works: someone buying a site for their own business. Sellers and resellers
 // have their own version at /how-it-works/sellers; the switch under the title moves between the two.
@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMeta({
   title: "How getting a website on AnyPress works",
   card: "How it works",
   description:
-    "Pick what you're building and pay, and your website is ready in minutes. Add your words and photos, and we look after it every day from then on.",
+    `Pick what you're building and add a card, and your website is ready in minutes, with the first ${TRIAL_DAYS} days free. Add your words and photos, and we look after it every day from then on.`,
 });
 
 const STEPS: {
@@ -31,8 +31,8 @@ const STEPS: {
     when: "a minute",
     body: (
       <>
-        Choose a website, bookings, a store, courses or everything, and a size. Small suits most new sites. You pay by card, monthly or
-        yearly, and you have 30 days to change your mind. <Link href="/pricing" className="underline">See prices</Link>.
+        Choose a website, bookings, a store, courses or everything, and a size. Small suits most new sites. You add a card, monthly or
+        yearly, and the first {TRIAL_DAYS} days are free. After that, your first payment is still covered for 30 days. <Link href="/pricing" className="underline">See prices</Link>.
       </>
     ),
   },
@@ -71,7 +71,7 @@ const STEPS: {
     drawing: "backup",
     title: "We look after it from then on",
     when: "every day",
-    body: "A copy of your site is saved every night. Security fixes are applied for you. If something goes wrong, email us and a person answers.",
+    body: "A copy of your site is saved every night. Security fixes are applied for you. If something goes wrong, email us and we'll help.",
   },
 ];
 
@@ -102,7 +102,7 @@ const PROBLEMS: Problem[] = [
 
 const YOU_NEED: [DrawingName, string, string][] = [
   ["email", "An email address", "Where we send your welcome email and receipts."],
-  ["card", "A card to pay with", "Monthly or yearly. Cancel any time from your account."],
+  ["card", "A card to pay with", `The first ${TRIAL_DAYS} days are free, then monthly or yearly. Cancel any time from your account.`],
   ["words", "Your words and photos", "Rough is fine. You can change them whenever you like."],
   ["domain", "Your domain, if you have one", "Optional. You can start on the free address and add it later."],
 ];
@@ -119,7 +119,7 @@ const WHERE: [DrawingName, string, ReactNode][] = [
   ["paint", "Your site's editor", "Where you change pages, photos, colours, products and bookings. It works like editing a document."],
   [
     "lifebuoy",
-    "Help, from a person",
+    "Help when you need it",
     <>
       Email <a href="mailto:support@anypress.io" className="underline">support@anypress.io</a>, or read the{" "}
       <Link href="/help" className="underline">help page</Link>.
