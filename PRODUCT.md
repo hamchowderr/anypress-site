@@ -45,7 +45,7 @@ Building a website shouldn't be hard. Other platforms make it harder than it nee
 - Never write "WPCS" or refer to the old platform by that name.
 - Not agency-only in any copy.
 - HighLevel (GoHighLevel) is never a competitor in copy: its agencies are customers. Say "works with HighLevel" (owner, 2026-11-05).
-- Lead with outcomes a business owner says out loud (get found on Google, get booked, get paid, keep track of customers, email from your own domain) and the pains they name (nickel-and-dimed by add-ons, updates that break the site). The homepage and /pricing run this as copy "b" in the site copy A/B test (src/lib/ab.ts).
+- Lead with outcomes a business owner says out loud (get found on Google, get booked, get paid, keep track of customers, email from your own domain) and the pains they name (nickel-and-dimed by add-ons, updates that break the site). This is the voice of site PR #46 (homepage hero, included strip, problems): every page follows it.
 
 ## Evidence on Hand
 

@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
   // The two customer groups whose page lives elsewhere, so /who/<group> works for every group.
   async redirects() {
     return [
+      // The old "b" addresses from the copy test, which ended 2026-11-12.
+      { source: "/home-b", destination: "/", permanent: true },
+      { source: "/pricing-b", destination: "/pricing", permanent: true },
+      { source: "/sellers-b", destination: "/sellers", permanent: true },
+      { source: "/resellers-b", destination: "/resellers", permanent: true },
+      { source: "/sites-b/:type", destination: "/sites/:type", permanent: true },
       { source: "/agencies", destination: "/sellers", permanent: true },
       { source: "/who/agencies", destination: "/sellers", permanent: true },
       { source: "/guides/agencies", destination: "/guides/sellers", permanent: true },

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Caveat, Hanken_Grotesk } from "next/font/google";
-import { AbTracker } from "@/components/AbTracker";
 import { ANIM_BOOT, DrawAnimator } from "@/components/DrawAnimator";
 import { SiteFooter } from "@/components/SiteFooter";
 import { JsonLd } from "@/components/JsonLd";
@@ -59,7 +58,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="flex-1">{children}</main>
         <SiteFooter />
         <DrawAnimator />
-        <AbTracker />
       </body>
     </html>
   );
