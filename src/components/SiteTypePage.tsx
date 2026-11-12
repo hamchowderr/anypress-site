@@ -1,0 +1,342 @@
+import Link from "next/link";
+import type { CSSProperties } from "react";
+import { Drawing, type DrawingName } from "@/components/Drawing";
+import { ProblemFix } from "@/components/ProblemFix";
+import { INCLUDED_B, Included, PROBLEMS_B } from "@/components/HomePage";
+import { Tick } from "@/components/Tick";
+import { Vignette } from "@/components/Vignette";
+import { WhoChip } from "@/components/WhoChip";
+import { ICONS, type IconName } from "@/components/icons.generated";
+import { CtaBand, Questions, SectionHead, SidePill } from "@/components/ui";
+import { SITE_DETAILS } from "@/lib/siteDetails";
+import { SITE_TYPES, SIZES, TRIAL_DAYS, VOLUME_RANGE, YEARLY_MONTHS, planUrl, siteLabel, startUrl } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { tryType } from "@/lib/try";
+import { BASE_URL, breadcrumbLd, faqLd } from "@/lib/seo";
+import type { AbVersion } from "@/lib/ab";
+
+// What people search for, per site type: the page title and the thing they'd call it.
+export const SEARCH_NAME: Record<string, string> = {
+  website: "Website & blog",
+  bookings: "Booking website",
+  store: "Online store",
+  community: "Community & course site",
+  everything: "All-in-one business site",
+};
+
+// The same on every kind of site: what we do for you, under the site's own features.
+const LOOKED_AFTER: { title: string; items: [IconName, string][] } = {
+  title: "Looked after for you",
+  items: [
+    ["shield", "Security fixes applied for you"],
+    ["cloud", "A copy saved every night"],
+    ["lock", "The padlock (https) on your own domain"],
+    ["key", "Two-step sign-in and limits on login attempts"],
+    ["funnel", "Spam protection on every form"],
+    ["people", "Logins for your team, each with their own access"],
+  ],
+};
+
+function CanList({ title, items }: { title: string; items: [IconName, string][] }) {
+  return (
+    <>
+      <h3>{title}</h3>
+      <ul>
+        {items.map(([icon, x]) => (
+          <li key={x}>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              dangerouslySetInnerHTML={{ __html: ICONS[icon] }}
+            />
+            {x}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+// What each kind of site does, in a line above the headline. No "managed WordPress" here: it means nothing to most
+// visitors, and it's still in the page title for search.
+const EYEBROW: Record<string, string> = {
+  website: "a website that brings in customers",
+  bookings: "a website that fills your calendar",
+  store: "a store on your own website",
+  community: "courses and members on your own website",
+  everything: "everything your business runs on, in one website",
+};
+
+// Version "b" for the site copy A/B test (src/lib/ab.ts), built from the homepage's "b" copy (site PR #46): an
+// outcome headline ending "We set it all up", the "included" strip that says what each item does for a business, and
+// the pains people name themselves (add-ons, updates that break the site) ahead of this type's own problems.
+const B_HEADLINE: Record<string, string> = {
+  website: "Get found on Google and hear from customers.",
+  bookings: "Get booked and get paid while you work.",
+  store: "Sell online and keep every sale.",
+  community: "Sell your courses and grow your members.",
+  everything: "Sell, take bookings and teach, all on one site.",
+};
+const B_LEAD: Record<string, string> = {
+  website: "Your site arrives ready to show up on Google, take messages and grow your mailing list.",
+  bookings: "Your site arrives with a booking calendar, payment when people book and reminder emails, all switched on.",
+  store: "Your store arrives ready to take payments, ship orders and email your customers, with no cut of your sales.",
+  community: "Your site arrives with courses, a members' area and paid access, all switched on.",
+  everything: "Your site arrives with a store, bookings, courses and a help desk, all working together.",
+};
+
+/** One site type's page. Both versions of the copy test use it; version "b" changes the hero, one heading and the closing band. */
+export function SiteTypePage({ type, version }: { type: string; version: AbVersion }) {
+  const t = SITE_TYPES.find((s) => s.id === type)!;
+  const b = version === "b";
+  const d = SITE_DETAILS[t.id];
+  const others = SITE_TYPES.filter((s) => s.id !== t.id);
+  const ex = t.example;
+  const label = siteLabel(t);
+
+  const steps: [DrawingName, string, string][] = [
+    ["pick", "Pick a size and pay", "a minute"],
+    ["tools", `We build your ${label}`, "minutes"],
+    ["words", "Make it yours", `add ${d.yourPart}`],
+    ["open", "Open your doors", "we keep it running"],
+  ];
+
+  return (
+    <>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: `AnyPress ${t.name}`,
+            description: t.pitch,
+            brand: { "@type": "Brand", name: "AnyPress" },
+            url: `${BASE_URL}/sites/${t.id}`,
+            offers: {
+              "@type": "AggregateOffer",
+              priceCurrency: "USD",
+              lowPrice: t.from,
+              highPrice: t.from * 4,
+              offerCount: 3,
+              availability: "https://schema.org/InStock",
+              url: planUrl(t),
+            },
+          },
+          faqLd(d.questions),
+          breadcrumbLd([[t.name, `/sites/${t.id}`]]),
+        ]}
+      />
+      <section className="in type-hero" aria-labelledby="h-type">
+        <SidePill side="owners" />
+        <span className="eyebrow">{EYEBROW[t.id]}</span>
+        {b ? (
+          <h1 id="h-type">
+            {B_HEADLINE[t.id]} <mark>We set it all up</mark>.
+          </h1>
+        ) : (
+          <h1 id="h-type">{t.headline}</h1>
+        )}
+        <p className="lead">{b ? `${B_LEAD[t.id]} You add ${d.yourPart}.` : t.pitch}</p>
+        <div className="ctas">
+          <a href={startUrl(t)} className="btn btn-ink" data-ab="start">
+            Start your {label} →
+          </a>
+          <Link href={tryType(t.id)} className="btn btn-paper">
+            Try one in your browser
+          </Link>
+          <a href="#sizes" className="btn btn-paper">
+            See prices
+          </a>
+        </div>
+        <ul className="checks">
+          <li>
+            <Tick />
+            From ${t.from} a month
+          </li>
+          <li>
+            <Tick />
+            No cut of your sales
+          </li>
+          <li>
+            <Tick />
+            {TRIAL_DAYS} days free to start
+          </li>
+          <li>
+            <Tick />
+            30-day money-back
+          </li>
+        </ul>
+        <p className="made-for">
+          <b>Made for</b>
+          {t.idealFor.map((x) => (
+            <WhoChip key={x} label={x} />
+          ))}
+        </p>
+        <ol className="hero-steps" aria-label="From order to open">
+          {steps.map(([dr, title, sub], i) => (
+            <li key={title} style={{ "--i": i } as CSSProperties}>
+              <Drawing name={dr} />
+              <b>{title}</b>
+              <span className="hand">{sub}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {b && <Included items={INCLUDED_B} />}
+
+      <section className="in try-strip" aria-label="Try the example site">
+        <div>
+          <span className="hand">try it yourself</span>
+          <b>{ex.name}</b>
+          <span className="text-ink-soft">is a made-up business on a real AnyPress {label}.</span>
+        </div>
+        <ul>
+          {ex.tryIt.map((x) => (
+            <li key={x}>
+              <Tick />
+              {x}
+            </li>
+          ))}
+        </ul>
+        <a href={ex.url} target="_blank" rel="noopener" className="btn btn-honey !py-2.5">
+          Open the example ↗
+        </a>
+      </section>
+
+      {b ? (
+        <ProblemFix soft items={[...PROBLEMS_B.slice(0, 2), ...d.problems]} eyebrow="sound familiar?" title="Stop paying for your website one piece at a time." />
+      ) : (
+        <ProblemFix soft items={d.problems} eyebrow="sound familiar?" title={`What gets in the way, and how a ${label} fixes it.`} />
+      )}
+
+      <section className="sec in" aria-labelledby="h-does">
+        <SectionHead eyebrow="what it does" title="What it does for you." id="h-does" />
+        <div className="yours">
+          {t.features.map((f, i) => (
+            <div key={f.title}>
+              <Drawing name={d.featureDrawings[i]} />
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="sec soft" aria-labelledby="h-can">
+        <div className="in">
+          <SectionHead
+            eyebrow="the full list"
+            title="Everything you can do with it."
+            lead="All of it is switched on when your site arrives. Nothing extra to buy."
+            id="h-can"
+          />
+          <ul className="can-groups">
+            {d.can
+              .filter((g) => g.scene)
+              .map((g) => (
+                <li key={g.title} data-replay>
+                  <Vignette name={g.scene!} />
+                  <CanList title={g.title} items={g.items} />
+                </li>
+              ))}
+          </ul>
+          <ul className="can-more">
+            {[...d.can.filter((g) => !g.scene), LOOKED_AFTER].map((g) => (
+              <li key={g.title}>
+                <CanList title={g.title} items={g.items} />
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 text-center text-ink-soft">
+            Know WordPress?{" "}
+            <Link href="/included" className="font-bold text-ink underline">
+              See the tools by name
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      <section id="sizes" className="sec soft scroll-mt-20" aria-labelledby="h-sizes">
+        <div className="in">
+          <SectionHead
+            eyebrow="pick a size"
+            title={`${t.name} prices.`}
+            lead="Same tools in every size. A bigger size gives your site more room, for when it gets busy."
+            id="h-sizes"
+          />
+          <ul className="size-cards">
+            {SIZES.map((s) => (
+              <li key={s.name} className={s.times === 1 ? "pick-me" : ""}>
+                {s.times === 1 && <span className="hand">most start here</span>}
+                <h3>{s.name}</h3>
+                <p className="good">{s.goodFor}</p>
+                <p className="amt">
+                  ${t.from * s.times}
+                  <small> / month</small>
+                </p>
+                <p className="yr">or ${(t.from * s.times * YEARLY_MONTHS).toLocaleString("en-US")} a year, two months free</p>
+                <dl>
+                  {[
+                    ["Computing power", s.cpu],
+                    ["Storage", s.storage],
+                    ["Emails a month", s.emails],
+                    ["AI assistant messages a month", s.assistant],
+                  ].map(([k, v]) => (
+                    <div key={k}>
+                      <dt>{k}</dt>
+                      <dd>{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <a href={planUrl(t, s.name)} className={`btn ${s.times === 1 ? "btn-ink" : "btn-paper"} w-full`}>
+                  Start with {s.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-center text-ink-soft">
+            You pay on our shop, and you can get your money back within 30 days. Three or more sites? Every site saves {VOLUME_RANGE}.{" "}
+            <Link href="/pricing#calculator" className="font-bold text-ink underline">
+              Work out your price
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      <section className="sec in" aria-labelledby="h-q">
+        <SectionHead drawing="question" eyebrow="good to know" title={`Questions about ${t.name.toLowerCase()} sites`} id="h-q" />
+        <Questions items={d.questions} firstOpen />
+      </section>
+
+      <section className="sec soft" aria-labelledby="h-other">
+        <div className="in">
+          <SectionHead eyebrow="or" title="Building something else?" id="h-other" />
+          <div className="types fit" style={{ "--n": others.length } as CSSProperties}>
+            {others.map((o) => (
+              <Link key={o.id} className="type" href={`/sites/${o.id}`}>
+                <Drawing name={o.drawing} />
+                <h3>{o.name}</h3>
+                <p>{o.pitch}</p>
+                <div className="price">
+                  ${o.from} <small>/ month</small>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CtaBand
+        title={`Ready for your ${label}?`}
+        body="It's ready to use the same day, and we look after it from there. Not for you? Get your money back within 30 days."
+        href={startUrl(t)}
+        label={`Start your ${label}`}
+        drawings={[t.drawing, "open", "thirty"]}
+      />
+    </>
+  );
+}

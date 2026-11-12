@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { AB_COOKIE, AB_PAGES, parseAbCookie, type AbVersion } from "@/lib/ab";
 
-// Splits visitors between the two versions of the site copy (src/lib/ab.ts) on the homepage and the prices page. A
-// visitor keeps their version for 30 days, on both pages. Search engines and other bots always get "a" and no cookie.
+// Splits visitors between the two versions of the site copy (src/lib/ab.ts) on every page in AB_PAGES. A visitor
+// keeps their version for 30 days, on all of those pages. Search engines and other bots always get "a" and no cookie.
 // ?copy=a or ?copy=b (or the older ?hero=) picks a version, for checking.
 const BOT = /bot|crawl|spider|slurp|facebookexternalhit|embedly|preview|lighthouse|headless|curl|wget|python|vercel/i;
 
@@ -17,7 +17,8 @@ export function proxy(request: NextRequest) {
   const saved = parseAbCookie(request.cookies.get(AB_COOKIE)?.value);
   const version: AbVersion = asked === "a" || asked === "b" ? asked : (saved?.version ?? (Math.random() < 0.5 ? "a" : "b"));
 
-  const res = version === "b" ? NextResponse.rewrite(new URL(AB_PAGES[pathname], request.url)) : NextResponse.next();
+  const bPage = AB_PAGES[pathname];
+  const res = version === "b" && bPage ? NextResponse.rewrite(new URL(bPage, request.url)) : NextResponse.next();
   if (!saved || saved.version !== version) {
     res.cookies.set(AB_COOKIE, `${version}.${saved?.visitor ?? crypto.randomUUID()}`, { path: "/", maxAge: 60 * 60 * 24 * 30, sameSite: "lax", secure: request.nextUrl.protocol === "https:" });
   }
@@ -25,4 +26,4 @@ export function proxy(request: NextRequest) {
 }
 
 // Keep in step with AB_PAGES (the matcher has to be written out here).
-export const config = { matcher: ["/", "/home-b", "/pricing", "/pricing-b"] };
+export const config = { matcher: ["/", "/home-b", "/pricing", "/pricing-b", "/sites/:type", "/sites-b/:type"] };

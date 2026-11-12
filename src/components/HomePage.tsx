@@ -157,7 +157,7 @@ const INCLUDED: [DrawingName, string][] = [
 ];
 
 // Version "b": what each item does for the business, not what it is.
-const INCLUDED_B: [DrawingName, string][] = [
+export const INCLUDED_B: [DrawingName, string][] = [
   ["email", "Email @yourbusiness.com, so you look professional"],
   ["places", "Get found on Google"],
   ["bookings", "Online booking and payments"],
@@ -168,7 +168,7 @@ const INCLUDED_B: [DrawingName, string][] = [
   ["thirty", "30-day money-back"],
 ];
 
-function Included({ items }: { items: [DrawingName, string][] }) {
+export function Included({ items }: { items: [DrawingName, string][] }) {
   return (
     <div className="marquee" role="region" aria-label="Included with every site">
       <div className="label">included with every site</div>
@@ -215,7 +215,7 @@ const PROBLEMS: Problem[] = [
 ];
 
 // Version "b" leads with the pains people name themselves: add-ons, updates that break things, not being found.
-const PROBLEMS_B: Problem[] = [
+export const PROBLEMS_B: Problem[] = [
   {
     problem: ["Nickel-and-dimed by add-ons", "A site builder, then a booking app, a payments app, an email service and a contact list, each with its own bill."],
     fix: ["One price, everything in", "Booking, payments, forms, your customer list and email are in your site from day one. Nothing else to buy."],

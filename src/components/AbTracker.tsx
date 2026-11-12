@@ -2,10 +2,10 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { AB_COOKIE, AB_TEST, parseAbCookie, type AbEvent } from "@/lib/ab";
+import { AB_COOKIE, AB_PAGES, AB_TEST, parseAbCookie, type AbEvent } from "@/lib/ab";
 import { ACCOUNT_URL, SHOP_URL } from "@/lib/site";
 
-// For visitors in the hero test (src/lib/ab.ts): counts a homepage view, a click on the hero's "Start your site", and
+// For visitors in the copy test (src/lib/ab.ts): counts a view of each tested page, a click on a hero's "Start" button, and
 // any click through to the shop from any page (not the sign-in link, which is for people who already bought). Shop links also get the version as UTM tags, which FluentCart keeps on
 // the order, so orders can be split by version too.
 function send(event: AbEvent, path: string) {
@@ -21,7 +21,7 @@ export function AbTracker() {
   useEffect(() => {
     const who = parseAbCookie(document.cookie.match(new RegExp(`(?:^|; )${AB_COOKIE}=([^;]+)`))?.[1]);
     if (!who) return;
-    if (path === "/") send("view", path);
+    if (path in AB_PAGES) send("view", path);
 
     const onClick = (e: MouseEvent) => {
       const a = (e.target as Element | null)?.closest?.("a");
