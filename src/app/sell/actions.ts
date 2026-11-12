@@ -27,6 +27,7 @@ export async function apply(_prev: ApplyState, form: FormData): Promise<ApplySta
     wantsStorefront,
     storefrontSubdomain: wantsStorefront ? field(form, "subdomain").toLowerCase() || undefined : undefined,
     highLevelAgency: field(form, "highlevel") === "yes",
+    ...kinds(form),
   };
 
   let res: Response;
@@ -57,6 +58,21 @@ export async function apply(_prev: ApplyState, form: FormData): Promise<ApplySta
   return { status: "error", message: "We couldn't send your application. Please try again later." };
 }
 
+/**
+ * The kinds of sites they sell and who their customers are. Their storefront shows only those plans and Who we help
+ * pages. "Not sure yet", or only "Something else", leaves siteTypes out, which keeps every kind of site.
+ */
+function kinds(form: FormData) {
+  const types = form.getAll("site_types").map(String).filter((t) => t !== "not-sure");
+  const audiences = form.getAll("audiences").map(String).filter((a) => a !== "none");
+  return {
+    siteTypes: types.length && !form.getAll("site_types").includes("not-sure") ? types : undefined,
+    siteTypesOther: field(form, "site_types_other") || undefined,
+    audiences,
+    audiencesOther: field(form, "audiences_other") || undefined,
+  };
+}
+
 /** The API's 400 messages, said the way the form labels its fields. */
 function plain(message: string | undefined): string {
   if (!message) return "Please check the form and try again.";
@@ -69,6 +85,10 @@ function plain(message: string | undefined): string {
     clients: "who you sell websites to",
     expectedSites: "how many websites you expect to sell",
     storefrontSubdomain: "your storefront address",
+    siteTypes: "the kinds of websites you sell",
+    siteTypesOther: "the other kinds of websites you sell",
+    audiences: "who your customers are",
+    audiencesOther: "your other customers",
   };
   const key = Object.keys(names).find((k) => message.startsWith(`${k} `));
   if (key === "storefrontSubdomain") return "Your storefront address can only use letters, digits and dashes.";
