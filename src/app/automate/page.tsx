@@ -177,7 +177,7 @@ const APPS: {
   {
     tool: "HighLevel",
     logo: "/apps/highlevel-logo.svg",
-    how: "For agencies on HighLevel (GoHighLevel). Install AnyPress on your sub-accounts and add its actions to any workflow, so every sub-account you sell comes with its own WordPress site under your brand.",
+    how: "For HighLevel agencies (GoHighLevel). Install AnyPress on your sub-accounts and add its actions to any workflow, so every sub-account you sell comes with its own WordPress site under your brand.",
     add: {
       label: "Get early access",
       href: "mailto:support@anypress.io?subject=AnyPress%20for%20HighLevel",
@@ -383,7 +383,7 @@ const FAQ: [string, ReactNode][] = [
   ],
   [
     "Is there an app for HighLevel (GoHighLevel)?",
-    "It's coming. Agencies will install AnyPress on their sub-accounts and create a client's site from any HighLevel workflow, then start the welcome steps when it's ready. Write to support@anypress.io for early access. You can start today with HighLevel's own webhook steps: the HighLevel guide in our docs shows how.",
+    "It's coming. HighLevel agencies will install AnyPress on their sub-accounts and create a client's site from any HighLevel workflow, then start the welcome steps when it's ready. Write to support@anypress.io for early access. You can start today with HighLevel's own webhook steps: the HighLevel guide in our docs shows how.",
   ],
 ];
 

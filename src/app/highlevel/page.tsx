@@ -40,7 +40,7 @@ const FAQ: [string, string][] = [
     "What can a workflow do?",
     "Create a site, look one up, and suspend or resume it, so a site follows the client's subscription without anyone logging in.",
   ],
-  ["Is it ready now?", "The HighLevel app is in early access. Email us and we'll set your agency up."],
+  ["Is it ready now?", "The HighLevel app is in early access. Email us and we'll set you up."],
 ];
 
 export default function HighLevelPage() {
