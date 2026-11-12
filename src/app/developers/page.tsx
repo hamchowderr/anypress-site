@@ -22,7 +22,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     problem: ["Polling to see if it worked", "Site creation takes time, so your code keeps asking until it's done."],
-    fix: ["Signed webhooks", "Get tenant.ready, failures, domain changes and backups pushed to you as they happen."],
+    fix: ["Signed webhooks", "Hear the moment a site is ready, fails, changes domain or is backed up, without asking again and again."],
   },
   {
     problem: ["One customer can take down the rest", "On a shared install, one heavy or hacked site slows or breaks everyone's."],
@@ -144,7 +144,7 @@ export default function Developers() {
             <div className="border-b border-white/15 px-4 py-2.5 font-mono text-sm text-white/60">signup.ts</div>
             <pre tabIndex={0} aria-label="Example request" className="overflow-x-auto p-5 font-mono text-[14px] leading-6">
               <code>
-                <span className="text-amber">await</span> waas.tenants.create({"{"}
+                <span className="text-amber">await</span> anypress.tenants.create({"{"}
                 {"\n"}
                 {"  "}name: <span className="text-amber">&quot;Kettle &amp; Crumb&quot;</span>,{"\n"}
                 {"  "}externalId: customer.id,{"\n"}

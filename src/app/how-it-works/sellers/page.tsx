@@ -99,7 +99,7 @@ const PAY: [string, string, string][] = [
 ];
 
 const UNDER_HOOD: [DrawingName, string, ReactNode][] = [
-  ["server", "Its own containers", "Every site runs in its own WordPress and database containers. Nothing is shared between sites."],
+  ["server", "Its own WordPress", "Every site runs its own copy of WordPress with its own database. Nothing is shared between sites."],
   ["lock", "Walled off", "Sites can't reach each other or the machine they run on. One site having a bad day stays its own problem."],
   ["sizes", "Sizes we've tested", "Small, Medium and Large each get set computing power, memory and storage, sized from load tests."],
   ["backup", "Copies kept off-site", "Nightly copies are stored away from the servers, and we test restoring one every day."],
@@ -127,6 +127,15 @@ const UNDER_HOOD: [DrawingName, string, ReactNode][] = [
   ],
 ];
 
+// Changing every client's site safely, in the order you do it (versions of a starting site).
+const UPDATES: { drawing: DrawingName; title: string; body: string }[] = [
+  { drawing: "paint", title: "Make a new version", body: "Copy your starting site into a new version. Your clients' sites don't change." },
+  { drawing: "tools", title: "Change it", body: "Add or update plugins, change the theme or pages, in the new version only." },
+  { drawing: "open", title: "Check it", body: "Open the new version and try it before any client gets it." },
+  { drawing: "truck", title: "Move sites over", body: "Make it the version new orders get, then move your clients' sites to it when you're ready." },
+  { drawing: "backup", title: "Go back if you need to", body: "Something not right? Move a site back to the old version. Older versions stay in your list." },
+];
+
 const FAQ: [string, ReactNode][] = [
   ["Do my clients see AnyPress?", "No. They buy from your storefront, get emails from your name and manage their site from an account on your shop."],
   [
@@ -142,6 +151,12 @@ const FAQ: [string, ReactNode][] = [
     </>,
   ],
   ["Who supports my clients?", "You do the client-facing side. We support you, and we look after the sites themselves."],
+  [
+    "Who updates WordPress and the plugins?",
+    "We do, for WordPress, our theme and the plugins we include. Every new release is tried on every kind of site before it reaches yours. Plugins you add yourself, you update in a new version of your starting site.",
+  ],
+  ["Does every site get the padlock (HTTPS)?", "Yes. Every site and every domain your clients connect gets a free certificate, renewed for you."],
+  ["What happens when a client stops paying?", "When their plan is cancelled, the site is backed up and taken offline for you. Nothing to remember."],
   [
     "Can I bring sites I already host?",
     <>
@@ -207,6 +222,30 @@ export default function HowItWorksSellers() {
       </section>
 
       <BuildYourOwn soft />
+
+      <section className="sec" aria-labelledby="h-updates">
+        <div className="in">
+          <SectionHead
+            eyebrow="changing every site safely"
+            title="Improve every client's site without breaking one."
+            lead="Your starting site has versions. Change a new one, check it, then move sites over. The old one stays, so you can always go back."
+            id="h-updates"
+          />
+          <ol className="steps">
+            {UPDATES.map((s, i) => (
+              <li key={s.title}>
+                <Drawing name={s.drawing} />
+                <div>
+                  <h3>
+                    {i + 1}. {s.title}
+                  </h3>
+                  <p>{s.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
       <section className="sec in" aria-labelledby="h-where">
         <SectionHead eyebrow="who signs in where" title="Your team, your shop, your clients." id="h-where" />

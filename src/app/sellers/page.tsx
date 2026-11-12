@@ -141,6 +141,14 @@ const MOVE: [DrawingName, string, string][] = [
   ["open", "Check it, then go live", "Look it over on its new address, copy again to catch anything new, then point the domain at it."],
 ];
 
+// How a seller starts: apply, a short call, we set you up, then help as you grow.
+const START: [DrawingName, string, string][] = [
+  ["words", "Apply", "Tell us about your business and who you build for. It takes two minutes."],
+  ["question", "Book a short call", "We get to know your business, show you how selling works and agree how billing works."],
+  ["shops", "We set you up", "Once you're approved, your storefront is built in minutes. We help you pick what to sell and set your prices."],
+  ["coins", "Sell, with us behind you", "Your clients pay you and each site is built in minutes. Questions later? Email support@anypress.io and a person writes back."],
+];
+
 const YOU: [string, string][] = [
   ["Your brand", "Your name, logo and domain on the storefront and every email. AnyPress stays in the background."],
   ["Your prices", "Charge whatever you like, monthly or yearly. Your clients never see our prices."],
@@ -417,7 +425,19 @@ export default function Sellers() {
         </div>
       </section>
 
-      <section className="sec soft" aria-labelledby="h-guide">
+      <section className="sec soft" aria-labelledby="h-start">
+        <div className="in">
+          <SectionHead
+            eyebrow="how to start"
+            title="Four steps to your first sale."
+            lead="You're never left to work it out alone: we talk it through with you first and set you up."
+            id="h-start"
+          />
+          <Flow steps={START} />
+        </div>
+      </section>
+
+      <section className="sec" aria-labelledby="h-guide">
         <div className="in">
           <div className="guide-band">
             <div>
