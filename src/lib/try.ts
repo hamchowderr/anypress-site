@@ -43,3 +43,23 @@ export const tryType = (type: TryType) => `/try?type=${type}`;
 /** Any of our blueprints (a kit's or a block's example site), with the name shown in the bar. */
 export const tryBlueprint = (url: string, title: string) =>
   `/try?blueprint=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+
+/** The /try site type a prospect demo's store site type opens as. */
+export function prospectType(siteType: string): TryType {
+  if (siteType === "online-store") return "store";
+  if (siteType === "store") return "everything";
+  return isTryType(siteType) ? siteType : "website";
+}
+
+/**
+ * What a prospect demo adds to its site type's blueprint: what was read from the business's website, then the
+ * sample's last part (templates/anypress-store/playground/sample/prospect.php), which gives the site their look.
+ */
+export const prospectSteps = (demo: unknown) => [
+  { step: "writeFile", path: "/wordpress/anypress-prospect.json", data: JSON.stringify(demo) },
+  {
+    step: "runPHP",
+    code: `<?php define('ANYPRESS_SAMPLE_PARTS', ["prospect"]); require '/wordpress/anypress-sample/run.php';`,
+    progress: { caption: "Making the demo yours" },
+  },
+];

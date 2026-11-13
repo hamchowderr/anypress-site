@@ -84,3 +84,19 @@ export async function startDemoAssistant(siteType: string): Promise<string | nul
     return null;
   }
 }
+
+/** A branded demo made for one business (the API's prospect demos): who it is for and what was read from its website. */
+export type ProspectDemo = { company: string; route: string; siteType: string; kit: string | null; brand: unknown };
+
+/** The demo for anypress.io/try?for=<code>, or null when the link is wrong or the demo isn't ready. */
+export async function prospectDemo(code: string): Promise<ProspectDemo | null> {
+  if (!/^p_[A-Za-z0-9_-]{16}$/.test(code)) return null;
+  try {
+    const res = await fetch(`${API_URL}/demos/prospects/${code}`, { cache: "no-store", signal: AbortSignal.timeout(10_000) });
+    if (!res.ok) return null;
+    const demo = (await res.json()) as ProspectDemo;
+    return typeof demo?.company === "string" ? demo : null;
+  } catch {
+    return null;
+  }
+}
