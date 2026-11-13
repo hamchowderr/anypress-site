@@ -5,6 +5,7 @@ import { apply, type ApplyState } from "./actions";
 import { SOURCES } from "@/lib/sources";
 import { AUDIENCES, EXPECTED_SITES } from "./options";
 import PRICES from "@/lib/pricing.json";
+import { SELLER_CALL_URL } from "@/lib/site";
 
 const input =
   "mt-1 block w-full rounded-md border border-line bg-bg px-3 py-2 text-fg placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent";
@@ -21,10 +22,12 @@ export function ApplicationForm({ storeDomain }: { storeDomain: string }) {
       <div className="mt-4" role="status">
         <p className="font-medium">Thanks, we got your application.</p>
         <p className="mt-2 text-sm text-muted">
-          We&apos;ve sent a confirmation to {state.email}. It has a link to book a short call
-          with us, where we get you set up and agree how billing works. Once you&apos;re approved, you&apos;ll get an email with a
-          link to sign in.
+          Next, book a short call with us. We get you set up and agree how billing works, then approve your account and email
+          you a link to sign in. We&apos;ve also sent this link to {state.email}.
         </p>
+        <a href={SELLER_CALL_URL} className="btn btn-ink mt-4 inline-flex">
+          Book your call
+        </a>
       </div>
     );
   }
