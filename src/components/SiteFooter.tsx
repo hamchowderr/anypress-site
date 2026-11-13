@@ -40,6 +40,7 @@ const COLUMNS = [
       { href: "/included", label: "What's included" },
       { href: "/hosting", label: "Hosting and safety" },
       { href: "/updates", label: "Safe updates" },
+      { href: "/changelog", label: "What's new" },
       { href: "/affiliates", label: "Affiliate program" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
