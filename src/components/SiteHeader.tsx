@@ -1,19 +1,20 @@
 import Link from "next/link";
 import { NavLink, StartButton } from "@/components/HeaderLinks";
 import { Logo } from "@/components/Logo";
-import { ACCOUNT_URL, DASHBOARD_URL } from "@/lib/site";
+import { ACCOUNT_URL, AFFILIATE_PERCENT, DASHBOARD_URL } from "@/lib/site";
 
 // For people getting a website. Sellers and resellers get their own link, set apart after these.
 const NAV = [
   { href: "/pricing", label: "Prices" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/#examples", label: "Examples" },
+  { href: "/designs", label: "Designs" },
   { href: "/who", label: "Who it's for" },
   { href: "/help", label: "Help" },
 ];
 
 const SELL = [
-  { href: "/agencies", label: "Sell websites" },
+  { href: "/sellers", label: "Sell websites" },
   { href: "/how-it-works/sellers", label: "How selling works" },
   { href: "/resellers", label: "Become a reseller" },
 ];
@@ -24,7 +25,7 @@ export function SiteHeader() {
     <>
       <aside className="announce" aria-label="Affiliate program">
         <div className="in">
-          <span className="pill">Affiliates</span> Earn 30% of every first payment you send our way.{" "}
+          <span className="pill">Affiliates</span> Earn {AFFILIATE_PERCENT}% of every first payment you send our way.{" "}
           <Link href="/affiliates">Join the program →</Link>
         </div>
       </aside>
@@ -33,20 +34,20 @@ export function SiteHeader() {
           <Link href="/" aria-label="AnyPress home" className="rounded-md">
             <Logo />
           </Link>
-          <div className="hidden flex-1 items-center justify-center gap-7 text-[16px] font-medium lg:flex">
+          <div className="hidden flex-1 items-center justify-center gap-4 whitespace-nowrap text-[16px] font-medium lg:flex xl:gap-7">
             {NAV.map((n) => (
               <NavLink key={n.href} href={n.href} label={n.label} className="underline-offset-4 hover:underline aria-[current=page]:underline aria-[current=page]:decoration-2" />
             ))}
             <span aria-hidden className="h-6 w-px bg-line" />
             <NavLink
-              href="/agencies"
+              href="/sellers"
               label="Sell websites"
               className="rounded-full border border-ink px-3.5 py-1 hover:bg-paper-2 aria-[current=page]:bg-ink aria-[current=page]:text-paper"
             />
           </div>
           <div className="ml-auto flex items-center gap-4 lg:ml-0">
             <details className="nav-signin relative hidden sm:block">
-              <summary className="cursor-pointer list-none font-semibold">Sign in</summary>
+              <summary className="cursor-pointer list-none font-semibold whitespace-nowrap">Sign in</summary>
               <div className="card absolute right-0 mt-3 w-72 border-ink p-2 shadow-[6px_6px_0_var(--honey)]">
                 <a href={signIn} className="block rounded-xl px-3 py-2.5 hover:bg-paper-2">
                   <b className="block">Your website</b>

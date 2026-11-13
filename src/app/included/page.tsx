@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { CtaBand, PageHero } from "@/components/ui";
 import { SITE_TYPES } from "@/lib/site";
@@ -11,13 +12,27 @@ export const metadata: Metadata = pageMeta({
     "Every WordPress plugin and tool in each AnyPress site, by name, for people who know WordPress: shop, bookings, forms, email, members, courses and backups.",
 });
 
-const EVERY_SITE = [
+const EVERY_SITE: [string, ReactNode][] = [
   ["Its own WordPress and database", "Every site runs in its own container. Nothing is shared with other sites."],
   ["SSL", "Certificates are issued and renewed automatically."],
   ["Nightly backups", "Files and database, saved every night, with restore."],
   ["Domains", "A free .anypress.site address, plus your own domain. Supported DNS providers connect in one click with Domain Connect."],
   ["Email from your domain", "Store email sends from your own domain once it's verified."],
   ["One-click sign-in", "Open wp-admin from your account without a separate password."],
+  [
+    "The AnyPress theme and 16 design kits",
+    <>
+      A block theme with a kit for each kind of business, restyled in the Site Editor.{" "}
+      <Link href="/designs" className="underline">See the designs</Link>.
+    </>,
+  ],
+  [
+    "AnyPress Blocks",
+    <>
+      Popup, carousel, before and after, countdown, counter, star rating, map, location finder and more.{" "}
+      <Link href="/designs/blocks" className="underline">Try them live</Link>.
+    </>,
+  ],
 ];
 
 export default function Included() {

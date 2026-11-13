@@ -9,6 +9,10 @@ export const ACCOUNT_URL = `${SHOP_URL}${process.env.NEXT_PUBLIC_ACCOUNT_PATH ||
 /** Where sellers and resellers sign in. Website owners sign in on the shop's account page (ACCOUNT_URL) instead. */
 export const DASHBOARD_URL = "https://app.anypress.io";
 export const AFFILIATE_URL = `${SHOP_URL}/affiliates/`;
+/** Where sellers and resellers book their set-up call (FluentBooking on the shop), the same link as the application email. */
+export const SELLER_CALL_URL = `${SHOP_URL}/seller-call/`;
+/** The account's Website page on the shop, where a website owner adds care to a website. */
+export const CARE_ADD_URL = `${ACCOUNT_URL.replace(/\/$/, "")}/website`;
 
 export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "support@anypress.io";
 
@@ -18,6 +22,26 @@ export function planUrl(t: SiteType, size = "Small"): string {
 }
 
 import type { DrawingName } from "@/components/drawings.generated";
+import PRICES from "./pricing.json";
+
+// Every price on the site comes from AnyPress's one price list (the API's GET /pricing), copied into
+// pricing.json by `npm run prices`. Never type a price into a page: use these.
+
+/** A site type's Small monthly price, in dollars. The site's `store` is the API's `online-store`. */
+function smallPrice(id: SiteTypeId): number {
+  const key = id === "store" ? "online-store" : id;
+  const type = PRICES.siteTypes.find((t) => t.key === key);
+  if (!type) throw new Error(`No price for ${id} in pricing.json`);
+  return type.monthly.small;
+}
+
+/** A year costs this many months (ten, so two are free). */
+export const YEARLY_MONTHS = PRICES.yearlyMonths;
+/** Free days a new website plan starts with (the shop's FluentCart trial; a card is added at checkout, one trial per person). */
+export const TRIAL_DAYS = 7;
+
+/** What an affiliate earns of a customer's first payment, in percent. */
+export const AFFILIATE_PERCENT = PRICES.affiliatePercent;
 
 export type SiteTypeId = "website" | "bookings" | "store" | "community" | "everything";
 
@@ -25,7 +49,7 @@ export interface SiteType {
   id: SiteTypeId;
   name: string;
   short: string;
-  // Starting monthly price for the smallest size (owner chose these 2026-10-19).
+  // Starting monthly price for the smallest size, from the price list.
   from: number;
   // One plain line: what this site is for.
   pitch: string;
@@ -62,7 +86,7 @@ export const SITE_TYPES: SiteType[] = [
     id: "website",
     name: "Website & blog",
     short: "Website",
-    from: 12,
+    from: smallPrice("website"),
     pitch: "Tell people who you are and help them find you.",
     inBox: ["Your website or blog", "Help getting found on Google", "Contact and sign-up forms", "A newsletter list"],
     tools: ["WordPress", "FluentAuth", "FluentSMTP", "FluentCRM", "Fluent Forms", "FluentPlayer", "FluentSnippets", "Rank Math SEO", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
@@ -88,7 +112,7 @@ export const SITE_TYPES: SiteType[] = [
     id: "bookings",
     name: "Bookings",
     short: "Bookings",
-    from: 19,
+    from: smallPrice("bookings"),
     pitch: "Let clients pick a time and pay when they book.",
     inBox: ["Your website", "An online booking calendar", "Payment when they book", "Reminder emails"],
     tools: ["WordPress", "FluentAuth", "FluentSMTP", "FluentCRM", "Fluent Forms", "FluentBooking", "FluentCart", "FluentPlayer", "Fluent Support", "FluentSnippets", "Rank Math SEO", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
@@ -114,7 +138,7 @@ export const SITE_TYPES: SiteType[] = [
     id: "store",
     name: "Online store",
     short: "Store",
-    from: 29,
+    from: smallPrice("store"),
     pitch: "Sell products, downloads and subscriptions, and keep every sale.",
     inBox: ["Your shop", "Card payments", "Your customer list and emails", "A way for others to earn by sending you sales"],
     tools: ["WordPress", "FluentAuth", "FluentSMTP", "FluentCRM", "Fluent Forms", "FluentCart with Stripe", "FluentPlayer", "FluentAffiliate", "Fluent Support", "FluentSnippets", "Rank Math SEO", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
@@ -140,7 +164,7 @@ export const SITE_TYPES: SiteType[] = [
     id: "community",
     name: "Community & courses",
     short: "Community",
-    from: 39,
+    from: smallPrice("community"),
     pitch: "A members' area with courses, discussions and paid access.",
     inBox: ["Your website", "A members' area with discussions", "Online courses", "Paid memberships"],
     tools: ["WordPress", "FluentAuth", "FluentSMTP", "FluentCRM", "Fluent Forms", "FluentCart", "FluentCommunity", "FluentPlayer", "FluentSnippets", "Rank Math SEO", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
@@ -166,7 +190,7 @@ export const SITE_TYPES: SiteType[] = [
     id: "everything",
     name: "Everything",
     short: "Everything",
-    from: 79,
+    from: smallPrice("everything"),
     pitch: "Shop, bookings, members, courses and a help desk on one site.",
     inBox: ["Everything in the other four", "A help desk for customer questions", "One list of every customer", "Room to grow"],
     tools: ["WordPress", "FluentAuth", "FluentSMTP", "FluentCRM", "Fluent Forms", "FluentBooking", "FluentCart", "FluentCommunity", "FluentPlayer", "FluentAffiliate", "Fluent Support", "FluentSnippets", "Rank Math SEO", "AutomatorWP", "WP Fusion Lite", "FluentToolkit"],
@@ -177,7 +201,7 @@ export const SITE_TYPES: SiteType[] = [
       { title: "Answer questions in one place", body: "Customers get a help page, and you get one inbox for every question." },
       { title: "Grows with you", body: "Start selling, add memberships later, open bookings next month. It's already there." },
     ],
-    idealFor: ["Chambers and associations", "Franchises and multi-location brands", "Education businesses", "Agencies' biggest clients", "Anyone outgrowing five apps"],
+    idealFor: ["Chambers and associations", "Franchises and multi-location brands", "Education businesses", "Web designers' biggest clients", "Anyone outgrowing five apps"],
     shopSlug: "everything",
     drawing: "everything",
     example: {
@@ -214,7 +238,7 @@ export interface AudienceGroup {
   // Which side of AnyPress this group usually buys from: a site for themselves, or the technical side.
   side: "owners" | "technical";
   drawing: DrawingName;
-  // Groups with a page elsewhere (agencies, developers) link there instead of /who/<id>.
+  // Groups with a page elsewhere (sellers, developers) link there instead of /who/<id>.
   href?: string;
   page?: GroupPage;
 }
@@ -423,14 +447,14 @@ export const AUDIENCE_GROUPS: AudienceGroup[] = [
   },
   {
     id: "agencies",
-    name: "Agencies & freelancers",
+    name: "Web designers & freelancers",
     line: "Sell websites as a monthly service.",
     body: "Sell websites under your own name, at your own prices. We build and look after every one.",
-    examples: ["Web design agencies", "Freelance designers and developers", "Marketing agencies", "Consultants who build sites"],
+    examples: ["Web design studios", "Freelance designers and developers", "Marketing consultants", "Anyone who builds sites for clients"],
     fits: ["website", "store", "everything"],
     side: "technical",
     drawing: "agency",
-    href: "/agencies",
+    href: "/sellers",
   },
   {
     id: "developers",
@@ -453,18 +477,20 @@ export interface Size {
   memory: string;
   storage: string;
   emails: string;
+  // The built-in AI assistant's messages a month (assistantMessagesPerMonth in the API's src/plans.ts).
+  assistant: string;
   goodFor: string;
 }
 
 export const SIZES: Size[] = [
-  { name: "Small", times: 1, cpu: "1 CPU", memory: "512 MB", storage: "5 GB", emails: "5,000", goodFor: "Most new sites" },
-  { name: "Medium", times: 2, cpu: "2 CPUs", memory: "512 MB", storage: "10 GB", emails: "20,000", goodFor: "Busier sites" },
-  { name: "Large", times: 4, cpu: "4 CPUs", memory: "768 MB", storage: "25 GB", emails: "50,000", goodFor: "Big shops and communities" },
+  { name: "Small", times: PRICES.sizeTimes.small, cpu: "1 CPU", memory: "768 MB", storage: "10 GB", emails: "5,000", assistant: "150", goodFor: "Most new sites" },
+  { name: "Medium", times: PRICES.sizeTimes.medium, cpu: "2 CPUs", memory: "1.25 GB", storage: "20 GB", emails: "20,000", assistant: "300", goodFor: "Busier sites" },
+  { name: "Large", times: PRICES.sizeTimes.large, cpu: "4 CPUs", memory: "2 GB", storage: "30 GB", emails: "50,000", assistant: "600", goodFor: "Big shops and communities" },
 ];
 
 // Resellers pay this much off the list price of every live site, on one monthly bill (resellers.wholesale_percent
-// in the API, 40 by default). It replaces the volume discount.
-export const WHOLESALE_PERCENT = 40;
+// in the API). It replaces the volume discount.
+export const WHOLESALE_PERCENT = PRICES.wholesalePercent;
 
 /** A site's price for a reseller, in dollars, from its list price. */
 export function wholesalePrice(list: number): number {
@@ -473,11 +499,19 @@ export function wholesalePrice(list: number): number {
 
 // Volume discount: the more live sites one customer has, the more every site saves (the shop's VolumeDiscount tiers,
 // in waas-plugins). Existing sites move to the new tier from their next renewal.
-export const VOLUME_TIERS = [
-  { sites: 3, percent: 10 },
-  { sites: 10, percent: 20 },
-  { sites: 25, percent: 30 },
-];
+export const VOLUME_TIERS = PRICES.volumeTiers;
+
+/** The volume savings in a few words: "10 to 30%". */
+export const VOLUME_RANGE = `${VOLUME_TIERS[0].percent} to ${VOLUME_TIERS[VOLUME_TIERS.length - 1].percent}%`;
+
+/** Every tier in words: "10% with 3 to 9 sites, 20% with 10 to 24 sites and 30% with 25 or more". */
+export function volumeTiersInWords(): string {
+  const parts = VOLUME_TIERS.map((t, i) => {
+    const next = VOLUME_TIERS[i + 1];
+    return `${t.percent}% ${next ? `at ${t.sites} to ${next.sites - 1} sites` : `at ${t.sites} or more`}`;
+  });
+  return `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
+}
 
 /** Percent off each site for a customer with `sites` live sites. */
 export function volumePercent(sites: number): number {
@@ -490,6 +524,14 @@ export function volumePercent(sites: number): number {
 export function nextTier(sites: number) {
   return VOLUME_TIERS.find((t) => sites < t.sites);
 }
+
+/** A site type's price for a size and period, in dollars. */
+export function sitePrice(id: SiteTypeId, sizeTimes = 1, yearly = false): number {
+  return smallPrice(id) * sizeTimes * (yearly ? YEARLY_MONTHS : 1);
+}
+
+/** The cheapest site's Small monthly price: the "From $12 a month" on every page. */
+export const LOWEST_PRICE = Math.min(...PRICES.siteTypes.map((t) => t.monthly.small));
 
 /** The two versions of How it works: website owners, and sellers and resellers. */
 export const HOW_SWITCH = {

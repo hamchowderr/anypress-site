@@ -12,25 +12,31 @@ const input =
  * Name, email, what they want and how they heard about us, into the shop's CRM.
  * `group` is the customer group the page is for; `interest` fixes the answer to "what do you want" (e.g. Seller).
  */
-export function LeadForm({ group = "", interest, cta = "Send it to me" }: { group?: string; interest?: string; cta?: string }) {
+export function LeadForm({
+  group = "",
+  interest,
+  source,
+  cta = "Send it to me",
+  note = "One email to confirm, then the occasional tip. Unsubscribe any time.",
+  beta = false,
+}: {
+  group?: string;
+  interest?: string;
+  /** Fixes "how did you hear about us" (one of SOURCES) when the page already knows. */
+  source?: string;
+  cta?: string;
+  note?: string;
+  /** A beta sign-up: tagged for the beta in the CRM, with the beta's own thank-you. */
+  beta?: boolean;
+}) {
   const [state, action, pending] = useActionState<LeadState, FormData>(lead, { status: "idle" });
 
-  if (state.status === "sent") {
-    return (
-      <div className="mt-4" role="status">
-        <p className="font-semibold">Thanks, you&apos;re on the list.</p>
-        <p className="mt-2 text-ink-soft">
-          {state.confirm
-            ? "Check your inbox for one email from us and click the button in it to confirm. Then we'll send what you asked for."
-            : "We'll send what you asked for shortly."}
-        </p>
-      </div>
-    );
-  }
+  if (state.status === "sent") return <Thanks beta={beta} confirm={state.confirm} />;
 
   return (
     <form action={action} className="mt-6 grid gap-5 sm:grid-cols-2">
       <input type="hidden" name="group" value={group} />
+      {beta && <input type="hidden" name="beta" value="1" />}
       <CampaignField />
       <label className="block text-sm font-medium">
         Your name
@@ -53,20 +59,25 @@ export function LeadForm({ group = "", interest, cta = "Send it to me" }: { grou
               </option>
             ))}
             <option value="Seller">Sell websites to my clients</option>
+            <option value="Reseller">Resell under my own brand</option>
           </select>
         </label>
       )}
-      <label className="block text-sm font-medium">
-        How did you hear about us? <span className="font-normal text-muted">(optional)</span>
-        <select name="source" defaultValue="" className={input}>
-          <option value="">Choose one</option>
-          {SOURCES.map(([value, label]) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </label>
+      {source ? (
+        <input type="hidden" name="source" value={source} />
+      ) : (
+        <label className="block text-sm font-medium">
+          How did you hear about us? <span className="font-normal text-muted">(optional)</span>
+          <select name="source" defaultValue="" className={input}>
+            <option value="">Choose one</option>
+            {SOURCES.map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
 
       {/* Hidden from people; bots fill it in. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
@@ -85,7 +96,7 @@ export function LeadForm({ group = "", interest, cta = "Send it to me" }: { grou
         <button type="submit" disabled={pending} className="btn btn-ink disabled:opacity-60">
           {pending ? "Sending…" : cta}
         </button>
-        <p className="mt-3 text-sm text-ink-soft">One email to confirm, then the occasional tip. Unsubscribe any time.</p>
+        <p className="mt-3 text-sm text-ink-soft">{note}</p>
       </div>
     </form>
   );
@@ -96,4 +107,22 @@ function CampaignField() {
   const campaign =
     typeof window === "undefined" ? "" : (new URLSearchParams(window.location.search).get("utm_campaign") ?? "").slice(0, 100);
   return <input type="hidden" name="campaign" value={campaign} suppressHydrationWarning />;
+}
+
+/** What a person sees once the form has gone. */
+function Thanks({ beta, confirm }: { beta: boolean; confirm: boolean }) {
+  const next = beta
+    ? "We'll email your invite when your place is ready. The first invites go out on 12 November."
+    : confirm
+      ? "Then we'll send what you asked for."
+      : "We'll send what you asked for shortly.";
+  return (
+    <div className="mt-4" role="status">
+      <p className="font-semibold">{beta ? "Thanks, you're on the beta list." : "Thanks, you're on the list."}</p>
+      <p className="mt-2 text-ink-soft">
+        {confirm ? "Check your inbox for one email from us and click the button in it to confirm. " : ""}
+        {next}
+      </p>
+    </div>
+  );
 }

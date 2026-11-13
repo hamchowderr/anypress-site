@@ -1,13 +1,20 @@
 // The free guide for each customer group, at /guides/<group id>. Plain words; no made-up customers or numbers
-// presented as real results. Prices come from SITE_TYPES so they never drift.
+// presented as real results. Prices come from the price list (src/lib/site.ts) so they never drift.
+
+import { sitePrice, volumePercent } from "@/lib/site";
+
+const BOOKINGS = sitePrice("bookings");
+const TEN_SITES_SAVE = volumePercent(10);
 
 export interface Guide {
   id: string;
+  /** The customer group it belongs to, when its id differs from the guide's. */
+  group?: string;
   title: string;
   lead: string;
   sections: { heading: string; body?: string; steps?: string[]; checks?: string[] }[];
   // An interactive worksheet shown after the sections.
-  calculator?: "course" | "agency";
+  calculator?: "course";
 }
 
 export const GUIDES: Guide[] = [
@@ -219,7 +226,7 @@ export const GUIDES: Guide[] = [
       },
       {
         heading: "What it costs",
-        body: "Ten Bookings sites at $19 each is $190 a month at full price. At ten sites the volume discount is 20%, so it comes to $152 a month for all ten.",
+        body: `Ten Bookings sites at $${BOOKINGS} each is $${BOOKINGS * 10} a month at full price. At ten sites the volume discount is ${TEN_SITES_SAVE}%, so it comes to $${(BOOKINGS * 10 * (100 - TEN_SITES_SAVE)) / 100} a month for all ten.`,
       },
       {
         heading: "Who pays",
@@ -229,18 +236,6 @@ export const GUIDES: Guide[] = [
         ],
       },
     ],
-  },
-  {
-    id: "agencies",
-    title: "Agency profit calculator",
-    lead: "See what selling websites as a monthly service could earn you. You set your price; we charge per site, less as you grow.",
-    sections: [
-      {
-        heading: "How the numbers work",
-        body: "You pay us the plan price for each site, with 10% off at 3 to 9 sites, 20% off at 10 to 24, and 30% off at 25 or more. Whatever you charge your clients above that is yours.",
-      },
-    ],
-    calculator: "agency",
   },
   {
     id: "developers",
