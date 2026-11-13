@@ -159,6 +159,23 @@ function buyHref(type?: TryType) {
 
 type KeepDemo = { can: boolean; busy: boolean; error: string; run: () => void };
 
+/** Set when the page leaves on purpose (to checkout), so the close warning stays quiet. */
+const leavingOnPurpose = { current: false };
+
+/** Nothing in a demo is kept: once it is running, the browser asks before the tab closes or reloads. */
+function useWarnBeforeClose(running: boolean) {
+  useEffect(() => {
+    if (!running) return;
+    const warn = (e: BeforeUnloadEvent) => {
+      if (leavingOnPurpose.current) return;
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [running]);
+}
+
 /** "Make this my site": the shop sells HighLevel sites through their own page, so only the other site types keep their demo. */
 function useKeepDemo(
   client: { current: PlaygroundClient | null },
@@ -171,7 +188,9 @@ function useKeepDemo(
     setBusy(true);
     setError("");
     try {
-      window.location.assign(await keepDemo(client.current, type));
+      const checkout = await keepDemo(client.current, type);
+      leavingOnPurpose.current = true;
+      window.location.assign(checkout);
     } catch (err) {
       console.error(err);
       setError(
@@ -243,13 +262,7 @@ function TryBar({
             >
               {keep.error}
             </p>
-          ) : (
-            <p className="hidden max-w-[17rem] text-right text-[13px] leading-snug text-[#5f5a55] xl:block">
-              {keep.can
-                ? "Runs in your browser. Change anything; it comes with you to checkout."
-                : "Runs in your browser. Click around and change anything."}
-            </p>
-          )}
+          ) : null}
           {keep.can ? (
             <button
               type="button"
@@ -277,6 +290,11 @@ function TryBar({
           {keep.error}
         </p>
       ) : null}
+      <p className="border-t border-[#f1ede8] bg-[#fff8ea] px-4 py-1.5 text-[13px] leading-snug text-[#5f5a55] sm:px-5">
+        {keep.can
+          ? "This demo runs in your browser and isn’t saved. Closing this tab clears it, and the same link starts a fresh one. To keep your changes, click Make This My Site."
+          : "This demo runs in your browser and isn’t saved. Closing this tab clears it, and the same link starts a fresh one."}
+      </p>
     </header>
   );
 }
@@ -354,6 +372,7 @@ function TryPlayground({
   const [attempt, setAttempt] = useState(0);
   const client = useRef<PlaygroundClient | null>(null);
   const keepState = useKeepDemo(client, ready ? type : undefined);
+  useWarnBeforeClose(ready);
 
   useEffect(() => {
     const frame = iframe.current;

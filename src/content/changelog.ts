@@ -25,6 +25,16 @@ export interface Change {
 
 export const CHANGES: Change[] = [
   {
+    id: "demos-not-saved",
+    date: "2026-11-13",
+    kind: "improved",
+    minor: true,
+    title: "Demos say they aren't saved",
+    body: "Trying a site on the Try page now says plainly that the demo runs in your browser and is cleared when you close the tab, and your browser asks before you close it. Make This My Site keeps your changes.",
+    for: [],
+    link: { href: "/try", label: "Try a site" },
+  },
+  {
     id: "aisle",
     date: "2026-11-13",
     kind: "new",
