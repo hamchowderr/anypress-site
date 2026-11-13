@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type * as PlaygroundClientModuleType from "@wp-playground/client";
 import { LogoMark } from "@/components/Logo";
-import { saveDemo, startDemoAssistant, uploadDemoImage } from "@/app/try/actions";
+import { prospectDemo, saveDemo, startDemoAssistant, uploadDemoImage, type ProspectDemo } from "@/app/try/actions";
 import { DEMO_EXPORT_PHP, type DemoExport } from "@/lib/demoExport";
 import { SITE_TYPES, startUrl } from "@/lib/site";
 import {
@@ -15,6 +15,8 @@ import {
   type TryType,
   isOurBlueprint,
   isTryType,
+  prospectSteps,
+  prospectType,
   tryType,
   typeBlueprint,
 } from "@/lib/try";
@@ -337,10 +339,13 @@ function TryPlayground({
   blueprintUrl,
   title,
   type,
+  steps,
 }: {
   blueprintUrl: string;
   title: string;
   type?: TryType;
+  /** Steps added after the blueprint's own (a prospect demo's branding). */
+  steps?: unknown[];
 }) {
   const iframe = useRef<HTMLIFrameElement>(null);
   const [progress, setProgress] = useState(0);
@@ -370,10 +375,12 @@ function TryPlayground({
       });
       const res = await fetch(blueprintUrl, { cache: "no-store" });
       if (!res.ok) throw new Error(`Blueprint ${res.status}`);
+      const blueprint = await res.json();
+      if (steps?.length) blueprint.steps = [...(blueprint.steps ?? []), ...steps];
       client.current = await start({
         iframe: frame,
         remoteUrl: PLAYGROUND_REMOTE,
-        blueprint: await res.json(),
+        blueprint,
         progressTracker: tracker as unknown as WebTracker,
         disableProgressBar: true,
       });
@@ -386,7 +393,7 @@ function TryPlayground({
     return () => {
       gone = true;
     };
-  }, [blueprintUrl, attempt, type]);
+  }, [blueprintUrl, attempt, type, steps]);
 
   const retry = () => {
     setFailed(false);
@@ -425,9 +432,48 @@ function TryPlayground({
   );
 }
 
-/** /try's site, from its link: a site type's demo, or one of our blueprints. */
+/** A demo made for one business (/try?for=<code>): its site type's demo, in its look. */
+function TryProspect({ code }: { code: string }) {
+  const [demo, setDemo] = useState<ProspectDemo | null | undefined>(undefined);
+  useEffect(() => {
+    let gone = false;
+    prospectDemo(code).then((d) => {
+      if (!gone) setDemo(d);
+    });
+    return () => {
+      gone = true;
+    };
+  }, [code]);
+  const steps = useMemo(() => (demo ? prospectSteps(demo) : undefined), [demo]);
+  if (demo === undefined) return null;
+  if (!demo || !steps)
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center px-6 text-center">
+        <p>
+          This demo link isn’t ready yet, or it has ended.{" "}
+          <Link href="/try" className="underline">
+            Try AnyPress here
+          </Link>
+          .
+        </p>
+      </div>
+    );
+  const type = prospectType(demo.siteType);
+  return (
+    <TryPlayground
+      blueprintUrl={typeBlueprint(type)}
+      title={`${demo.company}`.slice(0, 60)}
+      type={type}
+      steps={steps}
+    />
+  );
+}
+
+/** /try's site, from its link: a demo made for a business, a site type's demo, or one of our blueprints. */
 export function TryFromQuery() {
   const q = useSearchParams();
+  const forCode = q.get("for");
+  if (forCode) return <TryProspect code={forCode} />;
   const blueprint = q.get("blueprint");
   if (isOurBlueprint(blueprint))
     return (
