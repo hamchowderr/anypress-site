@@ -32,6 +32,11 @@ const MOVES: [DrawingName, string, string][] = [
 // The moves built into every AnyPress site (AnyPress Client's switches; AnyPress Move for any other WordPress).
 const SWITCHES: [string, string, string][] = [
   ["Circle", "FluentCommunity", "Spaces, members, posts, comments and courses, through Circle's own Admin API."],
+  [
+    "Skool",
+    "FluentCommunity",
+    "Your group's members, from the Members tab's export, into a space or course. Their answers to your membership questions go into FluentCRM.",
+  ],
   ["LearnDash, Tutor LMS or LifterLMS", "FluentCommunity courses", "Courses and lessons, students and how far each one got."],
   ["MemberPress", "FluentCommunity", "Active members get their spaces and courses, with FluentCRM tags. Payments stay in MemberPress."],
   ["BuddyPress or BuddyBoss", "FluentCommunity", "Groups become spaces with their members, and posts come with their comments, reactions and photos."],
@@ -41,8 +46,14 @@ const SWITCHES: [string, string, string][] = [
     "FluentCart",
     "Downloads, orders, customers, coupons, tax rates, subscriptions and licences, and the buy buttons on your pages. Run it on your current site with AnyPress Move before it moves in. Licences need FluentCart Pro.",
   ],
-  ["Contact Form 7, WPForms or Ninja Forms", "Fluent Forms", "Your forms with their entries, and the pages that show them."],
+  ["Contact Form 7, WPForms, Ninja Forms or Gravity Forms", "Fluent Forms", "Your forms with their entries, and the pages that show them."],
+  [
+    "Calendly",
+    "FluentBooking",
+    "Your weekly hours, event types and upcoming bookings, through Calendly's own API. Calendly keeps sending the reminders for bookings made there.",
+  ],
   ["WooCommerce buyers, MailPoet or Newsletter", "FluentCRM", "Your contacts and lists. Unsubscribed people stay unsubscribed."],
+  ["Brevo or MailerLite", "FluentCRM", "Your contacts, from FluentCRM's own Import screen on your AnyPress site."],
   ["AffiliateWP, SliceWP and others", "FluentAffiliate", "Your affiliates, their referrals and payouts."],
   ["Awesome Support and others", "Fluent Support", "Your help desk tickets."],
 ];
