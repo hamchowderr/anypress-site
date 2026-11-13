@@ -32,7 +32,7 @@ Building a website shouldn't be hard. Other platforms make it harder than it nee
 
 ## Capabilities and Constraints
 
-- Five site types with owner-chosen starting prices per month: Website $12, Bookings $19, Online store $29, Community & courses $39, Everything $79. Every type comes in Small, Medium (2x) and Large (4x); yearly is 10x monthly; 3+ sites save 10/20/30% at 3, 10 and 25 sites.
+- Five site types with owner-chosen starting prices per month: Website $12, Bookings $19, Online store $29, Community & courses $49, Everything $79. Every type comes in Small, Medium (2x) and Large (4x); yearly is 10x monthly; 3+ sites save 10/20/30% at 3, 10 and 25 sites.
 - Every site: its own WordPress and database, SSL, nightly backups with restore, free .anypress.site address, connect your own domain (one click with supported DNS providers), email from your own domain, one-click sign-in to WordPress, no AnyPress fee on sales (Stripe's card fee applies).
 - Tools by type come from the Fluent suite (FluentCart, FluentCRM, FluentBooking, FluentCommunity, Fluent Forms, FluentAffiliate, Fluent Support) plus Rank Math. Name them only on deeper pages.
 - Anyone can sell websites under their own name: as a seller (one shop, pays per site) or a reseller (several shops, one wholesale bill). Agencies are one of the groups who do this; developers can create sites through an API (deeper pages only).
@@ -45,7 +45,7 @@ Building a website shouldn't be hard. Other platforms make it harder than it nee
 - Never write "WPCS" or refer to the old platform by that name.
 - Not agency-only in any copy.
 - HighLevel (GoHighLevel) is never a competitor in copy: its agencies are customers. Say "works with HighLevel" (owner, 2026-11-05).
-- Lead with outcomes a business owner says out loud (get found on Google, get booked, get paid, keep track of customers, email from your own domain) and the pains they name (nickel-and-dimed by add-ons, updates that break the site). The homepage and /pricing run this as copy "b" in the site copy A/B test (src/lib/ab.ts).
+- Lead with outcomes a business owner says out loud (get found on Google, get booked, get paid, keep track of customers, email from your own domain) and the pains they name (nickel-and-dimed by add-ons, updates that break the site). This is the voice of site PR #46 (homepage hero, included strip, problems): every page follows it.
 
 ## Evidence on Hand
 

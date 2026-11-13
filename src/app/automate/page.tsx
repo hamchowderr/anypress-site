@@ -67,7 +67,7 @@ const LOGOS: Logo[] = [
   { src: "/apps/zapier-logo.svg", name: "Zapier" },
   { src: "/apps/highlevel-logo.svg", name: "HighLevel" },
 ];
-const WHO = ["Sellers and resellers", "Agencies with a CRM", "Teams without a developer"];
+const WHO = ["Sellers and resellers", "Web designers with a CRM", "Teams without a developer"];
 
 const PROBLEMS: Problem[] = [
   {
@@ -177,7 +177,7 @@ const APPS: {
   {
     tool: "HighLevel",
     logo: "/apps/highlevel-logo.svg",
-    how: "For agencies on HighLevel (GoHighLevel). Install AnyPress on your sub-accounts and add its actions to any workflow, so every sub-account you sell comes with its own WordPress site under your brand.",
+    how: "For HighLevel agencies (GoHighLevel). Install AnyPress on your sub-accounts and add its actions to any workflow, so every sub-account you sell comes with its own WordPress site under your brand.",
     add: {
       label: "Get early access",
       href: "mailto:support@anypress.io?subject=AnyPress%20for%20HighLevel",
@@ -311,7 +311,7 @@ const TEMPLATES: Template[] = [
       width: 1075,
       height: 430,
     },
-    soon: "App coming soon",
+    soon: "Early access",
     guide: HIGHLEVEL_DOC,
   },
   {
@@ -325,7 +325,7 @@ const TEMPLATES: Template[] = [
       width: 960,
       height: 384,
     },
-    soon: "App coming soon",
+    soon: "Early access",
     guide: HIGHLEVEL_DOC,
   },
 ];
@@ -383,7 +383,7 @@ const FAQ: [string, ReactNode][] = [
   ],
   [
     "Is there an app for HighLevel (GoHighLevel)?",
-    "It's coming. Agencies will install AnyPress on their sub-accounts and create a client's site from any HighLevel workflow, then start the welcome steps when it's ready. Write to support@anypress.io for early access. You can start today with HighLevel's own webhook steps: the HighLevel guide in our docs shows how.",
+    "Yes, in early access. Install AnyPress on your sub-accounts, create a client's site from any HighLevel workflow, then start the welcome steps when it's ready. Email support@anypress.io and we'll set you up. You can also start today with HighLevel's own webhook steps: the HighLevel guide in our docs shows how.",
   ],
 ];
 
@@ -516,7 +516,7 @@ export default function Automate() {
                 </div>
                 <h3>
                   AnyPress for {a.tool}
-                  {a.soon && <span className="soon">Coming soon</span>}
+                  {a.soon && <span className="soon">Early access</span>}
                 </h3>
                 <p>{a.how}</p>
                 <h4>Actions</h4>

@@ -17,8 +17,8 @@ const STEPS = [
     body: "Tell us about your business and who you build websites for. It takes two minutes.",
   },
   {
-    title: "We review it",
-    body: "We look at every application ourselves and email you when you're approved.",
+    title: "Book a short call",
+    body: "We email you a link to book a call. We get to know your business, show you how selling works and agree how billing works, then approve your account.",
   },
   {
     title: "Start selling",
@@ -26,11 +26,18 @@ const STEPS = [
   },
 ];
 
-const WHO = ["Freelance web designers", "Small agencies", "Niche site sellers", "Anyone whose clients ask for a website"];
+const WHO = ["Freelance web designers", "Small web design studios", "Niche site sellers", "Anyone whose clients ask for a website"];
 
 const PROBLEMS: Problem[] = [
   {
-    problem: ["You get paid once", "You build a site, send the invoice, and next month you need a new project to get paid."],
+    problem: [
+      "Paying for every client's site piece by piece",
+      "Hosting, a theme, plugin licences and an email service for every client, each with its own bill and renewal.",
+    ],
+    fix: ["One price per site, everything in", "Hosting, plugins, email, nightly copies and security fixes are in every site's price. Nothing else to buy."],
+  },
+  {
+    problem: ["You get paid once, then start again at zero", "You build a site, send the invoice, and next month you need a new project to get paid."],
     fix: ["A monthly service", "Clients pay you every month for their site, at the prices you set."],
   },
   {
@@ -41,7 +48,7 @@ const PROBLEMS: Problem[] = [
     fix: ["One login for every site", "Each order becomes its own website on our servers, and you see them all in one dashboard."],
   },
   {
-    problem: ["Upkeep eats your weekends", "Security fixes, backups and the odd emergency, for every site you've ever built."],
+    problem: ["One update breaks a client's site", "Everything stops working, and you hear it from your client before you know it's happened."],
     fix: ["We look after every site", "Security fixes applied for you and a copy saved every night, under your name, not ours."],
   },
 ];
@@ -53,11 +60,15 @@ export default function Sell() {
         drawing="sell"
         side="technical"
         eyebrow="For sellers and resellers"
-        title="Sell websites with AnyPress."
-        lead="Sell websites to your clients under your own name. We host every site, keep it backed up and apply security fixes, and you pay per site with lower prices as you grow."
+        title={
+          <>
+            Sell websites under your name and get paid every month. <mark>We set it all up</mark>.
+          </>
+        }
+        lead="Tell us about your business below, then book a short call. We set up your storefront with you, then host every site, back it up every night and apply security fixes. Your price per site drops as you grow."
       />
 
-      <ProblemFix soft who={WHO} items={PROBLEMS} title="Selling websites shouldn't mean running a hosting company." />
+      <ProblemFix soft who={WHO} items={PROBLEMS} title="Stop paying for every client's site one piece at a time." />
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <ol className="grid gap-8 sm:grid-cols-3">

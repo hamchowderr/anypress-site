@@ -20,6 +20,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
+      - run: npm run prices:check
       # Fallow (.fallowrc.json): unused files, exports, types and packages fail every run; on a pull request, new
       # duplicated or overly complex code fails too.
       - run: npm run deadcode

@@ -4,24 +4,14 @@ import { PriceCalculator } from "@/components/PriceCalculator";
 import { PriceCompare } from "@/components/PriceCompare";
 import { ProblemFix, type Problem } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
-import { SITE_TYPES, SIZES, planUrl } from "@/lib/site";
+import { SITE_TYPES, SIZES, TRIAL_DAYS, VOLUME_RANGE, YEARLY_MONTHS, planUrl, volumeTiersInWords } from "@/lib/site";
 import { faqLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { WP_HOST } from "@/lib/prices";
+import { CARE_FROM, dollars } from "@/lib/care";
 
+// What every site gets, outcomes first.
 const EVERY_SITE = [
-  "Your own private website, not shared with anyone",
-  "The tools for your kind of site, installed and set up, not an empty WordPress",
-  "A free domain, and your own domain when you're ready",
-  "Email that sends from your own address",
-  "The padlock in the address bar, renewed for you",
-  "A copy saved every night, kept for 7 days, plus weekly copies for 4 weeks",
-  "Your site's editor, one click from your account",
-  "No cut of your sales",
-];
-
-// Version "b" of the site copy test (src/lib/ab.ts) puts the outcomes first.
-const EVERY_SITE_B = [
   "Your own domain",
   "Email from @yourbusiness.com",
   "Set up to be found on Google",
@@ -32,8 +22,8 @@ const EVERY_SITE_B = [
   "No cut of your sales",
 ];
 
-// Version "b": what each kind of site does for you, in place of its pitch.
-const PITCH_B: Record<string, string> = {
+// What each kind of site does for you, in place of its pitch.
+const PITCH: Record<string, string> = {
   website: "Get found on Google and get messages from customers.",
   bookings: "Customers book a time and pay upfront. Reminders go out for you.",
   store: "Sell online and keep every dollar, minus the card fee.",
@@ -45,7 +35,7 @@ const WHO = ["Small business owners", "Makers and shops", "Coaches and studios",
 
 const PROBLEMS: Problem[] = [
   {
-    problem: ["The price creeps up with add-ons", "A builder plan, then a payments app, a booking app and an email service, each with its own bill."],
+    problem: ["Nickel-and-dimed by add-ons", "A builder plan, then a payments app, a booking app and an email service, each with its own bill."],
     fix: ["One price includes the tools", "Everything your kind of site needs is switched on when it arrives. Nothing extra to buy."],
   },
   {
@@ -58,17 +48,12 @@ const PROBLEMS: Problem[] = [
   },
   {
     problem: ["Several sites add up fast", "Every extra site is another full-price plan."],
-    fix: ["Savings from your third site", "10% off every site from 3 sites, 20% from 10 and 30% from 25."],
+    fix: ["Savings from your third site", `Every site saves ${volumeTiersInWords()}.`],
   },
   {
     problem: ["Afraid of paying for something that doesn't fit", "Some hosts lock you into a year up front with no way back."],
-    fix: ["30 days to decide", "Not for you? Get your first payment back within 30 days. Monthly plans cancel any time."],
+    fix: [`${TRIAL_DAYS} days free, then 30 days to decide`, `Add a card and the first ${TRIAL_DAYS} days are free. Cancel before then and you pay nothing. After that, your first payment is still covered for 30 days.`],
   },
-];
-
-const PROBLEMS_B: Problem[] = [
-  { problem: ["Nickel-and-dimed by add-ons", PROBLEMS[0].problem[1]], fix: PROBLEMS[0].fix },
-  ...PROBLEMS.slice(1),
 ];
 
 const PRICING_FAQ: [string, string][] = [
@@ -84,20 +69,27 @@ const PRICING_FAQ: [string, string][] = [
     "What happens if I send more email than my size includes?",
     "Your everyday emails, like receipts and booking confirmations, keep sending. Newsletters to your list pause until the next month or until you move up a size.",
   ],
-  ["Is there a yearly price?", "Yes. Paying yearly costs ten times the monthly price, so you get two months free."],
+  ["Is there a yearly price?", `Yes. Paying yearly costs ${YEARLY_MONTHS} times the monthly price, so you get ${12 - YEARLY_MONTHS} months free.`],
   ["Do you charge a fee on sales?", "No. The card company charges its normal fee on payments, and we add nothing on top."],
-  ["How do I cancel?", "From your account, any time. Within 30 days of your first payment, you get that payment back."],
+  [
+    "Is there a free trial?",
+    `Yes. Your first website plan starts with ${TRIAL_DAYS} days free. You add a card when you start, and the plan's price starts on day ${TRIAL_DAYS + 1} unless you cancel first. It's one free trial per person.`,
+  ],
+  ["How do I cancel?", `From your account, any time. Cancel in the first ${TRIAL_DAYS} days and you pay nothing. Within 30 days of your first payment, you get that payment back.`],
+  [
+    "Can you make changes to my site for me?",
+    `Yes. Care gives your website time for changes each month, from ${dollars(CARE_FROM)} a month, and one-time help to set it up or move it in. See the care page at anypress.io/care.`,
+  ],
 ];
 
-export function PricingPage({ version }: { version: "a" | "b" }) {
-  const b = version === "b";
-  const pitch = (t: (typeof SITE_TYPES)[number]) => (b ? PITCH_B[t.id] : t.pitch);
+export function PricingPage() {
+  const pitch = (t: (typeof SITE_TYPES)[number]) => PITCH[t.id];
   const everySite = (
     <section className="border-y border-line bg-paper-2">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2">
-        <SectionHead left title={b ? "Included on every site." : "On every site, whatever you pick."} />
+        <SectionHead left title="Included on every site." />
         <ul className="space-y-3">
-          {(b ? EVERY_SITE_B : EVERY_SITE).map((x) => (
+          {EVERY_SITE.map((x) => (
             <li key={x} className="flex items-start gap-2.5">
               <Check className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
               {x}
@@ -112,16 +104,12 @@ export function PricingPage({ version }: { version: "a" | "b" }) {
       <JsonLd data={faqLd(PRICING_FAQ)} />
       <PageHero drawing="piggy" side="owners"
         eyebrow="Prices"
-        title={b ? "One monthly price. Everything included. No cut of your sales." : "Pay for what you build, not for what you sell."}
-        lead={
-          b
-            ? "Hosting, your site, booking, payments, forms, your customer list and business email are all in the price. Pick what your site needs to do; start small and grow any time."
-            : "One monthly price per site. The kind of site sets the tools it gets, and the size sets how much room it has."
-        }
+        title="One monthly price. Everything included. No cut of your sales."
+        lead="Hosting, your site, booking, payments, forms, your customer list and business email are all in the price. Pick what your site needs to do; start small and grow any time."
       >
         <p className="mt-6 text-ink-soft">
           Selling websites to your own clients?{" "}
-          <Link href="/agencies#tiers" className="font-semibold text-ink underline">
+          <Link href="/sellers#tiers" className="font-semibold text-ink underline">
             See seller prices
           </Link>{" "}
           or{" "}
@@ -204,11 +192,11 @@ export function PricingPage({ version }: { version: "a" | "b" }) {
               </tbody>
             </table>
           </div>
-          <p className="mt-4 text-sm text-ink-soft">Monthly prices in US dollars. Pay yearly and get two months free.</p>
+          <p className="mt-4 text-sm text-ink-soft">Monthly prices in US dollars. Pay yearly and get {12 - YEARLY_MONTHS} months free.</p>
         </div>
       </section>
 
-      {b && everySite}
+      {everySite}
 
       <section id="compare" className="sec soft scroll-mt-20" aria-labelledby="h-elsewhere">
         <div className="in">
@@ -216,22 +204,16 @@ export function PricingPage({ version }: { version: "a" | "b" }) {
             drawing="scales"
             eyebrow="side by side"
             title="What the same site costs elsewhere."
-            lead={
-              b
-                ? "What you'd pay elsewhere for the same kind of site, before the add-ons."
-                : "The smallest plan for each kind of site on the platforms people ask us about. They charge for the tools, WordPress hosts charge for the server, and we include both."
-            }
+            lead="What you'd pay elsewhere for the same kind of site, before the add-ons."
             id="h-elsewhere"
           />
           <PriceCompare />
-          {b && (
-            <p className="compare-note">
-              WordPress hosting starts at ${WP_HOST.price} a month for the server alone ({WP_HOST.who}), before you buy a single add-on.{" "}
-              <Link href="/compare/shopify" className="underline">
-                AnyPress vs Shopify
-              </Link>
-            </p>
-          )}
+          <p className="compare-note">
+            WordPress hosting starts at ${WP_HOST.price} a month for the server alone ({WP_HOST.who}), before you buy a single add-on.{" "}
+            <Link href="/compare/shopify" className="underline">
+              AnyPress vs Shopify
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -240,7 +222,7 @@ export function PricingPage({ version }: { version: "a" | "b" }) {
           <SectionHead
             eyebrow="work it out"
             title="What will it cost?"
-            lead="Pick what you're building, the size and how many sites. Three or more sites save 10 to 30% on every one."
+            lead={`Pick what you're building, the size and how many sites. Three or more sites save ${VOLUME_RANGE} on every one.`}
             id="h-calc"
           />
           <PriceCalculator />
@@ -260,6 +242,7 @@ export function PricingPage({ version }: { version: "a" | "b" }) {
                     ["Computing power", s.cpu],
                     ["Storage", s.storage],
                     ["Emails a month", s.emails],
+                    ["AI assistant messages a month", s.assistant],
                     ["Price", s.times === 1 ? "The starting price" : `${s.times}× the starting price`],
                   ].map(([k, v]) => (
                     <div key={k} className="flex justify-between gap-4 py-2.5">
@@ -274,9 +257,7 @@ export function PricingPage({ version }: { version: "a" | "b" }) {
         </div>
       </section>
 
-      <ProblemFix who={WHO} items={b ? PROBLEMS_B : PROBLEMS} eyebrow="why it's priced this way" title="Prices that don't surprise you later." />
-
-      {!b && everySite}
+      <ProblemFix who={WHO} items={PROBLEMS} eyebrow="why it's priced this way" title="Prices that don't surprise you later." />
 
       <section>
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.7fr]">
@@ -287,7 +268,7 @@ export function PricingPage({ version }: { version: "a" | "b" }) {
 
       <CtaBand
         title="Not sure which one?"
-        body={b ? "Tell us what your business does and we'll tell you which site fits." : "Tell us what you're building and we'll point you to the right site."}
+        body="Tell us what your business does and we'll tell you which site fits."
         href="/contact"
         label="Ask us"
       />

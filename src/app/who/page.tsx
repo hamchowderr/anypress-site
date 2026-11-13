@@ -8,7 +8,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata: Metadata = pageMeta({
   path: "/who",
   title: "Who AnyPress is for",
-  description: "Shops, educators, chambers, churches, franchises, agencies and software teams all build on AnyPress. See who it's for, what it fixes and which site fits.",
+  description: "Shops, educators, chambers, churches, franchises, web designers and software teams all build on AnyPress. See who it's for, what it fixes and which site fits.",
 });
 
 const OWNERS = AUDIENCE_GROUPS.filter((g) => g.side === "owners");
@@ -16,8 +16,8 @@ const TECHNICAL = AUDIENCE_GROUPS.filter((g) => g.side === "technical");
 
 // The three ways to have an AnyPress account, side by side. Sellers and resellers both sign in to the partner dashboard.
 const ACCOUNTS: [string, string, string, string][] = [
-  ["Who it's for", "A business that wants a website of its own", "Freelancers, agencies and groups selling sites under one name", "Agencies, franchises, hosts and software companies with several brands"],
-  ["How you start", "Pick a site and pay. It's ready in minutes.", "Apply on Sell websites. We approve you and set up your storefront.", "Apply to be a reseller. We talk it through and approve you."],
+  ["Who it's for", "A business that wants a website of its own", "Freelancers, web design studios and groups selling sites under one name", "Studios, franchises, hosts and software companies with several brands"],
+  ["How you start", "Pick a site and pay. It's ready in minutes.", "Apply, then book a short call with us to get set up, billing included.", "Apply to be a reseller, then book a short call to agree billing and get set up."],
   ["How you pay", "Monthly or yearly, for each site", `Per site, as you sell. ${VOLUME_TIERS[0].percent} to ${VOLUME_TIERS[VOLUME_TIERS.length - 1].percent}% off from ${VOLUME_TIERS[0].sites} sites`, `One bill a month, ${WHOLESALE_PERCENT}% off every site`],
   ["Whose name customers see", "Yours", "Yours, on one storefront", "Yours, on a storefront for each brand"],
   ["Where you sign in", "Sign in, here on anypress.io", "The partner dashboard", "The partner dashboard"],
@@ -29,8 +29,12 @@ export default function Who() {
       <PageHero
         drawing="pick"
         eyebrow="who it's for"
-        title="Who AnyPress is for."
-        lead="Two kinds of people use AnyPress. Most want a website for their own business. Others sell websites to their clients, or create them from their own software. Find yourself below."
+        title={
+          <>
+            A website for your business, or websites to sell. <mark>We set it all up</mark>.
+          </>
+        }
+        lead="Most people use AnyPress for their own business: to get found, get booked and get paid. Others sell websites to their clients, or create them from their own software. Find yourself below."
       >
         <div className="ctas mt-4 justify-center">
           <Link href="#owners" className="btn btn-ink">

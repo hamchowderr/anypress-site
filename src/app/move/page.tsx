@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Flow } from "@/components/FactPieces";
 import { Drawing, type DrawingName } from "@/components/Drawing";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { Tick } from "@/components/Tick";
@@ -26,6 +27,19 @@ const MOVES: [DrawingName, string, string][] = [
   ["words", "Every page and post", "Your whole database: pages, posts, products, orders, customers and settings."],
   ["paint", "Your look", "Your themes, plugins, photos, files and languages."],
   ["lock", "Your old site, untouched", "Nothing on your current site is changed or deleted. It keeps running until you switch."],
+];
+
+// The moves built into every AnyPress site (AnyPress Client's switches; AnyPress Move for any other WordPress).
+const SWITCHES: [string, string, string][] = [
+  ["Circle", "FluentCommunity", "Spaces, members, posts, comments and courses, through Circle's own Admin API."],
+  ["LearnDash, Tutor LMS or LifterLMS", "FluentCommunity courses", "Courses and lessons, students and how far each one got."],
+  ["MemberPress", "FluentCommunity", "Active members get their spaces and courses, with FluentCRM tags. Payments stay in MemberPress."],
+  ["BuddyPress or BuddyBoss", "FluentCommunity", "Groups become spaces with their members, and posts come with their comments, reactions and photos."],
+  ["WooCommerce", "FluentCart", "Products, orders, customers, coupons and refunds, plus gallery images and shipping zones."],
+  ["Contact Form 7, WPForms or Ninja Forms", "Fluent Forms", "Your forms with their entries, and the pages that show them."],
+  ["WooCommerce buyers, MailPoet or Newsletter", "FluentCRM", "Your contacts and lists. Unsubscribed people stay unsubscribed."],
+  ["AffiliateWP, SliceWP and others", "FluentAffiliate", "Your affiliates, their referrals and payouts."],
+  ["Awesome Support and others", "Fluent Support", "Your help desk tickets."],
 ];
 
 const WHO = ["WordPress site owners", "Shops on another host", "Sellers moving clients' sites"];
@@ -101,6 +115,14 @@ const FAQ: [string, ReactNode][] = [
     "Caches and backup plugins' archives are left out, because your AnyPress site has its own. Caching add-ons your old host put in place are removed for the same reason.",
   ],
   [
+    "Can I switch plugins once my site is on AnyPress?",
+    "Yes. The moves from Circle, LearnDash, Tutor LMS, LifterLMS, MemberPress, BuddyPress, WooCommerce and the rest are built into every AnyPress site. Each one checks first and tells you what will come across, and an undo takes out only what it added. Your old plugin and its data aren't changed.",
+  ],
+  [
+    "My site isn't on AnyPress. Can I still use the moves?",
+    "Yes. The same moves come as AnyPress Move, a free plugin for any WordPress. It adds Tools, Move to Fluent, with the same check and undo.",
+  ],
+  [
     "Can I move a multisite network?",
     "Not yet. We move one WordPress site at a time. If you run a network, talk to us about your options.",
   ],
@@ -119,7 +141,7 @@ export default function Move() {
         eyebrow="move your site"
         title={
           <>
-            Bring your WordPress site <mark>with you</mark>.
+            Move your site without losing a thing. <mark>We copy it all across</mark>.
           </>
         }
         lead="Already have a WordPress site somewhere else? Add WordPress's free Reprint plugin, paste in your token, and we copy the whole site across. Your old site isn't touched."
@@ -153,17 +175,7 @@ export default function Move() {
       <section className="sec">
         <div className="in">
           <SectionHead eyebrow="how it works" title="Add a plugin, paste a token. We do the moving." />
-          <ol className="flow !mt-0">
-            {STEPS.map(([d, title, body], i) => (
-              <li key={title}>
-                <Drawing name={d} />
-                <b>
-                  {i + 1}. {title}
-                </b>
-                <span>{body}</span>
-              </li>
-            ))}
-          </ol>
+          <Flow steps={STEPS} />
         </div>
       </section>
 
@@ -176,6 +188,27 @@ export default function Move() {
                 <Drawing name={d} />
                 <h3>{title}</h3>
                 <p>{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="in">
+          <SectionHead
+            eyebrow="switch to Fluent"
+            title="Leaving another plugin or platform? Bring it along."
+            lead="Once your site is here, a move copies one plugin's data into the Fluent plugin that replaces it. It checks first and says what will come across, it can be undone, and your old plugin is left as it was."
+          />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {SWITCHES.map(([from, into, what]) => (
+              <div key={from} className="rounded-xl border border-line bg-paper-2 p-5">
+                <h3 className="font-semibold">
+                  {from} <span aria-hidden="true">→</span>
+                  <span className="sr-only">into</span> {into}
+                </h3>
+                <p className="mt-2 text-sm">{what}</p>
               </div>
             ))}
           </div>
@@ -196,7 +229,7 @@ export default function Move() {
               </p>
               <p>Developers can start and repeat the copy with one API call.</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link className="btn btn-honey" href="/agencies">
+                <Link className="btn btn-honey" href="/sellers">
                   How selling works →
                 </Link>
                 <Link className="btn border-white/40 text-white hover:bg-white/10" href="/developers">

@@ -17,12 +17,12 @@ const RAW = "https://raw.githubusercontent.com/hamchowderr/";
  * "online-store".
  */
 export const TRY_TYPES = {
-  website: { name: "Website", blueprint: "website" },
-  bookings: { name: "Bookings site", blueprint: "bookings" },
-  store: { name: "Online store", blueprint: "online-store" },
-  community: { name: "Community site", blueprint: "community" },
-  everything: { name: "Everything site", blueprint: "everything" },
-  highlevel: { name: "HighLevel site", blueprint: "highlevel" },
+  website: { name: "Website", short: "Website", blueprint: "website" },
+  bookings: { name: "Bookings Site", short: "Bookings", blueprint: "bookings" },
+  store: { name: "Online Store", short: "Online Store", blueprint: "online-store" },
+  community: { name: "Community Site", short: "Community", blueprint: "community" },
+  everything: { name: "Everything Site", short: "Everything", blueprint: "everything" },
+  highlevel: { name: "HighLevel Site", short: "HighLevel", blueprint: "highlevel" },
 } as const;
 
 export type TryType = keyof typeof TRY_TYPES;
