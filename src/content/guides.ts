@@ -1,7 +1,7 @@
 // The free guide for each customer group, at /guides/<group id>. Plain words; no made-up customers or numbers
 // presented as real results. Prices come from the price list (src/lib/site.ts) so they never drift.
 
-import { WHOLESALE_PERCENT, sitePrice, volumePercent, volumeTiersInWords } from "@/lib/site";
+import { sitePrice, volumePercent } from "@/lib/site";
 
 const BOOKINGS = sitePrice("bookings");
 const TEN_SITES_SAVE = volumePercent(10);
@@ -14,7 +14,7 @@ export interface Guide {
   lead: string;
   sections: { heading: string; body?: string; steps?: string[]; checks?: string[] }[];
   // An interactive worksheet shown after the sections.
-  calculator?: "course" | "agency";
+  calculator?: "course";
 }
 
 export const GUIDES: Guide[] = [
@@ -236,19 +236,6 @@ export const GUIDES: Guide[] = [
         ],
       },
     ],
-  },
-  {
-    id: "sellers",
-    group: "agencies",
-    title: "Profit calculator for selling websites",
-    lead: "See what selling websites as a monthly service could earn you. You set your price; we charge per site, less as you grow.",
-    sections: [
-      {
-        heading: "How the numbers work",
-        body: `As a seller you pay us the plan price for each site, saving ${volumeTiersInWords()}. As a reseller, running several brands, you pay ${WHOLESALE_PERCENT}% off every site on one monthly bill. Whatever you charge your clients above that is yours.`,
-      },
-    ],
-    calculator: "agency",
   },
   {
     id: "developers",

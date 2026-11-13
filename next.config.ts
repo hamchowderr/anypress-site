@@ -19,7 +19,8 @@ const nextConfig: NextConfig = {
       { source: "/sites-b/:type", destination: "/sites/:type", permanent: true },
       { source: "/agencies", destination: "/sellers", permanent: true },
       { source: "/who/agencies", destination: "/sellers", permanent: true },
-      { source: "/guides/agencies", destination: "/guides/sellers", permanent: true },
+      { source: "/guides/agencies", destination: "/sellers#earnings", permanent: true },
+      { source: "/guides/sellers", destination: "/sellers#earnings", permanent: true },
       { source: "/who/developers", destination: "/developers", permanent: true },
     ];
   },
