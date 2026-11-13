@@ -17,6 +17,13 @@ export interface Change {
 export const CHANGES: Change[] = [
   {
     date: "2026-11-13",
+    title: "Demos say they aren't saved",
+    body: "Trying a site on the Try page now says plainly that the demo runs in your browser and is cleared when you close the tab, and your browser asks before you close it. Make This My Site keeps your changes.",
+    for: [],
+    link: { href: "/try", label: "Try a site" },
+  },
+  {
+    date: "2026-11-13",
     title: "Aisle: a finished design for clothing shops",
     body: "A home page that opens on a full-screen photo, your categories as photos edge to edge, a lookbook, gift cards and a help centre that's already written: shipping, returns and exchanges, a size guide and track an order.",
     for: ["store", "everything"],
