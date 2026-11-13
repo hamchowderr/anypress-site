@@ -144,7 +144,7 @@ const FAQ: [string, ReactNode][] = [
     "Does it know my site's designs?",
     <>
       Yes. The app can see every ready-made section and starter page, the{" "}
-      <Link href="/designs">16 design kits</Link> made for different kinds of business, the colour and font sets, and
+      <Link href="/designs">17 design kits</Link> made for different kinds of business, the colour and font sets, and
       the <Link href="/designs/blocks">interactive blocks</Link> such as carousels, popups, counters and maps. Ask to see them and the app shows each kit as a live preview of your site in that look, right in the chat. It can switch your site to a kit’s look and build pages from that kit’s sections. The old look is saved, so you can go back.
     </>,
   ],

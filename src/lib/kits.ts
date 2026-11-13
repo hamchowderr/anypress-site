@@ -27,4 +27,5 @@ export const KITS: Kit[] = [
   { slug: "launch", name: "Launch", who: "Startups and software", colors: ["#1c6844", "#cfe9d9", "#121212", "#f4f3ef"] },
   { slug: "byline", name: "Byline", who: "Blogs and magazines", colors: ["#a91f1b", "#1d2b3a", "#1a1a1a", "#faf8f3"] },
   { slug: "frame", name: "Frame", who: "Creative portfolios", colors: ["#1f3fd1", "#e3dfd4", "#111111", "#f6f5f1"] },
+  { slug: "aisle", name: "Aisle", who: "Clothing shops", colors: ["#33502f", "#e2eadd", "#151515", "#fafaf7"] },
 ];
