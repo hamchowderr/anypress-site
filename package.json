@@ -33,6 +33,6 @@
     "fallow": "3.41.0",
     "roughjs": "^4.6.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^7"
   }
 }
