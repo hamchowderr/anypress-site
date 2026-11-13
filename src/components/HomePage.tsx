@@ -229,7 +229,7 @@ function Examples() {
       />
       <ClientSites />
       <p className="mt-10 text-center text-ink-soft">
-        Want a different look? <Link href="/designs" className="font-semibold text-ink underline">See all 16 designs</Link>.
+        Want a different look? <Link href="/designs" className="font-semibold text-ink underline">See all 17 designs</Link>.
       </p>
     </section>
   );

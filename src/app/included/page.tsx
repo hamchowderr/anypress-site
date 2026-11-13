@@ -20,7 +20,7 @@ const EVERY_SITE: [string, ReactNode][] = [
   ["Email from your domain", "Store email sends from your own domain once it's verified."],
   ["One-click sign-in", "Open wp-admin from your account without a separate password."],
   [
-    "The AnyPress theme and 16 design kits",
+    "The AnyPress theme and 17 design kits",
     <>
       A block theme with a kit for each kind of business, restyled in the Site Editor.{" "}
       <Link href="/designs" className="underline">See the designs</Link>.
