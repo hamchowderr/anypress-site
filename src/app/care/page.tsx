@@ -13,7 +13,7 @@ import {
   dollars,
 } from "@/lib/care";
 import { pageMeta } from "@/lib/seo";
-import { CARE_CALL_URL, CONTACT_EMAIL } from "@/lib/site";
+import { CARE_ADD_URL, CONTACT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta({
   path: "/care",
@@ -46,12 +46,12 @@ const SERVICE_ABOUT: Record<string, string> = {
 
 const HOW: [string, string][] = [
   [
-    "Book a short call",
-    "Tell us about your website and what you'd like done. We suggest the package or one-time help that fits.",
+    "Add it to your website",
+    "Pick a package right after you buy your plan, or any time later from the website's card in your account. Checkout takes a minute.",
   ],
   [
-    "Pay the link we send",
-    "After the call we email you a link to pay for what we agreed. Nothing starts, and nothing is charged, before that.",
+    "Your time is ready",
+    "Your package's time for this month is there as soon as you pay, and starts again on the 1st of each month.",
   ],
   [
     "Send requests, we make the changes",
@@ -85,8 +85,8 @@ export default function Care() {
         lead={`A new page, a new price, a photo swapped or a form changed: email us and we'll do it, with time set aside for you every month. From ${dollars(CARE_FROM)} a month, on any AnyPress website.`}
       >
         <div className="mt-9 flex flex-wrap gap-3">
-          <a href={CARE_CALL_URL} className="btn btn-ink">
-            Book a call
+          <a href={CARE_ADD_URL} className="btn btn-ink">
+            Add care to my website
           </a>
           <Link href="/#sites" className="btn btn-paper">
             Start a website
@@ -117,8 +117,8 @@ export default function Care() {
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-                <a href={CARE_CALL_URL} className="btn btn-paper mt-6 self-start">
-                  Book a call about {p.name}
+                <a href={CARE_ADD_URL} className="btn btn-paper mt-6 self-start">
+                  Add {p.name}
                 </a>
               </div>
             ))}
@@ -128,7 +128,7 @@ export default function Care() {
 
       <section className="border-y border-line bg-paper-2">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <SectionHead title="One-time help." lead="No package needed. Each is paid once, after a short call." />
+          <SectionHead title="One-time help." lead="No package needed. Each is paid once, from the website's card in your account." />
           <ul className="mt-10 grid border-t border-line md:grid-cols-3 md:gap-x-10">
             {CARE_SERVICES.map((s) => (
               <li key={s.key} className="border-b border-line py-7">
@@ -195,11 +195,17 @@ export default function Care() {
                 ],
                 [
                   "Can I change packages?",
-                  "Yes. Write to us or book a call, and we move your website to the other package.",
+                  "Yes. Write to us and we move your website to the other package.",
                 ],
                 [
-                  "Why a call first?",
-                  "So we know your website and what you need before you pay, and send a pay link only for what fits.",
+                  "Not sure which one fits?",
+                  <>
+                    Write to us at{" "}
+                    <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold text-ink underline">
+                      {CONTACT_EMAIL}
+                    </a>{" "}
+                    with what you&apos;d like done, and we&apos;ll tell you which package fits.
+                  </>,
                 ],
                 [
                   "Do I need care?",
@@ -223,9 +229,9 @@ export default function Care() {
 
       <CtaBand
         title="Want us to look after it?"
-        body="Book a short call. We'll suggest what fits, then send you a link to pay."
-        href={CARE_CALL_URL}
-        label="Book a call"
+        body="Add a package from your account, right after your plan or any time later."
+        href={CARE_ADD_URL}
+        label="Add care to my website"
       />
     </>
   );
