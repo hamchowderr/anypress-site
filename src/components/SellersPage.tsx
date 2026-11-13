@@ -723,13 +723,13 @@ export function SellersPage() {
             <div>
               <Drawing name="scroll" />
               <span className="eyebrow">not ready yet?</span>
-              <h2 id="h-guide">The profit calculator for selling websites</h2>
+              <h2 id="h-guide">Work out your numbers first</h2>
               <p>
-                How the numbers work, and what your price leaves you each month.
-                Read it now, no sign-up needed.
+                Pick a site type and your price, and see what each client leaves
+                you every month. No sign-up needed.
               </p>
-              <Link href="/guides/sellers" className="btn btn-ink mt-5">
-                Read the guide →
+              <Link href="#earnings" className="btn btn-ink mt-5">
+                Try the calculator ↑
               </Link>
             </div>
             <div>
