@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { type Problem, ProblemFix } from "@/components/ProblemFix";
 import { CtaBand, PageHero, Questions, SectionHead, SideSwitch } from "@/components/ui";
 import { faqLd, pageMeta } from "@/lib/seo";
-import { ACCOUNT_URL, HOW_SWITCH } from "@/lib/site";
+import { ACCOUNT_URL, HOW_SWITCH, TRIAL_DAYS } from "@/lib/site";
 
 // The website owner's side of How it works: someone buying a site for their own business. Sellers and resellers
 // have their own version at /how-it-works/sellers; the switch under the title moves between the two.
@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMeta({
   title: "How getting a website on AnyPress works",
   card: "How it works",
   description:
-    "Pick what you're building and pay, and your website is ready in minutes. Add your words and photos, and we look after it every day from then on.",
+    `Pick what you're building and add a card, and your website is ready in minutes, with the first ${TRIAL_DAYS} days free. Add your words and photos, and we look after it every day from then on.`,
 });
 
 const STEPS: {
@@ -31,8 +31,8 @@ const STEPS: {
     when: "a minute",
     body: (
       <>
-        Choose a website, bookings, a store, courses or everything, and a size. Small suits most new sites. You pay by card, monthly or
-        yearly, and you have 30 days to change your mind. <Link href="/pricing" className="underline">See prices</Link>.
+        Choose a website, bookings, a store, courses or everything, and a size. Small suits most new sites. You add a card, monthly or
+        yearly, and the first {TRIAL_DAYS} days are free. After that, your first payment is still covered for 30 days. <Link href="/pricing" className="underline">See prices</Link>.
       </>
     ),
   },
@@ -71,7 +71,7 @@ const STEPS: {
     drawing: "backup",
     title: "We look after it from then on",
     when: "every day",
-    body: "A copy of your site is saved every night. Security fixes are applied for you. If something goes wrong, email us and a person answers.",
+    body: "A copy of your site is saved every night. Security fixes are applied for you. If something goes wrong, email us and we'll help.",
   },
 ];
 
@@ -80,29 +80,29 @@ const WHO = ["Shops and makers", "Coaches and studios", "Course creators", "Cham
 // Most cheap hosting is a shared house; AnyPress gives every site its own flat, and we're the building manager.
 const PROBLEMS: Problem[] = [
   {
-    problem: ["Setting up takes days", "Hosting, WordPress, a design, the padlock and email are each their own job before you write a word."],
-    fix: ["Ready in minutes", "Your site arrives with its pages, tools, padlock and email already set up. You start with the fun part."],
+    problem: ["Nickel-and-dimed by add-ons", "A site builder, then a booking app, a payments app, an email service and a contact list, each with its own bill."],
+    fix: ["One price, everything in", "The tools for what you're building arrive in your site, set up and switched on. Nothing else to buy."],
   },
   {
     problem: [
-      "One busy site slows the rest",
-      "Cheap hosting puts many websites in one shared house, so when a neighbour gets busy, everyone's site gets slow.",
+      "Your site slows down when someone else gets busy",
+      "Cheap hosting puts many websites on one shared plan, so a busy neighbour makes your pages slow for your customers.",
     ],
-    fix: ["A flat of your own", "Your site has its own space and set computing power for its size. Nothing is shared with anyone else."],
+    fix: ["Your own space, sized for your site", "Your site gets its own set computing power for its size. Nothing is shared with anyone else."],
   },
   {
-    problem: ["You fix the leaks yourself", "Security fixes and copies of your site are usually left for you to remember."],
-    fix: ["We're the building manager", "We apply security fixes and save a copy every night, and we check those copies work."],
+    problem: ["One update can break your site", "Everything stops working, and you don't find out until you hear it from a customer."],
+    fix: ["Updates done for you, safely", "We try every update before it reaches your site, apply security fixes and save a copy every night, and we check those copies work."],
   },
   {
-    problem: ["Moving out means packing by hand", "Some site builders make it hard to take your site anywhere else."],
-    fix: ["Your furniture is yours", "It's real WordPress, so you can take a full copy of your site with you whenever you like."],
+    problem: ["Hard to leave", "Many site builders won't let you take your site with you."],
+    fix: ["Real WordPress you can take with you", "Download a full copy of your site whenever you like. No lock-in."],
   },
 ];
 
 const YOU_NEED: [DrawingName, string, string][] = [
   ["email", "An email address", "Where we send your welcome email and receipts."],
-  ["card", "A card to pay with", "Monthly or yearly. Cancel any time from your account."],
+  ["card", "A card to pay with", `The first ${TRIAL_DAYS} days are free, then monthly or yearly. Cancel any time from your account.`],
   ["words", "Your words and photos", "Rough is fine. You can change them whenever you like."],
   ["domain", "Your domain, if you have one", "Optional. You can start on the free address and add it later."],
 ];
@@ -119,7 +119,7 @@ const WHERE: [DrawingName, string, ReactNode][] = [
   ["paint", "Your site's editor", "Where you change pages, photos, colours, products and bookings. It works like editing a document."],
   [
     "lifebuoy",
-    "Help, from a person",
+    "Help when you need it",
     <>
       Email <a href="mailto:support@anypress.io" className="underline">support@anypress.io</a>, or read the{" "}
       <Link href="/help" className="underline">help page</Link>.
@@ -158,8 +158,12 @@ export default function HowItWorks() {
         drawing="website"
         side="owners"
         eyebrow="how it works"
-        title="Your website, ready in minutes. Looked after every day."
-        lead="You pick what you're building and pay. We set everything up. You add your words and photos, and we keep it running from then on."
+        title={
+          <>
+            Pick what you&apos;re building. <mark>We set it all up</mark>.
+          </>
+        }
+        lead="Your site arrives ready to show up on Google, take payments and send email from your business name. You add your words and photos, and we keep it running and up to date from then on."
       >
         <div>
           <SideSwitch active="owners" {...HOW_SWITCH} />
@@ -214,7 +218,7 @@ export default function HowItWorks() {
         </ul>
       </section>
 
-      <ProblemFix soft who={WHO} title="Like having your own tech team. We do the work and look after your site." items={PROBLEMS} />
+      <ProblemFix soft who={WHO} title="Stop paying for your website one piece at a time." items={PROBLEMS} />
 
       <section className="sec in" aria-labelledby="h-where">
         <SectionHead

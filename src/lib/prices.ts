@@ -4,7 +4,7 @@ import type { SiteTypeId } from "@/lib/site";
 // /compare. Every figure is the smallest plan that does the job, read from the company's own pricing page on
 // PRICES_CHECKED. Recheck them all and move the date when you change one. Keep it fair: monthly billing where the
 // page offers it, say when it doesn't, and name the fees and limits the page itself states.
-export const PRICES_CHECKED = "26 October 2026";
+export const PRICES_CHECKED = "11 November 2026";
 
 export interface OtherPlan {
   who: string;
@@ -23,6 +23,7 @@ const SHOPIFY = "https://www.shopify.com/pricing";
 const WIX = "https://www.wix.com/plans";
 const KAJABI = "https://kajabi.com/pricing";
 const CIRCLE = "https://circle.so/pricing";
+const SKOOL = "https://www.skool.com/pricing";
 
 export const ELSEWHERE: Record<SiteTypeId, OtherPlan[]> = {
   website: [
@@ -60,8 +61,10 @@ export const ELSEWHERE: Record<SiteTypeId, OtherPlan[]> = {
       plan: "Professional",
       price: 89,
       yearly: true,
+      note: "2% of each sale",
       url: CIRCLE,
     },
+    { who: "Skool", plan: "Hobby", price: 9, note: "10% of each sale", url: SKOOL },
   ],
   everything: [{ who: "Kajabi", plan: "Growth", price: 249, url: KAJABI }],
 };

@@ -33,6 +33,7 @@ export async function lead(_prev: LeadState, form: FormData): Promise<LeadState>
       group: field(form, "group"),
       source: field(form, "source"),
       campaign: field(form, "campaign"),
+      beta: field(form, "beta") === "1" ? "1" : "",
     });
   } catch {
     return { status: "error", message: "We couldn't send that. Please try again in a minute." };

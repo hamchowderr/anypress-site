@@ -5,6 +5,7 @@ import { CtaBand, PageHero, Questions, SectionHead } from "@/components/ui";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 import { CONTACT_EMAIL } from "@/lib/site";
+import { tryType } from "@/lib/try";
 
 // For agencies on HighLevel. HighLevel is not a competitor: its agencies are customers, and AnyPress adds the
 // WordPress website to what they already sell. Keep it a "works with" page, never a "vs" page.
@@ -39,7 +40,7 @@ const FAQ: [string, string][] = [
     "What can a workflow do?",
     "Create a site, look one up, and suspend or resume it, so a site follows the client's subscription without anyone logging in.",
   ],
-  ["Is it ready now?", "The HighLevel app is in early access. Email us and we'll set your agency up."],
+  ["Is it ready now?", "The HighLevel app is in early access. Email us and we'll set you up."],
 ];
 
 export default function HighLevelPage() {
@@ -57,6 +58,9 @@ export default function HighLevelPage() {
           <a href={EARLY_ACCESS} className="btn btn-ink">
             Get early access →
           </a>
+          <Link href={tryType("highlevel")} className="btn btn-paper">
+            Try one in your browser
+          </Link>
           <a href={HIGHLEVEL_DOC} className="btn btn-paper">
             See how it connects
           </a>
@@ -93,7 +97,7 @@ export default function HighLevelPage() {
       <CtaBand
         eyebrow="ready?"
         title="Add websites to what you already sell."
-        body="Apply in a few minutes. We read every application and email you back."
+        body="Apply in a few minutes, then book a short call with us to get set up, billing included."
         href="/sell"
         label="Apply to sell websites"
         drawings={["sell", "plug", "website"]}

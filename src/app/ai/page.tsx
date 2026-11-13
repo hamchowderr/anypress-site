@@ -92,7 +92,8 @@ const ASKS: { drawing: DrawingName; title: string; asks: string[] }[] = [
     title: "Pages and design",
     asks: [
       "Add a pricing section to the home page.",
-      "Make the header dark green and add a Book now button.",
+      "Give the bakery site the Hearth look.",
+      "Add a carousel of our reviews and a popup for the spring offer.",
       "Draft an About page from this text.",
     ],
   },
@@ -114,7 +115,7 @@ const PROBLEMS: Problem[] = [
   },
   {
     problem: ["Page changes mean learning the editor", "A new section or a different header colour is a small change that takes a long time to find."],
-    fix: ["Describe the change", "Ask for a pricing section or a Book now button, and the app edits the page and shows you what it did."],
+    fix: ["Describe the change", "Ask for a pricing section, a different look or a carousel of reviews. The app builds from your theme's own designs and shows you what it did."],
   },
   {
     problem: ["Connecting AI usually means keys and code", "Most tools want an API key pasted somewhere, or a developer to wire it up."],
@@ -138,6 +139,14 @@ const FAQ: [string, ReactNode][] = [
   [
     "Can my clients use it for their own site?",
     "Yes. A website owner adds the /mcp/site address and approves in their site's dashboard. Their app can then change that one site's pages and design, and nothing else.",
+  ],
+  [
+    "Does it know my site's designs?",
+    <>
+      Yes. The app can see every ready-made section and starter page, the{" "}
+      <Link href="/designs">16 design kits</Link> made for different kinds of business, the colour and font sets, and
+      the <Link href="/designs/blocks">interactive blocks</Link> such as carousels, popups, counters and maps. Ask to see them and the app shows each kit as a live preview of your site in that look, right in the chat. It can switch your site to a kit’s look and build pages from that kit’s sections. The old look is saved, so you can go back.
+    </>,
   ],
   [
     "How do I stop it?",
@@ -246,7 +255,7 @@ export default function Ai() {
           <SectionHead
             eyebrow="in the chat"
             title="It shows you, not just tells you."
-            lead="In apps that support it, your sites appear as a screen in the chat, with buttons to back up, suspend or bring a site back."
+            lead="In apps that support it, your sites appear as a screen in the chat, with buttons to back up, suspend or bring a site back. Ask to see the designs and every kit shows as a live preview of your own site in that look, with a button to switch it on."
             id="h-screens"
           />
           <div className="ai-connector">

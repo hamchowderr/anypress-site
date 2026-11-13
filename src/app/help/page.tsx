@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { PageHero, Questions } from "@/components/ui";
-import { ACCOUNT_URL, CONTACT_EMAIL, DASHBOARD_URL } from "@/lib/site";
+import { ACCOUNT_URL, CONTACT_EMAIL, DASHBOARD_URL, TRIAL_DAYS } from "@/lib/site";
 import { faqLd, pageMeta } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
@@ -71,6 +71,13 @@ const SECTIONS: { title: string; items: [string, ReactNode][] }[] = [
         </>,
       ],
       [
+        "Is there a free trial?",
+        <>
+          Yes. Your first website plan starts with {TRIAL_DAYS} days free. You add a card when you start, and the plan&apos;s price starts on
+          day {TRIAL_DAYS + 1} unless you cancel first from your account. It&apos;s one free trial per person.
+        </>,
+      ],
+      [
         "How do I get a refund?",
         <>
           Your first payment for a new plan is covered by our 30-day money-back guarantee. Email{" "}
@@ -126,7 +133,7 @@ export default function Help() {
       <PageHero drawing="lifebuoy" side="owners"
         eyebrow="Help"
         title="How can we help?"
-        lead="Quick answers to the things people ask most. If yours isn't here, email us and a person will get back to you."
+        lead="Quick answers to the things people ask most. If yours isn't here, email us and we'll help."
       >
         <div className="mt-9 flex flex-wrap gap-3">
           <a href={ACCOUNT_URL} className="btn btn-ink">

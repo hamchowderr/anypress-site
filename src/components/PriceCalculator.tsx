@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Drawing } from "@/components/Drawing";
-import { SITE_TYPES, SIZES, nextTier, planUrl, siteLabel, volumePercent, type SiteTypeId } from "@/lib/site";
+import { SITE_TYPES, SIZES, VOLUME_TIERS, nextTier, planUrl, siteLabel, volumePercent, type SiteTypeId } from "@/lib/site";
 
 const money = (n: number) => `$${n.toLocaleString("en-US", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;
 
@@ -59,9 +59,12 @@ export function PriceCalculator() {
           <input type="range" min={1} max={50} value={count} onChange={(e) => setCount(Number(e.target.value))} aria-label="Number of sites" />
           <div className="calc-ticks" aria-hidden>
             <span>1</span>
-            <span>3 · save 10%</span>
-            <span>10 · 20%</span>
-            <span>25 · 30%</span>
+            {VOLUME_TIERS.map((t, i) => (
+              <span key={t.sites}>
+                {t.sites} · {i === 0 ? "save " : ""}
+                {t.percent}%
+              </span>
+            ))}
             <span>50</span>
           </div>
         </fieldset>
