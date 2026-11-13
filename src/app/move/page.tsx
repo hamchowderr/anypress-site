@@ -36,6 +36,11 @@ const SWITCHES: [string, string, string][] = [
   ["MemberPress", "FluentCommunity", "Active members get their spaces and courses, with FluentCRM tags. Payments stay in MemberPress."],
   ["BuddyPress or BuddyBoss", "FluentCommunity", "Groups become spaces with their members, and posts come with their comments, reactions and photos."],
   ["WooCommerce", "FluentCart", "Products, orders, customers, coupons and refunds, plus gallery images and shipping zones."],
+  [
+    "Easy Digital Downloads",
+    "FluentCart",
+    "Downloads, orders, customers, coupons, tax rates, subscriptions and licences, and the buy buttons on your pages. Run it on your current site with AnyPress Move before it moves in. Licences need FluentCart Pro.",
+  ],
   ["Contact Form 7, WPForms or Ninja Forms", "Fluent Forms", "Your forms with their entries, and the pages that show them."],
   ["WooCommerce buyers, MailPoet or Newsletter", "FluentCRM", "Your contacts and lists. Unsubscribed people stay unsubscribed."],
   ["AffiliateWP, SliceWP and others", "FluentAffiliate", "Your affiliates, their referrals and payouts."],
